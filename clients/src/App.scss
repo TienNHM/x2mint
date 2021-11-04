@@ -7,7 +7,9 @@ $navbar-test-height: 6vh;
 $quick-action-height: 6vh;
 $setting-button-width: 7vw;
 $answer-button-width: 32.5vw;
+$question-number-width: 3rem;
 $question-content-background: rgba(228, 241, 241, 0.877);
+$question-item-preview-content-background: #cf768b;
 $question-attribute-setting-height: 80px;
 $question-attribute-setting-background: #9dd8d0a9;
 $answer-background-color: white;
@@ -44,12 +46,9 @@ button {
     display: flex;
 
     .logo {
-      background-color: gray;
       width: $panel-left-width;
       height: $navbar-test-height;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      
     }
 
     .test-title {
@@ -128,6 +127,18 @@ button {
       background-color: gainsboro;
       width: $panel-left-width;
 
+      .questions-preview-title {
+        text-transform: uppercase;
+        background-color: #cf972e;
+        color: white;
+        font-weight: bold;
+        height: 5%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+
       .questions-preview {
         height: 86vh;
         overflow-x: hidden;
@@ -148,20 +159,23 @@ button {
 
         .question-item-preview {
           height: 8vw;
-          background-color: rgb(131, 174, 194);
-          margin: 10px;
           box-shadow: $box-shadow;
+          margin: $gap;
 
           .question-item-preview-number {
             background-color: goldenrod;
+            height: 1vw;
+            color: white;
+            font-weight: bold;
           }
 
           .question-item-preview-content {
-            background-color: #1e49d4;
+            background-color: $question-item-preview-content-background;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             justify-content: center;
-            text-align: center;
+            align-items: center;
+            height: 7vw;
           }
         }
       }
@@ -192,12 +206,9 @@ button {
         font-weight: bold;
       }
 
-      .question-content {
+      .question {
         width: 96%;
         height: 20vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         background-color: $question-content-background;
         box-shadow: $question-box-shadow;
         z-index: 1;
@@ -205,6 +216,28 @@ button {
         margin-right: $gap * 2;
         margin-top: $gap;
         border-radius: $gap;
+        display: flex;
+        flex-direction: row;
+
+        > * {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .question-number {
+          height: 40px;
+          margin: 5px;
+          border-radius: $gap;
+          width: $question-number-width;
+          background-color: rgba(233, 111, 111, 0.5);
+        }
+
+        .question-content {
+          width: 100%;
+          margin-right: $question-number-width;
+        }
       }
 
       .question-embed {
@@ -268,6 +301,7 @@ button {
               transform-origin: center bottom;
               box-shadow: transparent 0px 0px 0px 0.125rem;
               border-radius: 50%;
+              cursor: pointer;
             }
           }
         }

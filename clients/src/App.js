@@ -5,7 +5,9 @@ function App() {
   return (
     <div className="app">
       <nav className="navbar-test">
-        <div className="logo">X2MINT</div>
+        <div className="logo">
+          <img src="https://img.icons8.com/color/48/000000/kahoot.png" alt="logo"></img>
+        </div>
         <div className="test-title">
           <div className="title">
             <input type="text" className="test-title-input"></input>
@@ -20,6 +22,7 @@ function App() {
       </nav>
       <div className="container">
         <div className="panel-left">
+          <div className="questions-preview-title">Questions</div>
           <div className="questions-preview">
             <div className="question-item-preview">
               <div className="question-item-preview-number">1</div>
@@ -51,7 +54,10 @@ function App() {
           </div>
         </div>
         <div className="panel-center">
-          <div className="question-content">Thuật toán sắp xếp nào là nhanh nhất?</div>
+          <div className="question">
+            <div className="question-number">1</div>
+            <div className="question-content">Thuật toán sắp xếp nào là nhanh nhất?</div>
+          </div>
           <div className="question-embed">
             <img src="https://img-9gag-fun.9cache.com/photo/a9RoXWj_460s.jpg" alt="mèo"></img>
           </div>
