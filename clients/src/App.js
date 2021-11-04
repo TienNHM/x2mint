@@ -6,15 +6,17 @@ function App() {
   return (
     <div className="app">
       <nav className="navbar-test">
-        <div className="logo">Logo</div>
+        <div className="logo">X2MINT</div>
         <div className="test-title">
-          <div className="title">Test Title</div>
-          <div className="submit-title">submit</div>
+          <div className="title">
+            <input type="text" className="test-title-input"></input>
+          </div>
+          <button className="submit-title">submit</button>
         </div>
         <div className="settings">
-          <div className="preview-test">preview</div>
-          <div className="save-test">save</div>
-          <div className="exit-test">exit</div>
+          <button className="preview-test">preview</button>
+          <button className="save-test">save</button>
+          <button className="exit-test">exit</button>
         </div>
       </nav>
       <div className="container">
@@ -25,20 +27,34 @@ function App() {
           </div>
         </div>
         <div className="panel-center">
-          <div className="question-content">Câu hỏi</div>
-          <div className="question-embed">Ảnh minh họa</div>
+          <div className="question-content">Thuật toán sắp xếp nào là nhanh nhất?</div>
+          <div className="question-embed">
+            <img src="https://img-9gag-fun.9cache.com/photo/a9RoXWj_460s.jpg" alt="mèo"></img>
+          </div>
           <div className="question-answers">
-            <div className="answer">A</div>
-            <div className="answer">A</div>
-            <div className="answer">A</div>
-            <div className="answer">A</div>
+            <div className="answer">
+              <div className="answer-icon">A</div>
+              <div className="answer-content">Quick Sort</div>
+            </div>
+            <div className="answer">
+              <div className="answer-icon">B</div>
+              <div className="answer-content">Interchange Sort</div>
+            </div>
+            <div className="answer">
+              <div className="answer-icon">C</div>
+              <div className="answer-content">Bubble Sort</div>
+            </div>
+            <div className="answer">
+              <div className="answer-icon">D</div>
+              <div className="answer-content">Shaker Sort</div>
+            </div>
           </div>
         </div>
         <div className="panel-right">
           <div className="attributes"></div>
           <div className="quick-actions">
-            <button className="delete-question">Delete</button>
             <button className="duplicate-question">Duplicate</button>
+            <button className="delete-question">Delete</button>
           </div>
         </div>
       </div>
