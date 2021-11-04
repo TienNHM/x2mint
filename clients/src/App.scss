@@ -1,17 +1,34 @@
 @import './setting.scss';
 
+$gap: 10px;
 $panel-left-width: 12vw;
 $panel-center-width: 65vw;
 $navbar-test-height: 6vh;
 $quick-action-height: 6vh;
 $setting-button-width: 7vw;
 $answer-button-width: 32.5vw;
+$question-content-background: rgba(228, 241, 241, 0.877);
+$question-attribute-setting-height: 80px;
+$question-attribute-setting-background: #9dd8d0a9;
+$answer-background-color: white;
+$list-bg-color: #ebecf0;
+$select-color: rgb(11, 9, 126);
+$select-background: #dfbdae85;
+$select-width: 100%;
+$select-height: 40px; 
+$btn-check-size: 2rem;
+$box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+$question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
 body {
   margin: 0;
   font-family: 'Source Code Pro', sans-serif;
   font-size: 14px;
   line-height: 1.3em;
+}
+
+button {
+  box-shadow: $box-shadow;
 }
 
 .app {
@@ -39,6 +56,8 @@ body {
       width: $panel-center-width;
       height: $navbar-test-height;
       display: flex;
+      flex-direction: row;
+      justify-content: center;
 
       > * {
         text-transform: uppercase;
@@ -48,7 +67,6 @@ body {
 
       .title {
         background-color: lightsalmon;
-        width: 75%;
         height: 100%;
 
         input[type="text"] {
@@ -64,9 +82,11 @@ body {
       .submit-title {
         background-color: rgb(0, 153, 128);
         color: white;
-        width: 25%;
+        width: 5%;
         height: 100%;
         cursor: pointer;
+        margin-left: $gap;
+        margin-right: $gap;
       }
     }
 
@@ -109,8 +129,41 @@ body {
       width: $panel-left-width;
 
       .questions-preview {
-        height: 88vh;
+        height: 86vh;
+        overflow-x: hidden;
+        overflow-y: auto;
 
+        &::-webkit-scrollbar {
+            -webkit-appearance: none;
+        }
+
+        &::-webkit-scrollbar:vertical {
+            width: 11px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: darken($color: $list-bg-color, $amount: 15);
+            border-right: 5px solid $list-bg-color;
+        }
+
+        .question-item-preview {
+          height: 8vw;
+          background-color: rgb(131, 174, 194);
+          margin: 10px;
+          box-shadow: $box-shadow;
+
+          .question-item-preview-number {
+            background-color: goldenrod;
+          }
+
+          .question-item-preview-content {
+            background-color: #1e49d4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+          }
+        }
       }
 
       .question-actions {
@@ -140,12 +193,18 @@ body {
       }
 
       .question-content {
-        width: 100%;
-        background-color: lightcoral;
-        height: 14vh;
+        width: 96%;
+        height: 20vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        background-color: $question-content-background;
+        box-shadow: $question-box-shadow;
+        z-index: 1;
+        margin-left: $gap * 2;
+        margin-right: $gap * 2;
+        margin-top: $gap;
+        border-radius: $gap;
       }
 
       .question-embed {
@@ -153,25 +212,27 @@ body {
         width: 100%;
 
         img {
-          height: 100%;
+          height: 97%;
+          margin: $gap;
         }
       }
 
       .question-answers {
         width: 100%;
-        height: 30vh;
+        height: 24vh;
         display: grid;
         grid-template-columns: $answer-button-width $answer-button-width;
         grid-row: auto auto;
 
         .answer {
-          width: 100%;
-          height: 100%;
+          width: 98%;
+          height: 90%;
           display: flex;
           flex-direction: row;
           justify-content: left !important;
           text-align: left;
-          background-color: rgb(255, 65, 173);  
+          background-color: $answer-background-color;  
+          margin: $gap;
 
           > * {
             display: flex;
@@ -182,23 +243,133 @@ body {
 
           .answer-icon {
             background-color: #04AA6D;
+            color: rgb(206, 226, 223);
             width: 10%;
             height: 100%;
+            font-size: 2rem;
           }
 
           .answer-content {
-            width: 90%;
+            width: 80%;
+          }
+
+          .answer-checkbox {
+            width: 10%;
+            background-color: #e1e42a;
+            align-items: center;
+
+            .btn-checkbox {
+              background-color: transparent;
+              border: 0.25rem solid rgb(255, 255, 255);
+              flex: 0 0 auto;
+              width: $btn-check-size;
+              height: $btn-check-size;
+              padding: $gap;
+              transform-origin: center bottom;
+              box-shadow: transparent 0px 0px 0px 0.125rem;
+              border-radius: 50%;
+            }
           }
         }
       }
     }
 
     .panel-right {
-      background-color: lemonchiffon;
       width: 23vw;
+      padding: 10px;
 
       .attributes {
-        height: 88vh;
+        height: 86vh;
+
+        > * {
+          background-color: $question-attribute-setting-background;
+          margin-top: $gap;
+          margin-bottom: $gap;
+          font-weight: bold;
+          font-size: 20px;
+          padding: $gap;
+          height: $question-attribute-setting-height;
+        }
+
+        .question-type {
+          height: 70px;
+
+          > * {
+            width: 100%;
+            margin-top: $gap/2;
+            margin-bottom: $gap/2;
+          }
+        }
+
+        .question-time-limit {
+          > * {
+            width: 100%;
+            margin-top: $gap/2;
+            margin-bottom: $gap/2;
+          }
+        }
+
+        .question-points {
+          > * {
+            width: 100%;
+            margin-top: $gap/2;
+            margin-bottom: $gap/2;
+          }
+        }
+
+        .question-music {
+          height: $question-attribute-setting-height*2;
+
+          > * {
+            width: 100%;
+            margin-top: $gap/2;
+            margin-bottom: $gap/2;
+          }
+        }
+
+        .question-answer-option {
+          height: $question-attribute-setting-height*2;
+
+          > * {
+            width: 100%;
+            margin-top: $gap/2;
+            margin-bottom: $gap/2;
+          }
+        }
+
+        .select {
+          cursor: pointer;
+          display: inline-block;
+          position: relative;
+          font-size: 16px;
+          color: $select-color;
+          width: $select-width;
+          height: $select-height;
+          background-color: darken($select-background, 2);
+          text-transform: uppercase;
+          font-weight: bold;
+          text-align: center;
+          border-radius: 8px;
+
+          &::-ms-expand {
+            display: none;
+          }
+
+          &:hover::after {
+            color: #f39c12;
+          }
+          
+          &::after {
+            content: '\25BC';
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 1em;
+            background-color: #34495e;
+            transition: .25s all ease;
+            pointer-events: none;
+          }
+        }
       }
 
       .quick-actions {
