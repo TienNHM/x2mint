@@ -1,6 +1,6 @@
 @import '_setting.scss';
 
-$question-item-preview-content-background: #cf768b;
+$question-item-preview-content-background: #9cdbe0bb;
 
 .question-item-preview {
     height: 8vw;
@@ -8,18 +8,18 @@ $question-item-preview-content-background: #cf768b;
     margin: $gap;
 
     .question-item-preview-number {
-      background-color: goldenrod;
-      height: 1vw;
-      color: white;
-      font-weight: bold;
+        background-color: goldenrod;
+        height: 1vw;
+        color: white;
+        font-weight: bold;
     }
 
     .question-item-preview-content {
-      background-color: $question-item-preview-content-background;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      height: 7vw;
+        background-color: $question-item-preview-content-background;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 7vw;
     }
-  }
+}

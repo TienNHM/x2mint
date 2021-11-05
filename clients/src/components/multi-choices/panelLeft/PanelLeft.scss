@@ -1,55 +1,57 @@
 @import '_setting.scss';
 
 .panel-left {
-    background-color: gainsboro;
+    background-color: $bg-color;
     width: $panel-left-width;
 
     .questions-preview-title {
-      text-transform: uppercase;
-      background-color: #cf972e;
-      color: white;
-      font-weight: bold;
-      height: 5vh;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
+        text-transform: uppercase;
+        background-color: #cf972e;
+        color: white;
+        font-weight: bold;
+        height: 5vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
     }
 
     .questions-preview {
-      height: 80vh;
-      overflow-x: hidden;
-      overflow-y: auto;
+        height: 80vh;
+        overflow-x: hidden;
+        overflow-y: auto;
 
-      &::-webkit-scrollbar {
-          -webkit-appearance: none;
-      }
+        &::-webkit-scrollbar {
+            -webkit-appearance: none;
+        }
 
-      &::-webkit-scrollbar:vertical {
-          width: 11px;
-      }
+        &::-webkit-scrollbar:vertical {
+            width: 11px;
+        }
 
-      &::-webkit-scrollbar-thumb {
-          background-color: darken($color: $bg-color, $amount: 15);
-          border-right: 5px solid $bg-color;
-      }
+        &::-webkit-scrollbar-thumb {
+            background-color: darken($color: $bg-color, $amount: 15);
+            border-right: 5px solid $bg-color;
+        }
     }
 
     .question-actions {
-      height: $quick-action-height;
-      background-color: lightcyan;
+        height: $quick-action-height;
+        padding-left: $gap;
+        padding-right: $gap*2;
+        padding-top: $gap;
 
-      .add-question {
-        display: block;
-        width: 100%;
-        border: none;
-        background-color: #04AA6D;
-        color: white;
-        font-weight: bold;
-        padding: 14px 28px;
-        font-size: 16px;
-        cursor: pointer;
-        text-transform: uppercase;
-      }
+        .add-question {
+            display: block;
+            width: 100%;
+            border: none;
+            background-color: #04AA6D;
+            color: white;
+            font-weight: bold;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
     }
-  }
+}

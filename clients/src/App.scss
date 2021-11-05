@@ -1,20 +1,20 @@
 @import '_setting.scss';
 
 body {
-  margin: 0;
-  font-family: 'Source Code Pro', sans-serif;
-  font-size: 14px;
-  line-height: 1.3em;
+    margin: 0;
+    font-family: 'Source Code Pro', sans-serif;
+    font-size: 14px;
+    line-height: 1.3em;
 }
 
 button {
-  box-shadow: $box-shadow;
+    box-shadow: $box-shadow;
 }
 
 .app {
-  height: 100vh;
-  overflow: hidden;
-  background-color: rgba(165, 200, 230, 0.575);
-  align-items: center;
-  text-align: center;
+    height: 100vh;
+    overflow: hidden;
+    background-color: $app-bg-color;
+    align-items: center;
+    text-align: center;
 }

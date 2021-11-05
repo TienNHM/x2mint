@@ -5,13 +5,13 @@ import PanelRight from 'components/multi-choices/panelRight/PanelRight'
 import './Container.scss'
 
 function Container() {
-  return (
-    <div className="container">
-      <PanelLeft />
-      <PanelCenter />
-      <PanelRight />
-    </div>
-  )
+    return (
+        <div className="container">
+            <PanelLeft />
+            <PanelCenter />
+            <PanelRight />
+        </div>
+    )
 }
 
 export default Container
