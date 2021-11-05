@@ -1,0 +1,90 @@
+@import '_setting.scss';
+
+$question-attribute-setting-height: 80px;
+
+.panel-right {
+    width: 23vw;
+    padding: 10px;
+
+    .attributes {
+        height: 86vh;
+
+        >* {
+            background-color: $bg-color;
+            margin-top: $gap;
+            margin-bottom: $gap;
+            font-weight: bold;
+            font-size: 16px;
+            padding: $gap;
+            height: $question-attribute-setting-height;
+        }
+
+        .question-type {
+            height: 70px;
+
+            >* {
+                width: 100%;
+                margin-top: $gap/2;
+                margin-bottom: $gap/2;
+            }
+        }
+
+        .question-time-limit {
+            >* {
+                width: 100%;
+                margin-top: $gap/2;
+                margin-bottom: $gap/2;
+            }
+        }
+
+        .question-points {
+            >* {
+                width: 100%;
+                margin-top: $gap/2;
+                margin-bottom: $gap/2;
+            }
+        }
+
+        .question-music {
+            height: $question-attribute-setting-height;
+
+            >* {
+                width: 100%;
+                margin-top: $gap/2;
+                margin-bottom: $gap/2;
+            }
+        }
+
+        .question-answer-option {
+            height: $question-attribute-setting-height;
+
+            >* {
+                width: 100%;
+                margin-top: $gap/2;
+                margin-bottom: $gap/2;
+            }
+        }
+    }
+
+    .quick-actions {
+        height: $quick-action-height;
+        display: flex;
+
+        >* {
+            width: 50%;
+            text-transform: uppercase;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            border: none;
+        }
+
+        .delete-question {
+            background-color: red;
+        }
+
+        .duplicate-question {
+            background-color: goldenrod;
+        }
+    }
+}

@@ -1,0 +1,39 @@
+@import '_setting.scss';
+
+$select-color: rgb(11, 9, 126);
+$select-background: #dfbdae85;
+$select-width: 100%;
+$select-height: 40px;
+
+.select {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    font-size: 16px;
+    color: $select-color;
+    width: $select-width;
+    height: $select-height;
+    background-color: darken($select-background, 2);
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+
+    &::-ms-expand {
+        display: none;
+    }
+
+    &:hover::after {
+        color: #f39c12;
+    }
+
+    &::after {
+        content: '\25BC';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 1em;
+        background-color: #34495e;
+        transition: .25s all ease;
+        pointer-events: none;
+    }
+}
