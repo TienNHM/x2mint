@@ -1,4 +1,5 @@
 import React from 'react'
+import './Select.scss'
 
 function Select({ data }) {
   return (

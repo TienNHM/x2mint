@@ -1,4 +1,5 @@
 import React from 'react'
+import './QuestionItemPreview.scss'
 
 function QuestionItemPreview() {
   return (

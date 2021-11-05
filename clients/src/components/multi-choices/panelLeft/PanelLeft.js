@@ -1,5 +1,6 @@
 import React from 'react'
 import QuestionItemPreview from 'components/multi-choices/questionItemPreview/QuestionItemPreview'
+import './PanelLeft.scss'
 
 function PanelLeft() {
   return (

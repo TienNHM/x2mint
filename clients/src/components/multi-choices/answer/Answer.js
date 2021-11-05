@@ -1,4 +1,5 @@
 import React from 'react'
+import './Answer.scss'
 
 function Answer() {
   return (

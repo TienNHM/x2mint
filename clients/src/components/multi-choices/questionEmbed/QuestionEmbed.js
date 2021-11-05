@@ -1,4 +1,5 @@
 import React from 'react'
+import './QuestionEmbed.scss'
 
 function QuestionEmbed() {
   return (

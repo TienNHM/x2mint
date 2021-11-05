@@ -1,5 +1,6 @@
 import React from 'react'
 import Select from 'components/multi-choices/select/Select'
+import './PanelRight.scss'
 
 function PanelRight() {
   const questionTypes = {
