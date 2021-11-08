@@ -1,3 +1,4 @@
+@import "~bootstrap/scss/bootstrap";
 @import '_setting.scss';
 
 $question-content-background: rgba(228, 241, 241, 0.877);
@@ -8,12 +9,13 @@ $question-number-width: 3rem;
     width: 96%;
     height: 20vh;
     background-color: $question-content-background;
-    box-shadow: $question-box-shadow;
+    box-shadow: $box-shadow;
     z-index: 1;
     margin-left: $gap * 2;
     margin-right: $gap * 2;
     margin-top: $gap;
     border-radius: $gap;
+    line-height: 1.5rem;
     display: flex;
     flex-direction: row;
 
@@ -28,12 +30,83 @@ $question-number-width: 3rem;
         height: 40px;
         margin: 5px;
         border-radius: $gap;
-        width: $question-number-width;
-        background-color: rgba(233, 111, 111, 0.5);
+        min-width: $question-number-width;
+        padding: 0 $gap/2;
+        background-color: rgba(241, 157, 157, 0.884);
+        color: white;
+        box-shadow: $box-shadow;
     }
 
     .question-content {
         width: 100%;
         margin-right: $question-number-width;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        .question-content-input {
+            font-size: 18px;
+            font-weight: bold;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            background-color: transparent;
+            border: none;
+            overflow-y: hidden;
+            resize: none;
+        }
+    }
+}
+
+.question-embed {
+    height: 42vh;
+    width: 100%;
+    z-index: 1;
+
+    img {
+        height: 95%;
+        margin: $gap;
+    }
+}
+
+.question-embed-edit {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    z-index: 20;
+    position: relative;
+    bottom: 0px;
+    left: 0px;
+
+    > * {
+        border-radius: $gap/2;
+        margin: 0 $gap/2;
+    }
+
+    button {
+        box-shadow: none;
+        align-items: center;
+        width: 75px;
+        height: 34px;
+        padding: 0px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        color: white;
+    }
+
+    .question-embed-info {
+        background-color: #48dbfb;
+    }
+
+    .question-embed-crop {
+        background-color: #feca57;
+    }
+
+    .question-embed-remove {
+        background-color: #ff6b6b;
     }
 }

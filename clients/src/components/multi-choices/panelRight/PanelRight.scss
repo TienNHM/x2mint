@@ -5,22 +5,22 @@ $question-attribute-setting-height: 80px;
 .panel-right {
     width: 23vw;
     padding: 10px;
+    background-color: $bg-color;
 
     .attributes {
-        height: 86vh;
+        height: 85vh;
 
         >* {
-            background-color: $bg-color;
+            background-color: #f5cd79;
             margin-top: $gap;
             margin-bottom: $gap;
             font-weight: bold;
             font-size: 16px;
             padding: $gap;
-            height: $question-attribute-setting-height;
+            border-radius: $gap;
         }
 
         .question-type {
-            height: 70px;
 
             >* {
                 width: 100%;
@@ -46,7 +46,6 @@ $question-attribute-setting-height: 80px;
         }
 
         .question-music {
-            height: $question-attribute-setting-height;
 
             >* {
                 width: 100%;
@@ -56,7 +55,6 @@ $question-attribute-setting-height: 80px;
         }
 
         .question-answer-option {
-            height: $question-attribute-setting-height;
 
             >* {
                 width: 100%;

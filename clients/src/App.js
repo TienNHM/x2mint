@@ -6,8 +6,10 @@ import Container from 'components/multi-choices/container/Container'
 function App() {
     return (
         <div className="app">
-            <Navbar />
-            <Container />
+            <div className="bootstrap-container">
+                <Navbar />
+                <Container />
+            </div>
         </div>
     )
 }

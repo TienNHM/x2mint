@@ -1,11 +1,11 @@
 @import '_setting.scss';
 
 $select-color: rgb(11, 9, 126);
-$select-background: #dfbdae85;
+$select-background: #F8EFBA;
 $select-width: 100%;
 $select-height: 40px;
 
-.select {
+.app-select {
     cursor: pointer;
     display: inline-block;
     position: relative;

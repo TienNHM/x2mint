@@ -17,4 +17,30 @@ button {
     background-color: $app-bg-color;
     align-items: center;
     text-align: center;
+
+    // Loại bỏ những settings mặt định cho ô input và button
+  .bootstrap-container {
+    margin: 0;
+    padding: 0;
+    textarea:focus, 
+    textarea.form-control:focus, 
+    input.form-control:focus, 
+    input[type=text]:focus, 
+    input[type=password]:focus, 
+    input[type=email]:focus, 
+    input[type=number]:focus, 
+    [type=text].form-control:focus, 
+    [type=password].form-control:focus, 
+    [type=email].form-control:focus, 
+    [type=tel].form-control:focus, 
+    [contenteditable].form-control:focus {
+      box-shadow: none;
+      //border: 1px solid #ccc;
+    }
+
+    .btn:focus, .btn:active {
+      outline: none;
+      box-shadow: none;
+    }
+  }
 }
