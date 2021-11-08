@@ -46,10 +46,10 @@ $question-number-width: 3rem;
         align-items: center;
 
         .question-content-input {
+            display: table-cell !important;
+            vertical-align: middle !important;
             font-size: 18px;
             font-weight: bold;
-            display: inline-block;
-            vertical-align: middle;
             text-align: center;
             background-color: transparent;
             border: none;
@@ -98,11 +98,7 @@ $question-number-width: 3rem;
         color: white;
     }
 
-    .question-embed-info {
-        background-color: #48dbfb;
-    }
-
-    .question-embed-crop {
+    .question-embed-change {
         background-color: #feca57;
     }
 

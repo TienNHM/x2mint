@@ -1,13 +1,16 @@
 import React from 'react'
 import './Answer.scss'
 
-function Answer() {
+function Answer({ name, content, onClick }) {
+    const css = 'answer answer-' + name
     return (
-        <div className="answer">
-            <div className="answer-icon">A</div>
-            <div className="answer-content">Quick Sort</div>
+        <div className={css}>
+            <div className="answer-icon">{name}</div>
+            <div className="answer-content">{content}</div>
             <div className="answer-checkbox">
-                <button className="btn-checkbox" name="check-A"></button>
+                <input type="checkbox" className="btn-checkbox" name={name} value={name}
+                    onClick={onClick}>
+                </input>
             </div>
         </div>
     )

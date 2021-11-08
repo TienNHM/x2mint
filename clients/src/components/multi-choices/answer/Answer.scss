@@ -42,7 +42,6 @@ $btn-check-size: 2rem;
 
         .answer-checkbox {
             width: 10%;
-            background-color: #e1e42a;
             align-items: center;
 
             .btn-checkbox {
@@ -56,7 +55,29 @@ $btn-check-size: 2rem;
                 box-shadow: transparent 0px 0px 0px 0.125rem;
                 border-radius: 50%;
                 cursor: pointer;
+                appearance: none;
+                -webkit-appearance: none;
+            }
+
+            .btn-checkbox:checked {
+                background-image: url("https://img.icons8.com/fluency/24/000000/checkmark.png");
             }
         }
+    }
+
+    .answer-A {
+        background-color: #C4E538;
+    }
+
+    .answer-B {
+        background-color: #2bcbba;
+    }
+
+    .answer-C {
+        background-color: #48dbfb;
+    }
+
+    .answer-D {
+        background-color: #ffda79;
     }
 }
