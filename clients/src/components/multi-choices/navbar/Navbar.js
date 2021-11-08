@@ -13,7 +13,7 @@ function Navbar() {
                 </div>
                 <button className="submit-title">OK</button>
             </div>
-            <div className="settings">
+            <div className="nav-settings">
                 <button className="preview-test">preview</button>
                 <button className="save-test">save</button>
                 <button className="exit-test">exit</button>

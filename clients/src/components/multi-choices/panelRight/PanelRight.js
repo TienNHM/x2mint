@@ -1,5 +1,5 @@
 import React from 'react'
-import Select from 'components/multi-choices/select/Select'
+import Select from 'components/common/select/Select'
 import './PanelRight.scss'
 
 function PanelRight() {

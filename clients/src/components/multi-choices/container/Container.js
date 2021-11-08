@@ -6,7 +6,7 @@ import './Container.scss'
 
 function Container() {
     return (
-        <div className="container">
+        <div className="app-container">
             <PanelLeft />
             <PanelCenter />
             <PanelRight />

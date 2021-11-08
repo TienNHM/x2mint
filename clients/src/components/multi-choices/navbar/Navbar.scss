@@ -5,9 +5,14 @@ $setting-button-width: 7vw;
 
 .navbar-test {
     font-size: 1.6rem;
-    height: $navbar-test-height;
     display: flex;
     padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: white;
+
+    > * {
+        font-size: 16px;
+    }
 
     .logo {
         width: $panel-left-width;
@@ -58,7 +63,7 @@ $setting-button-width: 7vw;
         }
     }
 
-    .settings {
+    .nav-settings {
         width: 23vw;
         height: $navbar-test-height;
         display: flex;
