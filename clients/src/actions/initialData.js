@@ -6,7 +6,6 @@ export const initialTest = {
     questions: [
         {
             id: 'question-1',
-            order: 1,
             type: 'MULTICHOICE',
             content: 'Thuật toán sắp xếp nào là nhanh nhất trong số các thuật toán được liệt kê?',
             embeded_media: [
@@ -38,7 +37,6 @@ export const initialTest = {
         },
         {
             id: 'question-2',
-            order: 2,
             content: 'Công thức hóa học của nước là gì?',
             embeded_media: [
                 'https://huynhvanson.vn/wp-content/uploads/2019/03/hoc-cach-song-nhu-nuoc.jpg'
@@ -67,5 +65,6 @@ export const initialTest = {
             ],
             correct_answer: '4'
         }
-    ]
+    ],
+    questionsOrder: ['question-1', 'question-2']
 }

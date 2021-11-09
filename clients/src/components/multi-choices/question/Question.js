@@ -7,6 +7,7 @@ function Question({ question }) {
     const embededMedia = question.embededMedia
     const [content, setContent] = useState('')
     const [chooseAnswer, setChooseAnswer] = useState([])
+    const [timeLimit, setTimeLimit] = useState('30')
     const answers = question.answers
 
     useEffect(() => {
