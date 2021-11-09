@@ -1,6 +1,6 @@
 import React from 'react'
 import Question from 'components/multi-choices/question/Question'
-import './PanelCenter.scss'
+import './PanelPresentation.scss'
 
 function PanelCenter() {
     const question = {
