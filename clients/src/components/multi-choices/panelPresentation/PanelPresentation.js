@@ -2,7 +2,7 @@ import React from 'react'
 import Question from 'components/multi-choices/question/Question'
 import './PanelPresentation.scss'
 
-function PanelPresentation() {
+function PanelPresentation({ selectedQuestion, setSelectedQuestion }) {
     const question = {
         id: '1',
         order: 10,
@@ -39,7 +39,7 @@ function PanelPresentation() {
 
     return (
         <div className="panel-center">
-            <Question question={question} />
+            <Question question={selectedQuestion} />
         </div>
     )
 }

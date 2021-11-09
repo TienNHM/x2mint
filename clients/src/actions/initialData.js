@@ -71,7 +71,7 @@ export const initialTest = {
             type: 'MULTICHOICE',
             content: 'Đâu là một khẳng định đúng?',
             embeded_media: [
-                'https://huynhvanson.vn/wp-content/uploads/2019/03/hoc-cach-song-nhu-nuoc.jpg'
+                'https://tiengviet24h.com/wp-content/uploads/How-to-count-numbers-in-Vietnamese.jpg'
             ],
             answers: [
                 {
@@ -100,9 +100,9 @@ export const initialTest = {
         {
             id: 'question-4',
             type: 'MULTICHOICE',
-            content: 'Số nguyên tố là số như thế nào?',
+            content: 'Số nguyên tố là gì?',
             embeded_media: [
-                'https://huynhvanson.vn/wp-content/uploads/2019/03/hoc-cach-song-nhu-nuoc.jpg'
+                'https://data.voh.com.vn/voh/thumbnail/2020/11/27/thumb-so-nguyen-to.jpg'
             ],
             answers: [
                 {
@@ -133,7 +133,7 @@ export const initialTest = {
             type: 'MULTICHOICE',
             content: 'Axit nào mạnh nhất?',
             embeded_media: [
-                'https://huynhvanson.vn/wp-content/uploads/2019/03/hoc-cach-song-nhu-nuoc.jpg'
+                'https://doctors24h.vn/uploads/news/04_2019/bong-hoa-chat1.jpg'
             ],
             answers: [
                 {
@@ -164,7 +164,7 @@ export const initialTest = {
             type: 'MULTICHOICE',
             content: 'Cầu vồng có mấy màu?',
             embeded_media: [
-                'https://huynhvanson.vn/wp-content/uploads/2019/03/hoc-cach-song-nhu-nuoc.jpg'
+                'https://zelvitamin.com/wp-content/uploads/2019/09/y-nghia-7-mau-sac-cau-vong.jpg'
             ],
             answers: [
                 {

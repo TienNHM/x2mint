@@ -6,7 +6,8 @@ import QuestionItemPreview from 'components/multi-choices/questionItemPreview/Qu
 import { applyDrag } from 'utils/dragDrop'
 import './PanelLeft.scss'
 
-function PanelLeft({ test, setTest, questions, setQuestions }) {
+function PanelLeft(props) {
+    const { test, setTest, questions, setQuestions, selectedQuestion, setSelectedQuestion } = props
     /**
      * Xử lý sự kiện kéo thả
      * @param {*} dropResult kết quả kéo thả
@@ -49,7 +50,11 @@ function PanelLeft({ test, setTest, questions, setQuestions }) {
                     >
                         {questions.map((q, index) => (
                             <Draggable key={q.id}>
-                                <QuestionItemPreview question={q} index={index} />
+                                <QuestionItemPreview
+                                    question={q}
+                                    index={index}
+                                    setSelectedQuestion={setSelectedQuestion}
+                                />
                             </Draggable>
                         ))}
                     </Container>

@@ -4,7 +4,7 @@ import Answer from 'components/multi-choices/answer/Answer'
 import './Question.scss'
 
 function Question({ question }) {
-    const embededMedia = question.embededMedia
+    const embededMedia = question.embeded_media
     const [content, setContent] = useState('')
     const [chooseAnswer, setChooseAnswer] = useState([])
     const [timeLimit, setTimeLimit] = useState('30')
@@ -40,13 +40,12 @@ function Question({ question }) {
     return (
         <>
             <div className="question">
-                <div className="question-number">{question.order}</div>
                 <div className="question-content">
                     <FormControl as="textarea" className="question-content-input" value={content} onChange={handleTextChange} />
                 </div>
             </div>
             <div className="question-embed">
-                {embededMedia.length > 0 && <img src={embededMedia[0].src} alt={embededMedia[0].alt}></img>}
+                {embededMedia.length > 0 && <img src={embededMedia[0]}></img>}
                 {embededMedia.length <= 0 && <img src="https://memegenerator.net/img/instances/74856541/it-appears-that-there-is-nothing-here.jpg" alt="Nothing"></img>}
             </div>
             <div className="question-embed-edit">

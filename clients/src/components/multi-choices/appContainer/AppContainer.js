@@ -15,8 +15,38 @@ function Container() {
         questions: [],
         questionsOrder: []
     }
+    const emptyQuestion = {
+        id: 'question-1',
+        type: 'MULTICHOICE',
+        content: '',
+        embeded_media: [],
+        answers: [
+            {
+                id: '1',
+                name: 'A',
+                content: ''
+            },
+            {
+                id: '2',
+                name: 'B',
+                content: ''
+            },
+            {
+                id: '3',
+                name: 'C',
+                content: ''
+            },
+            {
+                id: '4',
+                name: 'D',
+                content: ''
+            }
+        ],
+        correct_answer: ''
+    }
     const [test, setTest] = useState(emptyTest)
     const [questions, setQuestions] = useState([])
+    const [selectedQuestion, setSelectedQuestion] = useState(emptyQuestion)
 
     // Load data
     useEffect(() => {
@@ -38,6 +68,10 @@ function Container() {
         console.log('Questions: ', questions)
     }, [questions])
 
+    useEffect(() => {
+        console.log('Selected Questions: ', selectedQuestion)
+    }, [selectedQuestion])
+
     return (
         <div className="app-container">
             <PanelLeft
@@ -45,8 +79,13 @@ function Container() {
                 setTest={setTest}
                 questions={questions}
                 setQuestions={setQuestions}
+                selectedQuestion={selectedQuestion}
+                setSelectedQuestion={setSelectedQuestion}
             />
-            <PanelPresentation />
+            <PanelPresentation
+                selectedQuestion={selectedQuestion}
+                setSelectedQuestion={setSelectedQuestion}
+            />
             <PanelRight />
         </div>
     )

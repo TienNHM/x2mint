@@ -3,7 +3,6 @@
 
 $question-content-background: rgba(228, 241, 241, 0.877);
 $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-$question-number-width: 3rem;
 
 .question {
     width: 96%;
@@ -26,20 +25,8 @@ $question-number-width: 3rem;
         align-items: center;
     }
 
-    .question-number {
-        height: 40px;
-        margin: 5px;
-        border-radius: $gap;
-        min-width: $question-number-width;
-        padding: 0 $gap/2;
-        background-color: rgba(241, 157, 157, 0.884);
-        color: white;
-        box-shadow: $box-shadow;
-    }
-
     .question-content {
         width: 100%;
-        margin-right: $question-number-width;
         display: flex;
         flex-direction: row;
         justify-content: center;

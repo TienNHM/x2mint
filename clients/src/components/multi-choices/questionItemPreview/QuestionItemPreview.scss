@@ -6,12 +6,12 @@ $question-item-preview-content-background: #9cdbe0bb;
     box-shadow: $box-shadow;
     margin: 0 $gap;
     margin-top: $gap;
-    cursor: move;
 
     .question-item-preview-number {
         background-color: goldenrod;
         color: white;
         font-weight: bold;
+        cursor: move;
     }
 
     .question-item-preview-content {
@@ -21,5 +21,6 @@ $question-item-preview-content-background: #9cdbe0bb;
         justify-content: center;
         align-items: center;
         height: 5vw;
+        cursor: pointer;
     }
 }
