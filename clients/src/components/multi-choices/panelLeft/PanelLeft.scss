@@ -44,6 +44,19 @@
             transition: transform 0.18s ease-in-out;
             transform: rotateZ(0deg);
         }
+
+        .question-drop-preview {
+            background-color: rgba(150, 150, 200, 0.1);
+            border: 2px dashed #17c0eb;
+            margin: 5px;
+        }
+
+        .not-found {
+            background-color: #ffcccc;
+            border: 2px dashed #ea8685;
+            margin: 5px;
+            height: 10vh;
+        }
     }
 
     .question-actions {

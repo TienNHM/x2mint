@@ -4,7 +4,8 @@ $question-item-preview-content-background: #9cdbe0bb;
 
 .question-item-preview {
     box-shadow: $box-shadow;
-    margin: $gap;
+    margin: 0 $gap;
+    margin-top: $gap;
     cursor: move;
 
     .question-item-preview-number {
@@ -19,6 +20,6 @@ $question-item-preview-content-background: #9cdbe0bb;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        height: 7vw;
+        height: 5vw;
     }
 }

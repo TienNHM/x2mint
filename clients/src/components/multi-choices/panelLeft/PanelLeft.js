@@ -23,21 +23,14 @@ function PanelLeft() {
     // Load data
     useEffect(() => {
         const questionsFromDB = initialTest.questions
-        if (questionsFromDB) {
-            setTest(questionsFromDB)
+        if (initialTest) {
+            setTest(initialTest)
 
-            //thứ tự tuân theo thuộc tính questionsOrder
+            // thứ tự tuân theo thuộc tính questionsOrder
             setQuestions(mapOrder(questionsFromDB, initialTest.questionsOrder, 'id'))
         }
 
     }, [])
-
-
-    if (isEmpty(test)) {
-        return (
-            <></>
-        )
-    }
 
     /**
      * Xử lý sự kiện kéo thả
@@ -67,26 +60,29 @@ function PanelLeft() {
         <div className="panel-left">
             <div className="questions-preview-title">Questions</div>
             <div className="questions-preview">
-                <Container
-                    groupName="questions-preview-panel"
-                    orientation="vertical" // default
-                    onDrop={onQuestionDrop}
-                    getChildPayload={index => questions[index]}
-                    dragClass="card-ghost"
-                    dropClass="card-ghost-drop"
-                    dropPlaceholder={{
-                        animationDuration: 150,
-                        showOnTop: true,
-                        className: 'card-drop-preview'
-                    }}
-                    dropPlaceholderAnimationDuration={200}
-                >
-                    {questions.map(q => (
-                        <Draggable key={q.id}>
-                            <QuestionItemPreview />
-                        </Draggable>
-                    ))}
-                </Container>
+                {!isEmpty(test) &&
+                    <Container
+                        groupName="questions-preview-panel"
+                        orientation="vertical" // default
+                        onDrop={onQuestionDrop}
+                        getChildPayload={index => questions[index]}
+                        dragClass="card-ghost"
+                        dropClass="card-ghost-drop"
+                        dropPlaceholder={{
+                            animationDuration: 150,
+                            showOnTop: true,
+                            className: 'question-drop-preview'
+                        }}
+                        dropPlaceholderAnimationDuration={200}
+                    >
+                        {questions.map((q, index) => (
+                            <Draggable key={q.id}>
+                                <QuestionItemPreview question={q} index={index} />
+                            </Draggable>
+                        ))}
+                    </Container>
+                }
+                {isEmpty(test) && <div className="not-found align-items-center">Please add more questions!</div>}
             </div>
             <div className="question-actions">
                 <button className="add-question">Add question</button>
