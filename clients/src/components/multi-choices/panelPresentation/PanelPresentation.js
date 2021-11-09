@@ -2,7 +2,7 @@ import React from 'react'
 import Question from 'components/multi-choices/question/Question'
 import './PanelPresentation.scss'
 
-function PanelCenter() {
+function PanelPresentation() {
     const question = {
         id: '1',
         order: 10,
@@ -44,4 +44,4 @@ function PanelCenter() {
     )
 }
 
-export default PanelCenter
+export default PanelPresentation

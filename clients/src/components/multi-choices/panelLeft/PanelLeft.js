@@ -1,43 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Container, Draggable } from 'react-smooth-dnd'
 import { isEmpty } from 'lodash'
 
 import QuestionItemPreview from 'components/multi-choices/questionItemPreview/QuestionItemPreview'
-import { initialTest } from 'actions/initialData'
-import { mapOrder } from 'utils/sorts'
 import { applyDrag } from 'utils/dragDrop'
 import './PanelLeft.scss'
 
-function PanelLeft() {
-    const emptyTest = {
-        id: '',
-        title: '',
-        creator_id: '',
-        status: '',
-        questions: [],
-        questionsOrder: []
-    }
-    const [test, setTest] = useState(emptyTest)
-    const [questions, setQuestions] = useState([])
-
-    // Load data
-    useEffect(() => {
-        const questionsFromDB = initialTest.questions
-        if (initialTest) {
-            setTest(initialTest)
-
-            // thứ tự tuân theo thuộc tính questionsOrder
-            setQuestions(mapOrder(questionsFromDB, initialTest.questionsOrder, 'id'))
-        }
-
-    }, [])
-
+function PanelLeft({ test, setTest, questions, setQuestions }) {
     /**
      * Xử lý sự kiện kéo thả
      * @param {*} dropResult kết quả kéo thả
      */
     const onQuestionDrop = (dropResult) => {
-        console.log(dropResult)
         // Tạo bản sao
         let newQuestions = [...questions]
         // Sắp xếp thứ tự các questions lại theo dropResult
@@ -52,8 +26,6 @@ function PanelLeft() {
 
         setQuestions(newQuestions)
         setTest(newTest)
-        console.log(questions)
-        console.log(test)
     }
 
     return (

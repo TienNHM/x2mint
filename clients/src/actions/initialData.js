@@ -37,6 +37,7 @@ export const initialTest = {
         },
         {
             id: 'question-2',
+            type: 'MULTICHOICE',
             content: 'Công thức hóa học của nước là gì?',
             embeded_media: [
                 'https://huynhvanson.vn/wp-content/uploads/2019/03/hoc-cach-song-nhu-nuoc.jpg'
@@ -67,6 +68,7 @@ export const initialTest = {
         },
         {
             id: 'question-3',
+            type: 'MULTICHOICE',
             content: 'Đâu là một khẳng định đúng?',
             embeded_media: [
                 'https://huynhvanson.vn/wp-content/uploads/2019/03/hoc-cach-song-nhu-nuoc.jpg'
@@ -97,6 +99,7 @@ export const initialTest = {
         },
         {
             id: 'question-4',
+            type: 'MULTICHOICE',
             content: 'Số nguyên tố là số như thế nào?',
             embeded_media: [
                 'https://huynhvanson.vn/wp-content/uploads/2019/03/hoc-cach-song-nhu-nuoc.jpg'
@@ -127,6 +130,7 @@ export const initialTest = {
         },
         {
             id: 'question-5',
+            type: 'MULTICHOICE',
             content: 'Axit nào mạnh nhất?',
             embeded_media: [
                 'https://huynhvanson.vn/wp-content/uploads/2019/03/hoc-cach-song-nhu-nuoc.jpg'
@@ -157,6 +161,7 @@ export const initialTest = {
         },
         {
             id: 'question-6',
+            type: 'MULTICHOICE',
             content: 'Cầu vồng có mấy màu?',
             embeded_media: [
                 'https://huynhvanson.vn/wp-content/uploads/2019/03/hoc-cach-song-nhu-nuoc.jpg'
