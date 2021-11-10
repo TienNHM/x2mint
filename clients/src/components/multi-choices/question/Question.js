@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import Answer from 'components/multi-choices/answer/Answer'
-import { MAX_QUESTION_LENGTH } from 'utils/constants'
+import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
+import { MAX_QUESTION_LENGTH, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './Question.scss'
 
 function Question({ question }) {
-    const embededMedia = question.embeded_media
+    const answers = question.answers
+    const [embededMedia, setEmbedMedia] = useState(question.embeded_media)
     const [content, setContent] = useState(question.content)
     const [rows, setRows] = useState(1)
     const [answerContents, setAnswerContents] = useState(['', '', '', ''])
     const [chooseAnswer, setChooseAnswer] = useState([])
     const [questionLength, setQuestionLength] = useState(MAX_QUESTION_LENGTH)
-    const answers = question.answers
+    const [isShowLibrary, setIsShowLibrary] = useState(false)
 
     useEffect(() => {
         setContent(question.content)
@@ -20,6 +22,29 @@ function Question({ question }) {
         setAnswerContents(ans)
         setQuestionLength(MAX_QUESTION_LENGTH - question.content.length)
     }, [question])
+
+    useEffect(() => {
+        setContent(content)
+    }, [content])
+
+    useEffect(() => {
+        console.log('Choose: ', chooseAnswer)
+
+    }, [chooseAnswer])
+
+    useEffect(() => {
+        console.log('Content: ', content)
+    }, [content])
+
+    useEffect(() => {
+        console.log(answerContents)
+    }, [answerContents])
+
+    useEffect(() => {
+        if (isShowLibrary) {
+            console.log('Show library...')
+        }
+    }, [isShowLibrary])
 
     const handleTextChange = (event) => {
         const value = event.target.value
@@ -46,22 +71,15 @@ function Question({ question }) {
         }
     }
 
-    useEffect(() => {
-        setContent(content)
-    }, [content])
+    const onConfirmModalAction = (type) => {
+        if (type === MODAL_ACTION_CONFIRM) {
+            console.log('OK')
+        }
 
-    useEffect(() => {
-        console.log('Choose: ', chooseAnswer)
+        toggleShowLibrary()
+    }
 
-    }, [chooseAnswer])
-
-    useEffect(() => {
-        console.log('Content: ', content)
-    }, [content])
-
-    useEffect(() => {
-        console.log(answerContents)
-    }, [answerContents])
+    const toggleShowLibrary = () => setIsShowLibrary(!isShowLibrary)
 
     return (
         <>
@@ -80,12 +98,13 @@ function Question({ question }) {
                 <div className="lenght-limit">{questionLength}</div>
             </div>
             <div className="question-embed">
-                {embededMedia.length > 0 && <img src={embededMedia[0]}></img>}
+                {console.log('Embed:', embededMedia)}
+                {embededMedia.length > 0 && <img src={embededMedia}></img>}
                 {embededMedia.length <= 0 && <img src="https://memegenerator.net/img/instances/74856541/it-appears-that-there-is-nothing-here.jpg" alt="Nothing"></img>}
             </div>
             <div className="question-embed-edit">
                 <div className="question-embed-change">
-                    <Button variant="warning">Change</Button>{' '}
+                    <Button variant="warning" onClick={toggleShowLibrary}>Change</Button>{' '}
                 </div>
                 <div className="question-embed-remove">
                     <Button variant="danger">Remove</Button>{' '}
@@ -103,6 +122,7 @@ function Question({ question }) {
                     />)
                 }
             </div>
+            <BrowseLibrary show={isShowLibrary} onAction={onConfirmModalAction} />
         </>
     )
 }
