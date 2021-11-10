@@ -6,7 +6,7 @@ function PanelPresentation({ selectedQuestion, setSelectedQuestion }) {
 
     return (
         <div className="panel-center">
-            <Question question={selectedQuestion} />
+            <Question question={selectedQuestion} setQuestion={setSelectedQuestion} />
         </div>
     )
 }

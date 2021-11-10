@@ -1,0 +1,30 @@
+@import '_setting.scss';
+
+.text-input {
+    @include remove-bootstrap-outline;
+}
+
+.top-modal {
+    display: flex;
+    flex-direction: row;
+
+    >* {
+        width: 50%;
+
+        input {
+            width: 95%;
+        }
+    }
+}
+
+.search-result {
+    margin: 2vh;
+
+    .list-result-images {
+        width: 100%;
+        display: table-cell;
+        margin: $gap 0;
+        text-align: center;
+        vertical-align: middle;
+    }
+}

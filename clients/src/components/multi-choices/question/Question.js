@@ -5,9 +5,9 @@ import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import { MAX_QUESTION_LENGTH, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './Question.scss'
 
-function Question({ question }) {
+function Question({ question, setQuestion }) {
     const answers = question.answers
-    const [embededMedia, setEmbedMedia] = useState(question.embeded_media)
+    const [embededMedia, setEmbedMedia] = useState('')
     const [content, setContent] = useState(question.content)
     const [rows, setRows] = useState(1)
     const [answerContents, setAnswerContents] = useState(['', '', '', ''])
@@ -20,6 +20,7 @@ function Question({ question }) {
         console.log(question)
         const ans = question.answers.map(a => a.content)
         setAnswerContents(ans)
+        setEmbedMedia(question.embeded_media)
         setQuestionLength(MAX_QUESTION_LENGTH - question.content.length)
     }, [question])
 
@@ -39,6 +40,13 @@ function Question({ question }) {
     useEffect(() => {
         console.log(answerContents)
     }, [answerContents])
+
+    useEffect(() => {
+        console.log(embededMedia)
+        // const q = { ...question }
+        // q.embeded_media = embededMedia
+        // setQuestion(q)
+    }, [embededMedia])
 
     useEffect(() => {
         if (isShowLibrary) {
@@ -98,7 +106,6 @@ function Question({ question }) {
                 <div className="lenght-limit">{questionLength}</div>
             </div>
             <div className="question-embed">
-                {console.log('Embed:', embededMedia)}
                 {embededMedia.length > 0 && <img src={embededMedia}></img>}
                 {embededMedia.length <= 0 && <img src="https://memegenerator.net/img/instances/74856541/it-appears-that-there-is-nothing-here.jpg" alt="Nothing"></img>}
             </div>
@@ -107,7 +114,7 @@ function Question({ question }) {
                     <Button variant="warning" onClick={toggleShowLibrary}>Change</Button>{' '}
                 </div>
                 <div className="question-embed-remove">
-                    <Button variant="danger">Remove</Button>{' '}
+                    <Button variant="danger" onClick={() => setEmbedMedia('')}>Remove</Button>{' '}
                 </div>
             </div>
             <div className="question-answers">

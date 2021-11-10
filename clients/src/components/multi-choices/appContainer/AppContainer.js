@@ -71,7 +71,12 @@ function Container() {
     }, [questions])
 
     useEffect(() => {
-        console.log('Selected Questions: ', selectedQuestion)
+        console.log('Selected Question: ', selectedQuestion)
+        // let newQuestions = [...questions]
+        // const index = newQuestions.findIndex(question => question.id === selectedQuestion.id)
+        // newQuestions[index] = selectedQuestion
+        // setQuestions(newQuestions)
+        // console.log('Questions: ', newQuestions)
     }, [selectedQuestion])
 
     return (

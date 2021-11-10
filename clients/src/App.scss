@@ -22,35 +22,7 @@ button {
   .bootstrap-container {
     margin: 0;
     padding: 0;
-
-    textarea:focus,
-    textarea.form-control:focus,
-    input.form-control:focus,
-    input[type=text]:focus,
-    input[type=password]:focus,
-    input[type=email]:focus,
-    input[type=number]:focus,
-    [type=text].form-control:focus,
-    [type=password].form-control:focus,
-    [type=email].form-control:focus,
-    [type=tel].form-control:focus,
-    [contenteditable].form-control:focus {
-      box-shadow: none;
-      //border: 1px solid #ccc;
-    }
-
-    .btn:focus,
-    .btn:active {
-      outline: none;
-      box-shadow: none;
-    }
-  }
-
-  .align-items-center {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    @include remove-bootstrap-outline();
   }
 
   .textarea-enter {
@@ -62,5 +34,5 @@ button {
     overflow-y: hidden;
     resize: none;
     line-height: 1.6rem !important;
-}
+  }
 }

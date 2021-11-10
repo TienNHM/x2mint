@@ -53,6 +53,7 @@ function PanelLeft(props) {
                                 <QuestionItemPreview
                                     question={q}
                                     index={index}
+                                    isSelected={q === selectedQuestion}
                                     setSelectedQuestion={setSelectedQuestion}
                                 />
                             </Draggable>

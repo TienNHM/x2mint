@@ -7,3 +7,35 @@ $panel-center-width: 86vw;
 $box-shadow: rgba(0, 0, 0, 0.25) 0px -4px inset;
 $bg-color: #ebecf0;
 $app-bg-color: rgba(215, 233, 248, 0.575);
+
+@mixin remove-bootstrap-outline {
+
+  textarea:focus,
+  textarea.form-control:focus,
+  input.form-control:focus,
+  input[type=text]:focus,
+  input[type=password]:focus,
+  input[type=email]:focus,
+  input[type=number]:focus,
+  [type=text].form-control:focus,
+  [type=password].form-control:focus,
+  [type=email].form-control:focus,
+  [type=tel].form-control:focus,
+  [contenteditable].form-control:focus {
+    box-shadow: none !important;
+    //border: 1px solid #ccc;
+  }
+
+  .btn:focus,
+  .btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.align-items-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
