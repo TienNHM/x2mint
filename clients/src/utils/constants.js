@@ -1,0 +1,2 @@
+export const MAX_QUESTION_LENGTH = 200
+export const MAX_ANSWER_LENGTH = 120

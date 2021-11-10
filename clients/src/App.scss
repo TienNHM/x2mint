@@ -52,4 +52,15 @@ button {
     justify-content: center;
     align-items: center;
   }
+
+  .textarea-enter {
+    display: table-cell !important;
+    vertical-align: middle !important;
+    text-align: center;
+    background-color: transparent !important;
+    border: none;
+    overflow-y: hidden;
+    resize: none;
+    line-height: 1.6rem !important;
+}
 }

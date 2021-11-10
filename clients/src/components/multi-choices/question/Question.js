@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { Button, FormControl } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 import Answer from 'components/multi-choices/answer/Answer'
+import { MAX_QUESTION_LENGTH } from 'utils/constants'
 import './Question.scss'
 
 function Question({ question }) {
     const embededMedia = question.embeded_media
     const [content, setContent] = useState('')
+    const [answerContents, setAnswerContents] = useState(['', '', '', ''])
     const [chooseAnswer, setChooseAnswer] = useState([])
-    const [timeLimit, setTimeLimit] = useState('30')
+    const [questionLength, setQuestionLength] = useState(MAX_QUESTION_LENGTH)
     const answers = question.answers
 
-    useEffect(() => {
-        setContent(question.content)
-    }, [question.content])
+    const handleTextChange = (event) => {
+        const value = event.target.value
+        if (value.length <= MAX_QUESTION_LENGTH) {
+            setContent(value)
+            setQuestionLength(MAX_QUESTION_LENGTH - value.length)
+        }
+    }
 
-    const handleTextChange = (event) => setContent(event.target.value)
-
-    const handleOnClick = (event) => {
+    const handleOnAnswerClick = (event) => {
         const value = event.target.value
         const newValue = [...chooseAnswer]
         const index = newValue.indexOf(value)
@@ -27,21 +31,48 @@ function Question({ question }) {
         }
         else {
             var arr = []
-            newValue.map(x => x!==value && arr.push(x))
+            newValue.map(x => x !== value && arr.push(x))
             setChooseAnswer(arr)
         }
     }
 
     useEffect(() => {
-        console.log(chooseAnswer)
+        setContent(question.content)
+        const ans = question.answers.map(a => a.content)
+        setAnswerContents(ans)
+    }, [])
+
+    useEffect(() => {
+        setContent(content)
+    }, [content])
+
+    useEffect(() => {
+        console.log('Choose: ', chooseAnswer)
 
     }, [chooseAnswer])
+
+    useEffect(() => {
+        console.log('Content: ', content)
+    }, [content])
+
+    useEffect(() => {
+        console.log(answerContents)
+    }, [answerContents])
 
     return (
         <>
             <div className="question">
                 <div className="question-content">
-                    <FormControl as="textarea" className="question-content-input" value={content} onChange={handleTextChange} />
+                    <div className="lenght-limit">{questionLength}</div>
+                    <Form.Control
+                        size="sm"
+                        as="textarea"
+                        rows="3"
+                        placeholder="Nhập nội dung câu hỏi..."
+                        className="textarea-enter"
+                        value={content}
+                        onChange={handleTextChange}
+                    />
                 </div>
             </div>
             <div className="question-embed">
@@ -57,7 +88,16 @@ function Question({ question }) {
                 </div>
             </div>
             <div className="question-answers">
-                {answers.map(a => <Answer key={a.id} name={a.name} content={a.content} onClick={handleOnClick} />)}
+                {answers.map((a, index) =>
+                    <Answer
+                        key={a.id}
+                        name={a.name}
+                        index={index}
+                        answerContents={answerContents}
+                        setAnswerContents={setAnswerContents}
+                        onClick={handleOnAnswerClick}
+                    />)
+                }
             </div>
         </>
     )
