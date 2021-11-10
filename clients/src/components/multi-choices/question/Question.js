@@ -6,17 +6,27 @@ import './Question.scss'
 
 function Question({ question }) {
     const embededMedia = question.embeded_media
-    const [content, setContent] = useState('')
+    const [content, setContent] = useState(question.content)
+    const [rows, setRows] = useState(1)
     const [answerContents, setAnswerContents] = useState(['', '', '', ''])
     const [chooseAnswer, setChooseAnswer] = useState([])
     const [questionLength, setQuestionLength] = useState(MAX_QUESTION_LENGTH)
     const answers = question.answers
+
+    useEffect(() => {
+        setContent(question.content)
+        console.log(question)
+        const ans = question.answers.map(a => a.content)
+        setAnswerContents(ans)
+        setQuestionLength(MAX_QUESTION_LENGTH - question.content.length)
+    }, [question])
 
     const handleTextChange = (event) => {
         const value = event.target.value
         if (value.length <= MAX_QUESTION_LENGTH) {
             setContent(value)
             setQuestionLength(MAX_QUESTION_LENGTH - value.length)
+            setRows(value.length / (MAX_QUESTION_LENGTH / 2 + 1) + 1)
         }
     }
 
@@ -35,12 +45,6 @@ function Question({ question }) {
             setChooseAnswer(arr)
         }
     }
-
-    useEffect(() => {
-        setContent(question.content)
-        const ans = question.answers.map(a => a.content)
-        setAnswerContents(ans)
-    }, [])
 
     useEffect(() => {
         setContent(content)
@@ -62,18 +66,18 @@ function Question({ question }) {
     return (
         <>
             <div className="question">
-                <div className="question-content">
-                    <div className="lenght-limit">{questionLength}</div>
+                <div className="question-content  align-items-center">
                     <Form.Control
                         size="sm"
                         as="textarea"
-                        rows="3"
+                        rows={rows}
                         placeholder="Nhập nội dung câu hỏi..."
                         className="textarea-enter"
                         value={content}
                         onChange={handleTextChange}
                     />
                 </div>
+                <div className="lenght-limit">{questionLength}</div>
             </div>
             <div className="question-embed">
                 {embededMedia.length > 0 && <img src={embededMedia[0]}></img>}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form } from 'react-bootstrap'
 import { MAX_ANSWER_LENGTH } from 'utils/constants'
 import './Answer.scss'
@@ -6,8 +6,12 @@ import './Answer.scss'
 function Answer(props) {
     const { name, index, answerContents, setAnswerContents, onClick } = props
     const css = 'answer answer-' + name
-    const [rows, setRows] = useState(3)
+    const [rows, setRows] = useState(1)
     const [answerLength, setAnswerLength] = useState(MAX_ANSWER_LENGTH)
+
+    useEffect(() => {
+        setAnswerLength(MAX_ANSWER_LENGTH - answerContents[index].length)
+    }, [])
 
     const handleTextChange = (event) => {
         const value = event.target.value
@@ -16,6 +20,7 @@ function Answer(props) {
             newAnswerContents[index] = event.target.value
             setAnswerContents(newAnswerContents)
             setAnswerLength(MAX_ANSWER_LENGTH - newAnswerContents[index].length)
+            setRows(value.length/(MAX_ANSWER_LENGTH/2) + 1)
         }
     }
     return (

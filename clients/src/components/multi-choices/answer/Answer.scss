@@ -38,6 +38,11 @@ $btn-check-size: 2rem;
 
         .answer-content {
             width: 80%;
+
+            .textarea-enter {
+                font-size: 14px;
+                font-weight: bold;
+            }
         }
 
         .answer-checkbox {

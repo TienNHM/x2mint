@@ -55,7 +55,9 @@ function Container() {
             setTest(initialTest)
 
             // thứ tự tuân theo thuộc tính questionsOrder
-            setQuestions(mapOrder(questionsFromDB, initialTest.questionsOrder, 'id'))
+            const q = mapOrder(questionsFromDB, initialTest.questionsOrder, 'id')
+            setQuestions(q)
+            setSelectedQuestion(q[0])
         }
 
     }, [])
@@ -86,7 +88,7 @@ function Container() {
                 selectedQuestion={selectedQuestion}
                 setSelectedQuestion={setSelectedQuestion}
             />
-            <PanelRight />
+            {/* <PanelRight /> */}
         </div>
     )
 }
