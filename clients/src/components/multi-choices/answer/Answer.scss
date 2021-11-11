@@ -1,6 +1,6 @@
 @import '_setting.scss';
 
-$answer-button-width: 36vw;
+$answer-button-width: 50%;
 $answer-background-color: white;
 $btn-check-size: 2rem;
 
@@ -38,25 +38,64 @@ $btn-check-size: 2rem;
 
         .answer-content {
             width: 80%;
+
+            .textarea-enter {
+                font-size: 14px;
+                font-weight: bold;
+            }
         }
 
         .answer-checkbox {
             width: 10%;
-            background-color: #e1e42a;
             align-items: center;
 
+            .lenght-limit {
+                font-size: 12px;
+                text-align: right;
+                font-weight: normal;
+                margin-top: 0;
+                display: inline-block;
+                color: gray;
+                width: 100%;
+                padding-right: 5px;
+            }
+            
             .btn-checkbox {
                 background-color: transparent;
                 border: 0.25rem solid rgb(255, 255, 255);
                 flex: 0 0 auto;
                 width: $btn-check-size;
                 height: $btn-check-size;
+                margin-bottom: 45%;
+                margin-top: 20%;
                 padding: $gap;
                 transform-origin: center bottom;
                 box-shadow: transparent 0px 0px 0px 0.125rem;
                 border-radius: 50%;
                 cursor: pointer;
+                appearance: none;
+                -webkit-appearance: none;
+            }
+
+            .btn-checkbox:checked {
+                background-image: url("https://img.icons8.com/fluency/24/000000/checkmark.png");
             }
         }
+    }
+
+    .answer-A {
+        background-color: #C4E538;
+    }
+
+    .answer-B {
+        background-color: #2bcbba;
+    }
+
+    .answer-C {
+        background-color: #48dbfb;
+    }
+
+    .answer-D {
+        background-color: #ffda79;
     }
 }

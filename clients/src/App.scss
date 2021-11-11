@@ -1,46 +1,38 @@
 @import '_setting.scss';
 
 body {
-    margin: 0;
-    font-family: 'Source Code Pro', sans-serif;
-    font-size: 14px;
-    line-height: 1.3em;
+  margin: 0;
+  font-family: 'Source Code Pro', sans-serif;
+  font-size: 14px;
+  line-height: 1.3em;
 }
 
 button {
-    box-shadow: $box-shadow;
+  box-shadow: $box-shadow;
 }
 
 .app {
-    height: 100vh;
-    overflow: hidden;
-    background-color: $app-bg-color;
-    align-items: center;
-    text-align: center;
+  height: 100vh;
+  overflow: hidden;
+  background-color: $app-bg-color;
+  align-items: center;
+  text-align: center;
 
-    // Loại bỏ những settings mặt định cho ô input và button
+  // Loại bỏ những settings mặt định cho ô input và button
   .bootstrap-container {
     margin: 0;
     padding: 0;
-    textarea:focus, 
-    textarea.form-control:focus, 
-    input.form-control:focus, 
-    input[type=text]:focus, 
-    input[type=password]:focus, 
-    input[type=email]:focus, 
-    input[type=number]:focus, 
-    [type=text].form-control:focus, 
-    [type=password].form-control:focus, 
-    [type=email].form-control:focus, 
-    [type=tel].form-control:focus, 
-    [contenteditable].form-control:focus {
-      box-shadow: none;
-      //border: 1px solid #ccc;
-    }
+    @include remove-bootstrap-outline();
+  }
 
-    .btn:focus, .btn:active {
-      outline: none;
-      box-shadow: none;
-    }
+  .textarea-enter {
+    display: table-cell !important;
+    vertical-align: middle !important;
+    text-align: center;
+    background-color: transparent !important;
+    border: none;
+    overflow-y: hidden;
+    resize: none;
+    line-height: 1.6rem !important;
   }
 }

@@ -33,6 +33,30 @@
             background-color: darken($color: $bg-color, $amount: 15);
             border-right: 5px solid $bg-color;
         }
+
+        .card-ghost {
+            transition: transform 0.18s ease;
+            transform: rotateZ(2deg);
+            font-weight: bold;
+        }
+
+        .card-ghost-drop {
+            transition: transform 0.18s ease-in-out;
+            transform: rotateZ(0deg);
+        }
+
+        .question-drop-preview {
+            background-color: rgba(150, 150, 200, 0.1);
+            border: 2px dashed #17c0eb;
+            margin: 5px;
+        }
+
+        .not-found {
+            background-color: #ffcccc;
+            border: 2px dashed #ea8685;
+            margin: 5px;
+            height: 10vh;
+        }
     }
 
     .question-actions {
@@ -43,6 +67,7 @@
         .add-question {
             display: block;
             width: 100%;
+            height: 50px;
             border: none;
             background-color: #04AA6D;
             color: white;
