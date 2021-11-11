@@ -19,7 +19,7 @@ function BrowseLibrary({ show, onAction }) {
             backdrop='static'
             keyboard={false}>
             <Modal.Header closeButton>
-                <Modal.Title className="h6">Chọn ảnh</Modal.Title>
+                <Modal.Title className="h4 text-center w-100">Chọn ảnh</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className="top-modal">
@@ -49,54 +49,42 @@ function BrowseLibrary({ show, onAction }) {
                 <div className="search-result">
                     <h6>Kết quả tìm kiếm</h6>
                     <div className="list-result-images">
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
-                        <Image />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
+                        <Image src={link} setLink={setLink} />
                     </div>
                 </div>
             </Modal.Body>
