@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { initialTest } from 'actions/initialTest'
 import { mapOrder } from 'utils/sorts'
-import PanelLeft from 'components/multi-choices/panelLeft/PanelLeft'
+import PanelPreview from 'components/multi-choices/panelPreview/PanelPreview'
 import PanelPresentation from 'components/multi-choices/panelPresentation/PanelPresentation'
-import PanelRight from 'components/multi-choices/panelRight/PanelRight'
+import PanelSettings from 'components/multi-choices/panelSettings/PanelSettings'
 import './AppContainer.scss'
 
 function Container() {
@@ -136,7 +136,7 @@ function Container() {
 
     return (
         <div className="app-container">
-            <PanelLeft
+            <PanelPreview
                 test={test}
                 setTest={setTest}
                 questions={questions}
@@ -148,7 +148,13 @@ function Container() {
                 selectedQuestion={selectedQuestion}
                 updateSelectedQuestion={updateSelectedQuestion}
             />
-            <PanelRight test={test} setTest={setTest} />
+            <PanelSettings
+                test={test}
+                setTest={setTest}
+                isCreator={false}
+                selectedQuestion={selectedQuestion}
+                setSelectedQuestion={setSelectedQuestion}
+            />
         </div>
     )
 }

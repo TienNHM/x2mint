@@ -109,4 +109,53 @@ $question-attribute-setting-height: 80px;
             background-color: goldenrod;
         }
     }
+
+    .question-picker {
+        background-color: lightblue;
+
+        .btn-question {
+            overflow-y: auto;
+            max-height: 70vh;
+            overflow-x: hidden;
+
+            &::-webkit-scrollbar {
+                -webkit-appearance: none;
+            }
+
+            &::-webkit-scrollbar:vertical {
+                width: 11px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: darken($color: $bg-color, $amount: 15);
+                border-left: 3px solid lightblue;
+            }
+
+            button {
+                margin: $gap/2;
+                width: 40px;
+            }
+        }
+    }
+
+    .time-remain {
+        background-color: burlywood;
+        margin: $gap 0;
+    }
+
+    .section-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        margin: $gap 0;
+    }
+
+    .submit-test {
+        button {
+            width: 90%;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin: $gap 0;
+        }
+    }
 }

@@ -4,9 +4,9 @@ import { cloneDeep, isEmpty } from 'lodash'
 
 import QuestionItemPreview from 'components/multi-choices/questionItemPreview/QuestionItemPreview'
 import { applyDrag } from 'utils/dragDrop'
-import './PanelLeft.scss'
+import './PanelPreview.scss'
 
-function PanelLeft(props) {
+function PanelPreview(props) {
     const { test, setTest, questions, setQuestions, selectedQuestion, setSelectedQuestion } = props
     /**
      * Xử lý sự kiện kéo thả
@@ -110,4 +110,4 @@ function PanelLeft(props) {
     )
 }
 
-export default PanelLeft
+export default PanelPreview
