@@ -89,10 +89,10 @@ function BrowseLibrary({ show, onAction }) {
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() => onAction(MODAL_ACTION_CLOSE)}>
+                <Button variant="secondary" onClick={() => onAction(MODAL_ACTION_CLOSE, link)}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={() => onAction(MODAL_ACTION_CONFIRM)}>
+                <Button variant="primary" onClick={() => onAction(MODAL_ACTION_CONFIRM, link)}>
                     Confirm
                 </Button>
             </Modal.Footer>
