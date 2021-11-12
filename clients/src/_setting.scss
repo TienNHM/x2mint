@@ -8,7 +8,7 @@ $box-shadow: rgba(0, 0, 0, 0.25) 0px -4px inset;
 $bg-color: #ebecf0;
 $app-bg-color: rgba(215, 233, 248, 0.575);
 
-@mixin remove-bootstrap-outline {
+.remove-bootstrap-outline {
 
   textarea:focus,
   textarea.form-control:focus,

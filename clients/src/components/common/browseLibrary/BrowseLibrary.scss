@@ -1,18 +1,25 @@
 @import '_setting.scss';
 
-.text-input {
-    @include remove-bootstrap-outline;
-}
-
 .top-modal {
     display: flex;
     flex-direction: row;
 
     >* {
-        width: 50%;
+        width: 48%;
+        margin: 0 1%;
 
         input {
             width: 95%;
+        }
+    }
+
+    .search-area {
+        .search {
+            display: flex;
+            .text-input {
+                box-shadow: none !important;
+                margin-right: $gap;
+            }
         }
     }
 }

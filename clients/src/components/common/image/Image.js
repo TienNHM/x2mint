@@ -6,9 +6,9 @@ function Image(props) {
     const src = props.src || 'https://i.pinimg.com/564x/73/e7/ce/73e7ce2dd95c8e6af4a5e815b27ec404.jpg'
 
     const onClick = () => {
-        props.setLink(src)
+        props.setLink(props.link)
     }
-    
+
     return (
         <img className="img-result" src={src} alt={alt} onClick={onClick}>
         </img>

@@ -1,14 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
+import { createClient } from 'pexels'
 import Image from 'components/common/image/Image'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import './BrowseLibrary.scss'
 
 function BrowseLibrary({ show, onAction }) {
+    const client = createClient(
+        '563492ad6f91700001000001e3ed7b53da4e4bd99fc84afc9b38fafb'
+    )
     const [link, setLink] = useState('')
     const handleLinkChange = (event) => setLink(event.target.value)
-    const [query, setQuery] = useState('')
-    const handleQueryChange = (event) => setQuery(event.target.value)
+    const [photos, setPhotos] = useState([])
+    const [result, setResult] = useState(null)
+    const queryRef = useRef('')
+
+    const handleOnSearchClick = () => {
+        const query = queryRef.current.value.trim()
+        client.photos
+            .search({ query, per_page: 20 })
+            .then((result) => {
+                setPhotos(result.photos)
+                console.log(result)
+            })
+    }
 
     return (
         <Modal
@@ -25,14 +40,17 @@ function BrowseLibrary({ show, onAction }) {
                 <div className="top-modal">
                     <div className="search-area">
                         <div>Tìm kiếm: </div>
-                        <Form.Control
-                            size="sm"
-                            type="text"
-                            placeholder="Nhập từ khóa tìm kiếm..."
-                            className="text-input"
-                            value={query}
-                            onChange={handleQueryChange}
-                        />
+                        <div className="search">
+                            <Form.Control
+                                size="sm"
+                                type="text"
+                                ref={queryRef}
+                                placeholder="Nhập từ khóa tìm kiếm..."
+                                className="text-input"
+                                onKeyDown={event => event.key === 'Enter' && handleOnSearchClick()}
+                            />
+                            <Button variant="primary" size="sm" onClick={handleOnSearchClick}>Tìm</Button>{' '}
+                        </div>
                     </div>
                     <div className="link-input-area">
                         <div>Link ảnh: </div>
@@ -49,42 +67,12 @@ function BrowseLibrary({ show, onAction }) {
                 <div className="search-result">
                     <h6>Kết quả tìm kiếm</h6>
                     <div className="list-result-images">
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
-                        <Image src={link} setLink={setLink} />
+                        {photos.map((photo, index) =>
+                            <Image
+                                key={index}
+                                src={photo.src.tiny}
+                                link={photo.src.original}
+                                setLink={setLink} />)}
                     </div>
                 </div>
             </Modal.Body>
