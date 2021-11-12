@@ -77,9 +77,9 @@ function Question({ question, updateQuestion }) {
         setEmbedMedia('')
         setIsUpdatedEmbedMedia(true)
     }
-    const onConfirmModalAction = (type, link) => {
-        if (type === MODAL_ACTION_CONFIRM) {
-            setEmbedMedia(link)
+    const onConfirmModalAction = (type, photo) => {
+        if (photo && type === MODAL_ACTION_CONFIRM) {
+            setEmbedMedia(photo.src.large)
         }
 
         toggleShowLibrary()

@@ -1,37 +1,41 @@
 @import '_setting.scss';
 
-.top-modal {
-    display: flex;
-    flex-direction: row;
+.browse-modal {
 
-    >* {
-        width: 48%;
-        margin: 0 1%;
+    .top-modal {
+        display: flex;
+        flex-direction: row;
 
-        input {
-            width: 95%;
+        >* {
+            width: 48%;
+            margin: 0 1%;
+
+            input {
+                width: 95%;
+            }
         }
-    }
 
-    .search-area {
-        .search {
-            display: flex;
-            .text-input {
-                box-shadow: none !important;
-                margin-right: $gap;
+        .search-area {
+            .search {
+                display: flex;
+
+                .text-input {
+                    box-shadow: none !important;
+                    margin-right: $gap;
+                }
             }
         }
     }
-}
 
-.search-result {
-    margin: 2vh;
+    .search-result {
+        margin: 2vh;
 
-    .list-result-images {
-        width: 100%;
-        display: table-cell;
-        margin: $gap 0;
-        text-align: center;
-        vertical-align: middle;
+        .list-result-images {
+            width: 100%;
+            display: table-cell;
+            margin: $gap 0;
+            text-align: center;
+            vertical-align: middle;
+        }
     }
 }
