@@ -26,6 +26,48 @@ function PanelLeft(props) {
         setTest(newTest)
     }
 
+    const handleOnAddQuestion = () => {
+        const newQuestion = {
+            id: 'question-' + (questions.length+1),
+            type: 'MULTICHOICE',
+            content: '',
+            embeded_media: '',
+            answers: [
+                {
+                    id: '1',
+                    name: 'A',
+                    content: ''
+                },
+                {
+                    id: '2',
+                    name: 'B',
+                    content: ''
+                },
+                {
+                    id: '3',
+                    name: 'C',
+                    content: ''
+                },
+                {
+                    id: '4',
+                    name: 'D',
+                    content: ''
+                }
+            ],
+            correct_answer: '1'
+        }
+
+        const questionsList = [...questions]
+        questionsList.push(newQuestion)
+        setQuestions(questionsList)
+
+        const newTest = {...test}
+        newTest.questions = questionsList
+        setTest(newTest)
+
+        setSelectedQuestion(newQuestion)
+    }
+
     return (
         <div className="panel-left">
             <div className="questions-preview-title">Questions</div>
@@ -60,7 +102,9 @@ function PanelLeft(props) {
                 {isEmpty(test) && <div className="not-found align-items-center">Please add more questions!</div>}
             </div>
             <div className="question-actions">
-                <button className="add-question">Add question</button>
+                <button className="add-question" onClick={handleOnAddQuestion}>
+                    Add question
+                </button>
             </div>
         </div>
     )

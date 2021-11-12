@@ -42,6 +42,8 @@ $btn-check-size: 2rem;
             .textarea-enter {
                 font-size: 14px;
                 font-weight: bold;
+                outline: none !important;
+                box-shadow: none !important;
             }
         }
 
