@@ -51,8 +51,8 @@ function Container() {
 
     // Load data
     useEffect(() => {
-        const questionsFromDB = false// initialTest.questions
-        if (initialTest === true) {
+        const questionsFromDB = initialTest.questions
+        if (initialTest) {
             setTest(initialTest)
 
             // thứ tự tuân theo thuộc tính questions_order

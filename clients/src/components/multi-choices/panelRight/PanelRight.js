@@ -148,9 +148,10 @@ function PanelRight({test, setTest }) {
                 }
                 setTest(newTest)
                 console.log('Saved...', newTest)
+                alert('Đã lưu')
             }
             else {
-                endDateRef.current.focus()
+                startDateRef.current.focus()
                 alert('Thời gian không hợp lệ! Vui lòng nhập lại')
             }
         }

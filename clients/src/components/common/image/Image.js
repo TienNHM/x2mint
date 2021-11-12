@@ -3,7 +3,7 @@ import './Image.scss'
 
 function Image({ photo, updateSelectedPhoto }) {
     const handleOnClick = () => {
-        updateSelectedPhoto({...photo})
+        updateSelectedPhoto({ ...photo })
     }
 
     return (

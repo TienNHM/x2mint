@@ -14,21 +14,32 @@ function BrowseLibrary({ show, onAction }) {
     const handleLinkChange = (event) => setLink(event.target.value)
 
     const [photos, setPhotos] = useState(null)
+    const [limit, setLimit] = useState(1)
     const queryRef = useRef('')
+
+    const search = (query, limit_num) => {
+        client.photos
+            .search({ query, per_page: 20*limit_num })
+            .then((result) => {
+                setPhotos(result.photos)
+            })
+    }
 
     const handleOnSearchClick = () => {
         const query = queryRef.current.value.trim()
-        client.photos
-            .search({ query, per_page: 20 })
-            .then((result) => {
-                setPhotos(result.photos)
-                console.log(result)
-            })
+        setLimit(1)
+        search(query, limit)
+    }
+
+    const handleOnLoadMoreClick = () => {
+        const query = queryRef.current.value.trim()
+        setLimit(limit + 1)
+        search(query, limit)
     }
 
     useEffect(() => {
         if (selectedPhoto) {
-            setLink(selectedPhoto.src.original)
+            setLink(selectedPhoto.src.medium)
         }
     }, [selectedPhoto])
 
@@ -75,13 +86,13 @@ function BrowseLibrary({ show, onAction }) {
                     </div>
                     {selectedPhoto &&
                         <div className="selected-photo">
-                            <h6 className="seleted-photo-title">Ảnh được chọn</h6>
+                            <div className="section-title">Ảnh được chọn</div>
                             <img src={link} alt="Ảnh đã chọn" />
                         </div>
                     }
                     {photos &&
                         <div className="search-result">
-                            <h6>Kết quả tìm kiếm</h6>
+                            <div className="section-title">Kết quả tìm kiếm</div>
                             <div className="list-result-images">
                                 {photos.map((photo, index) =>
                                     <Image
@@ -90,6 +101,9 @@ function BrowseLibrary({ show, onAction }) {
                                         updateSelectedPhoto={setSelectedPhoto}
                                     />
                                 )}
+                            </div>
+                            <div className="load-more">
+                                <Button variant="primary" size="sm" onClick={handleOnLoadMoreClick}>Xem thêm...</Button>{' '}
                             </div>
                         </div>
                     }

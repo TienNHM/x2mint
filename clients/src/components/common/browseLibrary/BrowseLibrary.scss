@@ -27,6 +27,22 @@
         }
     }
 
+    .section-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .selected-photo {
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        margin: $gap 0;
+        img {
+            height: 200px;
+        }
+    }
+
     .search-result {
         margin: 2vh;
 
@@ -36,6 +52,14 @@
             margin: $gap 0;
             text-align: center;
             vertical-align: middle;
+        }
+
+        .load-more {
+            margin: $gap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
         }
     }
 }
