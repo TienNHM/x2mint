@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Form } from 'react-bootstrap'
 import Select from 'components/common/select/Select'
 import './PanelRight.scss'
 
-function PanelRight() {
+function PanelRight({test, setTest }) {
     const questionTypes = {
         name: 'type',
         options: [
@@ -124,6 +124,38 @@ function PanelRight() {
         ]
     }
 
+    const inputTestTitleRef = useRef('')
+    const startDateRef = useRef('')
+    const startTimeRef = useRef('')
+    const endDateRef = useRef('')
+    const endTimeRef = useRef('')
+
+    const handleSaveClick = () => {
+        const titleValue = inputTestTitleRef.current.value
+        if (titleValue.trim() === '') {
+            inputTestTitleRef.current.focus()
+            alert('Vui lòng nhập tên cho bài test!')
+        }
+        else {
+            const startTime = startDateRef.current.value + ' ' + startTimeRef.current.value
+            const endTime = endDateRef.current.value + ' ' + endTimeRef.current.value
+            if (Date.parse(endTime) > Date.parse(startTime)) {
+                const newTest = {
+                    ...test,
+                    title: titleValue,
+                    start_time: startTime,
+                    end_time: endTime
+                }
+                setTest(newTest)
+                console.log('Saved...', newTest)
+            }
+            else {
+                endDateRef.current.focus()
+                alert('Thời gian không hợp lệ! Vui lòng nhập lại')
+            }
+        }
+    }
+
     return (
         <div className="panel-right">
             <div className="panel-right-title">Cài đặt</div>
@@ -134,6 +166,7 @@ function PanelRight() {
                         <Form.Control
                             size="sm"
                             type="text"
+                            ref={inputTestTitleRef}
                             placeholder="Tên bài test..."
                             className="test-title-input"
                             // value={content}
@@ -148,6 +181,7 @@ function PanelRight() {
                         <Form.Control
                             size="sm"
                             type="date"
+                            ref={startDateRef}
                             // value={content}
                             // onChange={handleTextChange}
                             // onBlur={handleQuestionContentBlur}
@@ -155,6 +189,7 @@ function PanelRight() {
                         <Form.Control
                             size="sm"
                             type="time"
+                            ref={startTimeRef}
                             // value={content}
                             // onChange={handleTextChange}
                             // onBlur={handleQuestionContentBlur}
@@ -167,6 +202,7 @@ function PanelRight() {
                         <Form.Control
                             size="sm"
                             type="date"
+                            ref={endDateRef}
                             // value={content}
                             // onChange={handleTextChange}
                             // onBlur={handleQuestionContentBlur}
@@ -174,6 +210,7 @@ function PanelRight() {
                         <Form.Control
                             size="sm"
                             type="time"
+                            ref={endTimeRef}
                             // value={content}
                             // onChange={handleTextChange}
                             // onBlur={handleQuestionContentBlur}
@@ -202,7 +239,7 @@ function PanelRight() {
                 </div> */}
             </div>
             <div className="quick-actions">
-                <button className="save">Save</button>
+                <button className="save" onClick={handleSaveClick}>Save</button>
                 <button className="exit">Exit</button>
             </div>
         </div>

@@ -3,6 +3,8 @@ export const initialTest = {
     title: 'Science',
     creator_id: 'user-1',
     status: 'DRAFT',
+    start_time: '',
+    end_time: '',
     questions: [
         {
             id: 'question-1',

@@ -104,7 +104,7 @@ function Container() {
                 selectedQuestion={selectedQuestion}
                 updateSelectedQuestion={updateSelectedQuestion}
             />
-            <PanelRight />
+            <PanelRight test={test} setTest={setTest}/>
         </div>
     )
 }
