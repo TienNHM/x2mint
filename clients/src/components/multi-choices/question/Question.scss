@@ -20,11 +20,11 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
     .lenght-limit {
         color: gray;
-        text-align: right !important;
         padding-right: $gap;
         padding-top: $gap;
-        height: 1rem;
+        width: 50px;
         font-size: 14px;
+        font-weight: normal;
         vertical-align: middle;
     }
 

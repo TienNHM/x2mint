@@ -5,28 +5,21 @@ import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import { MAX_QUESTION_LENGTH, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './Question.scss'
 
-function Question({ question, setQuestion }) {
+function Question({ question, updateQuestion }) {
     const answers = question.answers
     const [embededMedia, setEmbedMedia] = useState('')
-    const [content, setContent] = useState(question.content)
+    const [isUpdatedEmbedMedia, setIsUpdatedEmbedMedia] = useState(false)
+    const [content, setContent] = useState('')
     const [rows, setRows] = useState(1)
-    const [answerContents, setAnswerContents] = useState(['', '', '', ''])
     const [chooseAnswer, setChooseAnswer] = useState([])
     const [questionLength, setQuestionLength] = useState(MAX_QUESTION_LENGTH)
     const [isShowLibrary, setIsShowLibrary] = useState(false)
 
     useEffect(() => {
         setContent(question.content)
-        console.log(question)
-        const ans = question.answers.map(a => a.content)
-        setAnswerContents(ans)
         setEmbedMedia(question.embeded_media)
         setQuestionLength(MAX_QUESTION_LENGTH - question.content.length)
     }, [question])
-
-    useEffect(() => {
-        setContent(content)
-    }, [content])
 
     useEffect(() => {
         console.log('Choose: ', chooseAnswer)
@@ -34,18 +27,13 @@ function Question({ question, setQuestion }) {
     }, [chooseAnswer])
 
     useEffect(() => {
-        console.log('Content: ', content)
-    }, [content])
-
-    useEffect(() => {
-        console.log(answerContents)
-    }, [answerContents])
-
-    useEffect(() => {
-        console.log(embededMedia)
-        // const q = { ...question }
-        // q.embeded_media = embededMedia
-        // setQuestion(q)
+        if (isUpdatedEmbedMedia) {
+            console.log(embededMedia)
+            const q = { ...question }
+            q.embeded_media = embededMedia
+            updateQuestion(q)
+            setIsUpdatedEmbedMedia(false)
+        }
     }, [embededMedia])
 
     useEffect(() => {
@@ -61,6 +49,12 @@ function Question({ question, setQuestion }) {
             setQuestionLength(MAX_QUESTION_LENGTH - value.length)
             setRows(value.length / (MAX_QUESTION_LENGTH / 2 + 1) + 1)
         }
+    }
+
+    const handleQuestionContentBlur = (event) => {
+        const newQuestion = { ...question }
+        newQuestion.content = event.target.value
+        updateQuestion(newQuestion)
     }
 
     const handleOnAnswerClick = (event) => {
@@ -79,12 +73,22 @@ function Question({ question, setQuestion }) {
         }
     }
 
+    const handleOnRemoveClick = () => {
+        setEmbedMedia('')
+        setIsUpdatedEmbedMedia(true)
+    }
     const onConfirmModalAction = (type) => {
         if (type === MODAL_ACTION_CONFIRM) {
             console.log('OK')
         }
 
         toggleShowLibrary()
+    }
+
+    const updateAnswers = (answers) => {
+        const newQuestion = { ...question }
+        newQuestion.answers = answers
+        updateQuestion(newQuestion)
     }
 
     const toggleShowLibrary = () => setIsShowLibrary(!isShowLibrary)
@@ -101,6 +105,7 @@ function Question({ question, setQuestion }) {
                         className="textarea-enter"
                         value={content}
                         onChange={handleTextChange}
+                        onBlur={handleQuestionContentBlur}
                     />
                 </div>
                 <div className="lenght-limit">{questionLength}</div>
@@ -114,17 +119,17 @@ function Question({ question, setQuestion }) {
                     <Button variant="warning" onClick={toggleShowLibrary}>Change</Button>{' '}
                 </div>
                 <div className="question-embed-remove">
-                    <Button variant="danger" onClick={() => setEmbedMedia('')}>Remove</Button>{' '}
+                    <Button variant="danger" onClick={handleOnRemoveClick}>Remove</Button>{' '}
                 </div>
             </div>
             <div className="question-answers">
                 {answers.map((a, index) =>
                     <Answer
-                        key={a.id}
+                        key={index}
                         name={a.name}
                         index={index}
-                        answerContents={answerContents}
-                        setAnswerContents={setAnswerContents}
+                        answers={answers}
+                        updateAnswers={updateAnswers}
                         onClick={handleOnAnswerClick}
                     />)
                 }

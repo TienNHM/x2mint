@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { initialTest } from 'actions/initialData'
+import { initialTest } from 'actions/initialTest'
 import { mapOrder } from 'utils/sorts'
 import PanelLeft from 'components/multi-choices/panelLeft/PanelLeft'
 import PanelPresentation from 'components/multi-choices/panelPresentation/PanelPresentation'
@@ -13,7 +13,7 @@ function Container() {
         creator_id: '',
         status: '',
         questions: [],
-        questionsOrder: []
+        questions_order: []
     }
     const emptyQuestion = {
         id: 'question-1',
@@ -47,6 +47,7 @@ function Container() {
     const [test, setTest] = useState(emptyTest)
     const [questions, setQuestions] = useState([])
     const [selectedQuestion, setSelectedQuestion] = useState(emptyQuestion)
+    const [isLoadedSelectedQuestion, setIsLoadedSelectedQuestion] = useState(false)
 
     // Load data
     useEffect(() => {
@@ -54,10 +55,11 @@ function Container() {
         if (initialTest) {
             setTest(initialTest)
 
-            // thứ tự tuân theo thuộc tính questionsOrder
-            const q = mapOrder(questionsFromDB, initialTest.questionsOrder, 'id')
+            // thứ tự tuân theo thuộc tính questions_order
+            const q = mapOrder(questionsFromDB, initialTest.questions_order, 'id')
             setQuestions(q)
             setSelectedQuestion(q[0])
+            setIsLoadedSelectedQuestion(true)
         }
 
     }, [])
@@ -67,17 +69,26 @@ function Container() {
     }, [test])
 
     useEffect(() => {
-        console.log('Questions: ', questions)
+        const newTest = { ...test }
+        newTest.questions = questions
+        setTest(newTest)
     }, [questions])
 
     useEffect(() => {
-        console.log('Selected Question: ', selectedQuestion)
-        // let newQuestions = [...questions]
-        // const index = newQuestions.findIndex(question => question.id === selectedQuestion.id)
-        // newQuestions[index] = selectedQuestion
-        // setQuestions(newQuestions)
-        // console.log('Questions: ', newQuestions)
+        if (isLoadedSelectedQuestion) {
+            console.log('Selected Question: ', selectedQuestion)
+            let newQuestions = [...questions]
+            const index = newQuestions.findIndex(question => question.id === selectedQuestion.id)
+            newQuestions[index] = selectedQuestion
+            setQuestions(newQuestions)
+            console.log('Questions: ', newQuestions)
+        }
     }, [selectedQuestion])
+
+    const updateSelectedQuestion = (question) => {
+        setSelectedQuestion({ ...question })
+        console.log('Update Selected Question: ', question)
+    }
 
     return (
         <div className="app-container">
@@ -91,9 +102,9 @@ function Container() {
             />
             <PanelPresentation
                 selectedQuestion={selectedQuestion}
-                setSelectedQuestion={setSelectedQuestion}
+                updateSelectedQuestion={updateSelectedQuestion}
             />
-            {/* <PanelRight /> */}
+            <PanelRight />
         </div>
     )
 }

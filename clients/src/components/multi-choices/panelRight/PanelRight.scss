@@ -7,8 +7,17 @@ $question-attribute-setting-height: 80px;
     padding: 10px;
     background-color: $bg-color;
 
+    .panel-right-title {
+        background-color: goldenrod;
+        font-weight: bold;
+        font-size: 16px;
+        text-transform: uppercase;
+        color: white;
+        padding: $gap/2;
+    }
+
     .attributes {
-        height: 85vh;
+        height: 80vh;
 
         >* {
             background-color: #f5cd79;
@@ -18,6 +27,21 @@ $question-attribute-setting-height: 80px;
             font-size: 16px;
             padding: $gap;
             border-radius: $gap;
+        }
+
+        .test-title {
+            .title {
+                .test-title-input {
+                    width: 100%;
+                    background-color: rgba(255, 255, 255, 0.877);
+                }
+            }
+        }
+
+        .start-time-picker {
+            .start-time {
+                display: flex;
+            }
         }
 
         .question-type {
@@ -77,11 +101,11 @@ $question-attribute-setting-height: 80px;
             border: none;
         }
 
-        .delete-question {
+        .exit {
             background-color: red;
         }
 
-        .duplicate-question {
+        .save {
             background-color: goldenrod;
         }
     }

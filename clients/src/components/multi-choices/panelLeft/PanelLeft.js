@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Draggable } from 'react-smooth-dnd'
-import { isEmpty } from 'lodash'
+import { cloneDeep, isEmpty } from 'lodash'
 
 import QuestionItemPreview from 'components/multi-choices/questionItemPreview/QuestionItemPreview'
 import { applyDrag } from 'utils/dragDrop'
@@ -14,17 +14,14 @@ function PanelLeft(props) {
      */
     const onQuestionDrop = (dropResult) => {
         // Tạo bản sao
-        let newQuestions = [...questions]
+        let newQuestions = cloneDeep(questions)
         // Sắp xếp thứ tự các questions lại theo dropResult
         newQuestions = applyDrag(newQuestions, dropResult)
 
         // Tạo bản sao
-        let newTest = { ...test }
-        // Sắp xếp lại questionsOrder theo thứ tự của newQuestions
-        newTest.questionsOrder = newQuestions.map(q => q.id)
-        // Gán lại các questions theo thứ tự mới
+        const newTest = cloneDeep(test)
+        newTest.questions_order = newQuestions.map(q => q.id),
         newTest.questions = newQuestions
-
         setQuestions(newQuestions)
         setTest(newTest)
     }

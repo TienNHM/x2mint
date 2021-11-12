@@ -1,4 +1,5 @@
 import React from 'react'
+import { Form } from 'react-bootstrap'
 import Select from 'components/common/select/Select'
 import './PanelRight.scss'
 
@@ -125,8 +126,61 @@ function PanelRight() {
 
     return (
         <div className="panel-right">
+            <div className="panel-right-title">Cài đặt</div>
             <div className="attributes">
-                <div className="question-type">
+                <div className="test-title">
+                    <div>Tên bài test</div>
+                    <div className="title">
+                        <Form.Control
+                            size="sm"
+                            type="text"
+                            placeholder="Tên bài test..."
+                            className="test-title-input"
+                            // value={content}
+                            // onChange={handleTextChange}
+                            // onBlur={handleQuestionContentBlur}
+                        />
+                    </div>
+                </div>
+                <div className="start-time-picker">
+                    <div>Thời gian bắt đầu</div>
+                    <div className="start-time">
+                        <Form.Control
+                            size="sm"
+                            type="date"
+                            // value={content}
+                            // onChange={handleTextChange}
+                            // onBlur={handleQuestionContentBlur}
+                        />
+                        <Form.Control
+                            size="sm"
+                            type="time"
+                            // value={content}
+                            // onChange={handleTextChange}
+                            // onBlur={handleQuestionContentBlur}
+                        />
+                    </div>
+                </div>
+                <div className="start-time-picker">
+                    <div>Thời gian kết thúc</div>
+                    <div className="start-time">
+                        <Form.Control
+                            size="sm"
+                            type="date"
+                            // value={content}
+                            // onChange={handleTextChange}
+                            // onBlur={handleQuestionContentBlur}
+                        />
+                        <Form.Control
+                            size="sm"
+                            type="time"
+                            // value={content}
+                            // onChange={handleTextChange}
+                            // onBlur={handleQuestionContentBlur}
+                        />
+                    </div>
+                </div>
+                {/* <div className="question-type">
                     <div>Question type:</div>
                     <Select data={questionTypes} />
                 </div>
@@ -145,11 +199,11 @@ function PanelRight() {
                 <div className="question-answer-option">
                     <div>Answer Option:</div>
                     <Select data={answerOptions} />
-                </div>
+                </div> */}
             </div>
             <div className="quick-actions">
-                <button className="duplicate-question">Duplicate</button>
-                <button className="delete-question">Delete</button>
+                <button className="save">Save</button>
+                <button className="exit">Exit</button>
             </div>
         </div>
     )
