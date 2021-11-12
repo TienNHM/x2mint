@@ -22,8 +22,10 @@ function Question({ question, updateQuestion }) {
     }, [question])
 
     useEffect(() => {
-        console.log('Choose: ', chooseAnswer)
-
+        const newQuestion = {...question}
+        newQuestion.correct_answer = chooseAnswer
+        updateQuestion(newQuestion)
+        console.log(newQuestion)
     }, [chooseAnswer])
 
     useEffect(() => {
@@ -77,6 +79,7 @@ function Question({ question, updateQuestion }) {
         setEmbedMedia('')
         setIsUpdatedEmbedMedia(true)
     }
+
     const onConfirmModalAction = (type, photo) => {
         if (photo && type === MODAL_ACTION_CONFIRM) {
             setEmbedMedia(photo.src.large)
