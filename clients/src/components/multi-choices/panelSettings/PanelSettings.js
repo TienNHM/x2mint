@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import { Form, Button } from 'react-bootstrap'
+import Countdown from 'react-countdown'
 import Select from 'components/common/select/Select'
 import './PanelSettings.scss'
 
@@ -157,6 +158,30 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
         }
     }
 
+    const timeRemainRef = useRef('12:00')
+
+    const Completionist = () => <h6 className="time-countdown">Hết giờ</h6>
+
+    const renderer = ({ hours, minutes, seconds, completed }) => {
+        const m = ('' + minutes).length < 2 ? ('0' + minutes) : ('' + minutes)
+        const s = ('' + seconds).length < 2 ? ('0' + seconds) : ('' + seconds)
+        if (completed) {
+            // Render a completed state
+            handleOnSubmitClick()
+            return <Completionist />
+        } else {
+            // Render a countdown
+            return <span className="time-countdown">
+                {hours} : {m} : {s}
+            </span>
+        }
+    }
+
+    const handleOnSubmitClick = () => {
+        console.log('SUBMITTED: ', test)
+        // alert('SUBMITTED')
+    }
+
     return (
         <div className="panel-right">
             {isCreator &&
@@ -241,7 +266,7 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
                         <div className="btn-question">
                             {test.questions.map((q, index) =>
                                 <Button key={index} variant="light"
-                                    onClick={() => setSelectedQuestion({...test.questions[index]})}
+                                    onClick={() => setSelectedQuestion({ ...q })}
                                 >
                                     {index + 1}
                                 </Button>
@@ -250,9 +275,14 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
                     </div>
                     <div className="time-remain">
                         <div className="section-title">Thời gian còn lại</div>
+                        <div className="time-remain-show">
+                            <Countdown date={Date.now() + 5000} renderer={renderer}>
+                                <Completionist />
+                            </Countdown>
+                        </div>
                     </div>
                     <div className="submit-test">
-                        <Button variant="primary">Nộp bài</Button>{' '}
+                        <Button variant="primary" onClick={handleOnSubmitClick}>Nộp bài</Button>{' '}
                     </div>
                 </>
             }

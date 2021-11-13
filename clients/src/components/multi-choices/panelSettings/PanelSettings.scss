@@ -141,6 +141,28 @@ $question-attribute-setting-height: 80px;
     .time-remain {
         background-color: burlywood;
         margin: $gap 0;
+
+        .time-remain-show {
+            height: 50px;
+
+            .time-countdown {
+                background-color: transparent !important;
+                border-color: transparent !important;
+                outline: none !important;
+                font-size: 30px;
+            }
+
+            .timeout {
+                font-size: 20px;
+            }
+
+            > * {
+                color: red;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: $gap;
+            }
+        }
     }
 
     .section-title {

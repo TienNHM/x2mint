@@ -6,13 +6,11 @@ $btn-check-size: 2rem;
 
 .question-answers {
     width: 100%;
-    height: 24vh;
     display: grid;
     grid-template-columns: $answer-button-width $answer-button-width;
     grid-row: auto auto;
 
     .answer {
-        width: 98%;
         height: 90%;
         display: flex;
         flex-direction: row;

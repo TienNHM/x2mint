@@ -134,16 +134,21 @@ function Container() {
         console.log('Update Selected Question: ', question)
     }
 
+    const isCreator = false
+
     return (
         <div className="app-container">
-            <PanelPreview
-                test={test}
-                setTest={setTest}
-                questions={questions}
-                setQuestions={setQuestions}
-                selectedQuestion={selectedQuestion}
-                setSelectedQuestion={setSelectedQuestion}
-            />
+            {isCreator &&
+                <PanelPreview
+                    test={test}
+                    setTest={setTest}
+                    questions={questions}
+                    setQuestions={setQuestions}
+                    selectedQuestion={selectedQuestion}
+                    setSelectedQuestion={setSelectedQuestion}
+                />
+            }
+
             <PanelPresentation
                 selectedQuestion={selectedQuestion}
                 updateSelectedQuestion={updateSelectedQuestion}
@@ -151,7 +156,7 @@ function Container() {
             <PanelSettings
                 test={test}
                 setTest={setTest}
-                isCreator={false}
+                isCreator={isCreator}
                 selectedQuestion={selectedQuestion}
                 setSelectedQuestion={setSelectedQuestion}
             />

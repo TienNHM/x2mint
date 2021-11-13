@@ -5,14 +5,11 @@ $question-content-background: white;
 $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
 .question {
-    width: 99%;
     height: 12vh;
     background-color: $question-content-background;
     box-shadow: $box-shadow;
     z-index: 1;
-    margin-left: $gap * 2;
-    margin-right: $gap * 2;
-    margin-top: $gap;
+    margin: $gap $gap * 2 0 $gap*2;
     border-radius: $gap;
     line-height: 1.2rem;
     display: flex;
