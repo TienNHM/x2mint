@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap'
 import { MAX_ANSWER_LENGTH } from 'utils/constants'
 import './Answer.scss'
 
-function Answer({ name, index, answers, updateAnswers, onClick }) {
+function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
     const css = 'answer answer-' + name
     const [rows, setRows] = useState(1)
     const [content, setContent] = useState('')
@@ -43,6 +43,7 @@ function Answer({ name, index, answers, updateAnswers, onClick }) {
                     value={content}
                     onChange={handleTextChange}
                     onBlur={handleTextBlur}
+                    disabled={disabled}
                 />
             </div>
             <div className="answer-checkbox">

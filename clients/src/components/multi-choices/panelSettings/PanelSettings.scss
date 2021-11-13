@@ -88,6 +88,13 @@ $question-attribute-setting-height: 80px;
         }
     }
 
+    .section-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        margin: $gap 0;
+    }
+
     .quick-actions {
         height: $quick-action-height;
         display: flex;
@@ -112,10 +119,11 @@ $question-attribute-setting-height: 80px;
 
     .question-picker {
         background-color: lightblue;
+        height: 68vh;
 
         .btn-question {
             overflow-y: auto;
-            max-height: 70vh;
+            height: 90%;
             overflow-x: hidden;
 
             &::-webkit-scrollbar {
@@ -138,46 +146,42 @@ $question-attribute-setting-height: 80px;
         }
     }
 
-    .time-remain {
-        background-color: burlywood;
-        margin: $gap 0;
+    .examinee-actions {
 
-        .time-remain-show {
-            height: 50px;
+        .time-remain {
+            background-color: burlywood;
+            margin: $gap 0;
 
-            .time-countdown {
-                background-color: transparent !important;
-                border-color: transparent !important;
-                outline: none !important;
-                font-size: 30px;
-            }
+            .time-remain-show {
+                height: 50px;
 
-            .timeout {
-                font-size: 20px;
-            }
+                .time-countdown {
+                    background-color: transparent !important;
+                    border-color: transparent !important;
+                    outline: none !important;
+                    font-size: 30px;
+                }
 
-            > * {
-                color: red;
-                font-weight: bold;
-                text-align: center;
-                margin-bottom: $gap;
+                .timeout {
+                    font-size: 20px;
+                }
+
+                >* {
+                    color: red;
+                    font-weight: bold;
+                    text-align: center;
+                    margin-bottom: $gap;
+                }
             }
         }
-    }
 
-    .section-title {
-        text-align: center;
-        font-weight: bold;
-        font-size: 16px;
-        margin: $gap 0;
-    }
-
-    .submit-test {
-        button {
-            width: 90%;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin: $gap 0;
+        .submit-test {
+            button {
+                width: 90%;
+                text-transform: uppercase;
+                font-weight: bold;
+                margin: $gap 0;
+            }
         }
     }
 }

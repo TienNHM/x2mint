@@ -5,7 +5,7 @@ import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import { MAX_QUESTION_LENGTH, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './Question.scss'
 
-function Question({ question, updateQuestion }) {
+function Question({ question, updateQuestion, isCreator }) {
     const answers = question.answers
     const [embededMedia, setEmbedMedia] = useState('')
     const [isUpdatedEmbedMedia, setIsUpdatedEmbedMedia] = useState(false)
@@ -22,9 +22,9 @@ function Question({ question, updateQuestion }) {
     }, [question])
 
     useEffect(() => {
-        const newQuestion = {...question}
+        const newQuestion = { ...question }
         newQuestion.correct_answer = chooseAnswer
-        updateQuestion(newQuestion)
+        updateQuestion(newQuestion, isCreator)
         console.log(newQuestion)
     }, [chooseAnswer])
 
@@ -33,7 +33,7 @@ function Question({ question, updateQuestion }) {
             console.log(embededMedia)
             const q = { ...question }
             q.embeded_media = embededMedia
-            updateQuestion(q)
+            updateQuestion(q, isCreator)
             setIsUpdatedEmbedMedia(false)
         }
     }, [embededMedia])
@@ -56,7 +56,7 @@ function Question({ question, updateQuestion }) {
     const handleQuestionContentBlur = (event) => {
         const newQuestion = { ...question }
         newQuestion.content = event.target.value
-        updateQuestion(newQuestion)
+        updateQuestion(newQuestion, isCreator)
     }
 
     const handleOnAnswerClick = (event) => {
@@ -91,7 +91,7 @@ function Question({ question, updateQuestion }) {
     const updateAnswers = (answers) => {
         const newQuestion = { ...question }
         newQuestion.answers = answers
-        updateQuestion(newQuestion)
+        updateQuestion(newQuestion, isCreator)
     }
 
     const toggleShowLibrary = () => setIsShowLibrary(!isShowLibrary)
@@ -109,22 +109,34 @@ function Question({ question, updateQuestion }) {
                         value={content}
                         onChange={handleTextChange}
                         onBlur={handleQuestionContentBlur}
+                        disabled={!isCreator}
                     />
                 </div>
                 <div className="lenght-limit">{questionLength}</div>
             </div>
-            <div className="question-embed">
-                {embededMedia.length > 0 && <img src={embededMedia}></img>}
-                {embededMedia.length <= 0 && <img src="https://memegenerator.net/img/instances/74856541/it-appears-that-there-is-nothing-here.jpg" alt="Nothing"></img>}
-            </div>
-            <div className="question-embed-edit">
-                <div className="question-embed-change">
-                    <Button variant="warning" onClick={toggleShowLibrary}>Change</Button>{' '}
+
+            <div className="embeded">
+                {isCreator &&
+                    <div className="question-embed-edit">
+                        <div className="question-embed-change">
+                            <Button variant="warning" onClick={toggleShowLibrary}>Change</Button>{' '}
+                        </div>
+                    </div>
+                }
+                <div className="question-embed">
+                    {embededMedia.length > 0 && <img src={embededMedia}></img>}
+                    {embededMedia.length <= 0 && <img src="https://memegenerator.net/img/instances/74856541/it-appears-that-there-is-nothing-here.jpg" alt="Nothing"></img>}
                 </div>
-                <div className="question-embed-remove">
-                    <Button variant="danger" onClick={handleOnRemoveClick}>Remove</Button>{' '}
-                </div>
+
+                {isCreator &&
+                    <div className="question-embed-edit">
+                        <div className="question-embed-remove">
+                            <Button variant="danger" onClick={handleOnRemoveClick}>Remove</Button>{' '}
+                        </div>
+                    </div>
+                }
             </div>
+
             <div className="question-answers">
                 {answers.map((a, index) =>
                     <Answer
@@ -134,6 +146,7 @@ function Question({ question, updateQuestion }) {
                         answers={answers}
                         updateAnswers={updateAnswers}
                         onClick={handleOnAnswerClick}
+                        disabled={!isCreator}
                     />)
                 }
             </div>

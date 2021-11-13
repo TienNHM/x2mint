@@ -33,7 +33,8 @@ export const initialTest = {
                     content: 'Shaker Sort'
                 }
             ],
-            correct_answer: ['1']
+            correct_answers: ['1'],
+            choose_answers: ['2', '3']
         },
         {
             id: 'question-2',
@@ -62,7 +63,8 @@ export const initialTest = {
                     content: 'H20'
                 }
             ],
-            correct_answer: ['4']
+            correct_answers: ['4'],
+            choose_answers: ['3']
         },
         {
             id: 'question-3',
@@ -91,7 +93,8 @@ export const initialTest = {
                     content: '5 chia hết cho 2'
                 }
             ],
-            correct_answer: ['1']
+            correct_answers: ['1'],
+            choose_answers: ['4', '1']
         },
         {
             id: 'question-4',
@@ -120,7 +123,8 @@ export const initialTest = {
                     content: 'Số nguyên tố là số tự nhiên chỉ có 2 ước số.'
                 }
             ],
-            correct_answer: ['4']
+            correct_answers: ['4'],
+            choose_answers: ['1']
         },
         {
             id: 'question-5',
@@ -149,7 +153,8 @@ export const initialTest = {
                     content: 'H2O'
                 }
             ],
-            correct_answer: ['2']
+            correct_answers: ['2'],
+            choose_answers: ['1']
         },
         {
             id: 'question-6',
@@ -178,7 +183,8 @@ export const initialTest = {
                     content: 'Vô số màu'
                 }
             ],
-            correct_answer: ['4']
+            correct_answers: ['4'],
+            choose_answers: ['1']
         }
     ],
     questions_order: ['question-1', 'question-2', 'question-3', 'question-4', 'question-5', 'question-6', 'question-7']

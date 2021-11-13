@@ -177,8 +177,9 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
         }
     }
 
-    const handleOnSubmitClick = () => {
+    const handleOnSubmitClick = (event) => {
         console.log('SUBMITTED: ', test)
+        // event.target.disabled = true
         // alert('SUBMITTED')
     }
 
@@ -265,24 +266,26 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
                         <div className="section-title">Danh sách câu hỏi</div>
                         <div className="btn-question">
                             {test.questions.map((q, index) =>
-                                <Button key={index} variant="light"
-                                    onClick={() => setSelectedQuestion({ ...q })}
+                                <Button key={index} variant={q.choose_answers.legth > 0 ? 'primary' : 'light'}
+                                    onClick={() => setSelectedQuestion({ ...q }, isCreator)}
                                 >
                                     {index + 1}
                                 </Button>
                             )}
                         </div>
                     </div>
-                    <div className="time-remain">
-                        <div className="section-title">Thời gian còn lại</div>
-                        <div className="time-remain-show">
-                            <Countdown date={Date.now() + 5000} renderer={renderer}>
-                                <Completionist />
-                            </Countdown>
+                    <div className="examinee-actions">
+                        <div className="time-remain">
+                            <div className="section-title">Thời gian còn lại</div>
+                            <div className="time-remain-show">
+                                <Countdown date={Date.now() + 5000} renderer={renderer}>
+                                    <Completionist />
+                                </Countdown>
+                            </div>
                         </div>
-                    </div>
-                    <div className="submit-test">
-                        <Button variant="primary" onClick={handleOnSubmitClick}>Nộp bài</Button>{' '}
+                        <div className="submit-test">
+                            <Button variant="primary" onClick={handleOnSubmitClick}>Nộp bài</Button>{' '}
+                        </div>
                     </div>
                 </>
             }

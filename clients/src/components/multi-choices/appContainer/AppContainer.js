@@ -124,12 +124,10 @@ function Container() {
             const index = newQuestions.findIndex(question => question.id === selectedQuestion.id)
             newQuestions[index] = selectedQuestion
             setQuestions(newQuestions)
-            console.log('Questions: ', newQuestions)
         }
-        console.log('=================', selectedQuestion)
     }, [selectedQuestion])
 
-    const updateSelectedQuestion = (question) => {
+    const updateSelectedQuestion = (question, isCreator) => {
         setSelectedQuestion({ ...question })
         console.log('Update Selected Question: ', question)
     }
@@ -152,13 +150,15 @@ function Container() {
             <PanelPresentation
                 selectedQuestion={selectedQuestion}
                 updateSelectedQuestion={updateSelectedQuestion}
+                isCreator={isCreator}
             />
+
             <PanelSettings
                 test={test}
                 setTest={setTest}
                 isCreator={isCreator}
                 selectedQuestion={selectedQuestion}
-                setSelectedQuestion={setSelectedQuestion}
+                setSelectedQuestion={updateSelectedQuestion}
             />
         </div>
     )
