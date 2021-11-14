@@ -16,7 +16,7 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
     }, [answers])
 
     const handleTextChange = (event) => {
-        const value = event.target.value
+        const value = event.target.value.replace(/\n/g, ' ')
         if (value.length <= MAX_ANSWER_LENGTH) {
             setContent(value)
             setAnswerLength(MAX_ANSWER_LENGTH - value.length)

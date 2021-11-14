@@ -48,7 +48,7 @@ function Question({ question, updateQuestion, isCreator }) {
     }, [isShowLibrary])
 
     const handleTextChange = (event) => {
-        const value = event.target.value
+        const value = event.target.value.replace(/\n/g, ' ')
         if (value.length <= MAX_QUESTION_LENGTH) {
             setContent(value)
             setQuestionLength(MAX_QUESTION_LENGTH - value.length)

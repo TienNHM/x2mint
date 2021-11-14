@@ -81,11 +81,11 @@ function PanelPreview(props) {
             const index = newQuestions.indexOf(selectedQuestion)
             newQuestions.splice(index, 1)
             if (newQuestions.length <= 0) {
-                newQuestions.push(blankQuestion)
+                newQuestions.push({...blankQuestion, id: 'question-1'})
             }
 
             setQuestions(newQuestions)
-            setSelectedQuestion(newQuestions[0])
+            setSelectedQuestion(newQuestions[index > 0 ? index - 1 : 0])
         }
         setIsShow(false)
     }
