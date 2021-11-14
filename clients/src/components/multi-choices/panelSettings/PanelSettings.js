@@ -274,8 +274,8 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
                         }
                     </div>
                     <div className="quick-actions">
-                        <button className="save" onClick={handleSaveClick}>Save</button>
-                        <button className="exit">Exit</button>
+                        <Button variant="warning" onClick={handleSaveClick}>Lưu</Button>{' '}
+                        <Button variant="danger">Thoát</Button>{' '}
                     </div>
                 </>
             }
@@ -313,16 +313,16 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
                             </Button>{' '}
                         </div>
                     </div>
+                    <div className="confirm-submit">
+                        <ConfirmModal
+                            title="Xác nhận"
+                            content="Bạn có muốn xác nhận việc nộp bài?<br /><strong>Lưu ý, sau khi xác nhận, bạn không thể chỉnh sửa câu trả lời.</strong>"
+                            isShow={isShow}
+                            onAction={handleConfirmSubmit}
+                        />
+                    </div>
                 </>
             }
-            <div className="confirm-submit">
-                <ConfirmModal
-                    title="Xác nhận"
-                    content="Bạn có muốn xác nhận việc nộp bài?<br /><strong>Lưu ý, sau khi xác nhận, bạn không thể chỉnh sửa câu trả lời.</strong>"
-                    isShow={isShow}
-                    onAction={handleConfirmSubmit}
-                />
-            </div>
         </div>
     )
 }

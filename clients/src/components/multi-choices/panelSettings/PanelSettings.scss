@@ -99,21 +99,11 @@ $question-attribute-setting-height: 80px;
         height: $quick-action-height;
         display: flex;
 
-        >* {
+        > * {
             width: 50%;
-            text-transform: uppercase;
-            cursor: pointer;
-            color: white;
+            margin: 0 3px;
             font-weight: bold;
-            border: none;
-        }
-
-        .exit {
-            background-color: red;
-        }
-
-        .save {
-            background-color: goldenrod;
+            color: white;
         }
     }
 

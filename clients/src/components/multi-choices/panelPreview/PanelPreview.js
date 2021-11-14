@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Draggable } from 'react-smooth-dnd'
 import { cloneDeep, isEmpty } from 'lodash'
-
+import { Button } from 'react-bootstrap'
 import QuestionItemPreview from 'components/multi-choices/questionItemPreview/QuestionItemPreview'
 import { applyDrag } from 'utils/dragDrop'
+import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
+import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import './PanelPreview.scss'
 
 function PanelPreview(props) {
@@ -20,7 +22,7 @@ function PanelPreview(props) {
 
         // Tạo bản sao
         const newTest = cloneDeep(test)
-        newTest.questions_order = newQuestions.map(q => q.id),
+        newTest.questions_order = newQuestions.map(q => q.id)
         newTest.questions = newQuestions
         setQuestions(newQuestions)
         setTest(newTest)
@@ -28,7 +30,7 @@ function PanelPreview(props) {
 
     const handleOnAddQuestion = () => {
         const newQuestion = {
-            id: 'question-' + (questions.length+1),
+            id: 'question-' + (questions.length + 1),
             type: 'MULTICHOICE',
             content: '',
             embeded_media: '',
@@ -61,11 +63,28 @@ function PanelPreview(props) {
         questionsList.push(newQuestion)
         setQuestions(questionsList)
 
-        const newTest = {...test}
+        const newTest = { ...test }
         newTest.questions = questionsList
         setTest(newTest)
 
         setSelectedQuestion(newQuestion)
+    }
+
+    const [isShow, setIsShow] = useState(false)
+
+    const handleOnDeleteQuestion = () => {
+        setIsShow(true)
+    }
+
+    const onAction = (action) => {
+        if (action === MODAL_ACTION_CONFIRM) {
+            const newQuestions = [...questions]
+            const index = newQuestions.indexOf(selectedQuestion)
+            newQuestions.splice(index, 1)
+            setQuestions(newQuestions)
+            setSelectedQuestion(newQuestions[0])
+        }
+        setIsShow(false)
     }
 
     return (
@@ -102,10 +121,18 @@ function PanelPreview(props) {
                 {isEmpty(test) && <div className="not-found align-items-center">Please add more questions!</div>}
             </div>
             <div className="question-actions">
-                <button className="add-question" onClick={handleOnAddQuestion}>
-                    Add question
-                </button>
+                <Button
+                    variant="primary"
+                    onClick={handleOnAddQuestion}
+                >
+                    Thêm
+                </Button>{' '}
+                <Button variant="danger" onClick={handleOnDeleteQuestion}>Xóa</Button>{' '}
             </div>
+            <ConfirmModal
+                content='Bạn có thực sự muốn xóa câu hỏi này không?'
+                isShow={isShow}
+                onAction={onAction} />
         </div>
     )
 }

@@ -232,6 +232,36 @@ function Container() {
                 ],
                 correct_answers: ['4'],
                 choose_answers: ['1']
+            },
+            {
+                id: 'question-7',
+                type: 'MULTICHOICE',
+                content: 'Nội dung câu hỏi',
+                embeded_media: 'https://www.vha.ca/wp-content/uploads/2019/12/placeholder-png-2.png',
+                answers: [
+                    {
+                        id: '1',
+                        name: 'A',
+                        content: 'Câu trả lời A'
+                    },
+                    {
+                        id: '2',
+                        name: 'B',
+                        content: 'Câu trả lời B'
+                    },
+                    {
+                        id: '3',
+                        name: 'C',
+                        content: 'Câu trả lời C'
+                    },
+                    {
+                        id: '4',
+                        name: 'D',
+                        content: 'Câu trả lời D'
+                    }
+                ],
+                correct_answers: ['4'],
+                choose_answers: ['1']
             }
         ],
         questions_order: ['question-1', 'question-2', 'question-3', 'question-4', 'question-5', 'question-6', 'question-7']
@@ -325,7 +355,7 @@ function Container() {
         console.log('Update Selected Question: ', question)
     }
 
-    const isCreator = false
+    const isCreator = true
 
     return (
         <div className="app-container">

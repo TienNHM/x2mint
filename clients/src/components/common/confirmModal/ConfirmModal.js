@@ -11,7 +11,7 @@ function ConfirmModal({ title, content, isShow, onAction }) {
             backdrop='static'
             keyboard={false}>
             <Modal.Header closeButton>
-                <Modal.Title className="h5">{HTMLReactParser(title)}</Modal.Title>
+                <Modal.Title className="h5">{HTMLReactParser(title || 'Xác nhận')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>{HTMLReactParser(content)}</Modal.Body>
             <Modal.Footer>
