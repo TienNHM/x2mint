@@ -20,7 +20,6 @@
     "rules": {
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
-        "no-console": 1,
         "no-unused-vars": 1,
         "no-trailing-spaces": 1,
         "no-multi-spaces": 1,

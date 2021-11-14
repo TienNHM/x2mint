@@ -2,13 +2,13 @@
 
 $gap: 10px;
 $quick-action-height: 5vh;
-$panel-left-width: 12vw;
+$panel-left-width: 16vw;
 $panel-center-width: 86vw;
 $box-shadow: rgba(0, 0, 0, 0.25) 0px -4px inset;
 $bg-color: #ebecf0;
 $app-bg-color: rgba(215, 233, 248, 0.575);
 
-@mixin remove-bootstrap-outline {
+.remove-bootstrap-outline {
 
   textarea:focus,
   textarea.form-control:focus,

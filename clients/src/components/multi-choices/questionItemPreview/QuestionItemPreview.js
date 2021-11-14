@@ -1,8 +1,7 @@
 import React from 'react'
 import './QuestionItemPreview.scss'
 
-function QuestionItemPreview(props) {
-    const { question, index, isSelected, setSelectedQuestion } = props
+function QuestionItemPreview({ question, index, isSelected, setSelectedQuestion }) {
     const short_content = question.content.split(' ').slice(0, 5).join(' ') + '...'
     const handleQuestionPreviewClick = () => {
         setSelectedQuestion(question)

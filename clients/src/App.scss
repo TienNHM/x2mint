@@ -22,7 +22,6 @@ button {
   .bootstrap-container {
     margin: 0;
     padding: 0;
-    @include remove-bootstrap-outline();
   }
 
   .textarea-enter {
