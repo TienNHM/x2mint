@@ -10,6 +10,35 @@ import './PanelPreview.scss'
 
 function PanelPreview(props) {
     const { test, setTest, questions, setQuestions, selectedQuestion, setSelectedQuestion } = props
+    const blankQuestion = {
+        id: 'question-' + (questions.length + 1),
+        type: 'MULTICHOICE',
+        content: '',
+        embeded_media: '',
+        answers: [
+            {
+                id: '1',
+                name: 'A',
+                content: ''
+            },
+            {
+                id: '2',
+                name: 'B',
+                content: ''
+            },
+            {
+                id: '3',
+                name: 'C',
+                content: ''
+            },
+            {
+                id: '4',
+                name: 'D',
+                content: ''
+            }
+        ],
+        correct_answer: '1'
+    }
     /**
      * Xử lý sự kiện kéo thả
      * @param {*} dropResult kết quả kéo thả
@@ -29,45 +58,15 @@ function PanelPreview(props) {
     }
 
     const handleOnAddQuestion = () => {
-        const newQuestion = {
-            id: 'question-' + (questions.length + 1),
-            type: 'MULTICHOICE',
-            content: '',
-            embeded_media: '',
-            answers: [
-                {
-                    id: '1',
-                    name: 'A',
-                    content: ''
-                },
-                {
-                    id: '2',
-                    name: 'B',
-                    content: ''
-                },
-                {
-                    id: '3',
-                    name: 'C',
-                    content: ''
-                },
-                {
-                    id: '4',
-                    name: 'D',
-                    content: ''
-                }
-            ],
-            correct_answer: '1'
-        }
-
         const questionsList = [...questions]
-        questionsList.push(newQuestion)
+        questionsList.push(blankQuestion)
         setQuestions(questionsList)
 
         const newTest = { ...test }
         newTest.questions = questionsList
         setTest(newTest)
 
-        setSelectedQuestion(newQuestion)
+        setSelectedQuestion(blankQuestion)
     }
 
     const [isShow, setIsShow] = useState(false)
@@ -81,6 +80,10 @@ function PanelPreview(props) {
             const newQuestions = [...questions]
             const index = newQuestions.indexOf(selectedQuestion)
             newQuestions.splice(index, 1)
+            if (newQuestions.length <= 0) {
+                newQuestions.push(blankQuestion)
+            }
+
             setQuestions(newQuestions)
             setSelectedQuestion(newQuestions[0])
         }
