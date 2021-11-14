@@ -1,6 +1,8 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import Countdown from 'react-countdown'
+import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
+import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import Select from 'components/common/select/Select'
 import './PanelSettings.scss'
 
@@ -158,7 +160,7 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
         }
     }
 
-    const timeRemainRef = useRef('12:00')
+    const timeRemainRef = useRef(null)
 
     const Completionist = () => <h6 className="time-countdown">Hết giờ</h6>
 
@@ -168,6 +170,7 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
         if (completed) {
             // Render a completed state
             handleOnSubmitClick()
+            console.log('Completed state: ', completed)
             return <Completionist />
         } else {
             // Render a countdown
@@ -177,10 +180,27 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
         }
     }
 
-    const handleOnSubmitClick = (event) => {
-        console.log('SUBMITTED: ', test)
-        // event.target.disabled = true
-        // alert('SUBMITTED')
+    const [isShow, setIsShow] = useState(false)
+
+    const handleOnSubmitClick = () => {
+        setIsShow(true)
+        console.log('############################', timeRemainRef)
+    }
+
+    const btnSubmitRef = useRef(null)
+
+    const handleConfirmSubmit = (action) => {
+        if (action === MODAL_ACTION_CONFIRM) {
+            btnSubmitRef.current.disabled = true
+            timeRemainRef.current.stop()
+            console.log('SUBMITTED: ', test)
+            setIsShow(false)
+            alert('SUBMITTED')
+        }
+        else if (action === MODAL_ACTION_CLOSE) {
+            timeRemainRef.current.start()
+            setIsShow(false)
+        }
     }
 
     return (
@@ -278,17 +298,31 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
                         <div className="time-remain">
                             <div className="section-title">Thời gian còn lại</div>
                             <div className="time-remain-show">
-                                <Countdown date={Date.now() + 5000} renderer={renderer}>
+                                <Countdown date={Date.parse(test.end_time)} renderer={renderer} ref={timeRemainRef}>
                                     <Completionist />
                                 </Countdown>
                             </div>
                         </div>
                         <div className="submit-test">
-                            <Button variant="primary" onClick={handleOnSubmitClick}>Nộp bài</Button>{' '}
+                            <Button
+                                variant="primary"
+                                onClick={handleOnSubmitClick}
+                                ref={btnSubmitRef}
+                            >
+                                Nộp bài
+                            </Button>{' '}
                         </div>
                     </div>
                 </>
             }
+            <div className="confirm-submit">
+                <ConfirmModal
+                    title="Xác nhận"
+                    content="Bạn có muốn xác nhận việc nộp bài?<br /><strong>Lưu ý, sau khi xác nhận, bạn không thể chỉnh sửa câu trả lời.</strong>"
+                    isShow={isShow}
+                    onAction={handleConfirmSubmit}
+                />
+            </div>
         </div>
     )
 }

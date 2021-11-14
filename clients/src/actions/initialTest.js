@@ -4,7 +4,7 @@ export const initialTest = {
     creator_id: 'user-1',
     status: 'DRAFT',
     start_time: '2021-11-13 08:00',
-    end_time: '2021-11-13 08:30',
+    end_time: '2021-11-13 23:18',
     questions: [
         {
             id: 'question-1',

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
+import Image from 'react-bootstrap/Image'
 import Answer from 'components/multi-choices/answer/Answer'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import { MAX_QUESTION_LENGTH, MODAL_ACTION_CONFIRM } from 'utils/constants'
@@ -22,6 +23,7 @@ function Question({ question, updateQuestion, isCreator }) {
     }, [question])
 
     useEffect(() => {
+        console.log('chooseAnswer: ', chooseAnswer)
         const newQuestion = { ...question }
         newQuestion.correct_answer = chooseAnswer
         updateQuestion(newQuestion, isCreator)
@@ -29,6 +31,7 @@ function Question({ question, updateQuestion, isCreator }) {
     }, [chooseAnswer])
 
     useEffect(() => {
+        console.log('isUpdatedEmbedMedia: ', isUpdatedEmbedMedia)
         if (isUpdatedEmbedMedia) {
             console.log(embededMedia)
             const q = { ...question }
@@ -124,8 +127,8 @@ function Question({ question, updateQuestion, isCreator }) {
                     </div>
                 }
                 <div className="question-embed">
-                    {embededMedia.length > 0 && <img src={embededMedia}></img>}
-                    {embededMedia.length <= 0 && <img src="https://memegenerator.net/img/instances/74856541/it-appears-that-there-is-nothing-here.jpg" alt="Nothing"></img>}
+                    {embededMedia.length > 0 && <Image src={embededMedia} fluid />}
+                    {embededMedia.length <= 0 && <Image src="https://memegenerator.net/img/instances/74856541/it-appears-that-there-is-nothing-here.jpg" alt="Nothing" fluid />}
                 </div>
 
                 {isCreator &&
