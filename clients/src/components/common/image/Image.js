@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Image.scss'
 
-function Image({ photo, updateSelectedPhoto }) {
-    const handleOnClick = () => {
-        updateSelectedPhoto({ ...photo })
-    }
-
+function Image({ photo, index, selectedIndex, updateSelectedPhoto }) {
     return (
-        <img className="img-result" src={photo.src.tiny} alt="Ảnh minh họa" onClick={handleOnClick}>
+        <img className={index === selectedIndex ? 'img-result selected' : 'img-result'}
+            src={photo.src.tiny}
+            alt="Ảnh minh họa"
+            onClick={()=>updateSelectedPhoto({...photo}, index)}>
         </img>
     )
 }

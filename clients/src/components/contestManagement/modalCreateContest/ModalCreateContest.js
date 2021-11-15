@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
@@ -13,7 +13,7 @@ function ModalCreateContest({ isShow, onAction }) {
 
     const openLibrary = (action, photo) => {
         if (action === MODAL_ACTION_CONFIRM) {
-            setLink(photo.src.large)
+            setLink(photo.src.medium)
         }
         setIsShowLibrary(false)
     }

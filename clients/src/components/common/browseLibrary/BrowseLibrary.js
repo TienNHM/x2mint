@@ -11,6 +11,7 @@ function BrowseLibrary({ show, onAction }) {
     )
     const [link, setLink] = useState('')
     const [selectedPhoto, setSelectedPhoto] = useState(null)
+    const [selectedIndex, setSelectedIndex] = useState(-1)
     const handleLinkChange = (event) => setLink(event.target.value)
 
     const [photos, setPhotos] = useState(null)
@@ -35,6 +36,11 @@ function BrowseLibrary({ show, onAction }) {
         const query = queryRef.current.value.trim()
         setLimit(limit + 1)
         search(query, limit)
+    }
+
+    const updateSelectedPhoto = (photo, index) => {
+        setSelectedPhoto(photo)
+        setSelectedIndex(index)
     }
 
     useEffect(() => {
@@ -98,7 +104,9 @@ function BrowseLibrary({ show, onAction }) {
                                     <Image
                                         key={index}
                                         photo={photo}
-                                        updateSelectedPhoto={setSelectedPhoto}
+                                        index={index}
+                                        selectedIndex={selectedIndex}
+                                        updateSelectedPhoto={updateSelectedPhoto}
                                     />
                                 )}
                             </div>
