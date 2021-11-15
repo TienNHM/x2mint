@@ -12,7 +12,7 @@ function Contest(props) {
         start_time: new Date(),
         end_time: new Date() + 50000,
         url: 'https://www.hackerrank.com/beCod3r',
-        embeded_media: '',
+        embeded_media: 'https://img1.lostbird.vn/w600/2019/09/21/765893/3.jpg',
         status: ''
     },
     {
@@ -24,7 +24,7 @@ function Contest(props) {
         start_time: new Date() + 50000,
         end_time: new Date() + 1500000,
         url: 'https://www.google.com/',
-        embeded_media: '',
+        embeded_media: 'https://memehay.com/meme/20211010/meo-cam-bong-hoa-nao-tang-ban.jpg',
         status: ''
     }]
 

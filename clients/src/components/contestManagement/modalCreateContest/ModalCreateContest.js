@@ -5,16 +5,23 @@ import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import './ModalCreateContest.scss'
 
-function ModalCreateContest({ isShow, onAction }) {
-    const contestTitleRef = useRef(null)
-    const contestDescriptionRef = useRef(null)
-    const contestUrlRef = useRef(null)
+function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
+    const [title, setTitle] = useState(' ')
+    const [description, setDescription] = useState(' ')
+    const [url, setUrl] = useState(' ')
+    const [link, setLink] = useState(' ')
     const startDateRef = useRef('')
     const startTimeRef = useRef('')
     const endDateRef = useRef('')
     const endTimeRef = useRef('')
     const [isShowLibrary, setIsShowLibrary] = useState(false)
-    const [link, setLink] = useState('')
+
+    useEffect(() => {
+        setTitle(contest.name)
+        setDescription(contest.description)
+        setUrl(contest.url)
+        setLink(contest.embeded_media)
+    }, [contest])
 
     const openLibrary = (action, photo) => {
         if (action === MODAL_ACTION_CONFIRM) {
@@ -24,13 +31,10 @@ function ModalCreateContest({ isShow, onAction }) {
     }
 
     const handleAction = (action) => {
-        const title = contestTitleRef.current.value
-        const description = contestDescriptionRef.current.value
-        const url = contestUrlRef.current.value
         const embeded_media = link
         const start_time = startDateRef.current.value + ' ' + startTimeRef.current.value
         const end_time = endDateRef.current.value + ' ' + endTimeRef.current.value
-        onAction(action, title, description, url, embeded_media, start_time, end_time)
+        onAction(isUpdate, action, title, description, url, embeded_media, start_time, end_time)
     }
 
     return (
@@ -54,7 +58,8 @@ function ModalCreateContest({ isShow, onAction }) {
                                     type="text"
                                     className="contest-title"
                                     placeholder="Nhập tên contest..."
-                                    ref={contestTitleRef}
+                                    value={title}
+                                    onChange={e => setTitle(e.target.value)}
                                 />
                             </div>
                             <div className="contest-title-section">
@@ -64,7 +69,8 @@ function ModalCreateContest({ isShow, onAction }) {
                                     type="text"
                                     className="contest-title"
                                     placeholder="Nhập URL..."
-                                    ref={contestUrlRef}
+                                    value={url}
+                                    onChange={e => setUrl(e.target.value)}
                                 />
                             </div>
                             <div className="contest-description-section">
@@ -75,7 +81,8 @@ function ModalCreateContest({ isShow, onAction }) {
                                     rows="6"
                                     className="contest-description"
                                     placeholder="Nhập mô tả ngắn cho contest..."
-                                    ref={contestDescriptionRef}
+                                    value={description}
+                                    onChange={e => setDescription(e.target.value)}
                                 />
                             </div>
                             <div className="datetime-picker">

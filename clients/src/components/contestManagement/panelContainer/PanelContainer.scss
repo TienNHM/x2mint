@@ -1,27 +1,64 @@
 @import '_setting.scss';
 
-.heading {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    width: 100%;
-    padding: $gap;
+.contest-management {
+    margin: 1vh 1vw;
 
-    .heading-contest {
-        font-weight: bold;
-        text-transform: uppercase;
-        background-color: goldenrod;
-        color: white;
+    .heading {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        width: 100%;
+        padding: $gap;
+
+        .heading-contest {
+            font-weight: bold;
+            text-transform: uppercase;
+            background-color: goldenrod;
+            color: white;
+        }
+
+        .create-contest {
+            align-items: flex-end;
+
+            >* {
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+        }
     }
 
-    .create-contest {
-        align-items: flex-end;
+    .list-contests {
+        display: flex;
+        flex-wrap: wrap;
 
-        > * {
-            text-transform: uppercase;
-            font-weight: bold;
+        >* {
+            margin: $gap;
+        }
+
+        .card {
+            padding: $gap !important;
+            width: 250px !important;
+            height: 250px !important;
+            .card-body {
+                padding: $gap 0 0 0 !important;
+            }
+        }
+        .embeded-media {
+            height: 150px;
+            width: fit-content;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .contest-action {
+            >* {
+                margin: 0 $gap;
+                font-weight: bold;
+                color: white;
+            }
         }
     }
 }
