@@ -8,6 +8,11 @@ import './ModalCreateContest.scss'
 function ModalCreateContest({ isShow, onAction }) {
     const contestTitleRef = useRef(null)
     const contestDescriptionRef = useRef(null)
+    const contestUrlRef = useRef(null)
+    const startDateRef = useRef('')
+    const startTimeRef = useRef('')
+    const endDateRef = useRef('')
+    const endTimeRef = useRef('')
     const [isShowLibrary, setIsShowLibrary] = useState(false)
     const [link, setLink] = useState('')
 
@@ -16,6 +21,16 @@ function ModalCreateContest({ isShow, onAction }) {
             setLink(photo.src.medium)
         }
         setIsShowLibrary(false)
+    }
+
+    const handleAction = (action) => {
+        const title = contestTitleRef.current.value
+        const description = contestDescriptionRef.current.value
+        const url = contestUrlRef.current.value
+        const embeded_media = link
+        const start_time = startDateRef.current.value + ' ' + startTimeRef.current.value
+        const end_time = endDateRef.current.value + ' ' + endTimeRef.current.value
+        onAction(action, title, description, url, embeded_media, start_time, end_time)
     }
 
     return (
@@ -42,16 +57,56 @@ function ModalCreateContest({ isShow, onAction }) {
                                     ref={contestTitleRef}
                                 />
                             </div>
+                            <div className="contest-title-section">
+                                <div className="label">URL</div>
+                                <Form.Control
+                                    size="sm"
+                                    type="text"
+                                    className="contest-title"
+                                    placeholder="Nhập URL..."
+                                    ref={contestUrlRef}
+                                />
+                            </div>
                             <div className="contest-description-section">
                                 <div className="label">Mô tả</div>
                                 <Form.Control
                                     size="sm"
                                     as="textarea"
-                                    rows="8"
+                                    rows="6"
                                     className="contest-description"
                                     placeholder="Nhập mô tả ngắn cho contest..."
                                     ref={contestDescriptionRef}
                                 />
+                            </div>
+                            <div className="datetime-picker">
+                                <div className="label">Thời gian bắt đầu</div>
+                                <div className="datetime">
+                                    <Form.Control
+                                        size="sm"
+                                        type="date"
+                                        ref={startDateRef}
+                                    />
+                                    <Form.Control
+                                        size="sm"
+                                        type="time"
+                                        ref={startTimeRef}
+                                    />
+                                </div>
+                            </div>
+                            <div className="datetime-picker">
+                                <div className="label">Thời gian kết thúc</div>
+                                <div className="datetime">
+                                    <Form.Control
+                                        size="sm"
+                                        type="date"
+                                        ref={endDateRef}
+                                    />
+                                    <Form.Control
+                                        size="sm"
+                                        type="time"
+                                        ref={endTimeRef}
+                                    />
+                                </div>
                             </div>
                         </div>
                         <div className="body-right">
@@ -68,10 +123,10 @@ function ModalCreateContest({ isShow, onAction }) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => onAction(MODAL_ACTION_CLOSE)}>
+                    <Button variant="secondary" onClick={() => handleAction(MODAL_ACTION_CLOSE)}>
                         Đóng
                     </Button>
-                    <Button variant="primary" onClick={() => onAction(MODAL_ACTION_CONFIRM)}>
+                    <Button variant="primary" onClick={() => handleAction(MODAL_ACTION_CONFIRM)}>
                         Xác nhận
                     </Button>
                 </Modal.Footer>
