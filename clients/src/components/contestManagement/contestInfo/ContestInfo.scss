@@ -1,0 +1,53 @@
+@import '_setting.scss';
+
+.contest-information {
+    .nav-top {
+        display: flex;
+        flex-direction: row;
+        margin: $gap;
+
+        .back {
+            margin-left: $gap;
+        }
+
+        .heading {
+            font-weight: bold;
+            text-transform: uppercase;
+            width: 90%;
+        }
+    }
+
+    .container-section {
+        display: flex;
+        flex-direction: row;
+
+        .list-tests {
+            width: 78vw;
+        }
+
+        .contest-show-info {
+            width: 22vw;
+            min-width: 300px;
+
+            .card {
+                margin: $gap;
+                border-radius: $gap/2;
+
+                .card-img-top {
+                    margin: $gap;
+                    height: 40vh;
+                    width: auto;
+                    max-width: 100%;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .card-body {
+                    .card-text {
+                        margin-bottom: 0.4rem;
+                    }
+                }
+            }
+        }
+    }
+}

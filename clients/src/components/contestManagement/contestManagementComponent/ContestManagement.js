@@ -12,7 +12,7 @@ function Contest(props) {
         start_time: new Date(),
         end_time: new Date() + 50000,
         url: 'https://www.hackerrank.com/beCod3r',
-        embeded_media: 'https://img1.lostbird.vn/w600/2019/09/21/765893/3.jpg',
+        embeded_media: 'https://image.lag.vn/upload/news/20/09/09/8ed_TJQY.jpg',
         status: ''
     },
     {
