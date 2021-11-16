@@ -8,7 +8,8 @@ function Contest() {
 
     const [contests, setContests] = useState(initialContest)
 
-    useEffect(() => console.log('Contests: ', contests), [contests])
+    useEffect(() => {
+    }, [contests])
 
     return (
         <>

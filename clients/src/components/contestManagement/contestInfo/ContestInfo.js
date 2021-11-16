@@ -4,10 +4,13 @@ import Countdown from 'react-countdown'
 import ModalCreateContest from 'components/contestManagement/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { displayTimeDelta } from 'utils/timeUtils'
+import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import './ContestInfo.scss'
 
 export default function ContestInfo({ setIsShowContestInfo, contest, updateContest }) {
-    const [isShow, setIsShow] = useState(false)
+    const [isShowCreateContest, setIsShowCreateContest] = useState(false)
+    const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
+    const [selectedTest, setSelectedTest] = useState(null)
     const [title, setTitle] = useState(contest.name)
     const [description, setDescription] = useState(contest.description)
     const [url, setUrl] = useState(contest.url)
@@ -26,7 +29,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
 
     const onAction = (isUpdate, action, title, description, url, embeded_media, start_time, end_time) => {
         updateContest(isUpdate, action, title, description, url, embeded_media, start_time, end_time)
-        setIsShow(false)
+        setIsShowCreateContest(false)
     }
 
     const Completionist = () => <div>Hết giờ</div>
@@ -36,7 +39,6 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         const s = ('' + seconds).length < 2 ? ('0' + seconds) : ('' + seconds)
         if (completed) {
             // Render a completed state
-            console.log('Completed state: ', completed)
             return <Completionist />
         } else {
             // Render a countdown
@@ -44,6 +46,25 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 {hours} : {m} : {s}
             </span>
         }
+    }
+
+    const handleEditTest = () => {
+        alert('Edit')
+    }
+
+    const handleDeleteTest = (test) => {
+        setIsShowConfirmModal(true)
+        setSelectedTest({...test})
+    }
+
+    const onDeleteTestAciton = (action) => {
+        if (selectedTest && action === MODAL_ACTION_CONFIRM) {
+            const newContest = { ...contest }
+            const index = newContest.tests.findIndex(c => c.id === selectedTest.id)
+            newContest.tests.splice(index, 1)
+            updateContest(newContest)
+        }
+        setIsShowConfirmModal(false)
     }
 
     return (
@@ -84,7 +105,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                         </Card.Text>
                                     </ListGroupItem>
                                 </ListGroup>
-                                <Button variant="primary" onClick={() => setIsShow(true)}>Chỉnh sửa</Button>
+                                <Button variant="primary" onClick={() => setIsShowCreateContest(true)}>Chỉnh sửa</Button>
                             </Card.Body>
                         </Card>
                     </div>
@@ -117,8 +138,14 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                 </div>
                                             </div>
                                             <div className="card-test-actions col-1">
-                                                <Button variant="primary" size="sm">Chỉnh sửa</Button>{' '}
-                                                <Button variant="danger" size="sm">Xóa</Button>{' '}
+                                                <Button variant="primary" size="sm"
+                                                    onClick={handleEditTest}
+                                                >
+                                                    Chỉnh sửa
+                                                </Button>{' '}
+                                                <Button variant="danger" size="sm"
+                                                    onClick={() => handleDeleteTest(test)}
+                                                >Xóa</Button>{' '}
                                             </div>
                                         </div>
                                     </Card.Body>
@@ -129,10 +156,15 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 </div>
             </div>
             <ModalCreateContest
-                isShow={isShow}
+                isShow={isShowCreateContest}
                 onAction={onAction}
                 contest={contest}
                 isUpdate={true}
+            />
+            <ConfirmModal
+                content={`Bạn có muốn xóa bài test này khỏi cuộc thi ${contest.name} không?`}
+                isShow={isShowConfirmModal}
+                onAction={onDeleteTestAciton}
             />
         </>
     )

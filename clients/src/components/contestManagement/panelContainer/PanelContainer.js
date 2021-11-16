@@ -77,6 +77,7 @@ function PanelContainer({ contests, setContests }) {
                             <Button variant="primary" onClick={() => handleAction(blankContest, false)}>Tạo cuộc thi</Button>{' '}
                         </div>
                     </div>
+                    {console.log('--------', contests)}
                     <div className="list-contests d-flex justify-content-center">
                         {contests.map((c, index) => (
                             <Card key={index}>
@@ -118,7 +119,7 @@ function PanelContainer({ contests, setContests }) {
                     <ContestInfo
                         setIsShowContestInfo={setIsShowContestInfo}
                         contest={selectedContest}
-                        updateContest={onAction}
+                        updateContest={setSelectedContest}
                     />
                 </div>
             }
