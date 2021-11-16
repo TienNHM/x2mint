@@ -1,25 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card } from 'react-bootstrap'
+import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap'
+import Countdown from 'react-countdown'
 import ModalCreateContest from 'components/contestManagement/modalCreateContest/ModalCreateContest'
+import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
+import { displayTimeDelta } from 'utils/timeUtils'
 import './ContestInfo.scss'
 
 export default function ContestInfo({ setIsShowContestInfo, contest, updateContest }) {
     const [isShow, setIsShow] = useState(false)
-    const [title, setTitle] = useState(' ')
-    const [description, setDescription] = useState(' ')
-    const [url, setUrl] = useState(' ')
-    const [embededMedia, setEmbedMedia] = useState(' ')
+    const [title, setTitle] = useState(contest.name)
+    const [description, setDescription] = useState(contest.description)
+    const [url, setUrl] = useState(contest.url)
+    const [embededMedia, setEmbedMedia] = useState(contest.embeded_media)
+    const [startTime, setStartTime] = useState(contest.start_time)
+    const [endTime, setEndTime] = useState(contest.end_time)
 
     useEffect(() => {
         setTitle(contest.name)
         setDescription(contest.description)
         setUrl(contest.url)
         setEmbedMedia(contest.embeded_media)
+        setStartTime(contest.start_time)
+        setEndTime(contest.end_time)
     }, [contest])
 
     const onAction = (isUpdate, action, title, description, url, embeded_media, start_time, end_time) => {
         updateContest(isUpdate, action, title, description, url, embeded_media, start_time, end_time)
         setIsShow(false)
+    }
+
+    const Completionist = () => <div>Hết giờ</div>
+
+    const renderer = ({ hours, minutes, seconds, completed }) => {
+        const m = ('' + minutes).length < 2 ? ('0' + minutes) : ('' + minutes)
+        const s = ('' + seconds).length < 2 ? ('0' + seconds) : ('' + seconds)
+        if (completed) {
+            // Render a completed state
+            console.log('Completed state: ', completed)
+            return <Completionist />
+        } else {
+            // Render a countdown
+            return <span className="time-countdown">
+                {hours} : {m} : {s}
+            </span>
+        }
     }
 
     return (
@@ -33,7 +57,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                             Trở về
                         </Button>{' '}
                     </div>
-                    <div className="heading h4">Cuộc thi</div>
+                    <div className="heading h2 fw-bolder">{title}</div>
                 </div>
                 <div className="container-section">
                     <div className="contest-show-info">
@@ -42,11 +66,66 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                             <Card.Body>
                                 <Card.Title>{title}</Card.Title>
                                 <Card.Text>{description}</Card.Text>
+                                <ListGroup className="list-group-flush">
+                                    <ListGroupItem>
+                                        <div className="time-remain">
+                                            <div className="section-title h5">Thời gian còn lại</div>
+                                            <div className="time-remain-show h3 fw-bolder text-danger">
+                                                <Countdown date={Date.parse(endTime)} renderer={renderer} >
+                                                    <Completionist />
+                                                </Countdown>
+                                            </div>
+                                        </div>
+                                    </ListGroupItem>
+                                    <ListGroupItem>
+                                        <span className="h6 fw-bold">Link</span>
+                                        <Card.Text>
+                                            <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary">{url}</a>
+                                        </Card.Text>
+                                    </ListGroupItem>
+                                </ListGroup>
                                 <Button variant="primary" onClick={() => setIsShow(true)}>Chỉnh sửa</Button>
                             </Card.Body>
                         </Card>
                     </div>
-                    <div className="list-tests">Hi</div>
+                    <div className="list-tests">
+                        <Card border="secondary">
+                            <Card.Header className="row h5">
+                                <div className="col-10 fw-bolder text-uppercase">Danh sách bài kiểm tra</div>
+                                <div className="col-2"></div>
+                            </Card.Header>
+                            <div className="show-all-tests">
+                                {contest.tests.map((test, index) =>
+                                    <Card.Body key={index} className="row">
+                                        <div className="card-test-preview">
+                                            <div className="card-test-info col-11">
+                                                <div className="card-test-title h5">{test.title}</div>
+                                                <div className="card-test-description">{test.description}</div>
+                                                <div className="detail row">
+                                                    <div className="start-time col-4">
+                                                        <div className="fw-bolder">Thời gian bắt đầu: </div>
+                                                        <div>{test.start_time}</div>
+                                                    </div>
+                                                    <div className="duration col-4">
+                                                        <div className="fw-bolder">Thời lượng làm bài: </div>
+                                                        <div>{displayTimeDelta(test.start_time, test.end_time)}</div>
+                                                    </div>
+                                                    <div className="card-test-quantity col-4">
+                                                        <div className="fw-bolder">Số câu hỏi: </div>
+                                                        <div>{test.questions.length}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="card-test-actions col-1">
+                                                <Button variant="primary" size="sm">Chỉnh sửa</Button>{' '}
+                                                <Button variant="danger" size="sm">Xóa</Button>{' '}
+                                            </div>
+                                        </div>
+                                    </Card.Body>
+                                )}
+                            </div>
+                        </Card>
+                    </div>
                 </div>
             </div>
             <ModalCreateContest

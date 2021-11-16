@@ -23,7 +23,6 @@ function PanelContainer({ contests, setContests }) {
     const [selectedContest, setSelectedContest] = useState(blankContest)
     const [isUpdate, setIsUpdate] = useState(false)
     const [isShowContestInfo, setIsShowContestInfo] = useState(false)
-    console.log(isShowContestInfo)
 
     const onAction = (isUpdate, action, title, description, url, embeded_media, start_time, end_time) => {
         if (action === MODAL_ACTION_CONFIRM) {
