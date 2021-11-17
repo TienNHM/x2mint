@@ -4,6 +4,7 @@ import Countdown from 'react-countdown'
 import ModalCreateContest from 'components/contestManagement/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
+import {emptyTest} from 'actions/initialData'
 import { displayTimeDelta } from 'utils/timeUtils'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import './ContestInfo.scss'
@@ -71,6 +72,15 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
 
     const handleEditTest = (t) => {
         setSelectedTest(t)
+        setIsShowTest(true)
+    }
+
+    const handleCreateTest = () => {
+        const newContest = {...contest}
+        newContest.tests.push(emptyTest)
+        updateContest(newContest)
+        const index = newContest.tests.length - 1
+        setSelectedTest(newContest.tests[index])
         setIsShowTest(true)
     }
 
@@ -155,7 +165,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                     </div>
                                     <div className="col-2 create-test">
                                         <Button variant="primary fw-bolder"
-                                            onClick={() => setIsShowTest(true)}
+                                            onClick={handleCreateTest}
                                         >
                                             Tạo bài test
                                         </Button>{' '}

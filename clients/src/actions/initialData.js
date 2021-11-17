@@ -756,12 +756,45 @@ export const initialContest = [{
 }]
 
 export const emptyTest = {
-    id: '',
+    id: 'test-100',
     title: '',
-    creator_id: '',
-    status: '',
-    questions: [],
-    questions_order: []
+    creator_id: 'user-1',
+    status: 'DRAFT',
+    start_time: '2021-11-13 08:00',
+    end_time: '2021-11-14 23:59',
+    questions: [
+        {
+            id: 'question-1',
+            type: 'MULTICHOICE',
+            content: '',
+            embeded_media: '',
+            answers: [
+                {
+                    id: '1',
+                    name: 'A',
+                    content: ''
+                },
+                {
+                    id: '2',
+                    name: 'B',
+                    content: ''
+                },
+                {
+                    id: '3',
+                    name: 'C',
+                    content: ''
+                },
+                {
+                    id: '4',
+                    name: 'D',
+                    content: ''
+                }
+            ],
+            correct_answers: ['1'],
+            choose_answers: ['2', '3']
+        }
+    ],
+    questions_order: ['question-1']
 }
 
 export const emptyQuestion = {
