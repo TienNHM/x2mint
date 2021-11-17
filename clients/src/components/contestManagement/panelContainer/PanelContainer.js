@@ -39,7 +39,6 @@ function PanelContainer({ contests, setContests }) {
             if (isUpdate) {
                 newContest.id = selectedContest.id
                 const index = contestsList.findIndex(c => c.id === newContest.id)
-                console.log('index: ', index)
                 contestsList.splice(index, 1, newContest)
             }
             else {
@@ -52,7 +51,6 @@ function PanelContainer({ contests, setContests }) {
         else if (action === MODAL_ACTION_CLOSE) {
             //
         }
-        console.log(contests)
         setIsShow(false)
     }
 

@@ -10,10 +10,10 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     const [description, setDescription] = useState(' ')
     const [url, setUrl] = useState(' ')
     const [link, setLink] = useState(' ')
-    const startDateRef = useRef('')
-    const startTimeRef = useRef('')
-    const endDateRef = useRef('')
-    const endTimeRef = useRef('')
+    const startDateRef = useRef(' ')
+    const startTimeRef = useRef(' ')
+    const endDateRef = useRef(' ')
+    const endTimeRef = useRef(' ')
     const [isShowLibrary, setIsShowLibrary] = useState(false)
 
     useEffect(() => {
@@ -32,8 +32,8 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
 
     const handleAction = (action) => {
         const embeded_media = link
-        const start_time = startDateRef.current.value + ' ' + startTimeRef.current.value
-        const end_time = endDateRef.current.value + ' ' + endTimeRef.current.value
+        const start_time = (startDateRef.current.value | '') + ' ' + (startTimeRef.current.value | '')
+        const end_time = (endDateRef.current.value | '') + ' ' + (endTimeRef.current.value | '')
         onAction(isUpdate, action, title, description, url, embeded_media, start_time, end_time)
     }
 
@@ -42,7 +42,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
             <Modal
                 size="lg"
                 show={isShow}
-                onHide={() => onAction(MODAL_ACTION_CLOSE)}
+                onHide={() => handleAction(MODAL_ACTION_CLOSE)}
                 backdrop='static'
                 keyboard={false}>
                 <Modal.Header closeButton>

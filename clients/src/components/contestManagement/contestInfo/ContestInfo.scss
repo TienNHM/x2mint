@@ -4,7 +4,7 @@
     .nav-top {
         display: flex;
         flex-direction: row;
-        margin: $gap;
+        margin: $gap $gap 0 $gap;
 
         .back {
             margin-left: $gap;
@@ -26,6 +26,12 @@
             margin: $gap $gap $gap 0;
             border-radius: $gap/2;
 
+            .create-test {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+            }
             .card {
                 width: 100%;
 
@@ -35,7 +41,7 @@
             }
 
             .show-all-tests {
-                height: 75vh;
+                height: 72vh;
                 overflow-y: auto;
 
                 .card-body {

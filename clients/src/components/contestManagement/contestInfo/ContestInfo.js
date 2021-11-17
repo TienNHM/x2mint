@@ -19,6 +19,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
     const [endTime, setEndTime] = useState(contest.end_time)
 
     useEffect(() => {
+        console.log('******', contest)
         setTitle(contest.name)
         setDescription(contest.description)
         setUrl(contest.url)
@@ -28,10 +29,25 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
     }, [contest])
 
     const onAction = (isUpdate, action, title, description, url, embeded_media, start_time, end_time) => {
-        updateContest(isUpdate, action, title, description, url, embeded_media, start_time, end_time)
+        if (action === MODAL_ACTION_CONFIRM) {
+            const newContest = {
+                ...contest,
+                name: title,
+                description: description,
+                url: url,
+                embeded_media: embeded_media,
+                start_time: start_time,
+                end_time: end_time
+            }
+            updateContest(newContest)
+        }
+        else if (action === MODAL_ACTION_CLOSE) {
+            //
+        }
         setIsShowCreateContest(false)
     }
 
+    //TODO: bugs re-render infinite
     const Completionist = () => <div>Hết giờ</div>
 
     const renderer = ({ hours, minutes, seconds, completed }) => {
@@ -50,11 +66,12 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
 
     const handleEditTest = () => {
         alert('Edit')
+        //TODO: Thêm code xử lý việc chỉnh sửa test
     }
 
     const handleDeleteTest = (test) => {
         setIsShowConfirmModal(true)
-        setSelectedTest({...test})
+        setSelectedTest({ ...test })
     }
 
     const onDeleteTestAciton = (action) => {
@@ -92,16 +109,21 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                         <div className="time-remain">
                                             <div className="section-title h5">Thời gian còn lại</div>
                                             <div className="time-remain-show h3 fw-bolder text-danger">
-                                                <Countdown date={Date.parse(endTime)} renderer={renderer} >
+                                                {/* <Countdown date={Date.parse(endTime)} renderer={renderer} >
                                                     <Completionist />
-                                                </Countdown>
+                                                </Countdown> */}
                                             </div>
                                         </div>
                                     </ListGroupItem>
                                     <ListGroupItem>
                                         <span className="h6 fw-bold">Link</span>
                                         <Card.Text>
-                                            <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary">{url}</a>
+                                            <a href={url}
+                                                target="_blank" rel="noopener noreferrer"
+                                                className="text-primary"
+                                            >
+                                                {url}
+                                            </a>
                                         </Card.Text>
                                     </ListGroupItem>
                                 </ListGroup>
@@ -112,8 +134,17 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                     <div className="list-tests">
                         <Card border="secondary">
                             <Card.Header className="row h5">
-                                <div className="col-10 fw-bolder text-uppercase">Danh sách bài kiểm tra</div>
-                                <div className="col-2"></div>
+                                <div className="col-10">
+                                    <div className="fw-bolder text-uppercase">Danh sách bài kiểm tra</div>
+                                    <div className="text-primary h6">Số lượng: {contest ? contest.tests.length : 0}</div>
+                                </div>
+                                <div className="col-2 create-test">
+                                    <Button variant="primary fw-bolder"
+                                    //TODO: Xử lý code tạo mới bài test
+                                    >
+                                        Tạo bài test
+                                    </Button>{' '}
+                                </div>
                             </Card.Header>
                             <div className="show-all-tests">
                                 {contest.tests.map((test, index) =>
@@ -139,7 +170,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                             </div>
                                             <div className="card-test-actions col-1">
                                                 <Button variant="primary" size="sm"
-                                                    onClick={handleEditTest}
+                                                    onClick={() => handleEditTest()}
                                                 >
                                                     Chỉnh sửa
                                                 </Button>{' '}
@@ -162,7 +193,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 isUpdate={true}
             />
             <ConfirmModal
-                content={`Bạn có muốn xóa bài test này khỏi cuộc thi ${contest.name} không?`}
+                content={`Bạn có muốn xóa bài test này khỏi cuộc thi ${title} không?`}
                 isShow={isShowConfirmModal}
                 onAction={onDeleteTestAciton}
             />
