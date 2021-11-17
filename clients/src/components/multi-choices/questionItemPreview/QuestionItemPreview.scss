@@ -1,6 +1,6 @@
 @import '_setting.scss';
 
-$question-item-preview-content-background: #9cdbe0bb;
+$question-item-preview-content-background: #F3F0D7;
 
 .question-item-preview {
     box-shadow: $box-shadow;
@@ -24,7 +24,7 @@ $question-item-preview-content-background: #9cdbe0bb;
         cursor: pointer;
     }
 
-    .selected {
-        background-color: #25CCF7 !important;
+    .question-selected {
+        background-color: #FFBF86 !important;
     }
 }

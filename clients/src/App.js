@@ -1,16 +1,16 @@
 import React from 'react'
 import './App.scss'
 import Navbar from 'components/common/navbar/Navbar'
-import AppContainer from 'components/multi-choices/appContainer/AppContainer'
+import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
 import ContestManagement from 'components/contestManagement/contestManagementComponent/ContestManagement'
 
 function App() {
     return (
         <div className="app">
             <div className="bootstrap-container">
-                {/* <Navbar />
-                <AppContainer /> */}
-                <ContestManagement />
+                <Navbar />
+                <MultiChoices />
+                {/* <ContestManagement /> */}
             </div>
         </div>
     )

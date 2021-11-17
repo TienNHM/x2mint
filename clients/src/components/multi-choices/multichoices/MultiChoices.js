@@ -3,7 +3,7 @@ import { mapOrder } from 'utils/sorts'
 import PanelPreview from 'components/multi-choices/panelPreview/PanelPreview'
 import PanelPresentation from 'components/multi-choices/panelPresentation/PanelPresentation'
 import PanelSettings from 'components/multi-choices/panelSettings/PanelSettings'
-import './AppContainer.scss'
+import './MultiChoices.scss'
 
 function Container() {
     const emptyTest = {
