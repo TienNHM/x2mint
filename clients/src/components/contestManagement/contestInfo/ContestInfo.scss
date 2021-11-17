@@ -1,0 +1,118 @@
+@import '_setting.scss';
+
+.contest-information {
+    .nav-top {
+        display: flex;
+        flex-direction: row;
+        margin: $gap $gap 0 $gap;
+
+        .back {
+            margin-left: $gap;
+        }
+
+        .heading {
+            font-weight: bold;
+            text-transform: uppercase;
+            width: 90%;
+        }
+    }
+
+    .container-section {
+        display: flex;
+        flex-direction: row;
+
+        .list-tests {
+            width: 78vw;
+            margin: $gap $gap $gap 0;
+            border-radius: $gap/2;
+
+            .create-test {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+            }
+            .card {
+                width: 100%;
+
+                .card-body {
+                    width: 100%;
+                }
+            }
+
+            .show-all-tests {
+                height: 72vh;
+                overflow-y: auto;
+
+                .card-body {
+                    padding: $gap 1rem;
+                }
+
+                .card-test-preview {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    border: 1px solid;
+                    border-radius: $gap/2;
+                    margin: 0 $gap;
+
+                    .card-test-info {
+
+                        .card-test-description {
+                            font-style: italic;
+                        }
+
+                        .detail {}
+                    }
+
+                    .card-test-actions {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+
+                        button {
+                            margin: $gap/2;
+                            font-weight: bold;
+                            min-width: 90px;
+                        }
+                    }
+                }
+
+                .no-test {
+                    border: 2px dashed;
+                    margin: $gap;
+                    border-radius: $gap/2;
+                    width: auto;
+                    justify-content: center;
+                }
+            }
+        }
+
+        .contest-show-info {
+            width: 22vw;
+            min-width: 300px;
+
+            .card {
+                margin: $gap;
+                border-radius: $gap/2;
+
+                .card-img-top {
+                    margin: $gap;
+                    height: 30vh;
+                    width: auto;
+                    max-width: 100%;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .card-body {
+                    .card-text {
+                        margin-bottom: 0.4rem;
+                        max-height: 12vh;
+                        overflow-y: auto;
+                    }
+                }
+            }
+        }
+    }
+}

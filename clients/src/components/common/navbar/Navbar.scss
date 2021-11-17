@@ -1,0 +1,33 @@
+@import '_setting.scss';
+
+$navbar-test-height: 5vh;
+$setting-button-width: 7vw;
+
+.navbar {
+    font-size: 1.6rem;
+    display: flex;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: white;
+
+    > * {
+        font-size: 16px;
+    }
+
+    .logo {
+        height: $navbar-test-height;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin: 0 $gap;
+
+        .app-name {
+            font-size: 24px;
+            font-weight: bold;
+            font-family: "Sigmar One", "Open Sans", "Helvetica Neue";
+            color:rgb(0, 153, 128);
+        }
+    }
+}

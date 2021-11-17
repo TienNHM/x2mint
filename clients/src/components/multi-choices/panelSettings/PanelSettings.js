@@ -184,7 +184,6 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
 
     const handleOnSubmitClick = () => {
         setIsShow(true)
-        console.log('############################', timeRemainRef)
     }
 
     const btnSubmitRef = useRef(null)
@@ -193,7 +192,6 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
         if (action === MODAL_ACTION_CONFIRM) {
             btnSubmitRef.current.disabled = true
             timeRemainRef.current.stop()
-            console.log('SUBMITTED: ', test)
             setIsShow(false)
             alert('SUBMITTED')
         }

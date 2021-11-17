@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-//import { initialTest } from 'actions/initialTest'
 import { mapOrder } from 'utils/sorts'
 import PanelPreview from 'components/multi-choices/panelPreview/PanelPreview'
 import PanelPresentation from 'components/multi-choices/panelPresentation/PanelPresentation'
