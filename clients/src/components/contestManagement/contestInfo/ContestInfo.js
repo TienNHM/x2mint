@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap'
 import Countdown from 'react-countdown'
 import ModalCreateContest from 'components/contestManagement/modalCreateContest/ModalCreateContest'
@@ -17,6 +17,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
     const [embededMedia, setEmbedMedia] = useState(contest.embeded_media)
     const [startTime, setStartTime] = useState(contest.start_time)
     const [endTime, setEndTime] = useState(contest.end_time)
+    // const timeRemainRef = useRef(null)
 
     useEffect(() => {
         console.log('******', contest)
@@ -29,7 +30,9 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
     }, [contest])
 
     const onAction = (isUpdate, action, title, description, url, embeded_media, start_time, end_time) => {
+
         if (action === MODAL_ACTION_CONFIRM) {
+            // timeRemainRef.current.stop()
             const newContest = {
                 ...contest,
                 name: title,
@@ -48,21 +51,21 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
     }
 
     //TODO: bugs re-render infinite
-    const Completionist = () => <div>Hết giờ</div>
+    // const Completionist = () => <div>Hết giờ</div>
 
-    const renderer = ({ hours, minutes, seconds, completed }) => {
-        const m = ('' + minutes).length < 2 ? ('0' + minutes) : ('' + minutes)
-        const s = ('' + seconds).length < 2 ? ('0' + seconds) : ('' + seconds)
-        if (completed) {
-            // Render a completed state
-            return <Completionist />
-        } else {
-            // Render a countdown
-            return <span className="time-countdown">
-                {hours} : {m} : {s}
-            </span>
-        }
-    }
+    // const renderer = ({ hours, minutes, seconds, completed }) => {
+    //     const m = ('' + minutes).length < 2 ? ('0' + minutes) : ('' + minutes)
+    //     const s = ('' + seconds).length < 2 ? ('0' + seconds) : ('' + seconds)
+    //     if (completed) {
+    //         // Render a completed state
+    //         return <Completionist />
+    //     } else {
+    //         // Render a countdown
+    //         return <span className="time-countdown">
+    //             {hours} : {m} : {s}
+    //         </span>
+    //     }
+    // }
 
     const handleEditTest = () => {
         alert('Edit')
@@ -107,9 +110,13 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                 <ListGroup className="list-group-flush">
                                     <ListGroupItem>
                                         <div className="time-remain">
-                                            <div className="section-title h5">Thời gian còn lại</div>
+                                            {/* <div className="section-title h5">Thời gian còn lại</div> */}
                                             <div className="time-remain-show h3 fw-bolder text-danger">
-                                                {/* <Countdown date={Date.parse(endTime)} renderer={renderer} >
+                                                {/* <Countdown
+                                                    date={Date.parse(endTime)}
+                                                    renderer={renderer}
+                                                    ref={timeRemainRef}
+                                                >
                                                     <Completionist />
                                                 </Countdown> */}
                                             </div>
@@ -181,6 +188,12 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                         </div>
                                     </Card.Body>
                                 )}
+
+                                {contest.tests.length == 0 &&
+                                    <Card.Body className="row no-test">
+                                        Chưa có bài test nào!
+                                    </Card.Body>
+                                }
                             </div>
                         </Card>
                     </div>

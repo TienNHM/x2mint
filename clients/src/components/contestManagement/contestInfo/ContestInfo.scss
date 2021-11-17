@@ -77,6 +77,14 @@
                         }
                     }
                 }
+
+                .no-test {
+                    border: 2px dashed;
+                    margin: $gap;
+                    border-radius: $gap/2;
+                    width: auto;
+                    justify-content: center;
+                }
             }
         }
 
