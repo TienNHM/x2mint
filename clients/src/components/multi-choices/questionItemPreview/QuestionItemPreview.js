@@ -6,7 +6,7 @@ function QuestionItemPreview({ question, index, isSelected, setSelectedQuestion 
     const handleQuestionPreviewClick = () => {
         setSelectedQuestion(question)
     }
-    const class_name = isSelected ? 'question-item-preview-content selected' : 'question-item-preview-content'
+    const class_name = isSelected ? 'question-item-preview-content question-selected' : 'question-item-preview-content'
     return (
         <div className="question-item-preview">
             <div className="question-item-preview-number">{index + 1}</div>
