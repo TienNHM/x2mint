@@ -69,7 +69,8 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
     //     }
     // }
 
-    const handleEditTest = () => {
+    const handleEditTest = (t) => {
+        setSelectedTest(t)
         setIsShowTest(true)
     }
 
@@ -184,7 +185,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                 </div>
                                                 <div className="card-test-actions col-1">
                                                     <Button variant="primary" size="sm"
-                                                        onClick={() => handleEditTest()}
+                                                        onClick={() => handleEditTest(test)}
                                                     >
                                                         Chỉnh sửa
                                                     </Button>{' '}
@@ -209,7 +210,10 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
             }
 
             {isShowTest &&
-                <MultiChoices setIsShowTest={setIsShowTest} />
+                <MultiChoices
+                    setIsShowTest={setIsShowTest}
+                    test={selectedTest}
+                />
             }
 
             <ModalCreateContest

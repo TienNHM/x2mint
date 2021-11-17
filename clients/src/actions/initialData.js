@@ -754,3 +754,42 @@ export const initialContest = [{
     embeded_media: 'https://memehay.com/meme/20211010/meo-cam-bong-hoa-nao-tang-ban.jpg',
     status: ''
 }]
+
+export const emptyTest = {
+    id: '',
+    title: '',
+    creator_id: '',
+    status: '',
+    questions: [],
+    questions_order: []
+}
+
+export const emptyQuestion = {
+    id: 'question-1',
+    type: 'MULTICHOICE',
+    content: '',
+    embeded_media: [],
+    answers: [
+        {
+            id: '1',
+            name: 'A',
+            content: ''
+        },
+        {
+            id: '2',
+            name: 'B',
+            content: ''
+        },
+        {
+            id: '3',
+            name: 'C',
+            content: ''
+        },
+        {
+            id: '4',
+            name: 'D',
+            content: ''
+        }
+    ],
+    correct_answer: ''
+}
