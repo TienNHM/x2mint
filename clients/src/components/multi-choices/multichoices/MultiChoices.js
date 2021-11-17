@@ -5,7 +5,7 @@ import PanelPresentation from 'components/multi-choices/panelPresentation/PanelP
 import PanelSettings from 'components/multi-choices/panelSettings/PanelSettings'
 import './MultiChoices.scss'
 
-function Container() {
+function Container({setIsShowTest}) {
     const emptyTest = {
         id: '',
         title: '',
@@ -381,6 +381,7 @@ function Container() {
                 isCreator={isCreator}
                 selectedQuestion={selectedQuestion}
                 setSelectedQuestion={updateSelectedQuestion}
+                setIsShowTest={setIsShowTest}
             />
         </div>
     )

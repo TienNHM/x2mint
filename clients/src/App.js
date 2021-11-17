@@ -8,9 +8,9 @@ function App() {
     return (
         <div className="app">
             <div className="bootstrap-container">
-                <Navbar />
-                <MultiChoices />
-                {/* <ContestManagement /> */}
+                {/* <Navbar />
+                <MultiChoices /> */}
+                <ContestManagement />
             </div>
         </div>
     )

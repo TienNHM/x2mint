@@ -6,7 +6,7 @@ import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import Select from 'components/common/select/Select'
 import './PanelSettings.scss'
 
-function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, isCreator }) {
+function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, isCreator, setIsShowTest }) {
     const questionTypes = {
         name: 'type',
         options: [
@@ -273,7 +273,7 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
                     </div>
                     <div className="quick-actions">
                         <Button variant="warning" onClick={handleSaveClick}>Lưu</Button>{' '}
-                        <Button variant="danger">Thoát</Button>{' '}
+                        <Button variant="danger" onClick={() => setIsShowTest(false)}>Thoát</Button>{' '}
                     </div>
                 </>
             }
