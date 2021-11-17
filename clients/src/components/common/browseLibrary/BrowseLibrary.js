@@ -90,12 +90,6 @@ function BrowseLibrary({ show, onAction }) {
                             />
                         </div>
                     </div>
-                    {selectedPhoto &&
-                        <div className="selected-photo">
-                            <div className="section-title">Ảnh được chọn</div>
-                            <img src={link} alt="Ảnh đã chọn" />
-                        </div>
-                    }
                     {photos &&
                         <div className="search-result">
                             <div className="section-title">Kết quả tìm kiếm</div>
