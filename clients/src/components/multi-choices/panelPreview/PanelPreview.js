@@ -63,61 +63,61 @@ function PanelPreview(props) {
                 const quiz = cloneDeep(emptyQuestion)
                 quiz.id = 'question-1'
                 newQuestions.push(quiz)
-        }
-
-        setQuestions(newQuestions)
-        setSelectedQuestion(newQuestions[index > 0 ? index - 1 : 0])
-    }
-    setIsShow(false)
-}
-
-return (
-    <div className="panel-left">
-        <div className="questions-preview-title">Questions</div>
-        <div className="questions-preview">
-            {!isEmpty(test) &&
-                <Container
-                    groupName="questions-preview-panel"
-                    orientation="vertical" // default
-                    onDrop={onQuestionDrop}
-                    getChildPayload={index => questions[index]}
-                    dragClass="card-ghost"
-                    dropClass="card-ghost-drop"
-                    dropPlaceholder={{
-                        animationDuration: 150,
-                        showOnTop: true,
-                        className: 'question-drop-preview'
-                    }}
-                    dropPlaceholderAnimationDuration={200}
-                >
-                    {questions.map((q, index) => (
-                        <Draggable key={q.id}>
-                            <QuestionItemPreview
-                                question={q}
-                                index={index}
-                                isSelected={q === selectedQuestion}
-                                setSelectedQuestion={setSelectedQuestion}
-                            />
-                        </Draggable>
-                    ))}
-                </Container>
             }
-            {isEmpty(test) && <div className="not-found align-items-center">Please add more questions!</div>}
+
+            setQuestions(newQuestions)
+            setSelectedQuestion(newQuestions[index > 0 ? index - 1 : 0])
+        }
+        setIsShow(false)
+    }
+
+    return (
+        <div className="panel-left">
+            <div className="questions-preview-title">Questions</div>
+            <div className="questions-preview">
+                {!isEmpty(test) &&
+                    <Container
+                        groupName="questions-preview-panel"
+                        orientation="vertical" // default
+                        onDrop={onQuestionDrop}
+                        getChildPayload={index => questions[index]}
+                        dragClass="card-ghost"
+                        dropClass="card-ghost-drop"
+                        dropPlaceholder={{
+                            animationDuration: 150,
+                            showOnTop: true,
+                            className: 'question-drop-preview'
+                        }}
+                        dropPlaceholderAnimationDuration={200}
+                    >
+                        {questions.map((q, index) => (
+                            <Draggable key={q.id}>
+                                <QuestionItemPreview
+                                    question={q}
+                                    index={index}
+                                    isSelected={q === selectedQuestion}
+                                    setSelectedQuestion={setSelectedQuestion}
+                                />
+                            </Draggable>
+                        ))}
+                    </Container>
+                }
+                {isEmpty(test) && <div className="not-found align-items-center">Please add more questions!</div>}
+            </div>
+            <div className="question-actions">
+                <Button
+                    variant="primary"
+                    onClick={handleOnAddQuestion}>
+                    Thêm
+                </Button>{' '}
+                <Button variant="danger" onClick={handleOnDeleteQuestion}>Xóa</Button>{' '}
+            </div>
+            <ConfirmModal
+                content='Bạn có thực sự muốn xóa câu hỏi này không?'
+                isShow={isShow}
+                onAction={onAction} />
         </div>
-        <div className="question-actions">
-            <Button
-                variant="primary"
-                onClick={handleOnAddQuestion}>
-                Thêm
-            </Button>{' '}
-            <Button variant="danger" onClick={handleOnDeleteQuestion}>Xóa</Button>{' '}
-        </div>
-        <ConfirmModal
-            content='Bạn có thực sự muốn xóa câu hỏi này không?'
-            isShow={isShow}
-            onAction={onAction} />
-    </div>
-)
+    )
 }
 
 export default PanelPreview

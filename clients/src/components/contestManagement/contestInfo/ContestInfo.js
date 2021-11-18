@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap'
-import Countdown from 'react-countdown'
+import React, { useEffect, useState } from 'react'
+import { Button, Card, ListGroup, ListGroupItem, Form } from 'react-bootstrap'
 import ModalCreateContest from 'components/contestManagement/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
@@ -18,24 +17,28 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
     const [description, setDescription] = useState(contest.description)
     const [url, setUrl] = useState(contest.url)
     const [embededMedia, setEmbedMedia] = useState(contest.embeded_media)
-    const [startTime, setStartTime] = useState(contest.start_time)
-    const [endTime, setEndTime] = useState(contest.end_time)
-    // const timeRemainRef = useRef(null)
+    const [startDate, setStartDate] = useState('')
+    const [startTime, setStartTime] = useState('')
+    const [endDate, setEndDate] = useState('')
+    const [endTime, setEndTime] = useState('')
 
     useEffect(() => {
-        console.log('******', contest)
         setTitle(contest.name)
         setDescription(contest.description)
         setUrl(contest.url)
         setEmbedMedia(contest.embeded_media)
-        setStartTime(contest.start_time)
-        setEndTime(contest.end_time)
+        const start_time = contest.start_time.split(' ')
+        const end_time = contest.end_time.split(' ')
+        setStartDate(start_time.length === 2 ? start_time[0] : ' ')
+        setStartTime(start_time.length === 2 ? start_time[1] : ' ')
+        setEndDate(end_time.length === 2 ? end_time[0] : ' ')
+        setEndTime(end_time.length === 2 ? end_time[1] : ' ')
+        console.log(contest)
     }, [contest])
 
     const onAction = (isUpdate, action, title, description, url, embeded_media, start_time, end_time) => {
 
         if (action === MODAL_ACTION_CONFIRM) {
-            // timeRemainRef.current.stop()
             const newContest = {
                 ...contest,
                 name: title,
@@ -53,30 +56,12 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         setIsShowCreateContest(false)
     }
 
-    //TODO: bugs re-render infinite
-    // const Completionist = () => <div>Hết giờ</div>
-
-    // const renderer = ({ hours, minutes, seconds, completed }) => {
-    //     const m = ('' + minutes).length < 2 ? ('0' + minutes) : ('' + minutes)
-    //     const s = ('' + seconds).length < 2 ? ('0' + seconds) : ('' + seconds)
-    //     if (completed) {
-    //         // Render a completed state
-    //         return <Completionist />
-    //     } else {
-    //         // Render a countdown
-    //         return <span className="time-countdown">
-    //             {hours} : {m} : {s}
-    //         </span>
-    //     }
-    // }
-
     const handleEditTest = (t) => {
         setSelectedTest(t)
         setIsShowTest(true)
     }
 
     const handleCreateTest = () => {
-        //TODO: Xác nhận tạo mới bài test
         const newContest = { ...contest }
         newContest.tests.push({
             ...emptyTest,
@@ -135,16 +120,40 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                     <Card.Text>{description}</Card.Text>
                                     <ListGroup className="list-group-flush">
                                         <ListGroupItem>
-                                            <div className="time-remain">
-                                                {/* <div className="section-title h5">Thời gian còn lại</div> */}
-                                                <div className="time-remain-show h3 fw-bolder text-danger">
-                                                    {/* <Countdown
-                                                    date={Date.parse(endTime)}
-                                                    renderer={renderer}
-                                                    ref={timeRemainRef}
-                                                >
-                                                    <Completionist />
-                                                </Countdown> */}
+                                            <div className="duration">
+                                                <div className="show-time">
+                                                    <div className="fw-bolder">Thời gian bắt đầu</div>
+                                                    <div className="d-flex">
+                                                        <Form.Control
+                                                            size="sm"
+                                                            type="date"
+                                                            value={startDate}
+                                                            readOnly={true}
+                                                        />
+                                                        <Form.Control
+                                                            size="sm"
+                                                            type="time"
+                                                            value={startTime}
+                                                            readOnly={true}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="show-time">
+                                                    <div className="fw-bolder">Thời gian kết thúc</div>
+                                                    <div className="d-flex">
+                                                        <Form.Control
+                                                            size="sm"
+                                                            type="date"
+                                                            value={endDate}
+                                                            readOnly={true}
+                                                        />
+                                                        <Form.Control
+                                                            size="sm"
+                                                            type="time"
+                                                            value={endTime}
+                                                            readOnly={true}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </ListGroupItem>
@@ -160,7 +169,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                             </Card.Text>
                                         </ListGroupItem>
                                     </ListGroup>
-                                    <Button variant="primary"
+                                    <Button variant="primary" className="m-2"
                                         onClick={() => setIsShowCreateContest(true)}>
                                         Chỉnh sửa
                                     </Button>

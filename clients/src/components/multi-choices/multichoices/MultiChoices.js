@@ -27,7 +27,7 @@ function Container({ setIsShowTest, test, updateTest, isCreator }) {
             setSelectedQuestion(q[0])
         }
         else {
-            const newTest = {...emptyTest, id: 'test-1'}
+            const newTest = { ...emptyTest, id: 'test-1' }
 
             setCurrentTest(newTest)
             setQuestions(newTest.questions)

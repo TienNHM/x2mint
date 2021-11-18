@@ -19,10 +19,10 @@ function PanelSettings(props) {
     const endTimeRef = useRef(null)
 
     const [testTitle, setTestTitle] = useState(test.title)
-    const [startDate, setStartDate] = useState(start_time.length > 0 ? start_time[0] : '')
-    const [startTime, setStartTime] = useState(start_time.length > 0 ? start_time[1] : '')
-    const [endDate, setEndDate] = useState(end_time.length > 0 ? end_time[0] : '')
-    const [endTime, setEndTime] = useState(end_time.length > 0 ? end_time[1] : ' ')
+    const [startDate, setStartDate] = useState(start_time.length === 2 ? start_time[0] : '')
+    const [startTime, setStartTime] = useState(start_time.length === 2 ? start_time[1] : '')
+    const [endDate, setEndDate] = useState(end_time.length === 2 ? end_time[0] : '')
+    const [endTime, setEndTime] = useState(end_time.length === 2 ? end_time[1] : ' ')
 
     const handleSaveClick = () => {
         console.log('xzxzxzxzxzxz', test)

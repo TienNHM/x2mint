@@ -111,6 +111,20 @@
                         max-height: 12vh;
                         overflow-y: auto;
                     }
+
+                    .list-group-flush {
+                        .list-group-item {
+                            padding: $gap 0 !important;
+                            border: none !important;
+
+                            input {
+                                background-color: transparent !important;
+                                &:focus {
+                                    box-shadow: none !important;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

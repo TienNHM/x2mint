@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
+import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, MODAL_ACTION_RETRY } from 'utils/constants'
 import './ModalCreateContest.scss'
 
 function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
@@ -10,10 +10,10 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     const [description, setDescription] = useState(' ')
     const [url, setUrl] = useState(' ')
     const [link, setLink] = useState(' ')
-    const startDateRef = useRef(' ')
-    const startTimeRef = useRef(' ')
-    const endDateRef = useRef(' ')
-    const endTimeRef = useRef(' ')
+    const [startDate, setStartDate] = useState('')
+    const [startTime, setStartTime] = useState('')
+    const [endDate, setEndDate] = useState('')
+    const [endTime, setEndTime] = useState('')
     const [isShowLibrary, setIsShowLibrary] = useState(false)
 
     useEffect(() => {
@@ -21,6 +21,13 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
         setDescription(contest.description)
         setUrl(contest.url)
         setLink(contest.embeded_media)
+        const start_time = contest.start_time.split(' ')
+        const end_time = contest.end_time.split(' ')
+        console.log(start_time, end_time)
+        setStartDate(start_time.length === 2 ? start_time[0] : '')
+        setStartTime(start_time.length === 2 ? start_time[1] : '')
+        setEndDate(end_time.length === 2 ? end_time[0] : '')
+        setEndTime(end_time.length === 2 ? end_time[1] : '')
     }, [contest])
 
     const openLibrary = (action, photo) => {
@@ -31,10 +38,24 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     }
 
     const handleAction = (action) => {
-        const embeded_media = link
-        const start_time = (startDateRef.current.value | '') + ' ' + (startTimeRef.current.value | '')
-        const end_time = (endDateRef.current.value | '') + ' ' + (endTimeRef.current.value | '')
-        onAction(isUpdate, action, title, description, url, embeded_media, start_time, end_time)
+        if (action === MODAL_ACTION_CLOSE) {
+            onAction(isUpdate, MODAL_ACTION_CLOSE)
+        }
+        else {
+            const embeded_media = link
+            const start_time = startDate + ' ' + startTime
+            const end_time = endDate + ' ' + endTime
+            const str = startDate.trim() + startTime.trim() + endDate.trim() + endTime.trim()
+            console.log(str.length)
+            if (str.length === 0) {
+                alert('Vui lòng nhập đầy đủ thông tin về cuộc thi')
+                onAction(isUpdate, MODAL_ACTION_RETRY)
+            }
+            else {
+                console.log('hi')
+                onAction(isUpdate, MODAL_ACTION_CONFIRM, title, description, url, embeded_media, start_time, end_time)
+            }
+        }
     }
 
     return (
@@ -91,12 +112,15 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                                     <Form.Control
                                         size="sm"
                                         type="date"
-                                        ref={startDateRef}
+                                        value={startDate}
+                                        onChange={e => setStartDate(e.target.value)}
+                                        required={true}
                                     />
                                     <Form.Control
                                         size="sm"
                                         type="time"
-                                        ref={startTimeRef}
+                                        value={startTime}
+                                        onChange={e => setStartTime(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -106,12 +130,14 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                                     <Form.Control
                                         size="sm"
                                         type="date"
-                                        ref={endDateRef}
+                                        value={endDate}
+                                        onChange={e => setEndDate(e.target.value)}
                                     />
                                     <Form.Control
                                         size="sm"
                                         type="time"
-                                        ref={endTimeRef}
+                                        value={endTime}
+                                        onChange={e => setEndTime(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -119,7 +145,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                         <div className="body-right">
                             <div className="label">Ảnh cover</div>
                             <div className="display-image">
-                                <Image src={link || 'https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png'} />
+                                <Image fluid src={link || 'https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png'} />
                             </div>
                             <div className="change-image">
                                 <Button size="sm" variant="warning" onClick={() => setIsShowLibrary(true)}>
