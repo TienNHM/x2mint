@@ -6,7 +6,7 @@ function Image({ photo, index, selectedIndex, updateSelectedPhoto }) {
         <img className={index === selectedIndex ? 'img-result selected' : 'img-result'}
             src={photo.src.tiny}
             alt="Ảnh minh họa"
-            onClick={()=>updateSelectedPhoto({...photo}, index)}>
+            onClick={() => updateSelectedPhoto({ ...photo }, index)}>
         </img>
     )
 }

@@ -754,3 +754,195 @@ export const initialContest = [{
     embeded_media: 'https://memehay.com/meme/20211010/meo-cam-bong-hoa-nao-tang-ban.jpg',
     status: ''
 }]
+
+export const emptyTest = {
+    id: '',
+    title: '',
+    creator_id: 'user-1',
+    status: 'DRAFT',
+    start_time: '',
+    end_time: '',
+    questions: [
+        {
+            id: 'question-1',
+            type: 'MULTICHOICE',
+            content: '',
+            embeded_media: '',
+            answers: [
+                {
+                    id: '1',
+                    name: 'A',
+                    content: ''
+                },
+                {
+                    id: '2',
+                    name: 'B',
+                    content: ''
+                },
+                {
+                    id: '3',
+                    name: 'C',
+                    content: ''
+                },
+                {
+                    id: '4',
+                    name: 'D',
+                    content: ''
+                }
+            ],
+            correct_answers: ['1'],
+            choose_answers: ['2', '3']
+        }
+    ],
+    questions_order: ['question-1']
+}
+
+export const emptyQuestion = {
+    id: '',
+    type: 'MULTICHOICE',
+    content: '',
+    embeded_media: '',
+    answers: [
+        {
+            id: '1',
+            name: 'A',
+            content: ''
+        },
+        {
+            id: '2',
+            name: 'B',
+            content: ''
+        },
+        {
+            id: '3',
+            name: 'C',
+            content: ''
+        },
+        {
+            id: '4',
+            name: 'D',
+            content: ''
+        }
+    ],
+    correct_answer: '1'
+}
+
+export const questionTypes = {
+    name: 'type',
+    options: [
+        {
+            value: '1',
+            label: 'Type 1',
+            selected: true
+        },
+        {
+            value: '2',
+            label: 'Type 2',
+            selected: false
+        },
+        {
+            value: '3',
+            label: 'Type 3',
+            selected: false
+        }
+    ]
+}
+
+export const timeLimits = {
+    name: 'time-limit',
+    options: [
+        {
+            value: '10',
+            label: '10 giây',
+            selected: true
+        },
+        {
+            value: '15',
+            label: '15 giây',
+            selected: false
+        },
+        {
+            value: '30',
+            label: '30 giây',
+            selected: false
+        },
+        {
+            value: '60',
+            label: '60 giây',
+            selected: false
+        },
+        {
+            value: '90',
+            label: '90 giây',
+            selected: false
+        },
+        {
+            value: '120',
+            label: '120 giây',
+            selected: false
+        }
+    ]
+}
+
+export const points = {
+    name: 'points',
+    options: [
+        {
+            value: '10',
+            label: '10',
+            selected: true
+        },
+        {
+            value: '20',
+            label: '20',
+            selected: false
+        },
+        {
+            value: '30',
+            label: '30',
+            selected: false
+        }
+    ]
+}
+
+export const musics = {
+    name: 'music',
+    options: [
+        {
+            value: 'Music 1',
+            label: 'Music 1',
+            selected: true
+        },
+        {
+            value: 'Music 2',
+            label: 'Music 2',
+            selected: false
+        },
+        {
+            value: 'Music 3',
+            label: 'Music 3',
+            selected: false
+        }
+    ]
+}
+
+export const answerOptions = {
+    name: 'music',
+    options: [
+        {
+            value: 'Option 1',
+            label: 'Option 1',
+            selected: true
+        },
+        {
+            value: 'Option 2',
+            label: 'Option 2',
+            selected: false
+        },
+        {
+            value: 'Option 3',
+            label: 'Option 3',
+            selected: false
+        }
+    ]
+}

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
 import { createClient } from 'pexels'
 import Image from 'components/common/image/Image'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
+import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, MAX_PHOTOS_PER_PAGE, MAX_PHOTOS_IN_RESULTS } from 'utils/constants'
 import './BrowseLibrary.scss'
 
 function BrowseLibrary({ show, onAction }) {
@@ -18,11 +18,19 @@ function BrowseLibrary({ show, onAction }) {
     const [limit, setLimit] = useState(1)
     const queryRef = useRef('')
 
+    const [isHidden, setIsHidden] = useState(true)
+
     const search = (query, limit_num) => {
+        const numPhotos = MAX_PHOTOS_PER_PAGE * limit_num
         client.photos
-            .search({ query, per_page: 20*limit_num })
+            .search({ query, per_page: numPhotos })
             .then((result) => {
                 setPhotos(result.photos)
+                if (numPhotos >= MAX_PHOTOS_IN_RESULTS) {
+                    setIsHidden(true)
+                    setLimit(1)
+                }
+                else setIsHidden(false)
             })
     }
 
@@ -35,7 +43,7 @@ function BrowseLibrary({ show, onAction }) {
     const handleOnLoadMoreClick = () => {
         const query = queryRef.current.value.trim()
         setLimit(limit + 1)
-        search(query, limit)
+        search(query, limit+1)
     }
 
     const updateSelectedPhoto = (photo, index) => {
@@ -105,7 +113,11 @@ function BrowseLibrary({ show, onAction }) {
                                 )}
                             </div>
                             <div className="load-more">
-                                <Button variant="primary" size="sm" onClick={handleOnLoadMoreClick}>Xem thêm...</Button>{' '}
+                                <Button variant="primary" size="sm"
+                                    hidden={isHidden}
+                                    onClick={handleOnLoadMoreClick}>
+                                    Xem thêm...
+                                </Button>{' '}
                             </div>
                         </div>
                     }

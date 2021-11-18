@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import Countdown from 'react-countdown'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
@@ -6,134 +6,26 @@ import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import Select from 'components/common/select/Select'
 import './PanelSettings.scss'
 
-function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, isCreator }) {
-    const questionTypes = {
-        name: 'type',
-        options: [
-            {
-                value: '1',
-                label: 'Type 1',
-                selected: true
-            },
-            {
-                value: '2',
-                label: 'Type 2',
-                selected: false
-            },
-            {
-                value: '3',
-                label: 'Type 3',
-                selected: false
-            }
-        ]
-    }
+function PanelSettings(props) {
+    const { test, setTest, setSelectedQuestion, isCreator, setIsShowTest, setIsSaved } = props
 
-    const timeLimits = {
-        name: 'time-limit',
-        options: [
-            {
-                value: '10',
-                label: '10 giây',
-                selected: true
-            },
-            {
-                value: '15',
-                label: '15 giây',
-                selected: false
-            },
-            {
-                value: '30',
-                label: '30 giây',
-                selected: false
-            },
-            {
-                value: '60',
-                label: '60 giây',
-                selected: false
-            },
-            {
-                value: '90',
-                label: '90 giây',
-                selected: false
-            },
-            {
-                value: '120',
-                label: '120 giây',
-                selected: false
-            }
-        ]
-    }
+    const start_time = test.start_time.split(' ')
+    const end_time = test.end_time.split(' ')
 
-    const points = {
-        name: 'points',
-        options: [
-            {
-                value: '10',
-                label: '10',
-                selected: true
-            },
-            {
-                value: '20',
-                label: '20',
-                selected: false
-            },
-            {
-                value: '30',
-                label: '30',
-                selected: false
-            }
-        ]
-    }
+    const inputTestTitleRef = useRef(null)
+    const startDateRef = useRef(null)
+    const startTimeRef = useRef(null)
+    const endDateRef = useRef(null)
+    const endTimeRef = useRef(null)
 
-    const musics = {
-        name: 'music',
-        options: [
-            {
-                value: 'Music 1',
-                label: 'Music 1',
-                selected: true
-            },
-            {
-                value: 'Music 2',
-                label: 'Music 2',
-                selected: false
-            },
-            {
-                value: 'Music 3',
-                label: 'Music 3',
-                selected: false
-            }
-        ]
-    }
-
-    const answerOptions = {
-        name: 'music',
-        options: [
-            {
-                value: 'Option 1',
-                label: 'Option 1',
-                selected: true
-            },
-            {
-                value: 'Option 2',
-                label: 'Option 2',
-                selected: false
-            },
-            {
-                value: 'Option 3',
-                label: 'Option 3',
-                selected: false
-            }
-        ]
-    }
-
-    const inputTestTitleRef = useRef('')
-    const startDateRef = useRef('')
-    const startTimeRef = useRef('')
-    const endDateRef = useRef('')
-    const endTimeRef = useRef('')
+    const [testTitle, setTestTitle] = useState(test.title)
+    const [startDate, setStartDate] = useState(start_time.length === 2 ? start_time[0] : '')
+    const [startTime, setStartTime] = useState(start_time.length === 2 ? start_time[1] : '')
+    const [endDate, setEndDate] = useState(end_time.length === 2 ? end_time[0] : '')
+    const [endTime, setEndTime] = useState(end_time.length === 2 ? end_time[1] : ' ')
 
     const handleSaveClick = () => {
+        console.log('xzxzxzxzxzxz', test)
         const titleValue = inputTestTitleRef.current.value
         if (titleValue.trim() === '') {
             inputTestTitleRef.current.focus()
@@ -150,8 +42,8 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
                     end_time: endTime
                 }
                 setTest(newTest)
+                setIsSaved(false)
                 console.log('Saved...', newTest)
-                alert('Đã lưu')
             }
             else {
                 startDateRef.current.focus()
@@ -216,6 +108,8 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
                                     ref={inputTestTitleRef}
                                     placeholder="Tên bài test..."
                                     className="test-title-input"
+                                    value={testTitle}
+                                    onChange={e => setTestTitle(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -226,11 +120,15 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
                                     size="sm"
                                     type="date"
                                     ref={startDateRef}
+                                    value={startDate}
+                                    onChange={e => setStartDate(e.target.value)}
                                 />
                                 <Form.Control
                                     size="sm"
                                     type="time"
                                     ref={startTimeRef}
+                                    value={startTime}
+                                    onChange={e => setStartTime(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -241,11 +139,15 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
                                     size="sm"
                                     type="date"
                                     ref={endDateRef}
+                                    value={endDate}
+                                    onChange={e => setEndDate(e.target.value)}
                                 />
                                 <Form.Control
                                     size="sm"
                                     type="time"
                                     ref={endTimeRef}
+                                    value={endTime}
+                                    onChange={e => setEndTime(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -273,7 +175,7 @@ function PanelSettings({ test, setTest, selectedQuestion, setSelectedQuestion, i
                     </div>
                     <div className="quick-actions">
                         <Button variant="warning" onClick={handleSaveClick}>Lưu</Button>{' '}
-                        <Button variant="danger">Thoát</Button>{' '}
+                        <Button variant="danger" onClick={() => setIsShowTest(false)}>Thoát</Button>{' '}
                     </div>
                 </>
             }

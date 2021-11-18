@@ -19,6 +19,13 @@
             .datetime {
                 display: flex;
                 flex-direction: row;
+
+                input {
+                    &:focus {
+                        outline: none !important;
+                        box-shadow: none !important;
+                    }
+                }
             }
         }
     }
@@ -30,7 +37,8 @@
 
         .display-image {
             img {
-                height: 250px;
+                max-height: 50vh;
+                width: auto;
             }
         }
 

@@ -6,39 +6,11 @@ import QuestionItemPreview from 'components/multi-choices/questionItemPreview/Qu
 import { applyDrag } from 'utils/dragDrop'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
+import { emptyQuestion } from 'actions/initialData'
 import './PanelPreview.scss'
 
 function PanelPreview(props) {
     const { test, setTest, questions, setQuestions, selectedQuestion, setSelectedQuestion } = props
-    const blankQuestion = {
-        id: 'question-' + (questions.length + 1),
-        type: 'MULTICHOICE',
-        content: '',
-        embeded_media: '',
-        answers: [
-            {
-                id: '1',
-                name: 'A',
-                content: ''
-            },
-            {
-                id: '2',
-                name: 'B',
-                content: ''
-            },
-            {
-                id: '3',
-                name: 'C',
-                content: ''
-            },
-            {
-                id: '4',
-                name: 'D',
-                content: ''
-            }
-        ],
-        correct_answer: '1'
-    }
     /**
      * Xử lý sự kiện kéo thả
      * @param {*} dropResult kết quả kéo thả
@@ -58,15 +30,22 @@ function PanelPreview(props) {
     }
 
     const handleOnAddQuestion = () => {
-        const questionsList = [...questions]
-        questionsList.push(blankQuestion)
+        let questionsList = [...questions]
+        const quiz = cloneDeep(emptyQuestion)
+        quiz.id = 'question-' + (questionsList.length + 1)
+        console.log('quizz', quiz)
+        setSelectedQuestion(quiz)
+        questionsList.push(quiz)
+        const questions_order = test.questions.map(q => q.id)
+        questions_order.push(quiz.id)
+        questionsList.questions_order = questions_order
         setQuestions(questionsList)
 
         const newTest = { ...test }
         newTest.questions = questionsList
+        newTest.questions_order = newTest.questions.map(q => q.id)
         setTest(newTest)
-
-        setSelectedQuestion(blankQuestion)
+        console.log('newTest', newTest)
     }
 
     const [isShow, setIsShow] = useState(false)
@@ -81,7 +60,9 @@ function PanelPreview(props) {
             const index = newQuestions.indexOf(selectedQuestion)
             newQuestions.splice(index, 1)
             if (newQuestions.length <= 0) {
-                newQuestions.push({...blankQuestion, id: 'question-1'})
+                const quiz = cloneDeep(emptyQuestion)
+                quiz.id = 'question-1'
+                newQuestions.push(quiz)
             }
 
             setQuestions(newQuestions)
@@ -126,8 +107,7 @@ function PanelPreview(props) {
             <div className="question-actions">
                 <Button
                     variant="primary"
-                    onClick={handleOnAddQuestion}
-                >
+                    onClick={handleOnAddQuestion}>
                     Thêm
                 </Button>{' '}
                 <Button variant="danger" onClick={handleOnDeleteQuestion}>Xóa</Button>{' '}
