@@ -23,7 +23,6 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
         setLink(contest.embeded_media)
         const start_time = contest.start_time.split(' ')
         const end_time = contest.end_time.split(' ')
-        console.log(start_time, end_time)
         setStartDate(start_time.length === 2 ? start_time[0] : '')
         setStartTime(start_time.length === 2 ? start_time[1] : '')
         setEndDate(end_time.length === 2 ? end_time[0] : '')
