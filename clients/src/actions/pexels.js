@@ -4,7 +4,7 @@
 import React from 'react'
 import { createClient } from 'pexels'
 
-function Demo({query, setResult}) {
+function Demo({ query, setResult }) {
     const client = createClient(
         '563492ad6f91700001000001e3ed7b53da4e4bd99fc84afc9b38fafb'
     )

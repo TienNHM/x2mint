@@ -23,15 +23,12 @@ function Question({ question, updateQuestion, isCreator }) {
     }, [question])
 
     useEffect(() => {
-        console.log('chooseAnswer: ', chooseAnswer)
         const newQuestion = { ...question }
         newQuestion.correct_answer = chooseAnswer
         updateQuestion(newQuestion, isCreator)
-        console.log(newQuestion)
     }, [chooseAnswer])
 
     useEffect(() => {
-        console.log('isUpdatedEmbedMedia: ', isUpdatedEmbedMedia)
         if (isUpdatedEmbedMedia) {
             console.log(embededMedia)
             const q = { ...question }
@@ -40,12 +37,6 @@ function Question({ question, updateQuestion, isCreator }) {
             setIsUpdatedEmbedMedia(false)
         }
     }, [embededMedia])
-
-    useEffect(() => {
-        if (isShowLibrary) {
-            console.log('Show library...')
-        }
-    }, [isShowLibrary])
 
     const handleTextChange = (event) => {
         const value = event.target.value.replace(/\n/g, ' ')
@@ -97,7 +88,10 @@ function Question({ question, updateQuestion, isCreator }) {
         updateQuestion(newQuestion, isCreator)
     }
 
-    const toggleShowLibrary = () => setIsShowLibrary(!isShowLibrary)
+    const toggleShowLibrary = () => {
+        setIsUpdatedEmbedMedia(true)
+        setIsShowLibrary(!isShowLibrary)
+    }
 
     return (
         <>

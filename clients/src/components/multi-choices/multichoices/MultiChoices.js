@@ -3,15 +3,17 @@ import { mapOrder } from 'utils/sorts'
 import PanelPreview from 'components/multi-choices/panelPreview/PanelPreview'
 import PanelPresentation from 'components/multi-choices/panelPresentation/PanelPresentation'
 import PanelSettings from 'components/multi-choices/panelSettings/PanelSettings'
+import { emptyTest } from 'actions/initialData'
 import './MultiChoices.scss'
 
-function Container({setIsShowTest, test}) {
+function Container({ setIsShowTest, test, updateTest, isCreator }) {
     console.log(test)
     const [currentTest, setCurrentTest] = useState(test)
     const q = mapOrder(test.questions, test.questions_order, 'id')
     const [questions, setQuestions] = useState(q)
     const [selectedQuestion, setSelectedQuestion] = useState(q[0])
     const [isLoadedSelectedQuestion, setIsLoadedSelectedQuestion] = useState(false)
+    const [isSaved, setIsSaved] = useState(true)
 
     // Load data
     useEffect(() => {
@@ -25,55 +27,23 @@ function Container({setIsShowTest, test}) {
             setSelectedQuestion(q[0])
         }
         else {
-            const newTest = {
-                id: 'test-1',
-                title: '',
-                creator_id: 'user-1',
-                status: 'DRAFT',
-                start_time: '',
-                end_time: '',
-                questions: [{
-                    id: 'question-1',
-                    type: 'MULTICHOICE',
-                    content: '',
-                    embeded_media: '',
-                    answers: [
-                        {
-                            id: '1',
-                            name: 'A',
-                            content: ''
-                        },
-                        {
-                            id: '2',
-                            name: 'B',
-                            content: ''
-                        },
-                        {
-                            id: '3',
-                            name: 'C',
-                            content: ''
-                        },
-                        {
-                            id: '4',
-                            name: 'D',
-                            content: ''
-                        }
-                    ],
-                    correct_answer: '1'
-                }],
-                questions_order: ['question-1']
-            }
+            const newTest = {...emptyTest, id: 'test-1'}
 
             setCurrentTest(newTest)
             setQuestions(newTest.questions)
-            setSelectedQuestion(newTest.questions[0])
+            setSelectedQuestion(selectedQuestion | newTest.questions[0])
         }
         setIsLoadedSelectedQuestion(true)
     }, [test])
 
     useEffect(() => {
-        console.log('Test: ', currentTest)
-    }, [test])
+        console.log('Current Test: ', currentTest)
+        if (!isSaved) {
+            setIsSaved(true)
+            test = { ...currentTest }
+            updateTest({ ...currentTest })
+        }
+    }, [currentTest])
 
     useEffect(() => {
         const newTest = { ...currentTest }
@@ -96,8 +66,6 @@ function Container({setIsShowTest, test}) {
         console.log('Update Selected Question: ', question)
     }
 
-    const isCreator = true
-
     return (
         <div className="app-container">
             {isCreator &&
@@ -114,16 +82,16 @@ function Container({setIsShowTest, test}) {
             <PanelPresentation
                 selectedQuestion={selectedQuestion}
                 updateSelectedQuestion={updateSelectedQuestion}
-                isCreator={isCreator}
+                isCreator={isCreator | false}
             />
 
             <PanelSettings
                 test={currentTest}
                 setTest={setCurrentTest}
-                isCreator={isCreator}
-                selectedQuestion={selectedQuestion}
+                isCreator={isCreator | false}
                 setSelectedQuestion={updateSelectedQuestion}
                 setIsShowTest={setIsShowTest}
+                setIsSaved={setIsSaved}
             />
         </div>
     )

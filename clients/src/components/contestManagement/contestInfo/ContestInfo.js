@@ -4,7 +4,7 @@ import Countdown from 'react-countdown'
 import ModalCreateContest from 'components/contestManagement/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
-import {emptyTest} from 'actions/initialData'
+import { emptyTest } from 'actions/initialData'
 import { displayTimeDelta } from 'utils/timeUtils'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import './ContestInfo.scss'
@@ -76,8 +76,12 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
     }
 
     const handleCreateTest = () => {
-        const newContest = {...contest}
-        newContest.tests.push(emptyTest)
+        //TODO: Xác nhận tạo mới bài test
+        const newContest = { ...contest }
+        newContest.tests.push({
+            ...emptyTest,
+            id: 'test-' + (contest.tests.length + 1)
+        })
         updateContest(newContest)
         const index = newContest.tests.length - 1
         setSelectedTest(newContest.tests[index])
@@ -98,6 +102,15 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         }
         setIsShowConfirmModal(false)
     }
+
+    useEffect(() => {
+        if (selectedTest) {
+            const newContest = { ...contest }
+            const index = newContest.tests.findIndex(t => t.id === selectedTest.id)
+            newContest.tests[index] = selectedTest
+            updateContest(newContest)
+        }
+    }, [selectedTest])
 
     return (
         <>
@@ -223,6 +236,8 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 <MultiChoices
                     setIsShowTest={setIsShowTest}
                     test={selectedTest}
+                    isCreator={true}
+                    updateTest={setSelectedTest}
                 />
             }
 
