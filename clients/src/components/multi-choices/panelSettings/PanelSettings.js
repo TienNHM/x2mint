@@ -25,7 +25,6 @@ function PanelSettings(props) {
     const [endTime, setEndTime] = useState(end_time.length === 2 ? end_time[1] : ' ')
 
     const handleSaveClick = () => {
-        console.log('xzxzxzxzxzxz', test)
         const titleValue = inputTestTitleRef.current.value
         if (titleValue.trim() === '') {
             inputTestTitleRef.current.focus()
@@ -73,24 +72,46 @@ function PanelSettings(props) {
     }
 
     const [isShow, setIsShow] = useState(false)
+    const [content, setContent] = useState('')
+    const [currentAction, setCurrentAction] = useState('')
 
     const handleOnSubmitClick = () => {
+        setContent('Bạn có muốn xác nhận việc nộp bài?<br /><strong>Lưu ý, sau khi xác nhận, bạn không thể chỉnh sửa câu trả lời.</strong>')
+        setCurrentAction('CONFIRM_SUBMIT')
         setIsShow(true)
     }
 
     const btnSubmitRef = useRef(null)
 
     const handleConfirmSubmit = (action) => {
-        if (action === MODAL_ACTION_CONFIRM) {
-            btnSubmitRef.current.disabled = true
-            timeRemainRef.current.stop()
-            setIsShow(false)
-            alert('SUBMITTED')
+        if (currentAction === 'CONFIRM_SUBMIT') {
+            if (action === MODAL_ACTION_CONFIRM) {
+                btnSubmitRef.current.disabled = true
+                timeRemainRef.current.stop()
+                setIsShow(false)
+                alert('SUBMITTED')
+            }
+            else if (action === MODAL_ACTION_CLOSE) {
+                timeRemainRef.current.start()
+                setIsShow(false)
+            }
         }
-        else if (action === MODAL_ACTION_CLOSE) {
-            timeRemainRef.current.start()
-            setIsShow(false)
+        else if (currentAction === 'CONFIRM_EXIT') {
+            if (action === MODAL_ACTION_CONFIRM) {
+                setIsShowTest(false)
+                setIsShow(false)
+            }
+            else if (action === MODAL_ACTION_CLOSE) {
+                setIsShow(false)
+            }
         }
+    }
+
+    const handleExit = () => {
+        console.log('hdfhfdhjfdhjfhwwiurereh')
+        setCurrentAction('CONFIRM_EXIT')
+        setContent('Bạn có muốn thoát không? Lưu ý, mọi thay đổi chưa được lưu sẽ bị mất đi mà không thể khôi phục!')
+        setIsShow(true)
     }
 
     return (
@@ -175,7 +196,7 @@ function PanelSettings(props) {
                     </div>
                     <div className="quick-actions">
                         <Button variant="warning" onClick={handleSaveClick}>Lưu</Button>{' '}
-                        <Button variant="danger" onClick={() => setIsShowTest(false)}>Thoát</Button>{' '}
+                        <Button variant="danger" onClick={handleExit}>Thoát</Button>{' '}
                     </div>
                 </>
             }
@@ -213,16 +234,16 @@ function PanelSettings(props) {
                             </Button>{' '}
                         </div>
                     </div>
-                    <div className="confirm-submit">
-                        <ConfirmModal
-                            title="Xác nhận"
-                            content="Bạn có muốn xác nhận việc nộp bài?<br /><strong>Lưu ý, sau khi xác nhận, bạn không thể chỉnh sửa câu trả lời.</strong>"
-                            isShow={isShow}
-                            onAction={handleConfirmSubmit}
-                        />
-                    </div>
                 </>
             }
+            <div className="confirm-submit">
+                <ConfirmModal
+                    title="Xác nhận"
+                    content={content}
+                    isShow={isShow}
+                    onAction={handleConfirmSubmit}
+                />
+            </div>
         </div>
     )
 }

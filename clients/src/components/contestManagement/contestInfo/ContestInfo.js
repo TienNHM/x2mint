@@ -11,6 +11,8 @@ import './ContestInfo.scss'
 export default function ContestInfo({ setIsShowContestInfo, contest, updateContest }) {
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
+    const [confirmModalContent, setConfirmModalContent] = useState('')
+    const [currentAction, setCurrentAction] = useState('')
     const [isShowTest, setIsShowTest] = useState(false)
     const [selectedTest, setSelectedTest] = useState(null)
     const [title, setTitle] = useState(contest.name)
@@ -62,28 +64,39 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
     }
 
     const handleCreateTest = () => {
-        const newContest = { ...contest }
-        newContest.tests.push({
-            ...emptyTest,
-            id: 'test-' + (contest.tests.length + 1)
-        })
-        updateContest(newContest)
-        const index = newContest.tests.length - 1
-        setSelectedTest(newContest.tests[index])
-        setIsShowTest(true)
+        setCurrentAction('CONFIRM_CREATE_TEST')
+        setConfirmModalContent('Bạn muốn tạo một bài test mới?')
+        setIsShowConfirmModal(true)
     }
 
     const handleDeleteTest = (test) => {
-        setIsShowConfirmModal(true)
         setSelectedTest({ ...test })
+        setConfirmModalContent(`Bạn có muốn xóa bài test này khỏi cuộc thi ${title} không?`)
+        setCurrentAction('CONFIRM_DELETE_TEST')
+        setIsShowConfirmModal(true)
     }
 
-    const onDeleteTestAciton = (action) => {
-        if (selectedTest && action === MODAL_ACTION_CONFIRM) {
-            const newContest = { ...contest }
-            const index = newContest.tests.findIndex(c => c.id === selectedTest.id)
-            newContest.tests.splice(index, 1)
-            updateContest(newContest)
+    const onTestAciton = (action) => {
+        if (currentAction === 'CONFIRM_DELETE_TEST') {
+            if (selectedTest && action === MODAL_ACTION_CONFIRM) {
+                const newContest = { ...contest }
+                const index = newContest.tests.findIndex(c => c.id === selectedTest.id)
+                newContest.tests.splice(index, 1)
+                updateContest(newContest)
+            }
+        }
+        else if (currentAction === 'CONFIRM_CREATE_TEST') {
+            if (action === MODAL_ACTION_CONFIRM) {
+                const newContest = { ...contest }
+                newContest.tests.push({
+                    ...emptyTest,
+                    id: 'test-' + (contest.tests.length + 1)
+                })
+                updateContest(newContest)
+                const index = newContest.tests.length - 1
+                setSelectedTest(newContest.tests[index])
+                setIsShowTest(true)
+            }
         }
         setIsShowConfirmModal(false)
     }
@@ -197,25 +210,25 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                     {contest.tests.map((test, index) =>
                                         <Card.Body key={index} className="row">
                                             <div className="card-test-preview">
-                                                <div className="card-test-info col-11">
+                                                <div className="card-test-info col-md-10 col-sm-12">
                                                     <div className="card-test-title h5">{test.title}</div>
                                                     <div className="card-test-description">{test.description}</div>
                                                     <div className="detail row">
-                                                        <div className="start-time col-4">
+                                                        <div className="start-time col-md-4 col-12">
                                                             <div className="fw-bolder">Thời gian bắt đầu: </div>
                                                             <div>{test.start_time}</div>
                                                         </div>
-                                                        <div className="duration col-4">
+                                                        <div className="duration col-md-4 col-12">
                                                             <div className="fw-bolder">Thời lượng làm bài: </div>
                                                             <div>{displayTimeDelta(test.start_time, test.end_time)}</div>
                                                         </div>
-                                                        <div className="card-test-quantity col-4">
+                                                        <div className="card-test-quantity col-md-4 col-12">
                                                             <div className="fw-bolder">Số câu hỏi: </div>
                                                             <div>{test.questions.length}</div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="card-test-actions col-1">
+                                                <div className="card-test-actions col-md-2 col-sm-12">
                                                     <Button variant="primary" size="sm"
                                                         onClick={() => handleEditTest(test)}
                                                     >
@@ -257,9 +270,9 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 isUpdate={true}
             />
             <ConfirmModal
-                content={`Bạn có muốn xóa bài test này khỏi cuộc thi ${title} không?`}
+                content={confirmModalContent}
                 isShow={isShowConfirmModal}
-                onAction={onDeleteTestAciton}
+                onAction={onTestAciton}
             />
         </>
     )

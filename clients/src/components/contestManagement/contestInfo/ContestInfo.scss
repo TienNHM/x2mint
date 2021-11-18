@@ -61,8 +61,6 @@
                         .card-test-description {
                             font-style: italic;
                         }
-
-                        .detail {}
                     }
 
                     .card-test-actions {
@@ -71,7 +69,7 @@
                         justify-content: center;
 
                         button {
-                            margin: $gap/2;
+                            margin: $gap/4;
                             font-weight: bold;
                             min-width: 90px;
                         }
