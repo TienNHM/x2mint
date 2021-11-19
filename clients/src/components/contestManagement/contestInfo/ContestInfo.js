@@ -8,7 +8,7 @@ import { displayTimeDelta } from 'utils/timeUtils'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import './ContestInfo.scss'
 
-export default function ContestInfo({ setIsShowContestInfo, contest, updateContest }) {
+export default function ContestInfo({ setIsShowContestInfo, contest, updateContest, isCreator }) {
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
     const [confirmModalContent, setConfirmModalContent] = useState('')
@@ -74,6 +74,13 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         setConfirmModalContent(`Bạn có muốn xóa bài test này khỏi cuộc thi ${title} không?`)
         setCurrentAction('CONFIRM_DELETE_TEST')
         setIsShowConfirmModal(true)
+    }
+
+    const handleTakeTest = (test) => {
+        //TODO code phần làm bài test với isCreator=false
+        console.log('Take a test:', test)
+        setSelectedTest(test)
+        setIsShowTest(true)
     }
 
     const onTestAciton = (action) => {
@@ -182,34 +189,39 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                             </Card.Text>
                                         </ListGroupItem>
                                     </ListGroup>
-                                    <Button variant="primary" className="m-2"
-                                        onClick={() => setIsShowCreateContest(true)}>
-                                        Chỉnh sửa
-                                    </Button>
+                                    {isCreator &&
+                                        <div>
+                                            <Button variant="primary" className="m-2 fw-bolder"
+                                                onClick={() => setIsShowCreateContest(true)}>
+                                                Chỉnh sửa
+                                            </Button>
+                                            <Button variant="success fw-bolder"
+                                                onClick={handleCreateTest}
+                                            >
+                                                Tạo bài test
+                                            </Button>{' '}
+                                        </div>
+                                    }
                                 </Card.Body>
                             </Card>
                         </div>
                         <div className="list-tests">
                             <Card border="secondary">
                                 <Card.Header className="row h5">
-                                    <div className="col-10">
+                                    <div className="">
                                         <div className="fw-bolder text-uppercase">Danh sách bài kiểm tra</div>
                                         <div className="text-primary h6">
                                             Số lượng: {contest ? contest.tests.length : 0}
                                         </div>
-                                    </div>
-                                    <div className="col-2 create-test">
-                                        <Button variant="primary fw-bolder"
-                                            onClick={handleCreateTest}
-                                        >
-                                            Tạo bài test
-                                        </Button>{' '}
                                     </div>
                                 </Card.Header>
                                 <div className="show-all-tests">
                                     {contest.tests.map((test, index) =>
                                         <Card.Body key={index} className="row">
                                             <div className="card-test-preview">
+                                                <div className="card-test-index col-md-1 col-sm-12">
+                                                    <div className="test-index d-flex justify-content-center align-middle">{index + 1}</div>
+                                                </div>
                                                 <div className="card-test-info col-md-10 col-sm-12">
                                                     <div className="card-test-title h5">{test.title}</div>
                                                     <div className="card-test-description">{test.description}</div>
@@ -228,15 +240,28 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="card-test-actions col-md-2 col-sm-12">
-                                                    <Button variant="primary" size="sm"
-                                                        onClick={() => handleEditTest(test)}
-                                                    >
-                                                        Chỉnh sửa
-                                                    </Button>{' '}
-                                                    <Button variant="danger" size="sm"
-                                                        onClick={() => handleDeleteTest(test)}
-                                                    >Xóa</Button>{' '}
+                                                <div className="card-test-actions col-md-1 col-sm-12">
+                                                    {isCreator &&
+                                                        <>
+                                                            <Button variant="primary" size="sm"
+                                                                onClick={() => handleEditTest(test)} >
+                                                                Chỉnh sửa
+                                                            </Button>{' '}
+                                                            <Button variant="danger" size="sm"
+                                                                onClick={() => handleDeleteTest(test)} >
+                                                                Xóa
+                                                            </Button>{' '}
+                                                        </>
+                                                    }
+
+                                                    {!isCreator &&
+                                                        <>
+                                                            <Button variant="warning"
+                                                                onClick={() => handleTakeTest(test)} >
+                                                                Làm bài
+                                                            </Button>{' '}
+                                                        </>
+                                                    }
                                                 </div>
                                             </div>
                                         </Card.Body>
@@ -258,7 +283,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 <MultiChoices
                     setIsShowTest={setIsShowTest}
                     test={selectedTest}
-                    isCreator={true}
+                    isCreator={isCreator}
                     updateTest={setSelectedTest}
                 />
             }

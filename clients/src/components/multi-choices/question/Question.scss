@@ -45,6 +45,8 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     display: flex;
     margin: $gap;
     height: 54%;
+    color: $app-bg-color;
+    font-size: 1px;
 
     .question-embed {
         width: 100%;

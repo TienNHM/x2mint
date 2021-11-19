@@ -30,8 +30,9 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                
+
             }
+
             .card {
                 width: 100%;
 
@@ -55,6 +56,20 @@
                     border: 1px solid;
                     border-radius: $gap/2;
                     margin: 0 $gap;
+                    padding-left: 0 !important;
+
+                    .card-test-index {
+                        background-color: lightgoldenrodyellow;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        .test-index {
+                            font-weight: bolder;
+                            font-size: 2.5rem;
+                            color: lightsalmon;
+                        }
+                    }
 
                     .card-test-info {
 
@@ -72,6 +87,7 @@
                             margin: $gap/4;
                             font-weight: bold;
                             min-width: 90px;
+                            color: white;
                         }
                     }
                 }
@@ -117,6 +133,7 @@
 
                             input {
                                 background-color: transparent !important;
+
                                 &:focus {
                                     box-shadow: none !important;
                                 }

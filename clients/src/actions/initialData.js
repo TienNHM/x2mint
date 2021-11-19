@@ -233,7 +233,7 @@ export const initialContest = [{
             creator_id: 'user-1',
             status: 'DRAFT',
             start_time: '2021-11-13 00:00',
-            end_time: '2021-11-15 23:59',
+            end_time: '2021-11-25 23:59',
             questions: [
                 {
                     id: 'question-1',
@@ -455,7 +455,7 @@ export const initialContest = [{
             creator_id: 'user-1',
             status: 'DRAFT',
             start_time: '2021-11-13 08:00',
-            end_time: '2021-11-13 23:59',
+            end_time: '2021-11-28 23:59',
             questions: [
                 {
                     id: 'question-1',

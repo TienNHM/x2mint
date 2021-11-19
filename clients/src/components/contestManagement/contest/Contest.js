@@ -88,9 +88,14 @@ function Contest(props) {
             <div>
                 {!isShowContestInfo &&
                     <div className="contest-management">
-                        <div className="heading">
-                            <div className="heading-contest h4">Các cuộc thi</div>
-                            <div className="create-contest">
+                        <div className="heading row">
+                            <div className="create-contest col-2">
+                                <Button variant="primary">
+                                    Trở về
+                                </Button>{' '}
+                            </div>
+                            <div className="heading-contest h4 col-8">Các cuộc thi</div>
+                            <div className="create-contest col-2">
                                 <Button variant="primary"
                                     onClick={() => setIsShowConfirmModal(true)}>
                                     Tạo cuộc thi
@@ -145,6 +150,7 @@ function Contest(props) {
                             setIsShowContestInfo={setIsShowContestInfo}
                             contest={selectedContest}
                             updateContest={setSelectedContest}
+                            isCreator={false}
                         />
                     </div>
                 }
