@@ -256,10 +256,11 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
 
                                                     {!isCreator &&
                                                         <>
-                                                            <Button variant="warning"
+                                                            <Button variant={Date.parse(test.end_time) - Date.now() <= 0 ? 'secondary' : 'success'}
+                                                                disabled={Date.parse(test.end_time) - Date.now() <= 0}
                                                                 onClick={() => handleTakeTest(test)} >
                                                                 Làm bài
-                                                            </Button>{' '}
+                                                            </Button>
                                                         </>
                                                     }
                                                 </div>

@@ -89,7 +89,7 @@ function PanelSettings(props) {
                 btnSubmitRef.current.disabled = true
                 timeRemainRef.current.stop()
                 setIsShow(false)
-                alert('SUBMITTED')
+                setIsShowTest(false)
             }
             else if (action === MODAL_ACTION_CLOSE) {
                 timeRemainRef.current.start()

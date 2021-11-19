@@ -31,6 +31,11 @@
     .list-contests {
         display: flex;
         flex-wrap: wrap;
+        border: 2px dashed gray;
+        border-radius: $gap;
+        background-color: #f0e9d285;
+        max-height: 82vh;
+        overflow-y: auto;
 
         >* {
             margin: $gap;
@@ -40,6 +45,7 @@
             padding: $gap !important;
             width: 250px !important;
             height: 250px !important;
+            border-radius: $gap;
             .card-body {
                 padding: $gap 0 0 0 !important;
             }
@@ -57,6 +63,7 @@
                 margin: 0 $gap;
                 font-weight: bold;
                 color: white;
+                width: 40%;
             }
         }
     }
