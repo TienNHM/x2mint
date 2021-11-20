@@ -83,8 +83,6 @@ function Contest(props) {
 
     return (
         <>
-            <Navbar />
-
             <div>
                 {!isShowContestInfo &&
                     <div className="contest-management">
@@ -150,7 +148,7 @@ function Contest(props) {
                             setIsShowContestInfo={setIsShowContestInfo}
                             contest={selectedContest}
                             updateContest={setSelectedContest}
-                            isCreator={false}
+                            isCreator={true}
                         />
                     </div>
                 }
