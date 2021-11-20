@@ -14,7 +14,7 @@ $setting-button-width: 7vw;
         font-size: 16px;
     }
 
-    .logo {
+    .menu-section {
         height: $navbar-test-height;
         display: flex;
         flex-direction: row;
@@ -28,6 +28,14 @@ $setting-button-width: 7vw;
             font-weight: bold;
             font-family: "Sigmar One", "Open Sans", "Helvetica Neue";
             color:rgb(0, 153, 128);
+        }
+
+        button {
+            box-shadow: none !important;
+
+            a {
+                text-decoration: none !important;
+            }
         }
     }
 }
