@@ -9,20 +9,26 @@ import './PanelSettings.scss'
 function PanelSettings(props) {
     const { test, setTest, setSelectedQuestion, isCreator, setIsShowTest, setIsSaved } = props
 
+    // Test title
+    const inputTestTitleRef = useRef(null)
+    const [testTitle, setTestTitle] = useState(test.title)
+
+    // Duration
     const start_time = test.start_time.split(' ')
     const end_time = test.end_time.split(' ')
-
-    const inputTestTitleRef = useRef(null)
+    const [startDate, setStartDate] = useState(start_time.length === 2 ? start_time[0] : '')
+    const [startTime, setStartTime] = useState(start_time.length === 2 ? start_time[1] : '')
+    const [endDate, setEndDate] = useState(end_time.length === 2 ? end_time[0] : '')
+    const [endTime, setEndTime] = useState(end_time.length === 2 ? end_time[1] : ' ')
     const startDateRef = useRef(null)
     const startTimeRef = useRef(null)
     const endDateRef = useRef(null)
     const endTimeRef = useRef(null)
 
-    const [testTitle, setTestTitle] = useState(test.title)
-    const [startDate, setStartDate] = useState(start_time.length === 2 ? start_time[0] : '')
-    const [startTime, setStartTime] = useState(start_time.length === 2 ? start_time[1] : '')
-    const [endDate, setEndDate] = useState(end_time.length === 2 ? end_time[0] : '')
-    const [endTime, setEndTime] = useState(end_time.length === 2 ? end_time[1] : ' ')
+    // Confirm Modal
+    const [isShowConfirm, setIsShowConfirm] = useState(false)
+    const [content, setContent] = useState('')
+    const [currentAction, setCurrentAction] = useState('')
 
     const handleSaveClick = () => {
         const titleValue = inputTestTitleRef.current.value
@@ -71,14 +77,10 @@ function PanelSettings(props) {
         }
     }
 
-    const [isShow, setIsShow] = useState(false)
-    const [content, setContent] = useState('')
-    const [currentAction, setCurrentAction] = useState('')
-
     const handleOnSubmitClick = () => {
         setContent('Bạn có muốn xác nhận việc nộp bài?<br /><strong>Lưu ý, sau khi xác nhận, bạn không thể chỉnh sửa câu trả lời.</strong>')
         setCurrentAction('CONFIRM_SUBMIT')
-        setIsShow(true)
+        setIsShowConfirm(true)
     }
 
     const btnSubmitRef = useRef(null)
@@ -88,30 +90,29 @@ function PanelSettings(props) {
             if (action === MODAL_ACTION_CONFIRM) {
                 btnSubmitRef.current.disabled = true
                 timeRemainRef.current.stop()
-                setIsShow(false)
+                setIsShowConfirm(false)
                 setIsShowTest(false)
             }
             else if (action === MODAL_ACTION_CLOSE) {
                 timeRemainRef.current.start()
-                setIsShow(false)
+                setIsShowConfirm(false)
             }
         }
         else if (currentAction === 'CONFIRM_EXIT') {
             if (action === MODAL_ACTION_CONFIRM) {
                 setIsShowTest(false)
-                setIsShow(false)
+                setIsShowConfirm(false)
             }
             else if (action === MODAL_ACTION_CLOSE) {
-                setIsShow(false)
+                setIsShowConfirm(false)
             }
         }
     }
 
     const handleExit = () => {
-        console.log('hdfhfdhjfdhjfhwwiurereh')
         setCurrentAction('CONFIRM_EXIT')
         setContent('Bạn có muốn thoát không? Lưu ý, mọi thay đổi chưa được lưu sẽ bị mất đi mà không thể khôi phục!')
-        setIsShow(true)
+        setIsShowConfirm(true)
     }
 
     return (
@@ -240,7 +241,7 @@ function PanelSettings(props) {
                 <ConfirmModal
                     title="Xác nhận"
                     content={content}
-                    isShow={isShow}
+                    isShow={isShowConfirm}
                     onAction={handleConfirmSubmit}
                 />
             </div>
