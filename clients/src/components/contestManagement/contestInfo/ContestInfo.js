@@ -3,6 +3,7 @@ import { Button, Card, ListGroup, ListGroupItem, Form } from 'react-bootstrap'
 import ModalCreateContest from 'components/contestManagement/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
+import StatisticTest from 'components/contestManagement/statistic/StatisticTest'
 import { emptyTest } from 'actions/initialData'
 import { displayTimeDelta } from 'utils/timeUtils'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
@@ -11,14 +12,19 @@ import './ContestInfo.scss'
 export default function ContestInfo({ setIsShowContestInfo, contest, updateContest, isCreator }) {
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
+    const [isShowStatisticTest, setIsShowStatisticTest] = useState(false)
     const [confirmModalContent, setConfirmModalContent] = useState('')
     const [currentAction, setCurrentAction] = useState('')
     const [isShowTest, setIsShowTest] = useState(false)
     const [selectedTest, setSelectedTest] = useState(null)
+
+    // Test information
     const [title, setTitle] = useState(contest.name)
     const [description, setDescription] = useState(contest.description)
     const [url, setUrl] = useState(contest.url)
     const [embededMedia, setEmbedMedia] = useState(contest.embeded_media)
+
+    // Duraction 
     const [startDate, setStartDate] = useState('')
     const [startTime, setStartTime] = useState('')
     const [endDate, setEndDate] = useState('')
@@ -69,6 +75,11 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         setIsShowConfirmModal(true)
     }
 
+    const handleStatisticsTest = (test) => {
+        setSelectedTest(test)
+        setIsShowStatisticTest(true)
+    }
+
     const handleDeleteTest = (test) => {
         setSelectedTest({ ...test })
         setConfirmModalContent(`Bạn có muốn xóa bài test này khỏi cuộc thi ${title} không?`)
@@ -83,7 +94,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         setIsShowTest(true)
     }
 
-    const onTestAciton = (action) => {
+    const onTestAction = (action) => {
         if (currentAction === 'CONFIRM_DELETE_TEST') {
             if (selectedTest && action === MODAL_ACTION_CONFIRM) {
                 const newContest = { ...contest }
@@ -106,6 +117,10 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
             }
         }
         setIsShowConfirmModal(false)
+    }
+
+    const onShowStatistics = (action) => {
+        setIsShowStatisticTest(false)
     }
 
     useEffect(() => {
@@ -243,13 +258,17 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                 <div className="card-test-actions col-md-1 col-sm-12">
                                                     {isCreator &&
                                                         <>
+                                                            <Button variant="warning" size="sm"
+                                                                onClick={() => handleStatisticsTest(test)} >
+                                                                <i className="fa fa-bar-chart"></i>
+                                                            </Button>{' '}
                                                             <Button variant="primary" size="sm"
                                                                 onClick={() => handleEditTest(test)} >
-                                                                Chỉnh sửa
+                                                                <i className="fa fa-edit"></i>
                                                             </Button>{' '}
                                                             <Button variant="danger" size="sm"
                                                                 onClick={() => handleDeleteTest(test)} >
-                                                                Xóa
+                                                                <i className="fa fa-remove"></i>
                                                             </Button>{' '}
                                                         </>
                                                     }
@@ -295,10 +314,17 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 contest={contest}
                 isUpdate={true}
             />
+
             <ConfirmModal
                 content={confirmModalContent}
                 isShow={isShowConfirmModal}
-                onAction={onTestAciton}
+                onAction={onTestAction}
+            />
+
+            <StatisticTest
+                isShow={isShowStatisticTest}
+                onAction={onShowStatistics}
+                test={selectedTest}
             />
         </>
     )
