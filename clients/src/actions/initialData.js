@@ -230,6 +230,7 @@ export const initialContest = [{
             id: 'test-1',
             name: 'Science',
             description: 'Bài kiểm tra trắc nghiệm trực tuyến về các chủ đề khoa học tự nhiên, khoa học xã hội.',
+            url: 'https://www.google.com/',
             creator_id: 'user-1',
             status: 'DRAFT',
             start_time: '2021-11-13 00:00',
@@ -262,8 +263,7 @@ export const initialContest = [{
                             content: 'Shaker Sort'
                         }
                     ],
-                    correct_answers: ['1'],
-                    choose_answers: ['2', '3']
+                    correct_answers: ['1']
                 },
                 {
                     id: 'question-2',
@@ -292,8 +292,7 @@ export const initialContest = [{
                             content: 'H20'
                         }
                     ],
-                    correct_answers: ['4'],
-                    choose_answers: ['3']
+                    correct_answers: ['4']
                 },
                 {
                     id: 'question-3',
@@ -322,8 +321,7 @@ export const initialContest = [{
                             content: '5 chia hết cho 2'
                         }
                     ],
-                    correct_answers: ['1'],
-                    choose_answers: ['4', '1']
+                    correct_answers: ['1']
                 },
                 {
                     id: 'question-4',
@@ -352,8 +350,7 @@ export const initialContest = [{
                             content: 'Số nguyên tố là số tự nhiên chỉ có 2 ước số.'
                         }
                     ],
-                    correct_answers: ['4'],
-                    choose_answers: ['1']
+                    correct_answers: ['4']
                 },
                 {
                     id: 'question-5',
@@ -382,8 +379,7 @@ export const initialContest = [{
                             content: 'H2O'
                         }
                     ],
-                    correct_answers: ['2'],
-                    choose_answers: ['1']
+                    correct_answers: ['2']
                 },
                 {
                     id: 'question-6',
@@ -412,8 +408,7 @@ export const initialContest = [{
                             content: 'Vô số màu'
                         }
                     ],
-                    correct_answers: ['4'],
-                    choose_answers: ['1']
+                    correct_answers: ['4']
                 },
                 {
                     id: 'question-7',
@@ -442,8 +437,7 @@ export const initialContest = [{
                             content: 'Câu trả lời D'
                         }
                     ],
-                    correct_answers: ['4'],
-                    choose_answers: ['1']
+                    correct_answers: ['4']
                 }
             ],
             questions_order: ['question-1', 'question-2', 'question-3', 'question-4', 'question-5', 'question-6', 'question-7']
@@ -452,6 +446,7 @@ export const initialContest = [{
             id: 'test-2',
             name: 'Math',
             description: 'Bài kiểm tra trắc nghiệm trực tuyến về toán học.',
+            url: 'https://www.google.com/',
             creator_id: 'user-1',
             status: 'DRAFT',
             start_time: '2021-11-13 08:00',
@@ -484,8 +479,7 @@ export const initialContest = [{
                             content: '4'
                         }
                     ],
-                    correct_answers: ['2'],
-                    choose_answers: ['2', '3']
+                    correct_answers: ['2']
                 },
                 {
                     id: 'question-2',
@@ -514,8 +508,7 @@ export const initialContest = [{
                             content: 'Số nguyên tố là số tự nhiên chỉ có 2 ước số.'
                         }
                     ],
-                    correct_answers: ['4'],
-                    choose_answers: ['1']
+                    correct_answers: ['4']
                 }
             ],
             questions_order: ['question-1', 'question-2']
@@ -524,6 +517,7 @@ export const initialContest = [{
             id: 'test-3',
             name: 'Math',
             description: 'Bài kiểm tra trắc nghiệm trực tuyến về toán học.',
+            url: 'https://www.facebook.com/',
             creator_id: 'user-1',
             status: 'DRAFT',
             start_time: '2021-11-13 08:00',
@@ -556,8 +550,7 @@ export const initialContest = [{
                             content: '4'
                         }
                     ],
-                    correct_answers: ['2'],
-                    choose_answers: ['2', '3']
+                    correct_answers: ['2']
                 },
                 {
                     id: 'question-2',
@@ -586,8 +579,7 @@ export const initialContest = [{
                             content: 'Số nguyên tố là số tự nhiên chỉ có 2 ước số.'
                         }
                     ],
-                    correct_answers: ['4'],
-                    choose_answers: ['1']
+                    correct_answers: ['4']
                 }
             ],
             questions_order: ['question-1', 'question-2']
@@ -596,6 +588,7 @@ export const initialContest = [{
             id: 'test-4',
             name: 'Math',
             description: 'Bài kiểm tra trắc nghiệm trực tuyến về toán học.',
+            url: 'https://www.youtube.com/',
             creator_id: 'user-1',
             status: 'DRAFT',
             start_time: '2021-11-13 08:00',
@@ -628,8 +621,7 @@ export const initialContest = [{
                             content: '4'
                         }
                     ],
-                    correct_answers: ['2'],
-                    choose_answers: ['2', '3']
+                    correct_answers: ['2']
                 },
                 {
                     id: 'question-2',
@@ -658,8 +650,7 @@ export const initialContest = [{
                             content: 'Số nguyên tố là số tự nhiên chỉ có 2 ước số.'
                         }
                     ],
-                    correct_answers: ['4'],
-                    choose_answers: ['1']
+                    correct_answers: ['4']
                 }
             ],
             questions_order: ['question-1', 'question-2']
@@ -668,6 +659,7 @@ export const initialContest = [{
             id: 'test-5',
             name: 'Math',
             description: 'Bài kiểm tra trắc nghiệm trực tuyến về toán học.',
+            url: 'https://github.com/',
             creator_id: 'user-1',
             status: 'DRAFT',
             start_time: '2021-11-13 08:00',
@@ -700,8 +692,7 @@ export const initialContest = [{
                             content: '4'
                         }
                     ],
-                    correct_answers: ['2'],
-                    choose_answers: ['2', '3']
+                    correct_answers: ['2']
                 },
                 {
                     id: 'question-2',
@@ -730,8 +721,7 @@ export const initialContest = [{
                             content: 'Số nguyên tố là số tự nhiên chỉ có 2 ước số.'
                         }
                     ],
-                    correct_answers: ['4'],
-                    choose_answers: ['1']
+                    correct_answers: ['4']
                 }
             ],
             questions_order: ['question-1', 'question-2']
@@ -790,8 +780,7 @@ export const emptyTest = {
                     content: ''
                 }
             ],
-            correct_answers: ['1'],
-            choose_answers: ['2', '3']
+            correct_answers: ['1']
         }
     ],
     questions_order: ['question-1']

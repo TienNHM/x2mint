@@ -23,6 +23,7 @@ function Question({ question, updateQuestion, isCreator }) {
     }, [question])
 
     useEffect(() => {
+        //TODO: xử lý khi examinee chọn đáp án
         const newQuestion = { ...question }
         newQuestion.correct_answer = chooseAnswer
         updateQuestion(newQuestion, isCreator)

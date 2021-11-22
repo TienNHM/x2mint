@@ -20,7 +20,7 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
         if (value.length <= MAX_ANSWER_LENGTH) {
             setContent(value)
             setAnswerLength(MAX_ANSWER_LENGTH - value.length)
-            setRows(value.length/(MAX_ANSWER_LENGTH/2) + 1)
+            setRows(value.length / (MAX_ANSWER_LENGTH / 2) + 1)
         }
     }
 
@@ -48,8 +48,13 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
             </div>
             <div className="answer-checkbox">
                 <div className="lenght-limit">{answerLength}</div>
-                <input type="checkbox" className="btn-checkbox" name={name} value={name}
+                <input
+                    type="checkbox"
+                    className="btn-checkbox"
+                    name={name}
+                    value={name}
                     onClick={onClick}>
+                    {/* //TODO: handle choose answer */}
                 </input>
             </div>
         </div>
