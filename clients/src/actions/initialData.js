@@ -1,6 +1,6 @@
 export const initialTest = {
     id: 'test-1',
-    title: 'Science',
+    name: 'Science',
     creator_id: 'user-1',
     status: 'DRAFT',
     start_time: '2021-11-13 08:00',
@@ -228,7 +228,7 @@ export const initialContest = [{
     tests: [
         {
             id: 'test-1',
-            title: 'Science',
+            name: 'Science',
             description: 'Bài kiểm tra trắc nghiệm trực tuyến về các chủ đề khoa học tự nhiên, khoa học xã hội.',
             creator_id: 'user-1',
             status: 'DRAFT',
@@ -450,7 +450,7 @@ export const initialContest = [{
         },
         {
             id: 'test-2',
-            title: 'Math',
+            name: 'Math',
             description: 'Bài kiểm tra trắc nghiệm trực tuyến về toán học.',
             creator_id: 'user-1',
             status: 'DRAFT',
@@ -522,7 +522,7 @@ export const initialContest = [{
         },
         {
             id: 'test-3',
-            title: 'Math',
+            name: 'Math',
             description: 'Bài kiểm tra trắc nghiệm trực tuyến về toán học.',
             creator_id: 'user-1',
             status: 'DRAFT',
@@ -594,7 +594,7 @@ export const initialContest = [{
         },
         {
             id: 'test-4',
-            title: 'Math',
+            name: 'Math',
             description: 'Bài kiểm tra trắc nghiệm trực tuyến về toán học.',
             creator_id: 'user-1',
             status: 'DRAFT',
@@ -666,7 +666,7 @@ export const initialContest = [{
         },
         {
             id: 'test-5',
-            title: 'Math',
+            name: 'Math',
             description: 'Bài kiểm tra trắc nghiệm trực tuyến về toán học.',
             creator_id: 'user-1',
             status: 'DRAFT',
@@ -757,7 +757,7 @@ export const initialContest = [{
 
 export const emptyTest = {
     id: '',
-    title: '',
+    name: '',
     creator_id: 'user-1',
     status: 'DRAFT',
     start_time: '',

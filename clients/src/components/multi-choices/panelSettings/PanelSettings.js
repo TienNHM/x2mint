@@ -11,7 +11,7 @@ function PanelSettings(props) {
 
     // Test title
     const inputTestTitleRef = useRef(null)
-    const [testTitle, setTestTitle] = useState(test.title)
+    const [testTitle, setTestTitle] = useState(test.name)
 
     // Duration
     const start_time = test.start_time.split(' ')
@@ -42,7 +42,7 @@ function PanelSettings(props) {
             if (Date.parse(endTime) > Date.parse(startTime)) {
                 const newTest = {
                     ...test,
-                    title: titleValue,
+                    name: titleValue,
                     start_time: startTime,
                     end_time: endTime
                 }

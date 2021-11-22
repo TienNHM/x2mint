@@ -1,7 +1,7 @@
 import React from 'react'
-import { Button, Modal, Form, Image } from 'react-bootstrap'
+import { Button, Modal, Form } from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
+import { MODAL_ACTION_CLOSE } from 'utils/constants'
 import { SAMPLE_DATA } from './data.js'
 import './StatisticTest.scss'
 
@@ -26,16 +26,6 @@ export default function StatisticTest({ isShow, onAction, test }) {
                 <Modal.Body>
                     <div className="test-info">
                         <div className="body-left">
-                            <div className="contest-title-section">
-                                <div className="label">Tên</div>
-                                <Form.Control
-                                    size="sm"
-                                    type="text"
-                                    className="contest-title"
-                                    value={test.title}
-                                    readOnly={true}
-                                />
-                            </div>
                             <div className="contest-description-section">
                                 <div className="label">Mô tả</div>
                                 <Form.Control
@@ -83,7 +73,7 @@ export default function StatisticTest({ isShow, onAction, test }) {
                             </div>
                         </div>
                         <div className="body-right">
-                            <div className="h4 text-center">Bảng</div>
+                            <div className="h3 fw-bolder text-center">{test.name}</div>
                             <MDBDataTableV5
                                 hover narrow striped small bordered
                                 entriesOptions={[10, 25, 50, 100]}
