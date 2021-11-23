@@ -13,7 +13,7 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
         const value = answers[index].content
         setContent(value)
         setAnswerLength(MAX_ANSWER_LENGTH - value.length)
-    }, [answers])
+    }, [answers, index])
 
     const handleTextChange = (event) => {
         const value = event.target.value.replace(/\n/g, ' ')

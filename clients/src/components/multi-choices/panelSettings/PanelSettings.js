@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import Countdown from 'react-countdown'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
+import { splitTime } from 'utils/timeUtils'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
-import Select from 'components/common/select/Select'
 import './PanelSettings.scss'
 
 function PanelSettings(props) {
@@ -14,12 +14,12 @@ function PanelSettings(props) {
     const [testTitle, setTestTitle] = useState(test.title)
 
     // Duration
-    const start_time = test.start_time.split(' ')
-    const end_time = test.end_time.split(' ')
-    const [startDate, setStartDate] = useState(start_time.length === 2 ? start_time[0] : '')
-    const [startTime, setStartTime] = useState(start_time.length === 2 ? start_time[1] : '')
-    const [endDate, setEndDate] = useState(end_time.length === 2 ? end_time[0] : '')
-    const [endTime, setEndTime] = useState(end_time.length === 2 ? end_time[1] : ' ')
+    const start_time = splitTime(test.startTime)
+    const end_time = splitTime(test.endTime)
+    const [startDate, setStartDate] = useState(start_time.date)
+    const [startTime, setStartTime] = useState(start_time.time)
+    const [endDate, setEndDate] = useState(end_time.date)
+    const [endTime, setEndTime] = useState(end_time.time)
     const startDateRef = useRef(null)
     const startTimeRef = useRef(null)
     const endDateRef = useRef(null)
@@ -173,27 +173,6 @@ function PanelSettings(props) {
                                 />
                             </div>
                         </div>
-                        {/* <div className="question-type">
-                                <div>Question type:</div>
-                                <Select data={questionTypes} />
-                            </div>
-                            <div className="question-time-limit">
-                                <div>Time limit:</div>
-                                <Select data={timeLimits} />
-                            </div>
-                            <div className="question-points">
-                                <div>Points:</div>
-                                <Select data={points} />
-                            </div>
-                            <div className="question-music">
-                                <div>Music:</div>
-                                <Select data={musics} />
-                            </div>
-                            <div className="question-answer-option">
-                                <div>Answer Option:</div>
-                                <Select data={answerOptions} />
-                            </div> */
-                        }
                     </div>
                     <div className="quick-actions">
                         <Button variant="warning" onClick={handleSaveClick}>Lưu</Button>{' '}
@@ -220,7 +199,7 @@ function PanelSettings(props) {
                         <div className="time-remain">
                             <div className="section-title">Thời gian còn lại</div>
                             <div className="time-remain-show">
-                                <Countdown date={Date.parse(test.end_time)} renderer={renderer} ref={timeRemainRef}>
+                                <Countdown date={Date.parse(test.endTime)} renderer={renderer} ref={timeRemainRef}>
                                     <Completionist />
                                 </Countdown>
                             </div>
