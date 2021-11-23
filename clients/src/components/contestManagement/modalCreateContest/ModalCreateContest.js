@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
+import { splitTime } from 'utils/timeUtils'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, MODAL_ACTION_RETRY } from 'utils/constants'
 import './ModalCreateContest.scss'
 
@@ -20,13 +21,13 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
         setTitle(contest.name)
         setDescription(contest.description)
         setUrl(contest.url)
-        setLink(contest.embeded_media)
-        const start_time = contest.start_time.split(' ')
-        const end_time = contest.end_time.split(' ')
-        setStartDate(start_time.length === 2 ? start_time[0] : '')
-        setStartTime(start_time.length === 2 ? start_time[1] : '')
-        setEndDate(end_time.length === 2 ? end_time[0] : '')
-        setEndTime(end_time.length === 2 ? end_time[1] : '')
+        setLink(contest.embededMedia)
+        const start_time = splitTime(contest.startTime)
+        const end_time = splitTime(contest.endTime)
+        setStartDate(start_time.date)
+        setStartTime(start_time.time)
+        setEndDate(end_time.date)
+        setEndTime(end_time.time)
     }, [contest])
 
     const openLibrary = (action, photo) => {
@@ -41,7 +42,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
             onAction(isUpdate, MODAL_ACTION_CLOSE)
         }
         else {
-            const embeded_media = link
+            const embededMedia = link
             const start_time = startDate + ' ' + startTime
             const end_time = endDate + ' ' + endTime
             const str = startDate.trim() + startTime.trim() + endDate.trim() + endTime.trim()
@@ -52,7 +53,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
             }
             else {
                 console.log('hi')
-                onAction(isUpdate, MODAL_ACTION_CONFIRM, title, description, url, embeded_media, start_time, end_time)
+                onAction(isUpdate, MODAL_ACTION_CONFIRM, title, description, url, embededMedia, start_time, end_time)
             }
         }
     }

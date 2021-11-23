@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Image.scss'
 
 function Image({ photo, index, selectedIndex, updateSelectedPhoto }) {

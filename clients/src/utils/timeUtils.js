@@ -19,3 +19,19 @@ export const displayTimeDelta = (start, end) => {
         (diff.minutes > 0 ? diff.minutes + ' phút ' : '') +
         (diff.seconds > 0 ? diff.seconds + ' giây.' : '')
 }
+
+export const splitTime = (time) => {
+    const arr = time.split('T')
+    if (arr.length === 2) {
+        return {
+            date: arr[0],
+            time: arr[1].substr(0, 5)
+        }
+    }
+    else {
+        return {
+            date: '1970-01-01',
+            time: '08:00'
+        }
+    }
+}

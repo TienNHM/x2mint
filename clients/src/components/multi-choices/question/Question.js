@@ -18,7 +18,7 @@ function Question({ question, updateQuestion, isCreator }) {
 
     useEffect(() => {
         setContent(question.content)
-        setEmbedMedia(question.embeded_media)
+        setEmbedMedia(question.embededMedia)
         setQuestionLength(MAX_QUESTION_LENGTH - question.content.length)
     }, [question])
 
@@ -32,7 +32,7 @@ function Question({ question, updateQuestion, isCreator }) {
         if (isUpdatedEmbedMedia) {
             console.log(embededMedia)
             const q = { ...question }
-            q.embeded_media = embededMedia
+            q.embededMedia = embededMedia
             updateQuestion(q, isCreator)
             setIsUpdatedEmbedMedia(false)
         }

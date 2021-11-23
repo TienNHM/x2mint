@@ -4,11 +4,12 @@ import ModalCreateContest from 'components/contestManagement/modalCreateContest/
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
 import { emptyTest } from 'actions/initialData'
-import { displayTimeDelta } from 'utils/timeUtils'
+import { displayTimeDelta, splitTime } from 'utils/timeUtils'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import './ContestInfo.scss'
 
 export default function ContestInfo({ setIsShowContestInfo, contest, updateContest, isCreator }) {
+    console.log(contest)
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
     const [confirmModalContent, setConfirmModalContent] = useState('')
@@ -18,7 +19,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
     const [title, setTitle] = useState(contest.name)
     const [description, setDescription] = useState(contest.description)
     const [url, setUrl] = useState(contest.url)
-    const [embededMedia, setEmbedMedia] = useState(contest.embeded_media)
+    const [embededMedia, setEmbedMedia] = useState(contest.embededMedia)
     const [startDate, setStartDate] = useState('')
     const [startTime, setStartTime] = useState('')
     const [endDate, setEndDate] = useState('')
@@ -28,17 +29,16 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         setTitle(contest.name)
         setDescription(contest.description)
         setUrl(contest.url)
-        setEmbedMedia(contest.embeded_media)
-        const start_time = contest.start_time.split(' ')
-        const end_time = contest.end_time.split(' ')
-        setStartDate(start_time.length === 2 ? start_time[0] : ' ')
-        setStartTime(start_time.length === 2 ? start_time[1] : ' ')
-        setEndDate(end_time.length === 2 ? end_time[0] : ' ')
-        setEndTime(end_time.length === 2 ? end_time[1] : ' ')
-        console.log(contest)
+        setEmbedMedia(contest.embededMedia)
+        const start_time = splitTime(contest.startTime)
+        const end_time = splitTime(contest.endTime)
+        setStartDate(start_time.date)
+        setStartTime(start_time.time)
+        setEndDate(end_time.date)
+        setEndTime(end_time.time)
     }, [contest])
 
-    const onAction = (isUpdate, action, title, description, url, embeded_media, start_time, end_time) => {
+    const onAction = (isUpdate, action, title, description, url, embededMedia, start_time, end_time) => {
 
         if (action === MODAL_ACTION_CONFIRM) {
             const newContest = {
@@ -46,7 +46,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 name: title,
                 description: description,
                 url: url,
-                embeded_media: embeded_media,
+                embededMedia: embededMedia,
                 start_time: start_time,
                 end_time: end_time
             }
@@ -216,7 +216,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                     </div>
                                 </Card.Header>
                                 <div className="show-all-tests">
-                                    {contest.tests.map((test, index) =>
+                                    {/* {contest.tests.map((test, index) =>
                                         <Card.Body key={index} className="row">
                                             <div className="card-test-preview">
                                                 <div className="card-test-index col-md-1 col-sm-12">
@@ -228,11 +228,11 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                     <div className="detail row">
                                                         <div className="start-time col-md-4 col-12">
                                                             <div className="fw-bolder">Thời gian bắt đầu: </div>
-                                                            <div>{test.start_time}</div>
+                                                            <div>{test.startTime}</div>
                                                         </div>
                                                         <div className="duration col-md-4 col-12">
                                                             <div className="fw-bolder">Thời lượng làm bài: </div>
-                                                            <div>{displayTimeDelta(test.start_time, test.end_time)}</div>
+                                                            <div>{displayTimeDelta(test.startTime, test.endTime)}</div>
                                                         </div>
                                                         <div className="card-test-quantity col-md-4 col-12">
                                                             <div className="fw-bolder">Số câu hỏi: </div>
@@ -256,8 +256,8 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
 
                                                     {!isCreator &&
                                                         <>
-                                                            <Button variant={Date.parse(test.end_time) - Date.now() <= 0 ? 'secondary' : 'success'}
-                                                                disabled={Date.parse(test.end_time) - Date.now() <= 0}
+                                                            <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
+                                                                disabled={Date.parse(test.endTime) - Date.now() <= 0}
                                                                 onClick={() => handleTakeTest(test)} >
                                                                 Làm bài
                                                             </Button>
@@ -266,7 +266,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                 </div>
                                             </div>
                                         </Card.Body>
-                                    )}
+                                    )} */}
 
                                     {contest.tests.length == 0 &&
                                         <Card.Body className="row no-test">

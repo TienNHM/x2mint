@@ -2,7 +2,6 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.scss'
 import Navbar from 'components/common/navbar/Navbar'
-import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
 import Contest from 'components/contestManagement/contest/Contest'
 
 

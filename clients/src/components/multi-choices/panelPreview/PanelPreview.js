@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap'
 import QuestionItemPreview from 'components/multi-choices/questionItemPreview/QuestionItemPreview'
 import { applyDrag } from 'utils/dragDrop'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
+import { MODAL_ACTION_CONFIRM } from 'utils/constants'
 import { emptyQuestion } from 'actions/initialData'
 import './PanelPreview.scss'
 

@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card } from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
 import ModalCreateContest from 'components/contestManagement/modalCreateContest/ModalCreateContest'
-import Navbar from 'components/common/navbar/Navbar'
 import ContestInfo from 'components/contestManagement/contestInfo/ContestInfo'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
-import { initialContest } from 'actions/initialData'
+import { getAllContestsByCreator } from 'actions/api/ContestAPI'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, MODAL_ACTION_RETRY } from 'utils/constants'
 import './Contest.scss'
 
-function Contest(props) {
-    const [contests, setContests] = useState(initialContest)
+function Contest() {
+    const [contests, setContests] = useState(null)
     const [isShow, setIsShow] = useState(false)
     const blankContest = {
         id: '',
@@ -19,9 +18,9 @@ function Contest(props) {
         name: '',
         description: '',
         url: '',
-        embeded_media: '',
-        start_time: '',
-        end_time: '',
+        embededMedia: '',
+        startTime: '',
+        endTime: '',
         status: ''
     }
     const [selectedContest, setSelectedContest] = useState(blankContest)
@@ -29,16 +28,24 @@ function Contest(props) {
     const [isShowContestInfo, setIsShowContestInfo] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
 
-    const onAction = (isUpdate, action, title = '', description = '', url = '', embeded_media = '', start_time = '', end_time = '') => {
+    useEffect(() => {
+        getAllContestsByCreator('618dcea8a611f4340296328c')
+            .then(data => {
+                setContests(data.contests)
+            })
+            .catch(err => console.log(err))
+    }, [])
+
+    const onAction = (isUpdate, action, title = '', description = '', url = '', embededMedia = '', startTime = '', endTime = '') => {
         if (action === MODAL_ACTION_CONFIRM) {
             const newContest = {
                 ...blankContest,
                 name: title,
                 description: description,
                 url: url,
-                embeded_media: embeded_media,
-                start_time: start_time,
-                end_time: end_time
+                embededMedia: embededMedia,
+                startTime: startTime,
+                endTime: endTime
             }
             const contestsList = [...contests]
             if (isUpdate) {
@@ -102,10 +109,10 @@ function Contest(props) {
                         </div>
 
                         <div className="list-contests d-flex justify-content-center">
-                            {contests.map((c, index) => (
+                            {contests && contests.map((c, index) => (
                                 <Card key={index}>
                                     <div className="d-flex justify-content-center">
-                                        <Image className="embeded-media" src={c.embeded_media || 'https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png'} />
+                                        <Image className="embeded-media" src={c.embededMedia || 'https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png'} />
                                     </div>
                                     <Card.Body>
                                         <Card.Title>{c.name}</Card.Title>

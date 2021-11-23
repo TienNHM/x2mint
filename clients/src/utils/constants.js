@@ -5,3 +5,4 @@ export const MAX_PHOTOS_IN_RESULTS = 80
 export const MODAL_ACTION_CLOSE = 'MODAL_ACTION_CLOSE'
 export const MODAL_ACTION_CONFIRM = 'MODAL_ACTION_CONFIRM'
 export const MODAL_ACTION_RETRY = 'MODAL_ACTION_RETRY'
+export const API_ROOT = 'http://localhost:5000'
