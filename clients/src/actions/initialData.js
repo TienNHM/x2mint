@@ -1,6 +1,6 @@
 export const initialTest = {
     id: 'test-1',
-    title: 'Science',
+    name: 'Science',
     creator_id: 'user-1',
     status: 'DRAFT',
     startTime: '2021-11-13 08:00',
@@ -763,7 +763,7 @@ export const initialContest = [
 
 export const emptyTest = {
     id: '',
-    title: '',
+    name: '',
     creator_id: 'user-1',
     status: 'DRAFT',
     startTime: '',

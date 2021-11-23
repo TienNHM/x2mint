@@ -236,7 +236,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                     <div className="test-index d-flex justify-content-center align-middle">{index + 1}</div>
                                                 </div>
                                                 <div className="card-test-info col-md-10 col-sm-12">
-                                                    <div className="card-test-title h5">{test.title}</div>
+                                                    <div className="card-test-title h5">{test.name}</div>
                                                     <div className="card-test-description">{test.description}</div>
                                                     <div className="detail row">
                                                         <div className="start-time col-md-4 col-12">
