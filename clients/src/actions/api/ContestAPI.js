@@ -1,18 +1,9 @@
 import axios from 'axios'
+import { auth } from 'actions/api/AuthAPI'
 import { API_ROOT } from 'utils/constants'
 
 const username = 'minhhoang1'
 const password = '12345'
-
-export const auth = async (username, password) => {
-    const url = `${API_ROOT}/app/api/v1/auths/login`
-    const request = await axios.post(url, {
-        username: username,
-        password: password
-    })
-
-    return request.data
-}
 
 export const fetchAllContests = async () => {
     var accessToken = await auth(username, password).then(data => data.accessToken)
