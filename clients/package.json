@@ -16,6 +16,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "html-react-parser": "^1.4.0",
     "lodash": "^4.17.21",
+    "mdbreact": "^5.1.0",
     "node-sass": "^6.0.1",
     "pexels": "^1.3.0",
     "react": "^17.0.2",
