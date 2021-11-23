@@ -1,11 +1,14 @@
-import React from 'react'
-import { Button, Modal, Form } from 'react-bootstrap'
+import React, { useRef, useState } from 'react'
+import { Button, Modal, Form, Overlay, Popover } from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact'
 import { MODAL_ACTION_CLOSE } from 'utils/constants'
 import { SAMPLE_DATA } from './data.js'
 import './StatisticTest.scss'
 
 export default function StatisticTest({ isShow, onAction, test }) {
+    const [show, setShow] = useState(false)
+    const target = useRef(null)
+
     if (test === null) return null
 
     const start_time = test.start_time.split(' ')
@@ -21,22 +24,34 @@ export default function StatisticTest({ isShow, onAction, test }) {
                 backdrop='static'
                 keyboard={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="h5 fw-bolder">Thống kê</Modal.Title>
+                    <Modal.Title>
+                        <span className="fw-bolder">{test.name}</span>
+                        <Button variant="information"
+                            style={{ 'margin-left': '5px', 'box-shadow': 'none', 'color': '#71bef1' }}
+                            ref={target}
+                            size="sm"
+                            onClick={() => setShow(!show)}>
+                            <i className="fa fa-info-circle"></i>
+                        </Button>
+                        <Overlay
+                            show={show}
+                            target={target}
+                            placement="bottom"
+                            container={target}
+                            containerPadding={20}
+                        >
+                            <Popover id="popover-contained">
+                                <Popover.Header as="h3">Thông tin về bài test</Popover.Header>
+                                <Popover.Body>
+                                    <strong>{test.description}</strong>
+                                </Popover.Body>
+                            </Popover>
+                        </Overlay>
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="test-info">
-                        <div className="body-left">
-                            <div className="contest-description-section">
-                                <div className="label">Mô tả</div>
-                                <Form.Control
-                                    size="sm"
-                                    as="textarea"
-                                    rows="6"
-                                    className="contest-description"
-                                    value={test.description}
-                                    readOnly={true}
-                                />
-                            </div>
+                        <div className="duration">
                             <div className="datetime-picker">
                                 <div className="label">Thời gian bắt đầu</div>
                                 <div className="datetime">
@@ -72,17 +87,14 @@ export default function StatisticTest({ isShow, onAction, test }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="body-right">
-                            <div className="h3 fw-bolder text-center">{test.name}</div>
-                            <MDBDataTableV5
-                                hover narrow striped small bordered
-                                entriesOptions={[10, 25, 50, 100]}
-                                entries={10}
-                                pagesAmount={4}
-                                data={SAMPLE_DATA}
-                                materialSearch
-                            />
-                        </div>
+                        <MDBDataTableV5
+                            hover striped bordered
+                            entriesOptions={[10, 25, 50, 100]}
+                            entries={10}
+                            pagesAmount={4}
+                            data={SAMPLE_DATA}
+                            materialSearch
+                        />
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

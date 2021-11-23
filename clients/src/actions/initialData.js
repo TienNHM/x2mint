@@ -796,8 +796,7 @@ export const emptyTest = {
                     content: ''
                 }
             ],
-            correct_answers: ['1'],
-            choose_answers: ['2', '3']
+            correct_answers: ['1']
         }
     ],
     questions_order: ['question-1']
