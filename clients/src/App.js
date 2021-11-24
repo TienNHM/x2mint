@@ -4,6 +4,7 @@ import './App.scss'
 import Navbar from 'components/common/navbar/Navbar'
 import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
 import Contest from 'components/contestManagement/contest/Contest'
+import Homepage from 'components/common/home/Homepage'
 
 
 function App() {
@@ -12,12 +13,11 @@ function App() {
             <div className="app">
                 <div className="bootstrap-container">
                     <Navbar />
-
                     <Routes>
-                        <Route exact path="/" element={<Contest />} />
-                        <Route path="/login" element={<Contest />} />
-                        <Route path="/profile" element={<Contest />} />
+                        <Route path="/" element={<Homepage />} />
                         <Route path="/contest" element={<Contest />} />
+                        {/* <Route path="/create_contest" element={<Create_Contest />}/> */}
+                        {/* <Route path="/login" element={<Login />} /> */}
                     </Routes>
                 </div>
             </div>
