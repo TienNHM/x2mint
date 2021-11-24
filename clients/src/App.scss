@@ -1,8 +1,11 @@
 @import '_setting.scss';
 
+input,
+textarea,
+button,
 body {
   margin: 0;
-  font-family: 'Source Code Pro', sans-serif;
+  font-family: --body-font;
   font-size: 14px;
   line-height: 1.3em;
 }
@@ -13,7 +16,6 @@ button {
 
 .app {
   height: 100vh;
-  overflow: hidden;
   background-color: $app-bg-color;
   align-items: center;
   text-align: center;
@@ -34,4 +36,5 @@ button {
     resize: none;
     line-height: 1.6rem !important;
   }
+
 }
