@@ -3,6 +3,7 @@ import { Button, Modal, Form } from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact'
 import { MODAL_ACTION_CLOSE } from 'utils/constants'
 import exportData from './data.js'
+import { ExportToExcel } from 'utils/ExportToExcel'
 import { initialTakeTest } from 'actions/initialData'
 import './SubmitResult.scss'
 
@@ -27,8 +28,8 @@ export default function SubmitResult({ isShow = true, onAction }) {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="take-test-info">
-                        <div className="duration">
-                            <div className="date-time-picker">
+                        <div className="duration d-flex align-items-end">
+                            <div>
                                 <div className="label">
                                     Thời gian nộp bài:
                                     <span className="fw-light"> <i>(Nộp đúng hạn)</i></span>
@@ -50,7 +51,7 @@ export default function SubmitResult({ isShow = true, onAction }) {
                                     />
                                 </div>
                             </div>
-                            <div className="date-time-picker">
+                            <div>
                                 <div className="label">Điểm số:</div>
                                 <div className="row">
                                     <Form.Control
@@ -61,6 +62,12 @@ export default function SubmitResult({ isShow = true, onAction }) {
                                         style={{ width: '80px', margin: '5px', textAlign: 'center' }}
                                     />
                                 </div>
+                            </div>
+                            <div>
+                                <ExportToExcel
+                                    apiData={data.rows}
+                                    fileName={takeTest.username + ' ' + takeTest.submitTime}
+                                />
                             </div>
                         </div>
                         <MDBDataTableV5

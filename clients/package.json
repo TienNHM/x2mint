@@ -14,6 +14,7 @@
     "eslint": "7.11.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "file-saver": "^2.0.5",
     "html-react-parser": "^1.4.0",
     "lodash": "^4.17.21",
     "mdbreact": "^5.1.0",
@@ -28,6 +29,7 @@
     "react-smooth-dnd": "^0.11.1",
     "unsplash-js": "^7.0.15",
     "web-vitals": "^1.0.1",
+    "xlsx": "^0.17.4",
     "yarn": "^1.22.17"
   },
   "scripts": {

@@ -7,25 +7,14 @@
     .label {
         font-weight: bold;
         margin: 3px 0;
+        text-align: center;
     }
 
     .duration {
         display: flex;
         flex-direction: row;
-        >* {
-            width: 50%;
-
-            .datetime-picker {
-
-                .datetime {
-                    display: flex;
-                    flex-direction: row !important;
-                    input {
-                        width: 50% !important;
-                    }
-                }
-            }
-        }
+        justify-content: space-between;
+        margin: 0 3*$gap;
     }
 
     input,
@@ -38,15 +27,7 @@
         }
     }
 
-    .row {
+    .mdb-datatable .row {
         margin: $gap;
-    }
-
-    button {
-        padding: 0 !important;
-        background-color: transparent !important;
-        box-shadow: none !important;
-        font-size: 20px;
-        color: #71bef1;
     }
 }

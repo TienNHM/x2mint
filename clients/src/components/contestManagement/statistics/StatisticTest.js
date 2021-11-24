@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Button, Modal, Form, Overlay, Popover } from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact'
+import { ExportToExcel } from 'utils/ExportToExcel'
 import { MODAL_ACTION_CLOSE } from 'utils/constants'
 import { SAMPLE_DATA } from './data.js'
 import './StatisticTest.scss'
@@ -51,40 +52,51 @@ export default function StatisticTest({ isShow, onAction, test }) {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="test-info">
-                        <div className="duration">
-                            <div className="datetime-picker">
+                        <div className="duration d-flex align-items-end">
+                            <div>
                                 <div className="label">Thời gian bắt đầu</div>
-                                <div className="datetime">
+                                <div className="row">
                                     <Form.Control
                                         size="sm"
                                         type="date"
                                         value={start_time[0]}
                                         readOnly={true}
+                                        style={{ width: '140px', margin: '5px', textAlign: 'center' }}
                                     />
                                     <Form.Control
                                         size="sm"
                                         type="time"
                                         value={start_time[1]}
                                         readOnly={true}
+                                        style={{ width: '140px', margin: '5px', textAlign: 'center' }}
                                     />
                                 </div>
                             </div>
-                            <div className="datetime-picker">
+                            <div>
                                 <div className="label">Thời gian kết thúc</div>
-                                <div className="datetime">
+                                <div className="row">
                                     <Form.Control
                                         size="sm"
                                         type="date"
                                         value={end_time[0]}
                                         readOnly={true}
+                                        style={{ width: '140px', margin: '5px', textAlign: 'center' }}
                                     />
                                     <Form.Control
                                         size="sm"
                                         type="time"
                                         value={end_time[1]}
                                         readOnly={true}
+                                        style={{ width: '140px', margin: '5px', textAlign: 'center' }}
                                     />
                                 </div>
+                            </div>
+                            <div>
+                                <ExportToExcel
+                                    //TODO: Custom export
+                                    apiData={SAMPLE_DATA.rows}
+                                    fileName={'data'}
+                                />
                             </div>
                         </div>
                         <MDBDataTableV5

@@ -6,37 +6,37 @@ import { mapOrder } from 'utils/sorts'
 export const COLUMNS = [
     {
         label: 'Câu',
-        field: 'index',
+        field: 'Câu',
         sort: 'asc',
         width: 100
     },
     {
         label: 'Đáp án đã chọn',
-        field: 'choose',
+        field: 'Đáp án đã chọn',
         sort: 'disabled',
         width: 200
     },
     {
         label: 'Đáp án đúng',
-        field: 'correct',
+        field: 'Đáp án đúng',
         sort: 'disabled',
         width: 200
     },
     {
         label: 'Điểm tối đa',
-        field: 'maxPoints',
+        field: 'Điểm tối đa',
         sort: 'asc',
         width: 100
     },
     {
         label: 'Điểm đạt được',
-        field: 'points',
+        field: 'Điểm đạt được',
         sort: 'asc',
         width: 100
     },
     {
         label: 'Chi tiết',
-        field: 'details',
+        field: 'Chi tiết',
         sort: 'disabled',
         width: 100
     }
@@ -58,12 +58,12 @@ export default function exportData(data) {
     const chooseAnswers = mapOrder(data.chooseAnswers, data.questionsOrder, 'questionId')
     const rows = chooseAnswers.map((value, index) => {
         const item = {
-            index: index + 1,
-            choose: value.answers,
-            correct: value.correctAnswers,
-            maxPoints: value.maxPoints,
-            points: calcPoints(value.answers, value.correctAnswers, value.maxPoints),
-            details: <MDBBtn size="sm" onClick={() => alert(value.questionId)}><i className="fa fa-info-circle"></i></MDBBtn>
+            'Câu': index + 1,
+            'Đáp án đã chọn': value.answers.map(x => x).join(', '),
+            'Đáp án đúng': value.correctAnswers.map(x => x).join(', '),
+            'Điểm tối đa': value.maxPoints,
+            'Điểm đạt được': calcPoints(value.answers, value.correctAnswers, value.maxPoints),
+            'Chi tiết': <MDBBtn size="sm" onClick={() => alert(value.questionId)}><i className="fa fa-info-circle"></i></MDBBtn>
         }
         return item
     })
