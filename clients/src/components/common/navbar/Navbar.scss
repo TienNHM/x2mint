@@ -1,41 +1,199 @@
 @import '_setting.scss';
-
-$navbar-test-height: 5vh;
-$setting-button-width: 7vw;
-
-.navbar {
-    font-size: 1.6rem;
+/*=============== HEADER ===============*/
+/*=============== NAV ===============*/
+.nav{
+    height: 100px;
     display: flex;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--white);    
+    padding: 10px 5% 10px !important;
+    transition: .4s;
+    position: fixed;
+    width: 100%;
+    top:0;
+    z-index: 99;
+    
+    &__logo,
+    &__toggle,
+    &__close{
+        color: var(--black);
+    }
+    &__logo{
+        padding-left: 4%;
+        color : var(--mint);
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: -1px;
+        display: inline-flex;
+        align-items: center;
+        column-gap: .05rem;
+        transition: .3s;
+        font-size: 2rem;
+        &:hover{
+            color: var(--strong-mint);
+        }
 
-    > * {
-        font-size: 16px;
+        &-icon{
+            font-size: 2.5rem;
+            color: var(--black);
+            &:hover{color:var(--mint)}
+        }
     }
 
-    .menu-section {
-        height: $navbar-test-height;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        margin: 0 $gap;
-
-        .app-name {
-            font-size: 24px;
-            font-weight: bold;
-            font-family: "Sigmar One", "Open Sans", "Helvetica Neue";
-            color:rgb(0, 153, 128);
-        }
-
-        button {
-            box-shadow: none !important;
-
-            a {
-                text-decoration: none !important;
+    &__menu{
+        margin-left: 50;
+        @media screen and (max-width: 920px){
+            box-sizing: border-box;
+            margin: 0;
+            position: fixed;
+            background-color: var(--container-color);
+            width:50%;
+            height:100%;
+            top: 0;
+            right:-100%;
+            box-shadow: 1px 0 4px var(--strong-mint);
+            padding: 1rem 1rem;
+            border-radius: 0.5rem 0 0 .5rem;
+            transition: .6s;
+            z-index: var(--z-fixed); 
+            display: block;    
+            overflow: auto;   
+            li a {
+                display: block;
+                padding: 0% ;
             }
+            .button{
+                margin-top: 15px;
+                margin-bottom: 5px;
+                padding: 5px;
+            }
+            .button__signup{
+                margin-top: 5px;
+                padding: 5px 10px;
+            }
+            .nav__close{
+                visibility: visible;
+            }
+            .nav__toggle{
+                visibility: visible;
+            }
+            
         }
+        ul .nav__list{
+            position: sticky;
+            padding: 0;
+            margin: 0;
+        } 
+        padding: 0;
+        margin: 0;
+    }
+    
+    &__close{
+        font-size: 1.15rem;
+        position: absolute;
+        top: .9rem;
+        right: 1.25rem;
+        cursor: pointer;
+        visibility:hidden;
+    }
+    &__toggle{
+        display: inline-flex;
+        font-size: 1rem;
+        cursor: pointer;
+        visibility: hidden;
+    }
+    &__list{
+        vertical-align:center;
+        display: inline;
+    }
+    &__item{
+        vertical-align:center;
+        display: inline;
+        padding: 0 0.5rem;
+        font-size: 20px;
+    }
+    &__link{
+        text-decoration: none;  
+        font-family: var(--logo-font);
+        color: var(--black);
+        font-weight: var(--font-medium);
+
+        &:hover{
+            color: var(--mint);
+            transform: scale(1.5rem);
+        }
+    }
+}
+@media screen and (max-width: 920px){
+    .nav__toggle{
+        visibility: visible;
+        font-size:1.5rem;
+    }
+    .nav{
+        padding: 5px 5% 5px !important;
+    }
+}
+
+.button{
+    border-radius: 50px;
+    width: auto;
+    font-size: 1rem;
+
+
+    &__login{
+        border: 1px solid var(--mint);
+        color: var(--mint) !important;
+        background-color: var(--white);
+        font-weight:700;
+        padding: 5px;
+        &:hover{
+            color: var(--white) !important;
+            background-color: var(--light-mint);
+        }
+        
+    }
+
+    &__signup{
+        color: var(--white);
+        background-color: var(--mint);
+        padding: 5px 10px;
+        border: 0px;
+        font-weight: 600;       
+
+        &:hover{
+            color: var(--strong-mint);
+            background-color: var(--light-mint);
+        }
+    }
+
+}
+/* Show menu */
+.show-menu{
+    right:0;
+}
+
+/* Change background header */
+.scroll-header{
+    box-shadow: 0 1px 4px var(--strong-mint);;
+}
+
+/* Active link */
+.active-link{
+    position: relative;
+    color: var(--black);
+
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: -.5rem;
+        left: 0;
+        width: 50%;
+        height: 2px;
+        background-color: var(--first-color);
+    }
+    &::after :hover{
+        color: var(--mint);
     }
 }

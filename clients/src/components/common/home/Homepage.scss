@@ -1,0 +1,172 @@
+@import '_setting.scss';
+
+h1 {
+    font-family: var(--body-font);
+    font-size: 3vw;
+    color: var(--mint);
+    font-weight: var(--font-bold);
+    text-align: left;
+}
+
+.intro{
+    text-align: left;
+    font-size: 1.3vw;
+}
+
+.homepage{
+    width: 100%;
+    max-height: 990px;
+    background-color: var(--body-color);
+    margin-top: 6%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    transition: .4s; // For animation dark mod
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-top: 1rem;
+    @media screen and (max-width: 700px){
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+img {
+    max-width: 600px;
+    vertical-align: center;
+}
+.right{
+    padding: 30% 5%;
+    position: relative;
+    align-content: center;
+    vertical-align: sub;
+    
+}
+#about .nav__logo :hover{
+    transform: scale(1.5);
+    font-weight: 500;
+}
+#create {
+    font-family: var(--logo-font);
+    font-size: var(--h1-font-size);
+    color: var(--mint);
+    font-weight: 600;
+    margin:10px;
+    
+}
+.create{
+    max-height: 400px !important;
+    
+}
+.about__contest{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-top: .5rem;
+    @media screen and (max-width: 700px){
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.card {
+    width: 300px;
+    height: 400px;
+    border-radius: 10px;
+    text-align: center;
+    border-color: var(--mint);
+    overflow: hidden;
+    margin: 0 30px;
+    box-sizing: border-box;
+   padding: 0;
+}
+.card__img {
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    transition: 0.25s;
+    margin: 0 auto;
+    transform: translateY(25px);
+    border-radius: 50%;
+    border: 4px solid var(--mint);
+    cursor: pointer;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+.card__img:hover {
+    width: 100%;
+    height: 100%;
+    border-radius: unset;
+    border: unset;
+    transform: unset;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+#avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h2 {
+    color: var();
+    padding: 30px;
+    box-sizing: border-box;
+}
+  
+#mssv {
+    color: var(--mint);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.card__social a {
+    text-decoration: none;
+    color:var(--mint);
+    margin: 25px 20px 40px;
+    display: inline-block;
+    font-size: 30px;
+    transition: 0.25s;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .card__social a:hover {
+    color: var(--mint);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+button {
+    width: 50%;
+    align-self: center;
+    color: var(--mint);
+    background-color: transparent;
+    border: 1px solid var(--mint);
+    border-radius: inherit;
+    cursor: pointer;
+    transition: 0.25s;
+    margin: 0;
+    box-sizing: border-box;
+  }
+button:hover {
+    background-color: var(--mint);
+    margin: 0;
+    padding: 0;
+    color:var(--white); 
+    box-sizing: border-box;
+}
+
+  .profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    box-sizing: border-box;
+  }
