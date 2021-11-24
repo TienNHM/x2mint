@@ -20,7 +20,7 @@ function Homepage() {
                 <a href="/" className="nav__logo">
                     <i className="ri-plant-line nav__logo-icon"></i> X2M!NT
                 </a>
-                <p> X2M!NT là một nền tảng cho phép người dùng tạo ra các bài kiểm tra và tham gia làm bài. 
+                <p> X2M!NT là một nền tảng cho phép người dùng tạo ra các bài kiểm tra và tham gia làm bài.
                     <br/>Có thể tùy chọn quy mô và cách tổ chức của các bài kiểm tra để tạo ra các lớp học, các cuộc thi có nhiều vòng hoặc đơn giản chỉ là các bài test đơn lẻ, ...
                 </p>
                 <div className="about__contest" id="about-contest">
