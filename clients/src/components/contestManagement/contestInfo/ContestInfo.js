@@ -3,6 +3,7 @@ import { Button, Card, ListGroup, ListGroupItem, Form } from 'react-bootstrap'
 import ModalCreateContest from 'components/contestManagement/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
+import StatisticTest from 'components/contestManagement/statistics/StatisticTest'
 import { emptyTest } from 'actions/initialData'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
@@ -12,10 +13,13 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
     console.log(contest)
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
+    const [isShowStatisticTest, setIsShowStatisticTest] = useState(false)
     const [confirmModalContent, setConfirmModalContent] = useState('')
     const [currentAction, setCurrentAction] = useState('')
     const [isShowTest, setIsShowTest] = useState(false)
     const [selectedTest, setSelectedTest] = useState(null)
+
+    // Test information
     const [title, setTitle] = useState(contest.name)
     const [description, setDescription] = useState(contest.description)
     const [url, setUrl] = useState(contest.url)
@@ -47,8 +51,8 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 description: description,
                 url: url,
                 embededMedia: embededMedia,
-                start_time: start_time,
-                end_time: end_time
+                startTime: start_time,
+                endTime: end_time
             }
             updateContest(newContest)
         }
@@ -69,6 +73,11 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         setIsShowConfirmModal(true)
     }
 
+    const handleStatisticsTest = (test) => {
+        setSelectedTest(test)
+        setIsShowStatisticTest(true)
+    }
+
     const handleDeleteTest = (test) => {
         setSelectedTest({ ...test })
         setConfirmModalContent(`Bạn có muốn xóa bài test này khỏi cuộc thi ${title} không?`)
@@ -83,7 +92,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         setIsShowTest(true)
     }
 
-    const onTestAciton = (action) => {
+    const onTestAction = (action) => {
         if (currentAction === 'CONFIRM_DELETE_TEST') {
             if (selectedTest && action === MODAL_ACTION_CONFIRM) {
                 const newContest = { ...contest }
@@ -106,6 +115,10 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
             }
         }
         setIsShowConfirmModal(false)
+    }
+
+    const onShowStatistics = (action) => {
+        setIsShowStatisticTest(false)
     }
 
     useEffect(() => {
@@ -216,14 +229,14 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                     </div>
                                 </Card.Header>
                                 <div className="show-all-tests">
-                                    {/* {contest.tests.map((test, index) =>
+                                    {contest.tests.map((test, index) =>
                                         <Card.Body key={index} className="row">
                                             <div className="card-test-preview">
                                                 <div className="card-test-index col-md-1 col-sm-12">
                                                     <div className="test-index d-flex justify-content-center align-middle">{index + 1}</div>
                                                 </div>
                                                 <div className="card-test-info col-md-10 col-sm-12">
-                                                    <div className="card-test-title h5">{test.title}</div>
+                                                    <div className="card-test-title h5">{test.name}</div>
                                                     <div className="card-test-description">{test.description}</div>
                                                     <div className="detail row">
                                                         <div className="start-time col-md-4 col-12">
@@ -243,13 +256,17 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                 <div className="card-test-actions col-md-1 col-sm-12">
                                                     {isCreator &&
                                                         <>
+                                                            <Button variant="warning" size="sm"
+                                                                onClick={() => handleStatisticsTest(test)} >
+                                                                <i className="fa fa-bar-chart"></i>
+                                                            </Button>{' '}
                                                             <Button variant="primary" size="sm"
                                                                 onClick={() => handleEditTest(test)} >
-                                                                Chỉnh sửa
+                                                                <i className="fa fa-edit"></i>
                                                             </Button>{' '}
                                                             <Button variant="danger" size="sm"
                                                                 onClick={() => handleDeleteTest(test)} >
-                                                                Xóa
+                                                                <i className="fa fa-remove"></i>
                                                             </Button>{' '}
                                                         </>
                                                     }
@@ -266,7 +283,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                 </div>
                                             </div>
                                         </Card.Body>
-                                    )} */}
+                                    )}
 
                                     {contest.tests.length == 0 &&
                                         <Card.Body className="row no-test">
@@ -295,10 +312,17 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 contest={contest}
                 isUpdate={true}
             />
+
             <ConfirmModal
                 content={confirmModalContent}
                 isShow={isShowConfirmModal}
-                onAction={onTestAciton}
+                onAction={onTestAction}
+            />
+
+            <StatisticTest
+                isShow={isShowStatisticTest}
+                onAction={onShowStatistics}
+                test={selectedTest}
             />
         </>
     )

@@ -7,9 +7,10 @@ import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { getAllContestsByCreator } from 'actions/api/ContestAPI'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, MODAL_ACTION_RETRY } from 'utils/constants'
 import './Contest.scss'
+import { initialContest } from 'actions/initialData'
 
 function Contest() {
-    const [contests, setContests] = useState(null)
+    const [contests, setContests] = useState(initialContest)
     const [isShow, setIsShow] = useState(false)
     const blankContest = {
         id: '',
@@ -29,11 +30,13 @@ function Contest() {
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
 
     useEffect(() => {
-        getAllContestsByCreator('618dcea8a611f4340296328c')
-            .then(data => {
-                setContests(data.contests)
-            })
-            .catch(err => console.log(err))
+        // getAllContestsByCreator(
+        //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJpZnlBY2NvdW50Ijp7ImlkIjoiNjE4ZGNlYThhNjExZjQzNDAyOTYzMjhjIiwiaXNIaWRkZW4iOmZhbHNlLCJ1c2VybmFtZSI6Im1pbmhob2FuZzEiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjM3Njc5NTY3fQ.CPcIsCvLKejqGFm-VZSha-A4PdOjTE8XRKkUAeoFSes',
+        //     '618dcea8a611f4340296328c')
+        //     .then(data => {
+        //         setContests(data.contests)
+        //     })
+        //     .catch(err => console.log(err))
     }, [])
 
     const onAction = (isUpdate, action, title = '', description = '', url = '', embededMedia = '', startTime = '', endTime = '') => {
