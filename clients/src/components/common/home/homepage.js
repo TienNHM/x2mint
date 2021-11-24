@@ -114,6 +114,9 @@ function Homepage() {
                     <button>Contact me</button>
                 </div>
             </section>
+            <section className="footer">
+
+            </section>
         </>
     )
 }
