@@ -11,8 +11,8 @@ export default function StatisticTest({ isShow, onAction, test }) {
 
     if (test === null) return null
 
-    const start_time = test.start_time.split(' ')
-    const end_time = test.end_time.split(' ')
+    const start_time = test.startTime.split(' ')
+    const end_time = test.endTime.split(' ')
 
     return (
         <>
@@ -27,7 +27,7 @@ export default function StatisticTest({ isShow, onAction, test }) {
                     <Modal.Title>
                         <span className="fw-bolder">{test.name}</span>
                         <Button variant="information"
-                            style={{ 'margin-left': '5px', 'box-shadow': 'none', 'color': '#71bef1' }}
+                            style={{ marginLeft: '5px', boxShadow: 'none', 'color': '#71bef1' }}
                             ref={target}
                             size="sm"
                             onClick={() => setShow(!show)}>
@@ -94,6 +94,7 @@ export default function StatisticTest({ isShow, onAction, test }) {
                             pagesAmount={4}
                             data={SAMPLE_DATA}
                             materialSearch
+                            fullPagination
                         />
                     </div>
                 </Modal.Body>

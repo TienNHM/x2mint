@@ -1,0 +1,40 @@
+@import '_setting.scss';
+
+.take-test-info {
+    display: flex;
+    flex-direction: column;
+
+    .label {
+        font-weight: bold;
+        margin: 3px 0;
+    }
+
+    .duration {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 0 3*$gap;
+    }
+
+    input,
+    textarea {
+        background-color: transparent !important;
+
+        &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
+
+    .mdb-datatable .row {
+        margin: $gap;
+    }
+
+    button {
+        padding: 0 !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        font-size: 20px;
+        color: #71bef1;
+    }
+}

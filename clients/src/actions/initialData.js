@@ -4,7 +4,7 @@ export const initialTest = {
     creator_id: 'user-1',
     status: 'DRAFT',
     startTime: '2021-11-13 08:00',
-    end_time: '2021-11-14 23:59',
+    endTime: '2021-11-14 23:59',
     questions: [
         {
             id: 'question-1',
@@ -229,13 +229,13 @@ export const initialContest = [
         tests: [
             {
                 id: 'test-1',
-                title: 'Science',
+                name: 'Science',
                 description: 'Bài kiểm tra trắc nghiệm trực tuyến về các chủ đề khoa học tự nhiên, khoa học xã hội.',
                 creator_id: 'user-1',
                 url: 'https://www.google.com',
                 status: 'DRAFT',
                 startTime: '2021-11-13 00:00',
-                end_time: '2021-11-19 22:00',
+                endTime: '2021-11-19 22:00',
                 questions: [
                     {
                         id: 'question-1',
@@ -452,13 +452,13 @@ export const initialContest = [
             },
             {
                 id: 'test-2',
-                title: 'Math',
+                name: 'Math',
                 description: 'Bài kiểm tra trắc nghiệm trực tuyến về toán học.',
                 creator_id: 'user-1',
                 url: 'http://github.com',
                 status: 'DRAFT',
                 startTime: '2021-11-13 08:00',
-                end_time: '2021-11-29 15:52',
+                endTime: '2021-11-29 15:52',
                 questions: [
                     {
                         id: 'question-1',
@@ -525,13 +525,13 @@ export const initialContest = [
             },
             {
                 id: 'test-3',
-                title: 'Math',
+                name: 'Math',
                 description: 'Bài kiểm tra trắc nghiệm trực tuyến về toán học.',
                 creator_id: 'user-1',
                 url: 'http://www.youtube.com',
                 status: 'DRAFT',
                 startTime: '2021-11-13 08:00',
-                end_time: '2021-11-13 23:59',
+                endTime: '2021-11-13 23:59',
                 questions: [
                     {
                         id: 'question-1',
@@ -598,13 +598,13 @@ export const initialContest = [
             },
             {
                 id: 'test-4',
-                title: 'Math',
+                name: 'Math',
                 description: 'Bài kiểm tra trắc nghiệm trực tuyến về toán học.',
                 creator_id: 'user-1',
                 url: 'http://www.youtube.com',
                 status: 'DRAFT',
                 startTime: '2021-11-13 08:00',
-                end_time: '2021-11-13 23:59',
+                endTime: '2021-11-13 23:59',
                 questions: [
                     {
                         id: 'question-1',
@@ -671,13 +671,13 @@ export const initialContest = [
             },
             {
                 id: 'test-5',
-                title: 'Math',
+                name: 'Math',
                 description: 'Bài kiểm tra trắc nghiệm trực tuyến về toán học.',
                 creator_id: 'user-1',
                 url: 'http://www.youtube.com',
                 status: 'DRAFT',
                 startTime: '2021-11-13 08:00',
-                end_time: '2021-11-13 23:59',
+                endTime: '2021-11-13 23:59',
                 questions: [
                     {
                         id: 'question-1',
@@ -743,7 +743,7 @@ export const initialContest = [
                 questions_order: ['question-1', 'question-2']
             }],
         startTime: '2021-11-16 00:00',
-        end_time: '2021-11-17 23:59',
+        endTime: '2021-11-17 23:59',
         url: 'https://www.facebook.com/',
         embededMedia: 'https://i.pinimg.com/564x/84/c0/46/84c046c4135434214128c7dfec4f6f12.jpg',
         status: ''
@@ -755,11 +755,50 @@ export const initialContest = [
         description: 'Cuộc thi học thuật truyền thống',
         tests: [],
         startTime: '2021-11-16 00:00',
-        end_time: '2021-11-18 17:00',
+        endTime: '2021-11-18 17:00',
         url: 'https://www.google.com/',
         embededMedia: 'https://memehay.com/meme/20211010/meo-cam-bong-hoa-nao-tang-ban.jpg',
         status: ''
     }]
+
+export const initialTakeTest = {
+    id: 'take-test-1',
+    testId: 'test-1',
+    testName: 'Science',
+    testUrl: 'https://fb.com',
+    userId: 'user-1',
+    username: 'tiennhm',
+    status: 'DRAFT',
+    points: 20,
+    submitTime: '2021-11-13 00:00',
+    chooseAnswers: [
+        {
+            questionId: 'question-1',
+            answers: ['A', 'D'],
+            correctAnswers: ['D'],
+            maxPoints: 10
+        },
+        {
+            questionId: 'question-2',
+            answers: ['A'],
+            correctAnswers: ['A'],
+            maxPoints: 10
+        },
+        {
+            questionId: 'question-3',
+            answers: ['C'],
+            correctAnswers: ['B'],
+            maxPoints: 10
+        },
+        {
+            questionId: 'question-4',
+            answers: ['A', 'C'],
+            correctAnswers: ['C', 'A'],
+            maxPoints: 10
+        }
+    ],
+    questionsOrder: ['question-1', 'question-2', 'question-3', 'question-4']
+}
 
 export const emptyTest = {
     id: '',
@@ -767,7 +806,7 @@ export const emptyTest = {
     creator_id: 'user-1',
     status: 'DRAFT',
     startTime: '',
-    end_time: '',
+    endTime: '',
     questions: [
         {
             id: 'question-1',

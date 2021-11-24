@@ -51,8 +51,8 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 description: description,
                 url: url,
                 embededMedia: embededMedia,
-                start_time: start_time,
-                end_time: end_time
+                startTime: start_time,
+                endTime: end_time
             }
             updateContest(newContest)
         }
@@ -229,7 +229,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                     </div>
                                 </Card.Header>
                                 <div className="show-all-tests">
-                                    {/* {contest.tests.map((test, index) =>
+                                    {contest.tests.map((test, index) =>
                                         <Card.Body key={index} className="row">
                                             <div className="card-test-preview">
                                                 <div className="card-test-index col-md-1 col-sm-12">
@@ -283,7 +283,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                 </div>
                                             </div>
                                         </Card.Body>
-                                    )} */}
+                                    )}
 
                                     {contest.tests.length == 0 &&
                                         <Card.Body className="row no-test">

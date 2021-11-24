@@ -21,7 +21,7 @@ export const displayTimeDelta = (start, end) => {
 }
 
 export const splitTime = (time) => {
-    const arr = time.split('T')
+    const arr = time.split(' ')
     if (arr.length === 2) {
         return {
             date: arr[0],
