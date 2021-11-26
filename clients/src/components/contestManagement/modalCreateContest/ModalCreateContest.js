@@ -22,12 +22,12 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
         setDescription(contest.description)
         setUrl(contest.url)
         setLink(contest.embededMedia)
-        const start_time = splitTime(contest.startTime)
-        const end_time = splitTime(contest.endTime)
-        setStartDate(start_time.date)
-        setStartTime(start_time.time)
-        setEndDate(end_time.date)
-        setEndTime(end_time.time)
+        const startTime = splitTime(contest.startTime)
+        const endTime = splitTime(contest.endTime)
+        setStartDate(startTime.date)
+        setStartTime(startTime.time)
+        setEndDate(endTime.date)
+        setEndTime(endTime.time)
     }, [contest])
 
     const openLibrary = (action, photo) => {
@@ -43,8 +43,8 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
         }
         else {
             const embededMedia = link
-            const start_time = startDate + ' ' + startTime
-            const end_time = endDate + ' ' + endTime
+            const startTime = startDate + ' ' + startTime
+            const endTime = endDate + ' ' + endTime
             const str = startDate.trim() + startTime.trim() + endDate.trim() + endTime.trim()
             console.log(str.length)
             if (str.length === 0) {
@@ -53,7 +53,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
             }
             else {
                 console.log('hi')
-                onAction(isUpdate, MODAL_ACTION_CONFIRM, title, description, url, embededMedia, start_time, end_time)
+                onAction(isUpdate, MODAL_ACTION_CONFIRM, title, description, url, embededMedia, startTime, endTime)
             }
         }
     }

@@ -34,15 +34,15 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         setDescription(contest.description)
         setUrl(contest.url)
         setEmbedMedia(contest.embededMedia)
-        const start_time = splitTime(contest.startTime)
-        const end_time = splitTime(contest.endTime)
-        setStartDate(start_time.date)
-        setStartTime(start_time.time)
-        setEndDate(end_time.date)
-        setEndTime(end_time.time)
+        const startTime = splitTime(contest.startTime)
+        const endTime = splitTime(contest.endTime)
+        setStartDate(startTime.date)
+        setStartTime(startTime.time)
+        setEndDate(endTime.date)
+        setEndTime(endTime.time)
     }, [contest])
 
-    const onAction = (isUpdate, action, title, description, url, embededMedia, start_time, end_time) => {
+    const onAction = (isUpdate, action, title, description, url, embededMedia, startTime, endTime) => {
 
         if (action === MODAL_ACTION_CONFIRM) {
             const newContest = {
@@ -51,8 +51,8 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 description: description,
                 url: url,
                 embededMedia: embededMedia,
-                startTime: start_time,
-                endTime: end_time
+                startTime: startTime,
+                endTime: endTime
             }
             updateContest(newContest)
         }

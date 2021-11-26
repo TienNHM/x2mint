@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
+import { useAlert } from 'react-alert'
 import Countdown from 'react-countdown'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { splitTime } from 'utils/timeUtils'
@@ -12,6 +13,18 @@ function PanelSettings(props) {
     // Test title
     const inputTestTitleRef = useRef(null)
     const [testTitle, setTestTitle] = useState(test.name)
+
+    // Mô tả
+    const inputTestDescriptionRef = useRef(null)
+    const [testDescription, setTestDescription] = useState(test.description)
+
+    // Test URL
+    const inputLinkRef = useRef(null)
+    const [testLink, setTestLink] = useState(test.url)
+
+    // Điểm tối đa
+    const inputMaxPointsRef = useRef(null)
+    const [testMaxPoints, setTestMaxPoints] = useState(test.maxPoints)
 
     // Duration
     const start_time = splitTime(test.startTime)
@@ -30,6 +43,7 @@ function PanelSettings(props) {
     const [content, setContent] = useState('')
     const [currentAction, setCurrentAction] = useState('')
 
+    const alert = useAlert()
     const handleSaveClick = () => {
         const titleValue = inputTestTitleRef.current.value
         if (titleValue.trim() === '') {
@@ -43,16 +57,19 @@ function PanelSettings(props) {
                 const newTest = {
                     ...test,
                     name: titleValue,
-                    start_time: startTime,
-                    end_time: endTime
+                    startTime: startTime,
+                    endTime: endTime,
+                    description: testDescription,
+                    maxPoints: testMaxPoints,
+                    url: testLink
                 }
                 setTest(newTest)
                 setIsSaved(false)
-                console.log('Saved...', newTest)
+                alert.success('Đã lưu lại những thay đổi của bạn!')
             }
             else {
                 startDateRef.current.focus()
-                alert('Thời gian không hợp lệ! Vui lòng nhập lại')
+                alert.error('Thời gian không hợp lệ!')
             }
         }
     }
@@ -132,6 +149,49 @@ function PanelSettings(props) {
                                     className="test-title-input"
                                     value={testTitle}
                                     onChange={e => setTestTitle(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="test-title">
+                            <div>Mô tả</div>
+                            <div className="title">
+                                <Form.Control
+                                    size="sm"
+                                    as="textarea"
+                                    rows={5}
+                                    ref={inputTestDescriptionRef}
+                                    placeholder="Mô tả..."
+                                    className="test-title-input"
+                                    value={testDescription}
+                                    onChange={e => setTestDescription(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="test-title">
+                            <div>Link</div>
+                            <div className="title">
+                                <Form.Control
+                                    size="sm"
+                                    type="text"
+                                    ref={inputLinkRef}
+                                    placeholder="Link URL..."
+                                    className="test-title-input"
+                                    value={testLink}
+                                    onChange={e => setTestLink(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="test-title">
+                            <div>Điểm tối đa</div>
+                            <div className="title">
+                                <Form.Control
+                                    size="sm"
+                                    type="text"
+                                    ref={inputMaxPointsRef}
+                                    placeholder="0"
+                                    className="test-title-input"
+                                    value={testMaxPoints}
+                                    onChange={e => setTestMaxPoints(e.target.value)}
                                 />
                             </div>
                         </div>
