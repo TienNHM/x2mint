@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { mapOrder } from 'utils/sorts'
 import PanelPreview from 'components/multi-choices/panelPreview/PanelPreview'
-import PanelPresentation from 'components/multi-choices/panelPresentation/PanelPresentation'
+import Question from 'components/multi-choices/question/Question'
 import PanelSettings from 'components/multi-choices/panelSettings/PanelSettings'
 import { emptyTest, emptyTakeTest } from 'actions/initialData'
 import './MultiChoices.scss'
@@ -103,9 +103,9 @@ function MultiChoices({ setIsShowTest, test, updateTest, isCreator }) {
                 />
             }
 
-            <PanelPresentation
-                selectedQuestion={selectedQuestion}
-                updateSelectedQuestion={updateSelectedQuestion}
+            <Question
+                question={selectedQuestion}
+                updateQuestion={updateSelectedQuestion}
                 isCreator={isCreator | false}
                 updateTakeTest={updateTakeTest}
             />

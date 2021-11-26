@@ -100,7 +100,7 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
     }
 
     return (
-        <>
+        <div className="panel-center">
             <div className="question">
                 <div className="question-content  align-items-center">
                     <Form.Control
@@ -154,7 +154,7 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
                 }
             </div>
             <BrowseLibrary show={isShowLibrary} onAction={onConfirmModalAction} />
-        </>
+        </div>
     )
 }
 

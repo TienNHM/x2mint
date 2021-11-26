@@ -176,7 +176,7 @@ export const initialContest = [
         startTime: '2021-11-16 00:00',
         endTime: '2021-11-17 23:59',
         url: 'https://www.facebook.com/',
-        embededMedia: 'https://i.pinimg.com/564x/84/c0/46/84c046c4135434214128c7dfec4f6f12.jpg',
+        embededMedia: 'https://i.pinimg.com/564x/f6/9b/34/f69b34664600b002caec9d453d687353.jpg',
         status: ''
     },
     {
@@ -188,7 +188,7 @@ export const initialContest = [
         startTime: '2021-11-16 00:00',
         endTime: '2021-11-18 17:00',
         url: 'https://www.google.com/',
-        embededMedia: 'https://memehay.com/meme/20211010/meo-cam-bong-hoa-nao-tang-ban.jpg',
+        embededMedia: 'https://i.pinimg.com/564x/f5/5d/70/f55d7031f86c87baaa2f436be3a53fa2.jpg',
         status: ''
     }
 ]

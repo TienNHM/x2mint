@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card, ListGroup, ListGroupItem, Form } from 'react-bootstrap'
+import { Button, Card, ListGroup, ListGroupItem, Form, Image } from 'react-bootstrap'
 import ModalCreateContest from 'components/contestManagement/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
@@ -147,7 +147,8 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                     <div className="container-section">
                         <div className="contest-show-info">
                             <Card className="text-center">
-                                <Card.Img variant="top" src={embededMedia} />
+                                <Image fluid={true} variant="top"
+                                    src={embededMedia} className="m-3" />
                                 <Card.Body>
                                     <Card.Title>{title}</Card.Title>
                                     <Card.Text>{description}</Card.Text>
