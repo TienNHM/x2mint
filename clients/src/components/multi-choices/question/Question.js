@@ -6,7 +6,7 @@ import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import { MAX_QUESTION_LENGTH, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './Question.scss'
 
-function Question({ question, updateQuestion, isCreator }) {
+function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
     const answers = question.answers
     const [embededMedia, setEmbedMedia] = useState('')
     const [isUpdatedEmbedMedia, setIsUpdatedEmbedMedia] = useState(false)
@@ -20,13 +20,18 @@ function Question({ question, updateQuestion, isCreator }) {
         setContent(question.content)
         setEmbedMedia(question.embededMedia)
         setQuestionLength(MAX_QUESTION_LENGTH - question.content.length)
+        if (!isCreator) setChooseAnswer([])
     }, [question])
 
     useEffect(() => {
-        //TODO: xử lý khi examinee chọn đáp án
-        const newQuestion = { ...question }
-        newQuestion.correct_answer = chooseAnswer
-        updateQuestion(newQuestion, isCreator)
+        if (isCreator) {
+            const newQuestion = { ...question }
+            newQuestion.correct_answers = chooseAnswer
+            updateQuestion(newQuestion)
+        }
+        else {
+            updateTakeTest(question, chooseAnswer)
+        }
     }, [chooseAnswer])
 
     useEffect(() => {

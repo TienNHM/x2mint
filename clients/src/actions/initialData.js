@@ -114,6 +114,7 @@ export const initialContest = [
                         id: 'question-1',
                         type: 'MULTICHOICE',
                         content: 'Đâu là số nguyên tố?',
+                        maxPoints: 10,
                         embededMedia: 'https://codelearn.io/Upload/Blog/dau-moi-la-thuat-toan-sap-xep-tot-nhat-63743511849.0545.jpg',
                         answers: [
                             {
@@ -137,13 +138,13 @@ export const initialContest = [
                                 content: '4'
                             }
                         ],
-                        correct_answers: ['2'],
-                        choose_answers: ['2', '3']
+                        correct_answers: ['B']
                     },
                     {
                         id: 'question-2',
                         type: 'MULTICHOICE',
                         content: 'Số nguyên tố là gì?',
+                        maxPoints: 10,
                         embededMedia: 'https://data.voh.com.vn/voh/thumbnail/2020/11/27/thumb-so-nguyen-to.jpg',
                         answers: [
                             {
@@ -167,8 +168,7 @@ export const initialContest = [
                                 content: 'Số nguyên tố là số tự nhiên chỉ có 2 ước số.'
                             }
                         ],
-                        correct_answers: ['4'],
-                        choose_answers: ['1']
+                        correct_answers: ['D']
                     }
                 ],
                 questions_order: ['question-1', 'question-2']
@@ -234,6 +234,20 @@ export const initialTakeTest = {
 
 
 /// Nháp
+
+export const emptyTakeTest = {
+    id: '',
+    testId: '',
+    testName: '',
+    testUrl: '',
+    userId: 'user-1',
+    username: 'tiennhm',
+    status: 'DRAFT',
+    points: 0,
+    submitTime: '',
+    chooseAnswers: [],
+    questionsOrder: []
+}
 
 export const initialTest = {
     id: 'test-1',
@@ -525,7 +539,7 @@ export const emptyQuestion = {
             content: ''
         }
     ],
-    correct_answer: '1'
+    correct_answers: []
 }
 
 export const questionTypes = {

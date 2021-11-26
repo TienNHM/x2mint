@@ -187,7 +187,8 @@ function PanelSettings(props) {
                         <div className="section-title">Danh sách câu hỏi</div>
                         <div className="btn-question">
                             {test.questions.map((q, index) =>
-                                <Button key={index} variant={q.choose_answers.legth > 0 ? 'primary' : 'light'}
+                                //TODO kiểm tra xem đã chọn đáp án cho câu hỏi này chưa để render màu tương ứng
+                                <Button key={index} variant={'light'}
                                     onClick={() => setSelectedQuestion({ ...q }, isCreator)}
                                 >
                                     {index + 1}

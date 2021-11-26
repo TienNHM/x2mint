@@ -158,7 +158,7 @@ function Contest() {
                             setIsShowContestInfo={setIsShowContestInfo}
                             contest={selectedContest}
                             updateContest={setSelectedContest}
-                            isCreator={true}
+                            isCreator={false}
                         />
                     </div>
                 }

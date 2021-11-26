@@ -9,13 +9,6 @@
         margin: 3px 0;
     }
 
-    .duration {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin: 0 3*$gap;
-    }
-
     input,
     textarea {
         background-color: transparent !important;
@@ -28,5 +21,22 @@
 
     .mdb-datatable .row {
         margin: $gap;
+    }
+
+    .duration {
+        justify-content: space-between;
+        margin: 0 3*$gap;
+    }
+
+    .data-table {
+        button {
+            box-shadow: none !important;
+            outline: none !important;
+            color: gray;
+        }
+
+        button:hover {
+            color: lightseagreen;
+        }
     }
 }
