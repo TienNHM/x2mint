@@ -7,7 +7,6 @@ import Navbar from 'components/common/navbar/Navbar'
 import Contest from 'components/contestManagement/contest/Contest'
 import SubmitResult from 'components/multi-choices/submitResult/SubmitResult'
 import Homepage from 'components/common/home/Homepage'
-import Homepage from 'components/common/home/Homepage'
 
 const options = {
     // you can also just use 'bottom center'
