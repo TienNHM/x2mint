@@ -6,12 +6,16 @@ $question-item-preview-content-background: #F3F0D7;
     box-shadow: $box-shadow;
     margin: 0 $gap;
     margin-top: $gap;
+    border: 2px solid white;
+    border-radius: $gap;
 
     .question-item-preview-number {
         background-color: goldenrod;
         color: white;
         font-weight: bold;
         cursor: move;
+        border-top-left-radius: $gap $gap;
+        border-top-right-radius: $gap $gap;
     }
 
     .question-item-preview-content {
@@ -22,6 +26,8 @@ $question-item-preview-content-background: #F3F0D7;
         align-items: center;
         height: 5vw;
         cursor: pointer;
+        border-bottom-left-radius: $gap $gap;
+        border-bottom-right-radius: $gap $gap;
     }
 
     .question-selected {

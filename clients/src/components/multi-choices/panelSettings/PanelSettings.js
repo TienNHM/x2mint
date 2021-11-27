@@ -48,7 +48,7 @@ function PanelSettings(props) {
         const titleValue = inputTestTitleRef.current.value
         if (titleValue.trim() === '') {
             inputTestTitleRef.current.focus()
-            alert('Vui lòng nhập tên cho bài test!')
+            alert.error('Vui lòng nhập tên cho bài test!')
         }
         else {
             const startTime = startDateRef.current.value + ' ' + startTimeRef.current.value

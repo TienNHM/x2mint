@@ -118,24 +118,30 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
                 <div className="lenght-limit">{questionLength}</div>
             </div>
 
-            <div className="embeded">
+            <div className="embeded row">
                 {isCreator &&
-                    <div className="question-embed-edit">
-                        <div className="question-embed-change">
-                            <Button variant="warning" onClick={toggleShowLibrary}>Change</Button>{' '}
-                        </div>
+                    <div className="col-1 d-flex align-items-end justify-content-start">
+                        <Button variant="warning"
+                            className="fw-bolder text-light"
+                            onClick={toggleShowLibrary}
+                        >
+                            <i className="fa fa-edit"></i>
+                        </Button>
                     </div>
                 }
-                <div className="question-embed">
-                    {embededMedia.length > 0 && <Image src={embededMedia} fluid />}
-                    {embededMedia.length <= 0 && <Image src="https://memegenerator.net/img/instances/74856541/it-appears-that-there-is-nothing-here.jpg" alt="Nothing" fluid />}
+                <div className="question-embed col-10">
+                    {embededMedia.length > 0 && <Image src={embededMedia} />}
+                    {embededMedia.length <= 0 && <Image src="https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png" alt="Nothing" />}
                 </div>
 
                 {isCreator &&
-                    <div className="question-embed-edit">
-                        <div className="question-embed-remove">
-                            <Button variant="danger" onClick={handleOnRemoveClick}>Remove</Button>{' '}
-                        </div>
+                    <div className="col-1 d-flex align-items-end justify-content-end">
+                        <Button variant="danger"
+                            className="fw-bolder text-light"
+                            onClick={handleOnRemoveClick}
+                        >
+                            <i className="fa fa-remove"></i>
+                        </Button>
                     </div>
                 }
             </div>
