@@ -18,7 +18,7 @@ $question-attribute-setting-height: 80px;
     }
 
     .attributes {
-        height: 80vh;
+        height: 77vh;
 
         input, textarea {
             outline: none !important;
@@ -26,12 +26,12 @@ $question-attribute-setting-height: 80px;
         }
 
         >* {
-            border: 2px solid #f5cd79;
+            border: 2px solid $border-color;
             margin-top: $gap;
             margin-bottom: $gap;
             font-weight: bold;
             font-size: 16px;
-            padding: $gap;
+            padding: $gap/2 $gap $gap $gap;
             border-radius: $gap;
         }
 

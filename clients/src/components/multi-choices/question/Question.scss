@@ -18,6 +18,7 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
         z-index: 1;
         margin: $gap $gap * 2 0 $gap*2;
         border-radius: $gap;
+        border: 2px solid $border-color;
         line-height: 1.2rem;
         display: flex;
         flex-direction: row;
@@ -40,7 +41,6 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     
             .textarea-enter {
                 font-size: 18px;
-                margin-bottom: 1rem;
                 font-weight: bold;
                 box-shadow: none !important;
                 outline: none !important;
@@ -49,58 +49,20 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     }
     
     .embeded {
-        display: flex;
         margin: $gap;
-        height: 47vh;
+        height: 45vh;
         color: $app-bg-color;
         font-size: 1px;
-    
+
         .question-embed {
-            width: 100%;
-            z-index: 1;
-    
             img {
                 height: 45vh;
-                margin: $gap;
+                width: auto;
             }
         }
-    
-        .question-embed-edit {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            z-index: 20;
-            position: relative;
-            width: 10%;
-            bottom: 0px;
-            left: 0px;
-    
-            >* {
-                border-radius: $gap/2;
-                margin: $gap/2;
-            }
-    
-            button {
-                box-shadow: none;
-                align-items: center;
-                width: 75px;
-                height: 34px;
-                padding: 0px;
-                font-size: 16px;
-                font-weight: bold;
-                cursor: pointer;
-                border: none;
-                background-color: transparent;
-                color: white;
-            }
-    
-            .question-embed-change {
-                background-color: #feca57;
-            }
-    
-            .question-embed-remove {
-                background-color: #ff6b6b;
-            }
+
+        button {
+            width: 40px;
         }
     }
     

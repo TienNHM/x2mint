@@ -1,6 +1,11 @@
 @import '_setting.scss';
 
+$panel-contest-info-width: 300px;
+
 .contest-information {
+    margin-top: $navbar-height;
+    height: 100vh - $navbar-height;
+    
     .nav-top {
         display: flex;
         flex-direction: row;
@@ -23,6 +28,7 @@
 
         .list-tests {
             width: 78vw;
+            min-width: 420px;
             margin: $gap $gap $gap 0;
             border-radius: $gap/2;
 
@@ -42,7 +48,7 @@
             }
 
             .show-all-tests {
-                height: 72vh;
+                height: 70vh;
                 overflow-y: auto;
 
                 .card-body {
@@ -104,8 +110,11 @@
         }
 
         .contest-show-info {
-            width: 22vw;
-            min-width: 300px;
+            width: $panel-contest-info-width;
+
+            img {
+                max-height: 38vh;
+            }
 
             .card {
                 margin: $gap;
@@ -121,6 +130,7 @@
                 }
 
                 .card-body {
+                    padding: 0 $gap $gap $gap;
                     .card-text {
                         margin-bottom: 0.4rem;
                         max-height: 12vh;

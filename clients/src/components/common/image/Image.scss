@@ -2,11 +2,12 @@
 
 .img-result {
     margin: $gap;
-    height: 150px;
+    max-height: 200px;
+    max-width: 200px;
     cursor: pointer;
 }
 
 .selected {
-    height: 148px;
-    border: 5px solid rgba(30, 96, 218, 0.76);
+    max-height: 190px;
+    border: 6px solid #00CCCC;
 }

@@ -37,7 +37,7 @@ function Homepage() {
                 </div>
             </section>
             <section className="profile" id="profile">
-                <div className="card">
+                <div className="card-info">
                     <div className="card__img">
                         <img id="avatar" src="./img/hoang.jpg" alt="" />
                     </div>
@@ -56,7 +56,7 @@ function Homepage() {
                     </div>
                     <button>Contact me</button>
                 </div>
-                <div className="card">
+                <div className="card-info">
                     <div className="card__img">
                         <img id="avatar" src="./img/thien.jpg" alt="" />
                     </div>
@@ -75,7 +75,7 @@ function Homepage() {
                     </div>
                     <button>Contact me</button>
                 </div>
-                <div className="card">
+                <div className="card-info">
                     <div className="card__img">
                         <img id="avatar" src="./img/tien.jpg" alt="" />
                     </div>
@@ -94,7 +94,7 @@ function Homepage() {
                     </div>
                     <button>Contact me</button>
                 </div>
-                <div className="card">
+                <div className="card-info">
                     <div className="card__img">
                         <img id="avatar" src="./img/yen.jpg" alt="" />
                     </div>

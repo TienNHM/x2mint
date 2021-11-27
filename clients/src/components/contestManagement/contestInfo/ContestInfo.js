@@ -36,12 +36,12 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         setDescription(contest.description)
         setUrl(contest.url)
         setEmbedMedia(contest.embededMedia)
-        const startTime = splitTime(contest.startTime)
-        const endTime = splitTime(contest.endTime)
-        setStartDate(startTime.date)
-        setStartTime(startTime.time)
-        setEndDate(endTime.date)
-        setEndTime(endTime.time)
+        const start_time = splitTime(contest.startTime)
+        const end_time = splitTime(contest.endTime)
+        setStartDate(start_time.date)
+        setStartTime(start_time.time)
+        setEndDate(end_time.date)
+        setEndTime(end_time.time)
     }, [contest])
 
     const onAction = (isUpdate, action, title, description, url, embededMedia, startTime, endTime) => {
@@ -162,7 +162,9 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                         <div className="contest-show-info">
                             <Card className="text-center">
                                 <Image fluid={true} variant="top"
-                                    src={embededMedia} className="m-3" />
+                                    src={embededMedia}
+                                    className="p-3 contest-image"
+                                />
                                 <Card.Body>
                                     <Card.Title>{title}</Card.Title>
                                     <Card.Text>{description}</Card.Text>
@@ -174,13 +176,13 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                     <div className="d-flex">
                                                         <Form.Control
                                                             size="sm"
-                                                            type="date"
+                                                            type="text"
                                                             value={startDate}
                                                             readOnly={true}
                                                         />
                                                         <Form.Control
                                                             size="sm"
-                                                            type="time"
+                                                            type="text"
                                                             value={startTime}
                                                             readOnly={true}
                                                         />
@@ -191,13 +193,13 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                     <div className="d-flex">
                                                         <Form.Control
                                                             size="sm"
-                                                            type="date"
+                                                            type="text"
                                                             value={endDate}
                                                             readOnly={true}
                                                         />
                                                         <Form.Control
                                                             size="sm"
-                                                            type="time"
+                                                            type="text"
                                                             value={endTime}
                                                             readOnly={true}
                                                         />
@@ -208,20 +210,28 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                     </ListGroup>
                                     {isCreator &&
                                         <div>
-                                            <Button variant="primary" className="m-2 fw-bolder"
+                                            <Button variant="primary" className="m-2 fw-bolder text-light" size="sm"
                                                 onClick={() => setIsShowCreateContest(true)}>
                                                 <i className="fa fa-edit"></i>
                                             </Button>
-                                            <Button variant="success fw-bolder"
+                                            <Button variant="success" className="m-2 fw-bolder text-light" size="sm"
                                                 onClick={handleCreateTest}
                                             >
                                                 <i className="fa fa-plus"></i>
                                             </Button>
-                                            <Button variant="info" className="m-2 fw-bolder text-light"
+                                            <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
                                                 onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}>
                                                 <i className="fa fa-share"></i>
                                             </Button>
                                         </div>
+                                    }
+                                    {!isCreator &&
+                                        <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
+                                            onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}
+                                        >
+                                            <i className="fa fa-share"></i>
+                                            <span className="m-3">Chia sẻ</span>
+                                        </Button>
                                     }
                                 </Card.Body>
                             </Card>
@@ -252,7 +262,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                             height: '1px',
                                                             margin: '20px auto'
                                                         }
-                                                    }/>
+                                                    } />
                                                     <div className="detail row">
                                                         <div className="start-time col-md-4 col-12">
                                                             <div className="fw-bolder">Thời gian bắt đầu: </div>

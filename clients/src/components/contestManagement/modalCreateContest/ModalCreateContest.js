@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
+import { useAlert } from 'react-alert'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import { splitTime } from 'utils/timeUtils'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, MODAL_ACTION_RETRY } from 'utils/constants'
@@ -16,18 +17,19 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     const [endDate, setEndDate] = useState('')
     const [endTime, setEndTime] = useState('')
     const [isShowLibrary, setIsShowLibrary] = useState(false)
+    const alert = useAlert()
 
     useEffect(() => {
         setTitle(contest.name)
         setDescription(contest.description)
         setUrl(contest.url)
         setLink(contest.embededMedia)
-        const startTime = splitTime(contest.startTime)
-        const endTime = splitTime(contest.endTime)
-        setStartDate(startTime.date)
-        setStartTime(startTime.time)
-        setEndDate(endTime.date)
-        setEndTime(endTime.time)
+        const start_time = splitTime(contest.startTime)
+        const end_time = splitTime(contest.endTime)
+        setStartDate(start_time.date)
+        setStartTime(start_time.time)
+        setEndDate(end_time.date)
+        setEndTime(end_time.time)
     }, [contest])
 
     const openLibrary = (action, photo) => {
@@ -43,17 +45,16 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
         }
         else {
             const embededMedia = link
-            const startTime = startDate + ' ' + startTime
-            const endTime = endDate + ' ' + endTime
+            const start_time = startDate + ' ' + startTime
+            const end_time = endDate + ' ' + endTime
             const str = startDate.trim() + startTime.trim() + endDate.trim() + endTime.trim()
             console.log(str.length)
             if (str.length === 0) {
-                alert('Vui lòng nhập đầy đủ thông tin về cuộc thi')
+                alert.error('Vui lòng nhập đầy đủ thông tin về cuộc thi')
                 onAction(isUpdate, MODAL_ACTION_RETRY)
             }
             else {
-                console.log('hi')
-                onAction(isUpdate, MODAL_ACTION_CONFIRM, title, description, url, embededMedia, startTime, endTime)
+                onAction(isUpdate, MODAL_ACTION_CONFIRM, title, description, url, embededMedia, start_time, end_time)
             }
         }
     }
@@ -160,7 +161,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                         Đóng
                     </Button>
                     <Button variant="primary" onClick={() => handleAction(MODAL_ACTION_CONFIRM)}>
-                        Xác nhận
+                        Lưu
                     </Button>
                 </Modal.Footer>
             </Modal>

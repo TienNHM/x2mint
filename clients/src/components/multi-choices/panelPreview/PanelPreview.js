@@ -33,7 +33,6 @@ function PanelPreview(props) {
         let questionsList = [...questions]
         const quiz = cloneDeep(emptyQuestion)
         quiz.id = 'question-' + (questionsList.length + 1)
-        console.log('quizz', quiz)
         setSelectedQuestion(quiz)
         questionsList.push(quiz)
         const questions_order = test.questions.map(q => q.id)

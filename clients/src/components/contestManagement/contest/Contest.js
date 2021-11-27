@@ -111,29 +111,40 @@ function Contest() {
             <div>
                 {!isShowContestInfo &&
                     <div className="contest-management">
-                        <div className="heading row">
-                            <div className="create-contest col-2">
-                                <Button variant="primary">
-                                    Trở về
+                        <div className="heading row d-flex justify-content-between">
+                            <div className="create-contest col-2 col-sm-3 d-flex justify-content-start"
+                            >
+                                <Button variant="primary" size="sm">
+                                    <i className="fa fa-arrow-left"> </i>
+                                    <span className="m-2">Trở về</span>
                                 </Button>{' '}
                             </div>
-                            <div className="heading-contest h4 col-8">Các cuộc thi</div>
-                            <div className="create-contest col-2">
-                                <Button variant="primary"
+                            <div className="heading-contest h4 col-8 col-sm-6">Các cuộc thi</div>
+                            <div className="create-contest col-2 col-sm-3 d-flex justify-content-end">
+                                <Button variant="success" size="sm"
                                     onClick={() => setIsShowConfirmModal(true)}>
-                                    Tạo cuộc thi
+                                    <i className="fa fa-plus"> </i>
+                                    <span className="m-2">Tạo mới</span>
                                 </Button>{' '}
                             </div>
                         </div>
 
-                        <div className="list-contests d-flex justify-content-center">
+                        <div className="list-contests d-flex justify-content-center align-items-center">
                             {contests && contests.map((c, index) => (
                                 <Card key={index}>
-                                    <div className="d-flex justify-content-center">
+                                    <div className="d-flex justify-content-center ">
                                         <Image className="embeded-media" src={c.embededMedia || 'https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png'} />
                                     </div>
                                     <Card.Body>
                                         <Card.Title>{c.name}</Card.Title>
+                                        <hr style={
+                                            {
+                                                width: '90%',
+                                                height: '1px',
+                                                margin: '15px auto',
+                                                borderColor: 'black'
+                                            }
+                                        } />
                                         <div className="contest-action">
                                             <Button
                                                 variant="primary" size="sm"
@@ -184,7 +195,7 @@ function Contest() {
                             setIsShowContestInfo={setIsShowContestInfo}
                             contest={selectedContest}
                             updateContest={setSelectedContest}
-                            isCreator={false}
+                            isCreator={true}
                         />
                     </div>
                 }

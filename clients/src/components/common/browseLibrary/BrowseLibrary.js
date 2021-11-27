@@ -123,10 +123,10 @@ function BrowseLibrary({ show, onAction }) {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={() => onAction(MODAL_ACTION_CLOSE, selectedPhoto)}>
-                    Close
+                    Đóng
                 </Button>
                 <Button variant="primary" onClick={() => onAction(MODAL_ACTION_CONFIRM, selectedPhoto)}>
-                    Confirm
+                    OK
                 </Button>
             </Modal.Footer>
         </Modal>

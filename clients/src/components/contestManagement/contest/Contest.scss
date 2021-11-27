@@ -1,16 +1,17 @@
 @import '_setting.scss';
 
+$heading-height: 10vh;
+
 .contest-management {
-    margin: 1vh 1vw;
+    margin: $navbar-height 1vw 0 1vw;
 
     .heading {
         display: flex;
         -webkit-box-align: center;
         align-items: center;
         -webkit-box-pack: justify;
-        //justify-content: space-between;
-        width: 100%;
         padding: $gap;
+        height: $heading-height;
 
         .heading-contest {
             font-weight: bold;
@@ -34,7 +35,7 @@
         border: 2px dashed gray;
         border-radius: $gap;
         background-color: #f0e9d285;
-        max-height: 82vh;
+        height: 100vh - $navbar-height - $heading-height - 2vh;
         overflow-y: auto;
 
         >* {
@@ -43,8 +44,8 @@
 
         .card {
             padding: $gap !important;
-            width: 250px !important;
-            height: 250px !important;
+            width: 275px !important;
+            height: 275px !important;
             border-radius: $gap;
             .card-body {
                 padding: $gap 0 0 0 !important;
@@ -63,6 +64,7 @@
                 margin: 0 $gap/2;
                 font-weight: bold;
                 color: white;
+                width: auto;
             }
         }
     }
