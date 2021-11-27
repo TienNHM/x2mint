@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { mapOrder } from 'utils/sorts'
 import PanelPreview from 'components/multi-choices/panelPreview/PanelPreview'
-import PanelPresentation from 'components/multi-choices/panelPresentation/PanelPresentation'
+import Question from 'components/multi-choices/question/Question'
 import PanelSettings from 'components/multi-choices/panelSettings/PanelSettings'
-import { emptyTest } from 'actions/initialData'
+import { emptyTest, emptyTakeTest } from 'actions/initialData'
 import './MultiChoices.scss'
 
-function Container({ setIsShowTest, test, updateTest, isCreator }) {
+function MultiChoices({ setIsShowTest, test, updateTest, isCreator }) {
     console.log(test)
     const [currentTest, setCurrentTest] = useState(test)
     const q = mapOrder(test.questions, test.questions_order, 'id')
@@ -14,6 +14,7 @@ function Container({ setIsShowTest, test, updateTest, isCreator }) {
     const [selectedQuestion, setSelectedQuestion] = useState(q[0])
     const [isLoadedSelectedQuestion, setIsLoadedSelectedQuestion] = useState(false)
     const [isSaved, setIsSaved] = useState(true)
+    const [takeTest, setTakeTest] = useState({ ...emptyTakeTest })
 
     // Load data
     useEffect(() => {
@@ -61,9 +62,32 @@ function Container({ setIsShowTest, test, updateTest, isCreator }) {
         }
     }, [selectedQuestion])
 
-    const updateSelectedQuestion = (question, isCreator) => {
+    const updateSelectedQuestion = (question) => {
         setSelectedQuestion({ ...question })
         console.log('Update Selected Question: ', question)
+    }
+
+    const updateTakeTest = (question, chooseAnswer) => {
+        //Nếu ko phải creator thì update lại takeTest
+        console.log(question)
+        const newTakeTest = { ...takeTest }
+        const choose = {
+            questionId: question.id,
+            answers: [...chooseAnswer],
+            correctAnswers: question.correct_answers,
+            maxPoints: question.maxPoints
+        }
+        if (newTakeTest.chooseAnswers.length > 0) {
+            const index = newTakeTest.chooseAnswers.findIndex(e => e.questionId === question.id)
+            if (index !== -1) {
+                newTakeTest.chooseAnswers[index] = choose
+            }
+            else newTakeTest.chooseAnswers.push(choose)
+        }
+        else newTakeTest.chooseAnswers = [choose]
+
+        setTakeTest(newTakeTest)
+        console.log('New take test', newTakeTest)
     }
 
     return (
@@ -79,10 +103,11 @@ function Container({ setIsShowTest, test, updateTest, isCreator }) {
                 />
             }
 
-            <PanelPresentation
-                selectedQuestion={selectedQuestion}
-                updateSelectedQuestion={updateSelectedQuestion}
+            <Question
+                question={selectedQuestion}
+                updateQuestion={updateSelectedQuestion}
                 isCreator={isCreator | false}
+                updateTakeTest={updateTakeTest}
             />
 
             <PanelSettings
@@ -97,4 +122,4 @@ function Container({ setIsShowTest, test, updateTest, isCreator }) {
     )
 }
 
-export default Container
+export default MultiChoices

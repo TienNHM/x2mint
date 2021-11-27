@@ -20,8 +20,13 @@ $question-attribute-setting-height: 80px;
     .attributes {
         height: 80vh;
 
+        input, textarea {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
         >* {
-            background-color: #f5cd79;
+            border: 2px solid #f5cd79;
             margin-top: $gap;
             margin-bottom: $gap;
             font-weight: bold;
@@ -36,6 +41,10 @@ $question-attribute-setting-height: 80px;
                     width: 100%;
                     background-color: rgba(255, 255, 255, 0.877);
                 }
+            }
+
+            textarea {
+                resize: none;
             }
         }
 

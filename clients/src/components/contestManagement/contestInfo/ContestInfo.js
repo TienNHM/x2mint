@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card, ListGroup, ListGroupItem, Form } from 'react-bootstrap'
+import { Button, Card, ListGroup, ListGroupItem, Form, Image } from 'react-bootstrap'
 import ModalCreateContest from 'components/contestManagement/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
 import StatisticTest from 'components/contestManagement/statistics/StatisticTest'
 import { emptyTest } from 'actions/initialData'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
+import Share from 'components/common/share/Share'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import './ContestInfo.scss'
 
 export default function ContestInfo({ setIsShowContestInfo, contest, updateContest, isCreator }) {
-    console.log(contest)
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
     const [isShowStatisticTest, setIsShowStatisticTest] = useState(false)
+    const [isShowShareModal, setIsShowShareModal] = useState(false)
+    const [shareContent, setShareContent] = useState({})
     const [confirmModalContent, setConfirmModalContent] = useState('')
     const [currentAction, setCurrentAction] = useState('')
     const [isShowTest, setIsShowTest] = useState(false)
@@ -34,15 +36,15 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         setDescription(contest.description)
         setUrl(contest.url)
         setEmbedMedia(contest.embededMedia)
-        const start_time = splitTime(contest.startTime)
-        const end_time = splitTime(contest.endTime)
-        setStartDate(start_time.date)
-        setStartTime(start_time.time)
-        setEndDate(end_time.date)
-        setEndTime(end_time.time)
+        const startTime = splitTime(contest.startTime)
+        const endTime = splitTime(contest.endTime)
+        setStartDate(startTime.date)
+        setStartTime(startTime.time)
+        setEndDate(endTime.date)
+        setEndTime(endTime.time)
     }, [contest])
 
-    const onAction = (isUpdate, action, title, description, url, embededMedia, start_time, end_time) => {
+    const onAction = (isUpdate, action, title, description, url, embededMedia, startTime, endTime) => {
 
         if (action === MODAL_ACTION_CONFIRM) {
             const newContest = {
@@ -51,8 +53,8 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 description: description,
                 url: url,
                 embededMedia: embededMedia,
-                startTime: start_time,
-                endTime: end_time
+                startTime: startTime,
+                endTime: endTime
             }
             updateContest(newContest)
         }
@@ -62,8 +64,8 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         setIsShowCreateContest(false)
     }
 
-    const handleEditTest = (t) => {
-        setSelectedTest(t)
+    const handleEditTest = (test) => {
+        setSelectedTest(test)
         setIsShowTest(true)
     }
 
@@ -90,6 +92,18 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
         console.log('Take a test:', test)
         setSelectedTest(test)
         setIsShowTest(true)
+    }
+
+    const handleShareContent = (url, title = '', content = '', hashtags = [], source = '') => {
+        const obj = {
+            url: url,
+            title: title,
+            content: content,
+            hashtags: hashtags,
+            source: source
+        }
+        setShareContent(obj)
+        setIsShowShareModal(true)
     }
 
     const onTestAction = (action) => {
@@ -147,7 +161,8 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                     <div className="container-section">
                         <div className="contest-show-info">
                             <Card className="text-center">
-                                <Card.Img variant="top" src={embededMedia} />
+                                <Image fluid={true} variant="top"
+                                    src={embededMedia} className="m-3" />
                                 <Card.Body>
                                     <Card.Title>{title}</Card.Title>
                                     <Card.Text>{description}</Card.Text>
@@ -190,29 +205,22 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                 </div>
                                             </div>
                                         </ListGroupItem>
-                                        <ListGroupItem>
-                                            <span className="h6 fw-bold">Link</span>
-                                            <Card.Text>
-                                                <a href={url}
-                                                    target="_blank" rel="noopener noreferrer"
-                                                    className="text-primary"
-                                                >
-                                                    {url}
-                                                </a>
-                                            </Card.Text>
-                                        </ListGroupItem>
                                     </ListGroup>
                                     {isCreator &&
                                         <div>
                                             <Button variant="primary" className="m-2 fw-bolder"
                                                 onClick={() => setIsShowCreateContest(true)}>
-                                                Chỉnh sửa
+                                                <i className="fa fa-edit"></i>
                                             </Button>
                                             <Button variant="success fw-bolder"
                                                 onClick={handleCreateTest}
                                             >
-                                                Tạo bài test
-                                            </Button>{' '}
+                                                <i className="fa fa-plus"></i>
+                                            </Button>
+                                            <Button variant="info" className="m-2 fw-bolder text-light"
+                                                onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}>
+                                                <i className="fa fa-share"></i>
+                                            </Button>
                                         </div>
                                     }
                                 </Card.Body>
@@ -235,9 +243,16 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                 <div className="card-test-index col-md-1 col-sm-12">
                                                     <div className="test-index d-flex justify-content-center align-middle">{index + 1}</div>
                                                 </div>
-                                                <div className="card-test-info col-md-10 col-sm-12">
+                                                <div className="card-test-info col-md-10 col-sm-12 pt-3 pb-3">
                                                     <div className="card-test-title h5">{test.name}</div>
-                                                    <div className="card-test-description">{test.description}</div>
+                                                    <div className="card-test-description m-3">{test.description}</div>
+                                                    <hr style={
+                                                        {
+                                                            width: '50%',
+                                                            height: '1px',
+                                                            margin: '20px auto'
+                                                        }
+                                                    }/>
                                                     <div className="detail row">
                                                         <div className="start-time col-md-4 col-12">
                                                             <div className="fw-bolder">Thời gian bắt đầu: </div>
@@ -253,7 +268,13 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="card-test-actions col-md-1 col-sm-12">
+                                                <div className="card-test-actions col-md-1 col-sm-12  pt-3 pb-3">
+                                                    <Button variant="info" size="sm"
+                                                        onClick={() => handleShareContent(test.url, test.name, test.description)}
+                                                        className="fw-bolder text-light"
+                                                    >
+                                                        <i className="fa fa-share"></i>
+                                                    </Button>{' '}
                                                     {isCreator &&
                                                         <>
                                                             <Button variant="warning" size="sm"
@@ -275,8 +296,10 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                         <>
                                                             <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
                                                                 disabled={Date.parse(test.endTime) - Date.now() <= 0}
-                                                                onClick={() => handleTakeTest(test)} >
-                                                                Làm bài
+                                                                onClick={() => handleTakeTest(test)}
+                                                                size="sm"
+                                                            >
+                                                                <i className="fas fa-pen"></i>
                                                             </Button>
                                                         </>
                                                     }
@@ -323,6 +346,12 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 isShow={isShowStatisticTest}
                 onAction={onShowStatistics}
                 test={selectedTest}
+            />
+
+            <Share
+                isShow={isShowShareModal}
+                handleIsShow={setIsShowShareModal}
+                shareContent={shareContent}
             />
         </>
     )

@@ -6,9 +6,7 @@ import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, MAX_PHOTOS_PER_PAGE, MAX_PHOT
 import './BrowseLibrary.scss'
 
 function BrowseLibrary({ show, onAction }) {
-    const client = createClient(
-        '563492ad6f91700001000001e3ed7b53da4e4bd99fc84afc9b38fafb'
-    )
+    const client = createClient(process.env.REACT_APP_PEXELS_ID)
     const [link, setLink] = useState('')
     const [selectedPhoto, setSelectedPhoto] = useState(null)
     const [selectedIndex, setSelectedIndex] = useState(-1)

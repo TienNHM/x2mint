@@ -5,6 +5,7 @@ import ModalCreateContest from 'components/contestManagement/modalCreateContest/
 import ContestInfo from 'components/contestManagement/contestInfo/ContestInfo'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { getAllContestsByCreator } from 'actions/api/ContestAPI'
+import Share from 'components/common/share/Share'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, MODAL_ACTION_RETRY } from 'utils/constants'
 import './Contest.scss'
 import { initialContest } from 'actions/initialData'
@@ -12,6 +13,8 @@ import { initialContest } from 'actions/initialData'
 function Contest() {
     const [contests, setContests] = useState(initialContest)
     const [isShow, setIsShow] = useState(false)
+    const [isShowShareModal, setIsShowShareModal] = useState(false)
+    const [shareContent, setShareContent] = useState({})
     const blankContest = {
         id: '',
         creator_id: 'user-1',
@@ -91,6 +94,18 @@ function Contest() {
         }
     }
 
+    const handleShareContent = (url, title = '', content = '', hashtags = [], source = '') => {
+        const obj = {
+            url: url,
+            title: title,
+            content: content,
+            hashtags: hashtags,
+            source: source
+        }
+        setShareContent(obj)
+        setIsShowShareModal(true)
+    }
+
     return (
         <>
             <div>
@@ -124,13 +139,19 @@ function Contest() {
                                                 variant="primary" size="sm"
                                                 onClick={() => handleViewContestDetail(c)}
                                             >
-                                                Chi tiết
+                                                <i className="fa fa-info-circle"></i>
                                             </Button>
                                             <Button
                                                 variant="warning" size="sm"
                                                 onClick={() => handleAction(c, true)}
                                             >
-                                                Chỉnh sửa
+                                                <i className="fa fa-edit"></i>
+                                            </Button>
+                                            <Button
+                                                variant="info" size="sm"
+                                                onClick={() => handleShareContent(c.url, c.name, c.description, ['X2MINT', 'ITUTE'])}
+                                            >
+                                                <i className="fa fa-share"></i>
                                             </Button>
                                         </div>
                                     </Card.Body>
@@ -149,6 +170,11 @@ function Contest() {
                             isShow={isShowConfirmModal}
                             onAction={handleConfirmModalAction}
                         />
+                        <Share
+                            isShow={isShowShareModal}
+                            handleIsShow={setIsShowShareModal}
+                            shareContent={shareContent}
+                        />
                     </div>
                 }
 
@@ -158,7 +184,7 @@ function Contest() {
                             setIsShowContestInfo={setIsShowContestInfo}
                             contest={selectedContest}
                             updateContest={setSelectedContest}
-                            isCreator={true}
+                            isCreator={false}
                         />
                     </div>
                 }

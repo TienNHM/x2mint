@@ -30,4 +30,16 @@
     .mdb-datatable .row {
         margin: $gap;
     }
+
+    .data-table {
+        button {
+            box-shadow: none !important;
+            outline: none !important;
+            color: gray;
+        }
+
+        button:hover {
+            color: lightseagreen;
+        }
+    }
 }

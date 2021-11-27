@@ -8,11 +8,13 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
     const [rows, setRows] = useState(1)
     const [content, setContent] = useState('')
     const [answerLength, setAnswerLength] = useState(MAX_ANSWER_LENGTH)
+    const [isChecked, setIsChecked] = useState(false)
 
     useEffect(() => {
         const value = answers[index].content
         setContent(value)
         setAnswerLength(MAX_ANSWER_LENGTH - value.length)
+        setIsChecked(false)
     }, [answers, index])
 
     const handleTextChange = (event) => {
@@ -28,6 +30,11 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
         const newAnswers = [...answers]
         newAnswers[index].content = event.target.value
         updateAnswers(newAnswers)
+    }
+
+    const handleOnClick = (event) => {
+        setIsChecked(!isChecked)
+        onClick(event)
     }
 
     return (
@@ -53,7 +60,8 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
                     className="btn-checkbox"
                     name={name}
                     value={name}
-                    onClick={onClick}>
+                    onClick={handleOnClick}
+                    checked={isChecked}>
                     {/* //TODO: handle choose answer */}
                 </input>
             </div>

@@ -70,14 +70,16 @@ export default function SubmitResult({ isShow = true, onAction }) {
                                 />
                             </div>
                         </div>
-                        <MDBDataTableV5
-                            hover striped bordered
-                            entriesOptions={[10, 25, 50, 100]}
-                            entries={10}
-                            pagesAmount={4}
-                            data={data}
-                            materialSearch
-                        />
+                        <div className="data-table">
+                            <MDBDataTableV5
+                                hover striped bordered
+                                entriesOptions={[10, 25, 50, 100]}
+                                entries={10}
+                                pagesAmount={4}
+                                data={data}
+                                materialSearch
+                            />
+                        </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

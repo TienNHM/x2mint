@@ -12,8 +12,8 @@ export default function StatisticTest({ isShow, onAction, test }) {
 
     if (test === null) return null
 
-    const start_time = test.startTime.split(' ')
-    const end_time = test.endTime.split(' ')
+    const startTime = test.startTime.split(' ')
+    const endTime = test.endTime.split(' ')
 
     return (
         <>
@@ -59,14 +59,14 @@ export default function StatisticTest({ isShow, onAction, test }) {
                                     <Form.Control
                                         size="sm"
                                         type="date"
-                                        value={start_time[0]}
+                                        value={startTime[0]}
                                         readOnly={true}
                                         style={{ width: '140px', margin: '5px', textAlign: 'center' }}
                                     />
                                     <Form.Control
                                         size="sm"
                                         type="time"
-                                        value={start_time[1]}
+                                        value={startTime[1]}
                                         readOnly={true}
                                         style={{ width: '140px', margin: '5px', textAlign: 'center' }}
                                     />
@@ -78,14 +78,14 @@ export default function StatisticTest({ isShow, onAction, test }) {
                                     <Form.Control
                                         size="sm"
                                         type="date"
-                                        value={end_time[0]}
+                                        value={endTime[0]}
                                         readOnly={true}
                                         style={{ width: '140px', margin: '5px', textAlign: 'center' }}
                                     />
                                     <Form.Control
                                         size="sm"
                                         type="time"
-                                        value={end_time[1]}
+                                        value={endTime[1]}
                                         readOnly={true}
                                         style={{ width: '140px', margin: '5px', textAlign: 'center' }}
                                     />
@@ -99,15 +99,17 @@ export default function StatisticTest({ isShow, onAction, test }) {
                                 />
                             </div>
                         </div>
-                        <MDBDataTableV5
-                            hover striped bordered
-                            entriesOptions={[10, 25, 50, 100]}
-                            entries={10}
-                            pagesAmount={4}
-                            data={SAMPLE_DATA}
-                            materialSearch
-                            fullPagination
-                        />
+                        <div className="data-table">
+                            <MDBDataTableV5
+                                hover striped bordered
+                                entriesOptions={[10, 25, 50, 100]}
+                                entries={10}
+                                pagesAmount={4}
+                                data={SAMPLE_DATA}
+                                materialSearch
+                                fullPagination
+                            />
+                        </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

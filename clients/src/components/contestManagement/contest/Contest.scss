@@ -60,10 +60,9 @@
 
         .contest-action {
             >* {
-                margin: 0 $gap;
+                margin: 0 $gap/2;
                 font-weight: bold;
                 color: white;
-                width: 40%;
             }
         }
     }

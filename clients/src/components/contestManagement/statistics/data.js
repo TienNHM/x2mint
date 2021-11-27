@@ -17,13 +17,13 @@ export const SAMPLE_DATA = {
         },
         {
             label: 'Thời gian bắt đầu',
-            field: 'start_time',
+            field: 'startTime',
             sort: 'asc',
             width: 200
         },
         {
             label: 'Thời gian nộp bài',
-            field: 'end_time',
+            field: 'endTime',
             sort: 'asc',
             width: 100
         },
@@ -50,8 +50,8 @@ export const SAMPLE_DATA = {
         {
             username: 'tiger',
             fullname: 'Tiger Nixon',
-            start_time: '2021/11/21 12:00:00',
-            end_time: '2021/11/21 13:00:00',
+            startTime: '2021/11/21 12:00:00',
+            endTime: '2021/11/21 13:00:00',
             total: 10,
             point: 5,
             detail:  <MDBBtn size="sm" onClick={() => alert('hi')}><i className="fa fa-info-circle"></i></MDBBtn>
@@ -59,8 +59,8 @@ export const SAMPLE_DATA = {
         {
             username: 'tiger',
             fullname: 'Tiger Nixon',
-            start_time: '2021/11/21 12:00:00',
-            end_time: '2021/11/21 13:00:00',
+            startTime: '2021/11/21 12:00:00',
+            endTime: '2021/11/21 13:00:00',
             total: 10,
             point: 5,
             detail: <MDBBtn size="sm" onClick={() => alert('hi')}><i className="fa fa-info-circle"></i></MDBBtn>
