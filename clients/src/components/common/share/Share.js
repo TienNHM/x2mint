@@ -1,4 +1,5 @@
 import React from 'react'
+import { Modal, Button } from 'react-bootstrap'
 import {
     EmailShareButton,
     FacebookShareButton,
@@ -8,41 +9,35 @@ import {
     LinkedinShareButton
 } from 'react-share'
 
-import {
-    EmailIcon,
-    FacebookIcon,
-    FacebookMessengerIcon,
-    TelegramIcon,
-    TwitterIcon,
-    LinkedinIcon
-} from 'react-share'
+import './Share.scss'
 
-export function ShareFacebook(url, quote = '', hashtag = '') {
+export function ShareFacebook({ url, title = '', hashtags = [] }) {
+    const tags = hashtags.map(tag => '#' + tag).join(' ')
     return (
         <FacebookShareButton
             url={url}
-            quote={quote}
-            hashtag={hashtag}
+            quote={title}
+            hashtag={tags}
             className="Demo__some-network__share-button"
         >
-            <FacebookIcon size={32} round />
+            <img src="https://img.icons8.com/fluency/48/000000/facebook-new.png" />
         </FacebookShareButton>
     )
 }
 
-export function ShareMessenger(url) {
+export function ShareMessenger({ url }) {
     return (
         <FacebookMessengerShareButton
             url={url}
             appId={process.env.REACT_APP_FB_APP_ID}
             className="Demo__some-network__share-button"
         >
-            <FacebookMessengerIcon size={32} round />
+            <img src="https://img.icons8.com/fluency/48/000000/facebook-messenger--v2.png" />
         </FacebookMessengerShareButton>
     )
 }
 
-export function ShareTwitter(url, title, hashtags = []) {
+export function ShareTwitter({ url, title = '', hashtags = [] }) {
     return (
         <TwitterShareButton
             url={url}
@@ -50,47 +45,77 @@ export function ShareTwitter(url, title, hashtags = []) {
             hashtags={hashtags}
             className="Demo__some-network__share-button"
         >
-            <TwitterIcon size={32} round />
+            <img src="https://img.icons8.com/fluency/48/000000/twitter.png" />
         </TwitterShareButton>
     )
 }
 
-export function ShareTelegram(url, title, caption = '', tags = []) {
+export function ShareTelegram({ url, title = '', content = '' }) {
     return (
         <TelegramShareButton
             url={url}
             title={title}
-            caption={caption}
-            tags={tags}
+            caption={content}
             className="Demo__some-network__share-button"
         >
-            <TelegramIcon size={32} round />
+            <img src="https://img.icons8.com/fluency/48/000000/telegram-app.png" />
         </TelegramShareButton>
     )
 }
 
-export function ShareLinkedin(url, title = '', summary = '', source = '') {
+export function ShareLinkedin({ url, title = '', content = '', source = '' }) {
     return (
         <LinkedinShareButton
             url={url}
             title={title}
-            summary={summary}
+            summary={content}
             source={source}
-            className="Demo__some-network__share-button">
-            <LinkedinIcon size={32} round />
+            className="Demo__some-network__share-button"
+        >
+            <img src="https://img.icons8.com/fluency/48/000000/linkedin.png" />
         </LinkedinShareButton>
     )
 }
 
-export function ShareEmail(url, subject, body) {
+export function ShareEmail({ url, title = '', content = '' }) {
     return (
         <EmailShareButton
             url={url}
-            subject={subject}
-            body={body}
+            subject={title}
+            body={content}
             className="Demo__some-network__share-button"
         >
-            <EmailIcon size={32} round />
+            <img src="https://img.icons8.com/fluency/48/000000/edit-message.png" />
         </EmailShareButton>
+    )
+}
+
+export default function Share({ isShow, handleIsShow, url, title = '', content = '', hashtags = [], source = '' }) {
+    console.log('isShow', isShow)
+    return (
+        <Modal
+            show={isShow === true}
+            centered
+            backdrop='static'
+            keyboard={false}
+            onHide={() => handleIsShow(false)}
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>Chia sẻ</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="text-center">
+                <ShareFacebook url={url} title={title} hashtags={hashtags} />
+                <ShareMessenger url={url} />
+                <ShareTwitter url={url} title={title} hashtags={hashtags} />
+                <ShareTelegram url={url} title={title} content={content} />
+                <ShareLinkedin url={url} title={title} content={content} source={source} />
+                <ShareEmail url={url} title={title} content={content} />
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="primary" onClick={() => handleIsShow(false)}>
+                    OK
+                </Button>
+            </Modal.Footer>
+        </Modal>
     )
 }

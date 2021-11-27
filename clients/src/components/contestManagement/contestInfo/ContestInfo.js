@@ -6,15 +6,15 @@ import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
 import StatisticTest from 'components/contestManagement/statistics/StatisticTest'
 import { emptyTest } from 'actions/initialData'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
-import { ShareFacebook } from 'components/common/share/Share'
+import Share from 'components/common/share/Share'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import './ContestInfo.scss'
 
 export default function ContestInfo({ setIsShowContestInfo, contest, updateContest, isCreator }) {
-    console.log(contest)
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
     const [isShowStatisticTest, setIsShowStatisticTest] = useState(false)
+    const [isShowShareModal, setIsShowShareModal] = useState(false)
     const [confirmModalContent, setConfirmModalContent] = useState('')
     const [currentAction, setCurrentAction] = useState('')
     const [isShowTest, setIsShowTest] = useState(false)
@@ -204,12 +204,10 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                             >
                                                 <i className="fa fa-plus"></i>
                                             </Button>
-                                            {ShareFacebook(url)}
-                                            {/* <Button variant="info" className="m-2 fw-bolder text-light"
-                                                onClick={() => ShareFacebook(url)}>
+                                            <Button variant="info" className="m-2 fw-bolder text-light"
+                                                onClick={() => setIsShowShareModal(true)}>
                                                 <i className="fa fa-share"></i>
-                                            </Button> */}
-                                            {/* //TODO Share url */}
+                                            </Button>
                                         </div>
                                     }
                                 </Card.Body>
@@ -320,6 +318,15 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 isShow={isShowStatisticTest}
                 onAction={onShowStatistics}
                 test={selectedTest}
+            />
+
+            <Share
+                isShow={isShowShareModal}
+                handleIsShow={setIsShowShareModal}
+                url={url}
+                title={title}
+                content={description}
+                hashtags={['X2MINT', 'ITUTE']}
             />
         </>
     )
