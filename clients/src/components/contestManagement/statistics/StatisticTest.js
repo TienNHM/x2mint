@@ -3,17 +3,27 @@ import { Button, Modal, Form, Overlay, Popover } from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import { MODAL_ACTION_CLOSE } from 'utils/constants'
-import { SAMPLE_DATA } from './data.js'
+import exportData from './data.js'
+import SubmitResult from 'components/multi-choices/submitResult/SubmitResult'
 import './StatisticTest.scss'
 
 export default function StatisticTest({ isShow, onAction, test }) {
     const [show, setShow] = useState(false)
+    const [isShowSubmitPage, setIsShowSubmitPage] = useState(false)
     const target = useRef(null)
 
     if (test === null) return null
 
     const startTime = test.startTime.split(' ')
     const endTime = test.endTime.split(' ')
+
+    const data = exportData(null, setIsShowSubmitPage) //TODO export data
+
+    const handleAction = (action) => {
+        if (action === MODAL_ACTION_CLOSE) {
+            setIsShowSubmitPage(false)
+        }
+    }
 
     return (
         <>
@@ -94,7 +104,7 @@ export default function StatisticTest({ isShow, onAction, test }) {
                             <div>
                                 <ExportToExcel
                                     //TODO: Custom export
-                                    apiData={SAMPLE_DATA.rows}
+                                    apiData={data.rows}
                                     fileName={'data'}
                                 />
                             </div>
@@ -105,7 +115,7 @@ export default function StatisticTest({ isShow, onAction, test }) {
                                 entriesOptions={[10, 25, 50, 100]}
                                 entries={10}
                                 pagesAmount={4}
-                                data={SAMPLE_DATA}
+                                data={data}
                                 materialSearch
                                 fullPagination
                             />
@@ -118,6 +128,11 @@ export default function StatisticTest({ isShow, onAction, test }) {
                     </Button>
                 </Modal.Footer>
             </Modal>
+
+            <SubmitResult 
+                isShow={isShowSubmitPage}
+                onAction={handleAction}
+            />
         </>
     )
 }

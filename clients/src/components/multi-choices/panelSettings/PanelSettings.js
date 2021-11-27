@@ -9,6 +9,8 @@ import './PanelSettings.scss'
 
 function PanelSettings(props) {
     const { test, setTest, setSelectedQuestion, isCreator, setIsShowTest, setIsSaved } = props
+    const btnSubmitRef = useRef(null)
+    const timeRemainRef = useRef(null)
 
     // Test title
     const inputTestTitleRef = useRef(null)
@@ -74,8 +76,6 @@ function PanelSettings(props) {
         }
     }
 
-    const timeRemainRef = useRef(null)
-
     const Completionist = () => <h6 className="time-countdown">Hết giờ</h6>
 
     const renderer = ({ hours, minutes, seconds, completed }) => {
@@ -99,8 +99,6 @@ function PanelSettings(props) {
         setCurrentAction('CONFIRM_SUBMIT')
         setIsShowConfirm(true)
     }
-
-    const btnSubmitRef = useRef(null)
 
     const handleConfirmSubmit = (action) => {
         if (currentAction === 'CONFIRM_SUBMIT') {

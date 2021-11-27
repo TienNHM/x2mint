@@ -7,7 +7,7 @@ import { ExportToExcel } from 'utils/ExportToExcel'
 import { initialTakeTest } from 'actions/initialData'
 import './SubmitResult.scss'
 
-export default function SubmitResult({ isShow = true, onAction }) {
+export default function SubmitResult({ isShow, onAction }) {
     const takeTest = { ...initialTakeTest }
     const submitTime = takeTest.submitTime.split(' ')
     const data = exportData(takeTest)
