@@ -6,6 +6,7 @@ import MultiChoices from 'components/multi-choices/multichoices/MultiChoices'
 import StatisticTest from 'components/contestManagement/statistics/StatisticTest'
 import { emptyTest } from 'actions/initialData'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
+import { ShareFacebook } from 'components/common/share/Share'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import './ContestInfo.scss'
 
@@ -191,29 +192,24 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                 </div>
                                             </div>
                                         </ListGroupItem>
-                                        <ListGroupItem>
-                                            <span className="h6 fw-bold">Link</span>
-                                            <Card.Text>
-                                                <a href={url}
-                                                    target="_blank" rel="noopener noreferrer"
-                                                    className="text-primary"
-                                                >
-                                                    {url}
-                                                </a>
-                                            </Card.Text>
-                                        </ListGroupItem>
                                     </ListGroup>
                                     {isCreator &&
                                         <div>
                                             <Button variant="primary" className="m-2 fw-bolder"
                                                 onClick={() => setIsShowCreateContest(true)}>
-                                                Chỉnh sửa
+                                                <i className="fa fa-edit"></i>
                                             </Button>
                                             <Button variant="success fw-bolder"
                                                 onClick={handleCreateTest}
                                             >
-                                                Tạo bài test
-                                            </Button>{' '}
+                                                <i className="fa fa-plus"></i>
+                                            </Button>
+                                            {ShareFacebook(url)}
+                                            {/* <Button variant="info" className="m-2 fw-bolder text-light"
+                                                onClick={() => ShareFacebook(url)}>
+                                                <i className="fa fa-share"></i>
+                                            </Button> */}
+                                            {/* //TODO Share url */}
                                         </div>
                                     }
                                 </Card.Body>
