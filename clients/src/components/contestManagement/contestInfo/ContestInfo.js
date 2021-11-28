@@ -247,6 +247,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                         </div>
                                     </div>
                                 </Card.Header>
+                                <hr />
                                 <div className="show-all-tests">
                                     {contest.tests.map((test, index) =>
                                         <Card.Body key={index} className="row">
