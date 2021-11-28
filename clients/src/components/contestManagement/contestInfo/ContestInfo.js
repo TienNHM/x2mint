@@ -150,10 +150,11 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                 <div className="contest-information">
                     <div className="nav-top">
                         <div className="back">
-                            <Button variant="primary"
+                            <Button variant="primary" size="sm"
                                 onClick={() => setIsShowContestInfo(false)}
                             >
-                                Trở về
+                                <i className="fa fa-arrow-left"> </i>
+                                <span className="m-2 fw-bolder">Trở về</span>
                             </Button>{' '}
                         </div>
                         <div className="heading h2 fw-bolder">{title}</div>
@@ -246,6 +247,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                         </div>
                                     </div>
                                 </Card.Header>
+                                <hr />
                                 <div className="show-all-tests">
                                     {contest.tests.map((test, index) =>
                                         <Card.Body key={index} className="row">
@@ -260,7 +262,7 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
                                                         {
                                                             width: '50%',
                                                             height: '1px',
-                                                            margin: '20px auto'
+                                                            margin: '12px auto'
                                                         }
                                                     } />
                                                     <div className="detail row">

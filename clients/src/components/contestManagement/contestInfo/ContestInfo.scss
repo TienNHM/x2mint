@@ -16,9 +16,10 @@ $panel-contest-info-width: 300px;
         }
 
         .heading {
-            font-weight: bold;
+            font-weight: bolder;
             text-transform: uppercase;
             width: 90%;
+            color: $theme-color;
         }
     }
 
@@ -42,8 +43,17 @@ $panel-contest-info-width: 300px;
             .card {
                 width: 100%;
 
+                .card-header {
+                    border: none;
+                    background-color: transparent;
+                }
                 .card-body {
                     width: 100%;
+                }
+
+                hr {
+                    margin: 0;
+                    height: 2px;
                 }
             }
 
@@ -59,13 +69,13 @@ $panel-contest-info-width: 300px;
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
-                    border: 1px solid;
+                    border: 1px solid $theme-color;
                     border-radius: $gap/2;
                     margin: 0 $gap;
                     padding-left: 0 !important;
 
                     .card-test-index {
-                        background-color: lightgoldenrodyellow;
+                        background-color: #b8ecb8;
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -73,7 +83,7 @@ $panel-contest-info-width: 300px;
                         .test-index {
                             font-weight: bolder;
                             font-size: 2.5rem;
-                            color: lightsalmon;
+                            color: rgb(228, 100, 50);
                         }
                     }
 

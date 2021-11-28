@@ -175,7 +175,7 @@ export const initialContest = [
             }],
         startTime: '2021-11-16 00:00',
         endTime: '2021-11-17 23:59',
-        url: 'https://www.facebook.com/',
+        url: 'https://github.com/x2mint/',
         embededMedia: 'https://i.pinimg.com/564x/f6/9b/34/f69b34664600b002caec9d453d687353.jpg',
         status: ''
     },
@@ -200,6 +200,7 @@ export const initialTakeTest = {
     testUrl: 'https://fb.com',
     userId: 'user-1',
     username: 'tiennhm',
+    fullname: 'Nguyễn Huỳnh Minh Tiến',
     status: 'DRAFT',
     points: 20, // số điểm đạt được của bài test
     submitTime: '2021-11-13 00:00',

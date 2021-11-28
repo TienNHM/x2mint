@@ -32,11 +32,6 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
         updateAnswers(newAnswers)
     }
 
-    const handleOnClick = (event) => {
-        setIsChecked(!isChecked)
-        onClick(event)
-    }
-
     return (
         <div className={css}>
             <div className="answer-icon">{name}</div>
@@ -60,9 +55,9 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
                     className="btn-checkbox"
                     name={name}
                     value={name}
-                    onClick={handleOnClick}
-                    checked={isChecked}>
-                    {/* //TODO: handle choose answer */}
+                    onClick={() => setIsChecked(!isChecked)}
+                    checked={isChecked}
+                    onChange={(event) => onClick(event)}>
                 </input>
             </div>
         </div>
