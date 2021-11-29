@@ -2,7 +2,11 @@
 /*=============== HEADER ===============*/
 /*=============== NAV ===============*/
 .nav{
+<<<<<<< HEAD
     height: $navbar-height;
+=======
+    height: var(--navbar-height);
+>>>>>>> 61e2ed6 (1st login signup)
     display: flex;
     justify-content: space-between;
     align-items: center;

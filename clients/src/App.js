@@ -7,6 +7,7 @@ import Navbar from 'components/common/navbar/Navbar'
 import Contest from 'components/contestManagement/contest/Contest'
 import SubmitResult from 'components/multi-choices/submitResult/SubmitResult'
 import Homepage from 'components/common/home/Homepage'
+<<<<<<< HEAD
 
 const options = {
     // you can also just use 'bottom center'
@@ -18,6 +19,10 @@ const options = {
         zIndex: 100
     }
 }
+=======
+import Login from 'components/common/login/Login'
+import Register from 'components/common/register/Register'
+>>>>>>> 61e2ed6 (1st login signup)
 
 function App() {
     return (
@@ -27,10 +32,11 @@ function App() {
                     <Navbar />
                     <Routes>
                         <Route path="/" element={<Homepage />} />
-                        <Route path="/contest" element={<Contest />} />
+                        <Route path="/create" element={<Contest />} />
                         <Route path="/submit-test" element={<SubmitResult />} />
                         {/* <Route path="/create_contest" element={<Create_Contest />}/> */}
-                        {/* <Route path="/login" element={<Login />} /> */}
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
                     </Routes>
                 </div>
             </div>

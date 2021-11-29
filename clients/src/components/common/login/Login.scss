@@ -1,0 +1,110 @@
+@import '_setting.scss';
+
+.login{
+    margin: 10% auto 0;
+    font-family: var(--body-font);
+    border: 1.5px solid var(--mint);
+    height: 400px;
+    width: 920px;
+    border-radius: 30px;
+}
+h1{
+    text-align: center;
+    padding-top: 40px;
+    font-family: var(--logo-font);
+    color: var(--mint);
+    font-weight: 700;
+}
+.form__body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 5px 10%;
+}
+.info__area{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin: auto 10px auto 10%;
+}
+
+img {
+    max-width: 600px;
+    vertical-align: center;
+}
+input{
+    padding-left: 20px;
+    margin: 5px 0;
+    display: block;
+    border-radius: 50px;
+    width: 300px;
+    font-size: 1rem;
+    border-radius: 50px;
+        border: 1px solid var(--mint);
+        color: var(--mint) !important;
+        background-color: var(--white);
+        font-weight:700;
+        padding: 5px;
+    ::placeholder{
+        border: 1px solid var(--mint) !important;
+     
+    }
+}
+.button{
+    &__loginn{
+        max-width: 150px;
+        border-radius: 50px;
+        border: 1px solid var(--mint);
+        color: var(--mint) !important;
+        background-color: var(--white);
+        font-weight:700;
+        padding: 5px 0;
+        &:hover{
+            color: var(--white);
+            background: var(--light-mint);
+        }   
+        &-gg{
+            border: none;
+            margin: 10px auto;
+            &:hover{
+                background: none;
+                color:var(--mint)
+            }
+        }     
+    }
+
+    &__signupp{
+        max-width: 150px;
+        border-radius: 50px;
+        color: var(--white);
+        background-color: var(--mint);
+        padding: 5px 0;
+        font-weight: 600;       
+
+        &:hover{
+            color: var(--strong-mint);
+            background: var(--light-mint);
+        }
+    }
+}
+.input{
+    padding: auto;
+    margin: 20px;
+}
+.login__forget{
+    display: inline;    
+}
+.forget__button{
+    border: none;
+    color: var(--gray);
+    text-decoration: underline;
+    &:hover{
+        background: none;
+        color:var(--mint)
+    }
+}
+.register{
+    display:inline-flex;
+}

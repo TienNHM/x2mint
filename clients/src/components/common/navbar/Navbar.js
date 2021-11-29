@@ -13,12 +13,12 @@ function Navbar() {
             <div className="nav__menu" id="nav-menu">
                 <ul className="nav__list">
                     <li className="nav__item"><a href="/" className="nav__link active-link">Trang chủ</a></li>
-                    <li className="nav__item"><a href="/contest" className="nav__link active-link">Làm bài</a></li>
+                    <li className="nav__item"><a href="/" className="nav__link active-link">Làm bài</a></li>
                     <li className="nav__item"><a href="/create" className="nav__link active-link">Tạo đề</a></li>
                     <li className="nav__item"><a href="#about" className="nav__link active-link">X2M!NT</a></li>
                     <li className="nav__item"><a href="#contact" className="nav__link active-link">Liên hệ</a></li>
                     <li className="nav__item"><a href="/login" className="nav__link active-link button button__login">Đăng nhập</a></li>
-                    <li className="nav__item"><a href="/signup" className="nav__link active-link button button__signup">Đăng ký</a></li>
+                    <li className="nav__item"><a href="/register" className="nav__link active-link button button__signup">Đăng ký</a></li>
                 </ul>
 
                 <div className="nav__close" id="nav-close">
