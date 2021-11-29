@@ -91,7 +91,7 @@ export function ShareEmail({ url, title = '', content = '' }) {
 }
 
 export default function Share({ isShow, handleIsShow, shareContent }) {
-    const { url, title, content, hashtags, source} = shareContent
+    const { url, title, content, hashtags, source } = shareContent
     return (
         <Modal
             show={isShow === true}
