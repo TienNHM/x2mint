@@ -7,7 +7,8 @@ import Navbar from 'components/common/navbar/Navbar'
 import Contest from 'components/contestManagement/contest/Contest'
 import SubmitResult from 'components/multi-choices/submitResult/SubmitResult'
 import Homepage from 'components/common/home/Homepage'
-<<<<<<< HEAD
+import Login from 'components/common/login/Login'
+import Register from 'components/common/register/Register'
 
 const options = {
     // you can also just use 'bottom center'
@@ -19,10 +20,6 @@ const options = {
         zIndex: 100
     }
 }
-=======
-import Login from 'components/common/login/Login'
-import Register from 'components/common/register/Register'
->>>>>>> 61e2ed6 (1st login signup)
 
 function App() {
     return (

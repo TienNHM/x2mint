@@ -37,11 +37,7 @@ function Homepage() {
                 </div>
             </section>
             <section className="profile" id="profile">
-<<<<<<< HEAD
-                <div className="card-info">
-=======
                 {/* <div className="card">
->>>>>>> 61e2ed6 (1st login signup)
                     <div className="card__img">
                         <img id="avatar" src="./img/hoang.jpg" alt="" />
                     </div>
@@ -59,13 +55,8 @@ function Homepage() {
                         </a>
                     </div>
                     <button>Contact me</button>
-<<<<<<< HEAD
-                </div>
-                <div className="card-info">
-=======
                 </div> */}
                 <div className="card">
->>>>>>> 61e2ed6 (1st login signup)
                     <div className="card__img">
                         <img id="avatar" src="./img/thien.jpg" alt="" />
                     </div>
@@ -103,11 +94,7 @@ function Homepage() {
                     </div>
                     <button>Contact me</button>
                 </div>
-<<<<<<< HEAD
-                <div className="card-info">
-=======
                 {/* <div className="card">
->>>>>>> 61e2ed6 (1st login signup)
                     <div className="card__img">
                         <img id="avatar" src="./img/yen.jpg" alt="" />
                     </div>
