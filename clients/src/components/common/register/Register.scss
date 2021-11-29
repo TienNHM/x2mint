@@ -1,0 +1,62 @@
+@import '_setting.scss';
+
+.register{
+    align-items: center;
+    margin: 10% auto 0;
+    font-family: var(--body-font);
+    border: 1.5px solid var(--mint);
+    height: 400px;
+    width: 920px;
+    border-radius: 30px;
+    display: block;
+}
+h1{
+    text-align: center;
+    padding-top: 40px;
+    font-family: var(--logo-font);
+    color: var(--mint);
+    font-weight: 700;
+}
+.signup__area{
+    display:block;
+    margin: auto;
+}
+.btn {
+    &__signup{
+        border-radius: 50px;
+        border: 1px solid var(--mint);
+        color: var(--white);
+        background-color: var(--mint);
+        width: 250px;
+        font-size: var(--h2-font-size);
+        margin: 10px;
+        &:hover{
+            color:var(--mint);
+            background-color: var(--light-mint);
+        }
+    }
+    &__login{
+        border-radius: 50px;
+        border: 1px solid var(--mint);
+        color: var(--mint);
+        background-color: var(--white);
+        width: 150px;
+        padding: auto;
+        font-size: var(--h3-font-size);
+        margin: 10px;
+        &:hover{
+            color:var(--white);
+            background-color: var(--mint);
+        }
+    }
+}
+img {
+    max-width: 350px;
+    vertical-align: center;
+}
+.signup__body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 10% 5px 5%;
+}

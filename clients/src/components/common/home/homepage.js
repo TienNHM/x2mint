@@ -37,7 +37,7 @@ function Homepage() {
                 </div>
             </section>
             <section className="profile" id="profile">
-                <div className="card">
+                {/* <div className="card">
                     <div className="card__img">
                         <img id="avatar" src="./img/hoang.jpg" alt="" />
                     </div>
@@ -55,7 +55,7 @@ function Homepage() {
                         </a>
                     </div>
                     <button>Contact me</button>
-                </div>
+                </div> */}
                 <div className="card">
                     <div className="card__img">
                         <img id="avatar" src="./img/thien.jpg" alt="" />
@@ -94,7 +94,7 @@ function Homepage() {
                     </div>
                     <button>Contact me</button>
                 </div>
-                <div className="card">
+                {/* <div className="card">
                     <div className="card__img">
                         <img id="avatar" src="./img/yen.jpg" alt="" />
                     </div>
@@ -112,7 +112,7 @@ function Homepage() {
                         </a>
                     </div>
                     <button>Contact me</button>
-                </div>
+                </div> */}
             </section>
             <section className="footer">
 
