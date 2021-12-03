@@ -7,8 +7,13 @@ import Navbar from 'components/common/navbar/Navbar'
 import Contest from 'components/contestManagement/contest/Contest'
 import SubmitResult from 'components/multi-choices/submitResult/SubmitResult'
 import Homepage from 'components/common/home/Homepage'
+import About from 'components/common/home/About'
+import Contact from 'components/common/home/Contact'
 import Login from 'components/common/login/Login'
 import Register from 'components/common/register/Register'
+import Profile from 'components/common/profile/Profile'
+import AuthContextProvider from './contexts/AuthContext'
+
 
 const options = {
     // you can also just use 'bottom center'
@@ -26,15 +31,20 @@ function App() {
         <AlertProvider template={AlertTemplate} {...options}>
             <div className="app">
                 <div className="bootstrap-container">
-                    <Navbar />
-                    <Routes>
-                        <Route path="/" element={<Homepage />} />
-                        <Route path="/create" element={<Contest />} />
-                        <Route path="/submit-test" element={<SubmitResult />} />
-                        {/* <Route path="/create_contest" element={<Create_Contest />}/> */}
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                    </Routes>
+                    <Navbar/>
+                    <AuthContextProvider>
+                        <Routes className="app__body">
+                            <Route exact path ="/" element={<Homepage />} />
+                            <Route path ="/about" element={<About />} />
+                            <Route path ="/contact" element={<Contact />} />
+                            <Route path ="/create" element={<Contest />} />
+                            <Route path ="/login" element={<Login />} />
+                            <Route path ="/register" element={<Register />} />
+                            {/* <Route exact path='/login' render={props => <Auth {...props} authRoute='login' />}/>
+					        <Route exact path='/register' render={props => <Auth {...props} authRoute='register' />} /> */}
+                            <Route path ="/profile" element={<Profile />} />
+                        </Routes>
+                    </AuthContextProvider>
                 </div>
             </div>
         </AlertProvider>

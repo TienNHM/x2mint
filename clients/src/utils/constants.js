@@ -12,3 +12,8 @@ export const API_ROOT = 'http://localhost:5000'
 export const ROLE_ADMIN = 'admin'
 export const ROLE_CREATOR = 'creator'
 export const ROLE_USER = 'user'
+
+export const apiUrl = 'http://localhost:5000/app/api/v1'
+
+export const LOCAL_STORAGE_TOKEN_NAME = 'x2mint'
+

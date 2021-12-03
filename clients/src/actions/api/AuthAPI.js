@@ -9,7 +9,6 @@ export const register = async (user) => {
         role: ROLE_USER,
         isHidden: false
     })
-
     console.log(request.data)
     return request.data
 }
