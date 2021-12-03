@@ -15,7 +15,7 @@ export const initialContest = [
                 url: 'https://www.google.com',
                 status: 'DRAFT',
                 startTime: '2021-11-13 00:00',
-                endTime: '2021-11-19 22:00',
+                endTime: '2021-12-31 22:00',
                 maxPoints: 70,
                 questions: [
                     {
@@ -174,7 +174,7 @@ export const initialContest = [
                 questions_order: ['question-1', 'question-2']
             }],
         startTime: '2021-11-16 00:00',
-        endTime: '2021-11-17 23:59',
+        endTime: '2021-12-31 23:59',
         url: 'https://github.com/x2mint/',
         embededMedia: 'https://i.pinimg.com/564x/f6/9b/34/f69b34664600b002caec9d453d687353.jpg',
         status: ''
