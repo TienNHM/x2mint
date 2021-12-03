@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600');
-@import url('https://fonts.googleapis.com/css2?family=Sigmar+One:wght@400;600');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600");
+@import url("https://fonts.googleapis.com/css2?family=Sigmar+One:wght@400;600");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap");
 @import "~bootstrap/scss/functions";
-@import '~bootstrap/scss/variables';
+@import "~bootstrap/scss/variables";
 
 $gap: 10px;
 $quick-action-height: 5vh;
@@ -24,14 +24,14 @@ $border-color: $theme-color;
   textarea:focus,
   textarea.form-control:focus,
   input.form-control:focus,
-  input[type=text]:focus,
-  input[type=password]:focus,
-  input[type=email]:focus,
-  input[type=number]:focus,
-  [type=text].form-control:focus,
-  [type=password].form-control:focus,
-  [type=email].form-control:focus,
-  [type=tel].form-control:focus,
+  input[type="text"]:focus,
+  input[type="password"]:focus,
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  [type="text"].form-control:focus,
+  [type="password"].form-control:focus,
+  [type="email"].form-control:focus,
+  [type="tel"].form-control:focus,
   [contenteditable].form-control:focus {
     box-shadow: none !important;
     //border: 1px solid #ccc;
@@ -51,61 +51,59 @@ $border-color: $theme-color;
   align-items: center;
 }
 
-:root{
+:root {
   // === COLOR ===
-  --mint:hsla(87, 90%, 34%, 1);
-  --strong-mint:hsla(87, 95%, 19%, 1);
-  --black:hsla(0, 0%, 0%, 1);
-  --container-color:#FFF;
+  --mint: hsla(87, 90%, 34%, 1);
+  --strong-mint: hsla(87, 95%, 19%, 1);
+  --black: hsla(0, 0%, 0%, 1);
+  --container-color: #fff;
   --gray: rgb(119, 119, 119);
-  --white: #FFFFFF;
-  --light-mint:rgba(209, 255, 134, 0.92);
+  --white: #ffffff;
+  --light-mint: rgba(209, 255, 134, 0.92);
 
   // === FONT WEIGHT
   --font-medium: 500;
   --font-semi-bold: 600;
-  --font-bold:700;
+  --font-bold: 700;
   // === FONT
-  --logo-font: 'Nunito', sans-serif;
+  --logo-font: "Nunito", sans-serif;
   --body-font: "Source Sans Pro", sans-serif;
   // === FONT SIZE
   --big-font-size: 2rem;
   --h1-font-size: 1.5rem;
   --h2-font-size: 1.25rem;
   --h3-font-size: 1rem;
-  --normal-font-size: .938rem;
-  --small-font-size: .813rem;
-  --smaller-font-size: .75rem;
+  --normal-font-size: 0.938rem;
+  --small-font-size: 0.813rem;
+  --smaller-font-size: 0.75rem;
 
-  // ==== 
+  // ====
   --header-height: 3.5rem;
 
   // ==== z index
   --z-tooltip: 10;
-  --z-fixed: 100;  
+  --z-fixed: 100;
 
   //navbar height
   --navbar-height: 75px;
-
 }
 
 ul {
   list-style: none;
 }
 
-
-html{
+html {
   scroll-behavior: smooth;
 }
 
-.container{
+.container {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 0   10px; 
+  padding: 0 10px;
 }
 
-.grid{
+.grid {
   display: grid;
 }
 
@@ -117,16 +115,16 @@ html{
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #888;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--mint); 
+  background: var(--mint);
   border-radius: 2px;
 }
