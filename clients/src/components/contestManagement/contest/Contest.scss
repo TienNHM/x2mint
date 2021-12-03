@@ -14,9 +14,10 @@ $heading-height: 10vh;
         height: $heading-height;
 
         .heading-contest {
-            font-weight: bold;
+            font-weight: bolder;
             text-transform: uppercase;
             text-align: center;
+            color: $theme-color;
         }
 
         .create-contest {
@@ -50,13 +51,20 @@ $heading-height: 10vh;
             .card-body {
                 padding: $gap 0 0 0 !important;
             }
+
+            border: 2px solid $theme-color;
         }
+
         .embeded-media {
-            height: 150px;
-            width: fit-content;
-            max-width: 100%;
-            display: flex;
-            align-items: center;
+            background-color: lightgray;
+
+            .embeded-img {
+                height: 150px;
+                width: fit-content;
+                max-width: 100%;
+                display: flex;
+                align-items: center;
+            }
         }
 
         .contest-action {

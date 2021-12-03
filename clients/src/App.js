@@ -28,10 +28,10 @@ function App() {
                 <div className="bootstrap-container">
                     <Navbar />
                     <Routes>
-                        <Route path="/" element={<Homepage />} />
+                        <Route exact path="/" element={<Homepage />} />
                         <Route path="/create" element={<Contest isCreator={true} />} />
                         <Route path="/contest" element={<Contest isCreator={false} />} />
-                        <Route path="/submit-test" element={<SubmitResult />} />
+                        <Route path="/result" element={<SubmitResult />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                     </Routes>
