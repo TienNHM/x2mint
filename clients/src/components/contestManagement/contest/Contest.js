@@ -114,10 +114,10 @@ function Contest({ isCreator }) {
                         <div className="heading row d-flex justify-content-between">
                             <div className="create-contest col-2 col-sm-3 d-flex justify-content-start"
                             >
-                                <Button variant="primary" size="sm">
+                                {/* <Button variant="primary" size="sm">
                                     <i className="fa fa-arrow-left"> </i>
                                     <span className="m-2">Trở về</span>
-                                </Button>{' '}
+                                </Button>{' '} */}
                             </div>
                             <div className="heading-contest h4 col-8 col-sm-6">Các cuộc thi</div>
                             <div className="create-contest col-2 col-sm-3 d-flex justify-content-end">
@@ -134,8 +134,8 @@ function Contest({ isCreator }) {
                         <div className="list-contests d-flex justify-content-center align-items-center">
                             {contests && contests.map((c, index) => (
                                 <Card key={index}>
-                                    <div className="d-flex justify-content-center ">
-                                        <Image className="embeded-media" src={c.embededMedia || 'https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png'} />
+                                    <div className="d-flex justify-content-center embeded-media">
+                                        <Image className="embeded-img" src={c.embededMedia || 'https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png'} />
                                     </div>
                                     <Card.Body>
                                         <Card.Title>{c.name}</Card.Title>
@@ -149,17 +149,21 @@ function Contest({ isCreator }) {
                                         } />
                                         <div className="contest-action">
                                             <Button
-                                                variant="primary" size="sm"
+                                                variant="secondary" size="sm"
                                                 onClick={() => handleViewContestDetail(c)}
                                             >
                                                 <i className="fa fa-info-circle"></i>
                                             </Button>
-                                            <Button
-                                                variant="warning" size="sm"
-                                                onClick={() => handleAction(c, true)}
-                                            >
-                                                <i className="fa fa-edit"></i>
-                                            </Button>
+
+                                            {isCreator &&
+                                                <Button
+                                                    variant="primary" size="sm"
+                                                    onClick={() => handleAction(c, true)}
+                                                >
+                                                    <i className="fa fa-edit"></i>
+                                                </Button>
+                                            }
+
                                             <Button
                                                 variant="info" size="sm"
                                                 onClick={() => handleShareContent(c.url, c.name, c.description, ['X2MINT', 'ITUTE'])}
