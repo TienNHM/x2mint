@@ -3,7 +3,7 @@
 h1 {
     font-family: var(--body-font);
     font-size: 3vw;
-    color: var(--mint);
+    color: var(--mint) !important;
     font-weight: var(--font-bold);
     text-align: left;
 }
@@ -17,32 +17,36 @@ h1 {
     width: 100%;
     max-height: 990px;
     background-color: var(--body-color);
-    margin-top: 6%;
-    top: 0;
+    margin-top: var(--navbar-height);
     left: 0;
     z-index: 0;
     transition: .4s; // For animation dark mod
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    padding-top: 1rem;
     @media screen and (max-width: 700px){
         grid-template-columns: repeat(1, 1fr);
     }
 }
-img {
-    max-width: 600px;
+.homepage__pic {
+    max-width: 550px;
     vertical-align: center;
 }
-.right{
-    padding: 30% 5%;
+.home__right{
+    position: relative;
+    align-content: center;  
+    margin: auto;
+}
+.left{
     position: relative;
     align-content: center;
-    vertical-align: sub;
-    
 }
 #about .nav__logo :hover{
     transform: scale(1.5);
-    font-weight: 500;
+    font-weight: 300;
+    top: var(--navbar-height);
+}
+.about{
+    margin-top: 90px;
 }
 #create {
     font-family: var(--logo-font);
@@ -52,9 +56,11 @@ img {
     margin:10px;
     
 }
-.create{
-    max-height: 400px !important;
-    
+.create__pic{
+    max-height: 300px !important; 
+}
+.test__pic{
+    max-height: 300px !important; 
 }
 .about__contest{
     display: grid;
@@ -66,15 +72,16 @@ img {
 }
 
 .card-info {
-    width: 300px;
+    width: 400px;
     height: 400px;
     border-radius: 10px;
     text-align: center;
-    border-color: var(--mint);
+    border: 1px solid var(--mint);
     overflow: hidden;
     margin: 0 30px;
     box-sizing: border-box;
-   padding: 0;
+    padding: 0;
+    z-index: 0;
 }
 .card__img {
     width: 120px;
@@ -88,6 +95,7 @@ img {
     cursor: pointer;
     padding: 0;
     box-sizing: border-box;
+    
   }
 
 .card__img:hover {
@@ -111,25 +119,29 @@ img {
     box-sizing: border-box;
 }
 
-h2 {
-    color: var();
-    padding: 30px;
+.profile__name {
+    margin-top: 10px !important;
+    color: var(--black);
+    padding: 40px 10px 0;
     box-sizing: border-box;
+    &:hover{
+        color: var(--mint)
+    }
 }
   
 #mssv {
     color: var(--mint);
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
+    font-family: var(--body-font);
+    font-size: var(--h1-font-size);
 }
 
 .card__social a {
     text-decoration: none;
-    color:var(--mint);
+    color:var(--gray);
     margin: 25px 20px 40px;
     display: inline-block;
-    font-size: 30px;
+    font-size: 50px;
     transition: 0.25s;
     margin: 0;
     padding: 0;
@@ -143,7 +155,7 @@ h2 {
     box-sizing: border-box;
   }
   
-.button {
+.btn__contact__me {
     width: 50%;
     align-self: center;
     color: var(--mint);
@@ -155,7 +167,7 @@ h2 {
     margin: 0;
     box-sizing: border-box;
   }
-.button:hover {
+.btn__contact__me:hover {
     background-color: var(--mint);
     margin: 0;
     padding: 0;
@@ -163,10 +175,42 @@ h2 {
     box-sizing: border-box;
 }
 
-  .profile{
+.profile{
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     box-sizing: border-box;
+}
+.footer{
+    border-radius: 10px;
+    border-top: 1px solid var(--mint);
+    text-align: justify;
+    height: 300px;
+    width: 100%;
+    
+    &__logo{
+        margin: 20px 270px;
+        display: inline;
+    img{
+        max-width: 100px;
+        margin: 10px;
+    }
+    
+}}
+.vl {
+    align-items:center;
+    display: inline;
+    border-left: 4px solid var(--gray);
+    height: 100px;
+    position:absolute;
+    margin-left: 20px;
+    margin-top: 15px;
+    color: var(--mint);
+    padding: 20px;
+    vertical-align: middle;
+    font-family: var(--body-font);
+    font-size: 130%;
+    font-weight: 600;
   }
+

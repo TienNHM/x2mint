@@ -1,7 +1,8 @@
 import React from 'react'
 //import { DropdownButton, Dropdown } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import './Navbar.scss'
+import { useHistory, NavLink } from 'react-router-dom'
+import { useLayoutEffect, useState } from 'react'
 
 function Navbar() {
     return (
@@ -11,19 +12,24 @@ function Navbar() {
             </a>
 
             <div className="nav__menu" id="nav-menu">
-                <ul className="nav__list">
-                    <li className="nav__item"><a href="/" className="nav__link active-link">Trang chủ</a></li>
-                    <li className="nav__item"><a href="/contest" className="nav__link active-link">Các cuộc thi</a></li>
-                    <li className="nav__item"><a href="/create" className="nav__link active-link">Quản lý cuộc thi</a></li>
-                    <li className="nav__item"><a href="/#about" className="nav__link active-link">X2M!NT</a></li>
-                    <li className="nav__item"><a href="/#contact" className="nav__link active-link">Liên hệ</a></li>
-                    <li className="nav__item"><a href="/login" className="nav__link active-link button button__login">Đăng nhập</a></li>
-                    <li className="nav__item"><a href="/register" className="nav__link active-link button button__signup">Đăng ký</a></li>
-                </ul>
-
-                <div className="nav__close" id="nav-close">
-                    <i className="ri-close-line"></i>
-                </div>
+                <li className="nav__item">
+                    <NavLink className="nav__link active__link" to="/">Trang chủ</NavLink></li>
+                <li className="nav__item">
+                    <NavLink className="nav__link active__link" to="/contest">Các cuộc thi</NavLink></li>
+                <li className="nav__item">
+                    <NavLink className="nav__link active__link" to="/create">Quản lý cuộc thi</NavLink></li>
+                <li className="nav__item">
+                    <NavLink className="nav__link active__link" to="/#about">X2M!NT</NavLink></li>
+                <li className="nav__item">
+                    <NavLink className="nav__link active__link" to="/#contact">Liên hệ</NavLink></li>
+                <li className="nav__item">
+                    <NavLink to="/login" className="nav__btn__login nav__link active-link">Đăng nhập</NavLink></li>
+                <li className="nav__item">
+                    <NavLink to="/register" className="nav__btn__signup nav__link active-link">Đăng ký</NavLink></li>
+                <li className="nav__item">
+                    <NavLink to="/profile" className="nav__btn__login nav__link active-link">Trang cá nhân</NavLink></li>
+                <li className="nav__item">
+                    <NavLink to="/" className="nav__btn__signup nav__link active-link">Đăng xuất</NavLink></li>
             </div>
             <div className="nav__btn">
                 <i className="ri-moon-line change-theme" id="theme-button"></i>
@@ -52,16 +58,6 @@ if (navClose) {
         navMenu.classList.remove('show-menu')
     })
 }
-
-/*=============== REMOVE MENU MOBILE ===============*/
-const navLink = document.querySelectorAll('.nav__link')
-
-function linkAction() {
-    const navMenu = document.getElementById('nav-menu')
-    // When we click on each nav__link, we remove the show-menu class
-    navMenu.classList.remove('show-menu')
-}
-navLink.forEach(n => n.addEventListener('click', linkAction))
 
 /*=============== CHANGE BACKGROUND HEADER ===============*/
 function scrollNavBar() {

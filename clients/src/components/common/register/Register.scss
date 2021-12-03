@@ -9,18 +9,18 @@
     width: 920px;
     border-radius: 30px;
     display: block;
+    &__right{
+        margin-top: 20px;
+    }
 }
-h1{
+.form__title{
     text-align: center;
-    padding-top: 40px;
+    padding-top: 60px;
     font-family: var(--logo-font);
     color: var(--mint);
     font-weight: 700;
 }
-.signup__area{
-    display:block;
-    margin: auto;
-}
+
 .btn {
     &__signup{
         border-radius: 50px;
@@ -50,16 +50,35 @@ h1{
         }
     }
 }
-img {
+.auth__pic {
     max-width: 350px;
     vertical-align: center;
+    margin-top: -30px;
 }
 .signup__body{
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin: 5px 10% 5px 5%;
+    margin: -15px 10%;
 }
 .been-member{
     color:var(--gray)
+}
+div .signup__area{
+    margin-top: 20px;
+    display:block;
+    .btn__signup{
+
+        &-gg{
+        margin-top: -10px;
+        background: none;
+        border: none;
+    }}
+
+    .btn__login{
+        margin-top: -20px;
+        padding: 5px;
+    }
+}
+.input{
+    margin-bottom: 0;
 }
