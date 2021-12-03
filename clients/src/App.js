@@ -29,9 +29,9 @@ function App() {
                     <Navbar />
                     <Routes>
                         <Route path="/" element={<Homepage />} />
-                        <Route path="/create" element={<Contest />} />
+                        <Route path="/create" element={<Contest isCreator={true} />} />
+                        <Route path="/contest" element={<Contest isCreator={false} />} />
                         <Route path="/submit-test" element={<SubmitResult />} />
-                        {/* <Route path="/create_contest" element={<Create_Contest />}/> */}
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                     </Routes>
