@@ -10,7 +10,7 @@ import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, MODAL_ACTION_RETRY } from 'ut
 import './Contest.scss'
 import { initialContest } from 'actions/initialData'
 
-function Contest() {
+function Contest({ isCreator }) {
     const [contests, setContests] = useState(initialContest)
     const [isShow, setIsShow] = useState(false)
     const [isShowShareModal, setIsShowShareModal] = useState(false)
@@ -121,11 +121,13 @@ function Contest() {
                             </div>
                             <div className="heading-contest h4 col-8 col-sm-6">Các cuộc thi</div>
                             <div className="create-contest col-2 col-sm-3 d-flex justify-content-end">
-                                <Button variant="success" size="sm"
-                                    onClick={() => setIsShowConfirmModal(true)}>
-                                    <i className="fa fa-plus"> </i>
-                                    <span className="m-2">Tạo mới</span>
-                                </Button>{' '}
+                                {isCreator &&
+                                    <Button variant="success" size="sm"
+                                        onClick={() => setIsShowConfirmModal(true)}>
+                                        <i className="fa fa-plus"> </i>
+                                        <span className="m-2">Tạo mới</span>
+                                    </Button>
+                                }
                             </div>
                         </div>
 
@@ -195,7 +197,7 @@ function Contest() {
                             setIsShowContestInfo={setIsShowContestInfo}
                             contest={selectedContest}
                             updateContest={setSelectedContest}
-                            isCreator={true}
+                            isCreator={isCreator}
                         />
                     </div>
                 }
