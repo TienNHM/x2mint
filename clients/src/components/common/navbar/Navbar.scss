@@ -44,43 +44,6 @@
 
     &__menu{
         margin-left: 50;
-        @media screen and (max-width: 920px){
-            box-sizing: border-box;
-            margin: 0;
-            position: fixed;
-            background-color: var(--container-color);
-            width:50%;
-            height:100%;
-            top: 0;
-            right:-100%;
-            box-shadow: 1px 0 4px var(--strong-mint);
-            padding: 1rem 1rem;
-            border-radius: 0.5rem 0 0 .5rem;
-            transition: .6s;
-            z-index: var(--z-fixed); 
-            display: block;    
-            overflow: auto;   
-            li a {
-                display: block;
-                padding: 0% ;
-            }
-            .button{
-                margin-top: 15px;
-                margin-bottom: 5px;
-                padding: 5px;
-            }
-            .button__signup{
-                margin-top: 5px;
-                padding: 5px 10px;
-            }
-            .nav__close{
-                visibility: visible;
-            }
-            .nav__toggle{
-                visibility: visible;
-            }
-            
-        }
         ul .nav__list{
             position: sticky;
             padding: 0;
@@ -113,12 +76,13 @@
         display: inline;
         padding: 0 0.5rem;
         font-size: 20px;
+        
     }
     &__link{
         text-decoration: none;  
         font-family: var(--logo-font);
         color: var(--black);
-        font-weight: var(--font-medium);
+        font-weight: var(--font-bold);
 
         &:hover{
             color: var(--mint);
@@ -126,23 +90,12 @@
         }
     }
 }
-@media screen and (max-width: 920px){
-    .nav__toggle{
-        visibility: visible;
-        font-size:1.5rem;
-    }
-    .nav{
-        padding: 5px 5% 5px !important;
-    }
-}
-
-.button{
-    border-radius: 50px;
-    width: auto;
-    font-size: 1rem;
-
-
+.nav__btn{
+    
     &__login{
+        border-radius: 50px;
+        width: auto;
+        font-size: 1rem;
         border: 1px solid var(--mint);
         color: var(--mint) !important;
         background-color: var(--white);
@@ -156,6 +109,9 @@
     }
 
     &__signup{
+        border-radius: 50px;
+        width: auto;
+        font-size: 1rem;
         color: var(--white);
         background-color: var(--mint);
         padding: 5px 10px;

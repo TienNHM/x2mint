@@ -7,8 +7,13 @@ import Navbar from 'components/common/navbar/Navbar'
 import Contest from 'components/contestManagement/contest/Contest'
 import SubmitResult from 'components/multi-choices/submitResult/SubmitResult'
 import Homepage from 'components/common/home/Homepage'
+import About from 'components/common/home/About'
+import Contact from 'components/common/home/Contact'
 import Login from 'components/common/login/Login'
 import Register from 'components/common/register/Register'
+import Profile from 'components/common/profile/Profile'
+import AuthContextProvider from './contexts/AuthContext'
+
 
 const options = {
     // you can also just use 'bottom center'
