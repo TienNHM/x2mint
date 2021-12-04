@@ -4,7 +4,11 @@ import Image from 'react-bootstrap/Image'
 import { useAlert } from 'react-alert'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import { splitTime } from 'utils/timeUtils'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, MODAL_ACTION_RETRY } from 'utils/constants'
+import {
+    MODAL_ACTION_CONFIRM,
+    MODAL_ACTION_CLOSE,
+    MODAL_ACTION_RETRY
+} from 'utils/constants'
 import './ModalCreateContest.scss'
 
 function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
@@ -20,6 +24,9 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     const alert = useAlert()
 
     useEffect(() => {
+        console.log('contest', contest)
+        if (!contest) return
+
         setTitle(contest.name)
         setDescription(contest.description)
         setUrl(contest.url)

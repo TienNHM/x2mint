@@ -12,6 +12,6 @@ export const ROLE_CREATOR = 'creator'
 export const ROLE_USER = 'user'
 
 export const API_ROOT = 'https://x2mint-api.herokuapp.com/app/api/v1'
-
-export const LOCAL_STORAGE_TOKEN_NAME = 'x2mint'
-
+export const ACCESS_TOKEN = 'accessToken'
+export const USER_ID = 'uid'
+export const MAX_DAYS_EXPIRE = 365

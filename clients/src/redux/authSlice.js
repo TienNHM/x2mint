@@ -1,8 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { API_ROOT, LOCAL_STORAGE_TOKEN_NAME } from 'utils/constants'
 import axios from 'axios'
-import { useCookies } from 'react-cookie'
+import Cookies from 'js-cookie'
 import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
+import {
+    API_ROOT,
+    MAX_DAYS_EXPIRE,
+    ACCESS_TOKEN, USER_ID
+} from 'utils/constants'
 
 //Login by email and password
 export const loginUser = createAsyncThunk(
@@ -23,9 +27,14 @@ export const loginUser = createAsyncThunk(
                 .catch((err) => {
                     console.log(err)
                 })
+
             setAuthToken(res.data.accessToken)
             console.log('Res===> ', res)
-            localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, res.data.accessToken)
+
+            // Set cookies
+            Cookies.set(ACCESS_TOKEN, res.data.accessToken, { expires: MAX_DAYS_EXPIRE })
+            Cookies.set(USER_ID, res.data.user.id, { expires: MAX_DAYS_EXPIRE })
+
             return {
                 user: res.data.user,
                 isAuthenticated: true
@@ -42,16 +51,18 @@ export const loginUser = createAsyncThunk(
 export const loadUser = createAsyncThunk(
     'user/getUser',
     async (params, { rejectWithValue }) => {
-    //thunkAPI.dispath(...)
-    //     const currentUser = await userApi.getMe();
-    //   return currentUser;
+        //thunkAPI.dispath(...)
+        //     const currentUser = await userApi.getMe();
+        //   return currentUser;
         let response = null
         console.log('HÊLLLLO')
         try {
-            if (localStorage[LOCAL_STORAGE_TOKEN_NAME]) {
-                setAuthToken(localStorage[LOCAL_STORAGE_TOKEN_NAME])
+            const accessToken = Cookies.get(ACCESS_TOKEN)
+
+            if (accessToken) {
+                setAuthToken(accessToken)
                 await axios
-                    .get('http://localhost:5000/app/api/v1/auths')
+                    .get(`${API_ROOT}/auths`)
                     .then((res) => {
                         response = res
                     })
@@ -60,15 +71,30 @@ export const loadUser = createAsyncThunk(
                     })
                 console.log('Heiii', response)
 
-                return {
-                    isAuthenticated: true,
-                    user: response.data.user
+                if (response.success === true) {
+                    return {
+                        isAuthenticated: true,
+                        user: response.data.user
+                    }
+                }
+                else {
+                    // Xóa cookies, do access token không hợp lệ
+                    // Cookies.remove(ACCESS_TOKEN)
+                    // Cookies.remove(USER_ID)
+
+                    return {
+                        isAuthenticated: false,
+                        user: null
+                    }
                 }
             } else {
                 return rejectWithValue('can not find access token')
             }
         } catch (error) {
-            localStorage.clear()
+            // Xóa cookies, do access token không hợp lệ
+            // Cookies.remove(ACCESS_TOKEN)
+            // Cookies.remove(USER_ID)
+
             return rejectWithValue(error.response.data.message)
         }
     }
