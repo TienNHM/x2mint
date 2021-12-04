@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from '../utils/constants'
+import { API_ROOT, LOCAL_STORAGE_TOKEN_NAME } from 'utils/constants'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
-import setAuthToken, { clearAuthToken } from '../utils/setAuthToken'
+import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
 
 //Login by email and password
 export const loginUser = createAsyncThunk(
@@ -12,7 +12,7 @@ export const loginUser = createAsyncThunk(
         let res = null
         try {
             await axios
-                .post(`${apiUrl}/auths/login`, userForm)
+                .post(`${API_ROOT}/auths/login`, userForm)
                 .then((response) => {
                     //Set token for axio
                     // if (response.data.success) {
