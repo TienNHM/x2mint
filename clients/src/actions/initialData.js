@@ -320,7 +320,7 @@ export const initialContest = [
                     }
                 ],
                 questions_order: ['question-1', 'question-2']
-            }, 
+            },
             {
                 id: 'test-5',
                 name: 'C/C++',
@@ -956,7 +956,7 @@ export const initialContest = [
                     }
                 ],
                 questions_order: ['question-1', 'question-2']
-            }, 
+            },
             {
                 id: 'test-5',
                 name: 'C/C++',
@@ -1580,7 +1580,7 @@ export const initialContest = [
                     }
                 ],
                 questions_order: ['question-1', 'question-2']
-            }, 
+            },
             {
                 id: 'test-5',
                 name: 'C/C++',
@@ -2204,7 +2204,7 @@ export const initialContest = [
                     }
                 ],
                 questions_order: ['question-1', 'question-2']
-            }, 
+            },
             {
                 id: 'test-5',
                 name: 'C/C++',
@@ -2828,7 +2828,7 @@ export const initialContest = [
                     }
                 ],
                 questions_order: ['question-1', 'question-2']
-            }, 
+            },
             {
                 id: 'test-5',
                 name: 'C/C++',
@@ -3452,7 +3452,7 @@ export const initialContest = [
                     }
                 ],
                 questions_order: ['question-1', 'question-2']
-            }, 
+            },
             {
                 id: 'test-5',
                 name: 'C/C++',
@@ -4076,7 +4076,7 @@ export const initialContest = [
                     }
                 ],
                 questions_order: ['question-1', 'question-2']
-            }, 
+            },
             {
                 id: 'test-5',
                 name: 'C/C++',
@@ -4700,7 +4700,7 @@ export const initialContest = [
                     }
                 ],
                 questions_order: ['question-1', 'question-2']
-            }, 
+            },
             {
                 id: 'test-5',
                 name: 'C/C++',
@@ -5324,7 +5324,7 @@ export const initialContest = [
                     }
                 ],
                 questions_order: ['question-1', 'question-2']
-            }, 
+            },
             {
                 id: 'test-5',
                 name: 'C/C++',
@@ -5948,7 +5948,7 @@ export const initialContest = [
                     }
                 ],
                 questions_order: ['question-1', 'question-2']
-            }, 
+            },
             {
                 id: 'test-5',
                 name: 'C/C++',
@@ -6248,7 +6248,7 @@ export const initialContest = [
 
         ],
         startTime: '2021-11-16 00:00',
-        endTime: '2021-11-17 23:59',
+        endTime: '2021-12-31 23:59',
         url: 'https://github.com/x2mint/',
         embededMedia: 'https://i.pinimg.com/564x/71/b7/36/71b7367a8ae1be02cc9b12cee13dafa4.jpg',
         status: ''

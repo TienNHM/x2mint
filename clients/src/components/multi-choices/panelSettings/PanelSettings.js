@@ -243,7 +243,7 @@ function PanelSettings(props) {
                 <>
                     <div className="question-picker">
                         <div className="section-title">Danh sách câu hỏi</div>
-                        <hr style={{ margin: '8px'}} />
+                        <hr style={{ margin: '8px' }} />
                         <div className="btn-question">
                             {test.questions.map((q, index) =>
                                 //TODO kiểm tra xem đã chọn đáp án cho câu hỏi này chưa để render màu tương ứng
