@@ -11,7 +11,7 @@ export const ROLE_ADMIN = 'admin'
 export const ROLE_CREATOR = 'creator'
 export const ROLE_USER = 'user'
 
-export const API_ROOT = 'http://localhost:5050/app/api/v1'
+export const API_ROOT = 'https://x2mint-api.herokuapp.com/app/api/v1'
 
 export const LOCAL_STORAGE_TOKEN_NAME = 'x2mint'
 
