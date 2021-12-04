@@ -16,7 +16,7 @@ export const loginUser = createAsyncThunk(
         let res = null
         try {
             await axios
-                .post(`${API_ROOT}/auths/login`, userForm)
+                .post(`${process.env.REACT_APP_API_ROOT}/auths/login`, userForm)
                 .then((response) => {
                     //Set token for axio
                     // if (response.data.success) {
@@ -29,7 +29,6 @@ export const loginUser = createAsyncThunk(
                 })
 
             setAuthToken(res.data.accessToken)
-            console.log('Res===> ', res)
 
             // Set cookies
             Cookies.set(ACCESS_TOKEN, res.data.accessToken, { expires: MAX_DAYS_EXPIRE })
@@ -51,25 +50,20 @@ export const loginUser = createAsyncThunk(
 export const loadUser = createAsyncThunk(
     'user/getUser',
     async (params, { rejectWithValue }) => {
-        //thunkAPI.dispath(...)
-        //     const currentUser = await userApi.getMe();
-        //   return currentUser;
         let response = null
-        console.log('HÊLLLLO')
         try {
             const accessToken = Cookies.get(ACCESS_TOKEN)
 
             if (accessToken) {
                 setAuthToken(accessToken)
                 await axios
-                    .get(`${API_ROOT}/auths`)
+                    .get(`${process.env.REACT_APP_API_ROOT}/auths`)
                     .then((res) => {
                         response = res
                     })
                     .catch((err) => {
                         response = err.response
                     })
-                console.log('Heiii', response)
 
                 if (response.data.success === true) {
                     return {
@@ -138,7 +132,6 @@ const authSlice = createSlice({
         },
         [loadUser.fulfilled]: (state, action) => {
             state.authLoading = false
-            console.log(action.payload)
             state.isAuthenticated = action.payload.isAuthenticated
             state.user = action.payload.user
         },

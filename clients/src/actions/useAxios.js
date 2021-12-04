@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { API_ROOT } from 'utils/constants'
 
-axios.defaults.baseURL = API_ROOT
+
+axios.defaults.baseURL = process.env.REACT_APP_API_ROOT
 
 export const useAxios = (axiosParams) => {
     const [response, setResponse] = useState(undefined)
