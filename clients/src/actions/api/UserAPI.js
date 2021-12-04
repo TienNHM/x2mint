@@ -3,7 +3,7 @@ import { API_ROOT, ROLE_USER } from 'utils/constants'
 
 export const getAllUsers = async (accessToken) => {
     //TODO: getAllUsers
-    const url = `${API_ROOT}/app/api/v1/users`
+    const url = `${API_ROOT}/users`
     const request = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -16,7 +16,7 @@ export const getAllUsers = async (accessToken) => {
 
 export const getUserInfo = async (accessToken, userId) => {
     //TODO: getAllUsers
-    const url = `${API_ROOT}/app/api/v1/users/info/${userId}`
+    const url = `${API_ROOT}/users/info/${userId}`
     const request = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -29,7 +29,7 @@ export const getUserInfo = async (accessToken, userId) => {
 
 export const updateUserInfo = async (accessToken, user) => {
     //TODO: updateUserInfo
-    const url = `${API_ROOT}/app/api/v1/users/info/${user.id}`
+    const url = `${API_ROOT}/users/info/${user.id}`
     const request = await axios.get(url, user, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -42,7 +42,7 @@ export const updateUserInfo = async (accessToken, user) => {
 
 export const resetPassword = async (accessToken, oldPassword, newPassword) => {
     //TODO: resetPassword
-    const url = `${API_ROOT}/app/api/v1/users/resetPassword`
+    const url = `${API_ROOT}/users/resetPassword`
     const data = {
         oldPassword: oldPassword,
         newPassword: newPassword

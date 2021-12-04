@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { mapOrder } from 'utils/sorts'
-import PanelPreview from 'components/multi-choices/panelPreview/PanelPreview'
-import Question from 'components/multi-choices/question/Question'
-import PanelSettings from 'components/multi-choices/panelSettings/PanelSettings'
+import PanelPreview from 'components/MultiChoices/panelPreview/PanelPreview'
+import Question from 'components/MultiChoices/question/Question'
+import PanelSettings from 'components/MultiChoices/panelSettings/PanelSettings'
 import { emptyTest, emptyTakeTest } from 'actions/initialData'
 import './MultiChoices.scss'
 

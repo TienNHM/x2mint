@@ -3,7 +3,7 @@ import { API_ROOT } from 'utils/constants'
 
 export const createQuestion = async (accessToken, test) => {
     //TODO: createQuestion
-    const url = `${API_ROOT}/api/v1/questions/new/${test.id}`
+    const url = `${API_ROOT}/questions/new/${test.id}`
     const request = await axios.post(url, test, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -16,7 +16,7 @@ export const createQuestion = async (accessToken, test) => {
 
 export const updateQuestion = async (accessToken, test) => {
     //TODO: updateQuestion
-    const url = `${API_ROOT}/api/v1/questions/update/${test.id}`
+    const url = `${API_ROOT}/questions/update/${test.id}`
     const request = await axios.put(url, test, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -29,7 +29,7 @@ export const updateQuestion = async (accessToken, test) => {
 
 export const getAllQuestions = async (accessToken) => {
     //TODO: getAllQuestions
-    const url = `${API_ROOT}/api/v1/questions`
+    const url = `${API_ROOT}/questions`
     const request = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -42,7 +42,7 @@ export const getAllQuestions = async (accessToken) => {
 
 export const getAllAnswersOfQuestions = async (accessToken, questionId) => {
     //TODO: getAllAnswersOfQuestions
-    const url = `${API_ROOT}/api/v1/questions/${questionId}/answers`
+    const url = `${API_ROOT}/questions/${questionId}/answers`
     const request = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${accessToken}`

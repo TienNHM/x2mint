@@ -3,7 +3,7 @@ import { API_ROOT } from 'utils/constants'
 
 export const takeTest = async (accessToken, takeTest) => {
     //TODO: takeTest
-    const url = `${API_ROOT}/app/api/v1/takeTest`
+    const url = `${API_ROOT}/takeTest`
     const request = await axios.post(url, takeTest, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -16,7 +16,7 @@ export const takeTest = async (accessToken, takeTest) => {
 
 export const getAllTakeTestByUser = async (accessToken, userId) => {
     //TODO: getAllTakeTestByUser
-    const url = `${API_ROOT}/app/api/v1/takeTest/user/${userId}`
+    const url = `${API_ROOT}/takeTest/user/${userId}`
     const request = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -29,7 +29,7 @@ export const getAllTakeTestByUser = async (accessToken, userId) => {
 
 export const getAllTakeTestByTest = async (accessToken, testId) => {
     //TODO: getAllTakeTestByTest
-    const url = `${API_ROOT}/app/api/v1/takeTest/test/${testId}`
+    const url = `${API_ROOT}/takeTest/test/${testId}`
     const request = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${accessToken}`

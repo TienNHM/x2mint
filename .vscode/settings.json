@@ -1,3 +1,27 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "workbench.colorCustomizations": {
+        "terminal.background": "#151515",
+        "terminal.foreground": "#D0D0D0",
+        "terminalCursor.background": "#D0D0D0",
+        "terminalCursor.foreground": "#D0D0D0",
+        "terminal.ansiBlack": "#151515",
+        "terminal.ansiBlue": "#3777E6",
+        "terminal.ansiBrightBlack": "#505050",
+        "terminal.ansiBrightBlue": "#3777E6",
+        "terminal.ansiBrightCyan": "#1FAAAA",
+        "terminal.ansiBrightGreen": "#00C918",
+        "terminal.ansiBrightMagenta": "#AD00A1",
+        "terminal.ansiBrightRed": "#FF0086",
+        "terminal.ansiBrightWhite": "#FFFFFF",
+        "terminal.ansiBrightYellow": "#ABA800",
+        "terminal.ansiCyan": "#1FAAAA",
+        "terminal.ansiGreen": "#00C918",
+        "terminal.ansiMagenta": "#AD00A1",
+        "terminal.ansiRed": "#FF0086",
+        "terminal.ansiWhite": "#D0D0D0",
+        "terminal.ansiYellow": "#ABA800"
+    }
 }

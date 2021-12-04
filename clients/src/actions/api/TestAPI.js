@@ -8,7 +8,7 @@ export const createTest = async (accessToken, test) => {
         creatorId: '618dcea8a611f4340296328c'
     }
 
-    const url = `${API_ROOT}/app/api/v1/tests`
+    const url = `${API_ROOT}/tests`
     const request = await axios.post(url, newTest, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -21,7 +21,7 @@ export const createTest = async (accessToken, test) => {
 
 export const updateTest = async (accessToken, test) => {
     //TODO: updateTest
-    const url = `${API_ROOT}/app/api/v1/tests/${test.id}`
+    const url = `${API_ROOT}/tests/${test.id}`
     const request = await axios.put(url, test, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -34,7 +34,7 @@ export const updateTest = async (accessToken, test) => {
 
 export const updateQuestionsInTest = async (accessToken, testId, questionsList) => {
     //TODO: updateQuestionsInTest
-    const url = `${API_ROOT}/app/api/v1/tests/${testId}/questions`
+    const url = `${API_ROOT}/tests/${testId}/questions`
     const request = await axios.put(url, questionsList, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -47,7 +47,7 @@ export const updateQuestionsInTest = async (accessToken, testId, questionsList) 
 
 export const getAllTests = async (accessToken) => {
     //TODO: getAllTests
-    const url = `${API_ROOT}/app/api/v1/tests`
+    const url = `${API_ROOT}/tests`
     const request = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -60,7 +60,7 @@ export const getAllTests = async (accessToken) => {
 
 export const getAllTestsByCreator = async (accessToken, creatorId) => {
     //TODO: getAllTestsByCreator
-    const url = `${API_ROOT}/app/api/v1/tests/creator/${creatorId}`
+    const url = `${API_ROOT}/tests/creator/${creatorId}`
     const request = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -73,7 +73,7 @@ export const getAllTestsByCreator = async (accessToken, creatorId) => {
 
 export const deleteTest = async (accessToken, testId) => {
     //TODO: deleteTest
-    const url = `${API_ROOT}/app/api/v1/tests/${testId}/delete`
+    const url = `${API_ROOT}/tests/${testId}/delete`
     const request = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
