@@ -13,6 +13,7 @@ export const register = async (user) => {
     console.log(request.data);
     return request.data;
   } catch (error) {
+    console.log(error);
     return null;
   }
 };

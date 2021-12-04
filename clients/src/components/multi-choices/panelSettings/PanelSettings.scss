@@ -23,6 +23,8 @@ $question-attribute-setting-height: 80px;
         input, textarea {
             outline: none !important;
             box-shadow: none !important;
+            margin: 0 !important;
+            text-align: center !important;
         }
 
         >* {
@@ -102,7 +104,7 @@ $question-attribute-setting-height: 80px;
         text-align: center;
         font-weight: bold;
         font-size: 16px;
-        margin: $gap 0;
+        margin: $gap/2 0;
     }
 
     .quick-actions {
@@ -118,8 +120,11 @@ $question-attribute-setting-height: 80px;
     }
 
     .question-picker {
-        background-color: lightblue;
-        height: 68vh;
+        background-color: rgba(217, 233, 207, 0.548);
+        border-radius: $gap;
+        height: 66vh;
+        padding: $gap/2;
+        border: 2px solid $theme-color;
 
         .btn-question {
             overflow-y: auto;
@@ -142,6 +147,7 @@ $question-attribute-setting-height: 80px;
             button {
                 margin: $gap/2;
                 width: 40px;
+                border: 1px solid $theme-color;
             }
         }
     }
@@ -149,7 +155,8 @@ $question-attribute-setting-height: 80px;
     .examinee-actions {
 
         .time-remain {
-            background-color: $theme-color;
+            border: 2px solid $theme-color;
+            border-radius: $gap;
             margin: $gap 0;
 
             .time-remain-show {
@@ -180,7 +187,6 @@ $question-attribute-setting-height: 80px;
                 width: 90%;
                 text-transform: uppercase;
                 font-weight: bold;
-                margin: $gap 0;
             }
         }
     }

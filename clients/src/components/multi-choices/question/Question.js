@@ -119,31 +119,32 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
             </div>
 
             <div className="embeded row">
-                {isCreator &&
-                    <div className="col-1 d-flex align-items-end justify-content-start">
+                <div className="col-1 d-flex align-items-end justify-content-start">
+                    {isCreator &&
                         <Button variant="warning"
                             className="fw-bolder text-light"
                             onClick={toggleShowLibrary}
                         >
                             <i className="fa fa-edit"></i>
                         </Button>
-                    </div>
-                }
+                    }
+                </div>
+
                 <div className="question-embed col-10">
                     {embededMedia.length > 0 && <Image src={embededMedia} />}
                     {embededMedia.length <= 0 && <Image src="https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png" alt="Nothing" />}
                 </div>
 
-                {isCreator &&
-                    <div className="col-1 d-flex align-items-end justify-content-end">
+                <div className="col-1 d-flex align-items-end justify-content-end">
+                    {isCreator &&
                         <Button variant="danger"
                             className="fw-bolder text-light"
                             onClick={handleOnRemoveClick}
                         >
                             <i className="fa fa-remove"></i>
                         </Button>
-                    </div>
-                }
+                    }
+                </div>
             </div>
 
             <div className="question-answers">

@@ -3,8 +3,8 @@ import "./Register.scss";
 import { useNavigate } from "react-router-dom";
 import { register } from "actions/api/AuthAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUser } from "../../../redux/authSlice";
-import { LOCAL_STORAGE_TOKEN_NAME } from "../../../utils/constants";
+import { loadUser } from "redux/authSlice";
+import { LOCAL_STORAGE_TOKEN_NAME } from "utils/constants";
 
 const Register = () => {
   const navigate = useNavigate();

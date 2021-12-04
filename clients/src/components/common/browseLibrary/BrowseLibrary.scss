@@ -23,6 +23,10 @@
                     box-shadow: none !important;
                     margin-right: $gap;
                 }
+
+                button {
+                    margin: $gap 0;
+                }
             }
         }
     }
