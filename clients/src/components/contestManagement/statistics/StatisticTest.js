@@ -129,7 +129,7 @@ export default function StatisticTest({ isShow, onAction, test }) {
                 </Modal.Footer>
             </Modal>
 
-            <SubmitResult 
+            <SubmitResult
                 isShow={isShowSubmitPage}
                 onAction={handleAction}
             />

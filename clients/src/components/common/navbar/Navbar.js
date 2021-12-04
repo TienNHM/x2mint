@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react'
 //import { DropdownButton, Dropdown } from 'react-bootstrap'
-import "./Navbar.scss";
-import { useHistory, NavLink } from "react-router-dom";
-import { useLayoutEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { logOut } from "../../../redux/authSlice";
+import './Navbar.scss'
+import { useHistory, NavLink } from 'react-router-dom'
+import { useLayoutEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { logOut } from '../../../redux/authSlice'
 function Navbar() {
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    const user = useSelector((state) => state.auth.user);
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+    const user = useSelector((state) => state.auth.user)
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const logOut_ = () => {
-        dispatch(logOut());
-    };
+        dispatch(logOut())
+    }
     return (
         <nav className="nav" id="nav">
             <a href="/" className="nav__logo">
@@ -30,7 +30,7 @@ function Navbar() {
                         Các cuộc thi
                     </NavLink>
                 </li>
-                {isAuthenticated && user.role === "creator" && (
+                {isAuthenticated && user.role === 'creator' && (
                     <li className="nav__item">
                         <NavLink className="nav__link active__link" to="/create">
                             Quản lý cuộc thi
@@ -85,8 +85,8 @@ function Navbar() {
                             >
                                 <button
                                     style={{
-                                        background: "transparent",
-                                        borderWidth: 0,
+                                        background: 'transparent',
+                                        borderWidth: 0
                                     }}
                                     onClick={() => logOut_()}
                                 >
@@ -104,33 +104,33 @@ function Navbar() {
                 </div>
             </div>
         </nav>
-    );
+    )
 }
-const navMenu = document.getElementById("nav-menu"),
-    navToggle = document.getElementById("nav-toggle"),
-    navClose = document.getElementById("nav-close");
+const navMenu = document.getElementById('nav-menu'),
+    navToggle = document.getElementById('nav-toggle'),
+    navClose = document.getElementById('nav-close')
 
 /*===== MENU SHOW =====*/
 /* Validate if constant exists */
 if (navToggle) {
-    navToggle.addEventListener("click", () => {
-        navMenu.classList.add("show-menu");
-    });
+    navToggle.addEventListener('click', () => {
+        navMenu.classList.add('show-menu')
+    })
 }
 /*===== MENU HIDDEN =====*/
 /* Validate if constant exists */
 if (navClose) {
-    navClose.addEventListener("click", () => {
-        navMenu.classList.remove("show-menu");
-    });
+    navClose.addEventListener('click', () => {
+        navMenu.classList.remove('show-menu')
+    })
 }
 
 /*=============== CHANGE BACKGROUND HEADER ===============*/
 function scrollNavBar() {
-    const navbar = document.getElementById("nav");
+    const navbar = document.getElementById('nav')
     // When the scroll is greater than 80 viewport height, add the scroll-header class to the header tag
-    if (this.scrollY >= 80) navbar.classList.add("scroll-header");
-    else navbar.classList.remove("scroll-header");
+    if (this.scrollY >= 80) navbar.classList.add('scroll-header')
+    else navbar.classList.remove('scroll-header')
 }
-window.addEventListener("scroll", scrollNavBar);
-export default Navbar;
+window.addEventListener('scroll', scrollNavBar)
+export default Navbar
