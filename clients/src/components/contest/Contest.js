@@ -94,7 +94,10 @@ function Contest({ isCreator }) {
         }
     }
 
-    const handleShareContent = (url, title = '', content = '', hashtags = [], source = '') => {
+    const handleShareContent = (id, title = '', content = '', hashtags = [], source = '') => {
+        const url = `${process.env.REACT_APP_DOMAIN}/contest/${id}`
+        
+        console.log(url)
         const obj = {
             url: url,
             title: title,
@@ -116,46 +119,54 @@ function Contest({ isCreator }) {
      */
     const RenderContest = (c, index) => {
         return (
-            <Card key={index}>
-                <div className="d-flex justify-content-center embeded-media">
-                    <Image className="embeded-img" src={c.embededMedia || 'https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png'} />
-                </div>
-                <Card.Body>
-                    <Card.Title>{c.name}</Card.Title>
-                    <hr style={
-                        {
-                            width: '90%',
-                            height: '1px',
-                            margin: '15px auto',
-                            borderColor: 'black'
-                        }
-                    } />
-                    <div className="contest-action">
-                        <Button
-                            variant="secondary" size="sm"
-                            onClick={() => handleViewContestDetail(c)}
-                        >
-                            <i className="fa fa-info-circle"></i>
-                        </Button>
-
-                        {isCreator &&
-                            <Button
-                                variant="primary" size="sm"
-                                onClick={() => handleAction(c, true)}
-                            >
-                                <i className="fa fa-edit"></i>
-                            </Button>
-                        }
-
-                        <Button
-                            variant="info" size="sm"
-                            onClick={() => handleShareContent(c.url, c.name, c.description, ['X2MINT', 'ITUTE'])}
-                        >
-                            <i className="fa fa-share"></i>
-                        </Button>
+            <>
+                <Card key={index}>
+                    <div className="d-flex justify-content-center embeded-media">
+                        <Image className="embeded-img" src={c.embededMedia || 'https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png'} />
                     </div>
-                </Card.Body>
-            </Card>
+                    <Card.Body>
+                        <Card.Title>{c.name}</Card.Title>
+                        <hr style={
+                            {
+                                width: '90%',
+                                height: '1px',
+                                margin: '15px auto',
+                                borderColor: 'black'
+                            }
+                        } />
+                        <div className="contest-action">
+                            <Button
+                                variant="secondary" size="sm"
+                                href={`/contest/${c.id}`}
+                            // onClick={() => handleViewContestDetail(c)}
+                            >
+                                <i className="fa fa-info-circle"></i>
+                            </Button>
+
+                            {isCreator &&
+                                <Button
+                                    variant="primary" size="sm"
+                                    onClick={() => handleAction(c, true)}
+                                >
+                                    <i className="fa fa-edit"></i>
+                                </Button>
+                            }
+
+                            <Button
+                                variant="info" size="sm"
+                                onClick={() => handleShareContent(
+                                    c.id,
+                                    c.name,
+                                    c.description,
+                                    ['X2MINT', 'ITUTE'])
+                                }
+                            >
+                                <i className="fa fa-share"></i>
+                            </Button>
+                        </div>
+                    </Card.Body>
+                </Card>
+            </>
         )
     }
 
@@ -185,7 +196,7 @@ function Contest({ isCreator }) {
                             ) : (
                                 error ? (
                                     <p>{error.message}</p>
-                                ) : contests.map((c, index) => RenderContest(c, index) )
+                                ) : contests.map((c, index) => RenderContest(c, index))
                             )
                             }
                         </div>

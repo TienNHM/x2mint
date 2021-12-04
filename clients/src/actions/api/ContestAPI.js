@@ -1,11 +1,11 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { useEffect, useState } from 'react'
-import { API_ROOT, ACCESS_TOKEN, USER_ID } from 'utils/constants'
+import { ACCESS_TOKEN, USER_ID } from 'utils/constants'
 
 export const getAllContests = async () => {
     //TODO: getAllContests
-    const url = `${API_ROOT}/contests`
+    const url = `${process.env.REACT_APP_API_ROOT}/contests`
     const request = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
@@ -20,7 +20,7 @@ export const useGetAllContestsByCreatorId = () => {
     const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(false)
 
-    const url = `${API_ROOT}/contests/creator/${Cookies.get(USER_ID)}`
+    const url = `${process.env.REACT_APP_API_ROOT}/contests/creator/${Cookies.get(USER_ID)}`
 
     useEffect(() => {
         const fetchData = async () => {
@@ -51,7 +51,7 @@ export const useGetAllContestsByCreatorId = () => {
 
 export const createContest = async (contest) => {
     //TODO: createContest
-    const url = `${API_ROOT}/contests`
+    const url = `${process.env.REACT_APP_API_ROOT}/contests`
     const request = await axios.post(url, contest, {
         headers: {
             'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
@@ -64,7 +64,7 @@ export const createContest = async (contest) => {
 
 export const updateContest = async (contest) => {
     //TODO: updateContest
-    const url = `${API_ROOT}/contests/${contest.id}`
+    const url = `${process.env.REACT_APP_API_ROOT}/contests/${contest.id}`
     const request = await axios.put(url, contest, {
         headers: {
             'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
@@ -77,7 +77,7 @@ export const updateContest = async (contest) => {
 
 export const updateTestsInContest = async (contestId, testsList) => {
     //TODO: update các bài tests trong contest
-    const url = `${API_ROOT}/contests/${contestId}/tests`
+    const url = `${process.env.REACT_APP_API_ROOT}/contests/${contestId}/tests`
     const request = await axios.put(url, testsList, {
         headers: {
             'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
@@ -90,7 +90,7 @@ export const updateTestsInContest = async (contestId, testsList) => {
 
 export const deleteContest = async (contest) => {
     //TODO: deleteContest
-    const url = `${API_ROOT}/contests/${contest.id}/delete`
+    const url = `${process.env.REACT_APP_API_ROOT}/contests/${contest.id}/delete`
     const request = await axios.post(url, contest, {
         headers: {
             'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`

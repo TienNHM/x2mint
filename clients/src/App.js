@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loadUser } from './redux/authSlice'
 import Spinner from 'react-bootstrap/Spinner'
 import './App.scss'
+import ContestInfo from 'components/contest/contestInfo/ContestInfo'
+import MultiChoices from 'components/MultiChoices/MultiChoices'
 
 const options = {
     // you can also just use 'bottom center'
@@ -73,15 +75,32 @@ function App() {
                                         element={<Contest isCreator={true} />}
                                     />
                                 </Route>
+
                                 <Route path="/contest" element={<ProtectedRoute />}>
                                     <Route
-                                        path="/contest"
+                                        path="/contest" exact
                                         element={<Contest isCreator={false} />}
                                     />
+                                    <Route
+                                        path="/contest/:contestId"
+                                        element={<ContestInfo />}
+                                    />
                                 </Route>
+
+                                <Route path="/test/:testId" element={<ProtectedRoute />}>
+                                    <Route
+                                        path="/test/:testId"
+                                        element={<MultiChoices />}
+                                    />
+                                </Route>
+
                                 <Route path="/result" element={<ProtectedRoute />}>
-                                    <Route path="/result" element={<SubmitResult />} />
+                                    <Route
+                                        path="/result"
+                                        element={<SubmitResult />}
+                                    />
                                 </Route>
+
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/register" element={<Register />} />
                                 <Route path="/about" element={<About />} />

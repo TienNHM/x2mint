@@ -9,7 +9,7 @@ const ProtectedRoute = ({ element: Element, ...rest }) => {
     const [isTryLogin, setIsTryLogin] = useState(false)
     //loadUser
     useEffect(() => {
-        console.log(isAuthenticated)
+        console.log('isAuthenticated', isAuthenticated)
         if (isAuthenticated) {
             setIsTryLogin(true)
         } else {

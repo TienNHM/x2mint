@@ -11,15 +11,11 @@ $panel-contest-info-width: 300px;
         flex-direction: row;
         margin: $gap $gap 0 $gap;
 
-        .back {
-            margin-left: $gap;
-        }
-
         .heading {
             font-weight: bolder;
             text-transform: uppercase;
-            width: 90%;
             color: $theme-color;
+            width: 100%;
         }
     }
 

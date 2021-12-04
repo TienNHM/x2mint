@@ -11,15 +11,35 @@ import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ACCESS_TOKEN } from 'utils/co
 import './ContestInfo.scss'
 import Cookies from 'js-cookie'
 import { useAxios } from 'actions/useAxios'
+import { useParams } from 'react-router'
 
-export default function ContestInfo({ setIsShowContestInfo, contestId, updateContest, isCreator }) {
-    const { response, loading, error } = useAxios({
+export default function ContestInfo({ setIsShowContestInfo, _contest, updateContest, isCreator }) {
+    // Load Contest information
+    let { contestId } = useParams()
+    const {
+        response: contestResponse,
+        loading: contestIsLoading,
+        error: contestIsError
+    } = useAxios({
         method: 'GET',
-        url: `/contests/${contestId}}`,
+        url: `/contests/${contestId}`,
         headers: {
             Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
         }
     })
+
+    const {
+        response: testsResponse,
+        loading: testsIsLoading,
+        error: testsIsError
+    } = useAxios({
+        method: 'GET',
+        url: `/contests/${contestId}`,
+        headers: {
+            Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+        }
+    })
+
     const [contest, setContest] = useState(null)
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
@@ -32,18 +52,19 @@ export default function ContestInfo({ setIsShowContestInfo, contestId, updateCon
     const [selectedTest, setSelectedTest] = useState(null)
 
     // Test information
-    const [title, setTitle] = useState(contest.name)
-    const [description, setDescription] = useState(contest.description)
-    const [url, setUrl] = useState(contest.url)
-    const [embededMedia, setEmbedMedia] = useState(contest.embededMedia)
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [url, setUrl] = useState('')
+    const [embededMedia, setEmbedMedia] = useState('')
     const [startDate, setStartDate] = useState('')
     const [startTime, setStartTime] = useState('')
     const [endDate, setEndDate] = useState('')
     const [endTime, setEndTime] = useState('')
 
     useEffect(() => {
-        if (response) {
-            const c = response.data
+        if (contestResponse) {
+            console.log('response', contestResponse)
+            const c = contestResponse.data
             setContest(c)
             setTitle(c.name)
             setDescription(c.description)
@@ -56,7 +77,7 @@ export default function ContestInfo({ setIsShowContestInfo, contestId, updateCon
             setEndDate(end_time.date)
             setEndTime(end_time.time)
         }
-    }, [response])
+    }, [contestResponse])
 
     // useEffect(() => {
     //     setTitle(contest.name)
@@ -91,6 +112,7 @@ export default function ContestInfo({ setIsShowContestInfo, contestId, updateCon
         setIsShowCreateContest(false)
     }
 
+    //#region Handle
     const handleEditTest = (test) => {
         setSelectedTest(test)
         setIsShowTest(true)
@@ -132,6 +154,8 @@ export default function ContestInfo({ setIsShowContestInfo, contestId, updateCon
         setShareContent(obj)
         setIsShowShareModal(true)
     }
+
+    //#endregion
 
     const onTestAction = (action) => {
         if (currentAction === 'CONFIRM_DELETE_TEST') {
@@ -175,187 +199,186 @@ export default function ContestInfo({ setIsShowContestInfo, contestId, updateCon
         <>
             {!isShowTest &&
                 <div className="contest-information">
+                    {/* <!-- Navbar Top of Contest Info page ---> */}
                     <div className="nav-top">
-                        <div className="back">
-                            <Button variant="primary" size="sm"
-                                onClick={() => setIsShowContestInfo(false)}
-                            >
-                                <i className="fa fa-arrow-left"> </i>
-                                <span className="m-2 fw-bolder">Trở về</span>
-                            </Button>{' '}
-                        </div>
                         <div className="heading h2 fw-bolder">{title}</div>
                     </div>
-                    <div className="container-section">
-                        <div className="contest-show-info">
-                            <Card className="text-center">
-                                <Image fluid={true} variant="top"
-                                    src={embededMedia}
-                                    className="p-3 contest-image"
-                                />
-                                <Card.Body>
-                                    <Card.Title>{title}</Card.Title>
-                                    <Card.Text>{description}</Card.Text>
-                                    <ListGroup className="list-group-flush">
-                                        <ListGroupItem>
-                                            <div className="duration">
-                                                <div className="show-time">
-                                                    <div className="fw-bolder">Thời gian bắt đầu</div>
-                                                    <div className="d-flex">
-                                                        <Form.Control
-                                                            size="sm"
-                                                            type="text"
-                                                            value={startDate}
-                                                            readOnly={true}
-                                                        />
-                                                        <Form.Control
-                                                            size="sm"
-                                                            type="text"
-                                                            value={startTime}
-                                                            readOnly={true}
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="show-time">
-                                                    <div className="fw-bolder">Thời gian kết thúc</div>
-                                                    <div className="d-flex">
-                                                        <Form.Control
-                                                            size="sm"
-                                                            type="text"
-                                                            value={endDate}
-                                                            readOnly={true}
-                                                        />
-                                                        <Form.Control
-                                                            size="sm"
-                                                            type="text"
-                                                            value={endTime}
-                                                            readOnly={true}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ListGroupItem>
-                                    </ListGroup>
-                                    {isCreator &&
-                                        <div>
-                                            <Button variant="primary" className="m-2 fw-bolder text-light" size="sm"
-                                                onClick={() => setIsShowCreateContest(true)}>
-                                                <i className="fa fa-edit"></i>
-                                            </Button>
-                                            <Button variant="success" className="m-2 fw-bolder text-light" size="sm"
-                                                onClick={handleCreateTest}
-                                            >
-                                                <i className="fa fa-plus"></i>
-                                            </Button>
-                                            <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
-                                                onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}>
-                                                <i className="fa fa-share"></i>
-                                            </Button>
-                                        </div>
-                                    }
-                                    {!isCreator &&
-                                        <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
-                                            onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}
-                                        >
-                                            <i className="fa fa-share"></i>
-                                            <span className="m-3">Chia sẻ</span>
-                                        </Button>
-                                    }
-                                </Card.Body>
-                            </Card>
-                        </div>
-                        <div className="list-tests">
-                            <Card border="secondary">
-                                <Card.Header className="row h5">
-                                    <div className="">
-                                        <div className="fw-bolder text-uppercase">Danh sách bài kiểm tra</div>
-                                        <div className="text-primary h6">
-                                            Số lượng: {contest ? contest.tests.length : 0}
-                                        </div>
-                                    </div>
-                                </Card.Header>
-                                <hr />
-                                <div className="show-all-tests">
-                                    {contest.tests.map((test, index) =>
-                                        <Card.Body key={index} className="row">
-                                            <div className="card-test-preview">
-                                                <div className="card-test-index col-md-1 col-sm-12">
-                                                    <div className="test-index d-flex justify-content-center align-middle">{index + 1}</div>
-                                                </div>
-                                                <div className="card-test-info col-md-10 col-sm-12 pt-3 pb-3">
-                                                    <div className="card-test-title h5">{test.name}</div>
-                                                    <div className="card-test-description m-3">{test.description}</div>
-                                                    <hr style={
-                                                        {
-                                                            width: '50%',
-                                                            height: '1px',
-                                                            margin: '12px auto'
-                                                        }
-                                                    } />
-                                                    <div className="detail row">
-                                                        <div className="start-time col-md-4 col-12">
-                                                            <div className="fw-bolder">Thời gian bắt đầu: </div>
-                                                            <div>{test.startTime}</div>
-                                                        </div>
-                                                        <div className="duration col-md-4 col-12">
-                                                            <div className="fw-bolder">Thời lượng làm bài: </div>
-                                                            <div>{displayTimeDelta(test.startTime, test.endTime)}</div>
-                                                        </div>
-                                                        <div className="card-test-quantity col-md-4 col-12">
-                                                            <div className="fw-bolder">Số câu hỏi: </div>
-                                                            <div>{test.questions.length}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="card-test-actions col-md-1 col-sm-12  pt-3 pb-3">
-                                                    <Button variant="info" size="sm"
-                                                        onClick={() => handleShareContent(test.url, test.name, test.description)}
-                                                        className="fw-bolder text-light"
-                                                    >
-                                                        <i className="fa fa-share"></i>
-                                                    </Button>{' '}
-                                                    {isCreator &&
-                                                        <>
-                                                            <Button variant="warning" size="sm"
-                                                                onClick={() => handleStatisticsTest(test)} >
-                                                                <i className="fa fa-bar-chart"></i>
-                                                            </Button>{' '}
-                                                            <Button variant="primary" size="sm"
-                                                                onClick={() => handleEditTest(test)} >
-                                                                <i className="fa fa-edit"></i>
-                                                            </Button>{' '}
-                                                            <Button variant="danger" size="sm"
-                                                                onClick={() => handleDeleteTest(test)} >
-                                                                <i className="fa fa-remove"></i>
-                                                            </Button>{' '}
-                                                        </>
-                                                    }
 
-                                                    {!isCreator &&
-                                                        <>
-                                                            <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
-                                                                disabled={Date.parse(test.endTime) - Date.now() <= 0}
-                                                                onClick={() => handleTakeTest(test)}
+                    {/* <!-- ContestInfo container --> */}
+
+                    {contestIsLoading && <div>Loading...</div>}
+                    {!contestIsLoading &&
+                        <div className="container-section">
+                            <div className="contest-show-info">
+                                <Card className="text-center">
+                                    <Image fluid={true} variant="top"
+                                        src={embededMedia}
+                                        className="p-3 contest-image"
+                                    />
+                                    <Card.Body>
+                                        <Card.Title>{title}</Card.Title>
+                                        <Card.Text>{description}</Card.Text>
+                                        <ListGroup className="list-group-flush">
+                                            <ListGroupItem>
+                                                <div className="duration">
+                                                    <div className="show-time">
+                                                        <div className="fw-bolder">Thời gian bắt đầu</div>
+                                                        <div className="d-flex">
+                                                            <Form.Control
                                                                 size="sm"
-                                                            >
-                                                                <i className="fas fa-pen"></i>
-                                                            </Button>
-                                                        </>
-                                                    }
+                                                                type="text"
+                                                                value={startDate}
+                                                                readOnly={true}
+                                                            />
+                                                            <Form.Control
+                                                                size="sm"
+                                                                type="text"
+                                                                value={startTime}
+                                                                readOnly={true}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="show-time">
+                                                        <div className="fw-bolder">Thời gian kết thúc</div>
+                                                        <div className="d-flex">
+                                                            <Form.Control
+                                                                size="sm"
+                                                                type="text"
+                                                                value={endDate}
+                                                                readOnly={true}
+                                                            />
+                                                            <Form.Control
+                                                                size="sm"
+                                                                type="text"
+                                                                value={endTime}
+                                                                readOnly={true}
+                                                            />
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                            </ListGroupItem>
+                                        </ListGroup>
+                                        {isCreator &&
+                                            <div>
+                                                <Button variant="primary" className="m-2 fw-bolder text-light" size="sm"
+                                                    onClick={() => setIsShowCreateContest(true)}>
+                                                    <i className="fa fa-edit"></i>
+                                                </Button>
+                                                <Button variant="success" className="m-2 fw-bolder text-light" size="sm"
+                                                    onClick={handleCreateTest}
+                                                >
+                                                    <i className="fa fa-plus"></i>
+                                                </Button>
+                                                <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
+                                                    onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}>
+                                                    <i className="fa fa-share"></i>
+                                                </Button>
                                             </div>
-                                        </Card.Body>
-                                    )}
+                                        }
+                                        {!isCreator &&
+                                            <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
+                                                onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}
+                                            >
+                                                <i className="fa fa-share"></i>
+                                                <span className="m-3">Chia sẻ</span>
+                                            </Button>
+                                        }
+                                    </Card.Body>
+                                </Card>
+                            </div>
+                            <div className="list-tests">
+                                <Card border="secondary">
+                                    <Card.Header className="row h5">
+                                        <div className="">
+                                            <div className="fw-bolder text-uppercase">Danh sách bài kiểm tra</div>
+                                            <div className="text-primary h6">
+                                                Số lượng: {contest ? contest.tests.length : 0}
+                                            </div>
+                                        </div>
+                                    </Card.Header>
+                                    <hr />
+                                    <div className="show-all-tests">
+                                        {contest.tests.map((test, index) =>
+                                            <Card.Body key={index} className="row">
+                                                <div className="card-test-preview">
+                                                    <div className="card-test-index col-md-1 col-sm-12">
+                                                        <div className="test-index d-flex justify-content-center align-middle">{index + 1}</div>
+                                                    </div>
+                                                    <div className="card-test-info col-md-10 col-sm-12 pt-3 pb-3">
+                                                        <div className="card-test-title h5">{test.name}</div>
+                                                        <div className="card-test-description m-3">{test.description}</div>
+                                                        <hr style={
+                                                            {
+                                                                width: '50%',
+                                                                height: '1px',
+                                                                margin: '12px auto'
+                                                            }
+                                                        } />
+                                                        <div className="detail row">
+                                                            <div className="start-time col-md-4 col-12">
+                                                                <div className="fw-bolder">Thời gian bắt đầu: </div>
+                                                                <div>{test.startTime}</div>
+                                                            </div>
+                                                            <div className="duration col-md-4 col-12">
+                                                                <div className="fw-bolder">Thời lượng làm bài: </div>
+                                                                <div>{displayTimeDelta(test.startTime, test.endTime)}</div>
+                                                            </div>
+                                                            <div className="card-test-quantity col-md-4 col-12">
+                                                                <div className="fw-bolder">Số câu hỏi: </div>
+                                                                <div>{test.questions.length}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-test-actions col-md-1 col-sm-12  pt-3 pb-3">
+                                                        <Button variant="info" size="sm"
+                                                            onClick={() => handleShareContent(test.url, test.name, test.description)}
+                                                            className="fw-bolder text-light"
+                                                        >
+                                                            <i className="fa fa-share"></i>
+                                                        </Button>{' '}
+                                                        {isCreator &&
+                                                            <>
+                                                                <Button variant="warning" size="sm"
+                                                                    onClick={() => handleStatisticsTest(test)} >
+                                                                    <i className="fa fa-bar-chart"></i>
+                                                                </Button>{' '}
+                                                                <Button variant="primary" size="sm"
+                                                                    onClick={() => handleEditTest(test)} >
+                                                                    <i className="fa fa-edit"></i>
+                                                                </Button>{' '}
+                                                                <Button variant="danger" size="sm"
+                                                                    onClick={() => handleDeleteTest(test)} >
+                                                                    <i className="fa fa-remove"></i>
+                                                                </Button>{' '}
+                                                            </>
+                                                        }
 
-                                    {contest.tests.length == 0 &&
-                                        <Card.Body className="row no-test">
-                                            Chưa có bài test nào!
-                                        </Card.Body>
-                                    }
-                                </div>
-                            </Card>
+                                                        {!isCreator &&
+                                                            <>
+                                                                <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
+                                                                    disabled={Date.parse(test.endTime) - Date.now() <= 0}
+                                                                    onClick={() => handleTakeTest(test)}
+                                                                    size="sm"
+                                                                >
+                                                                    <i className="fas fa-pen"></i>
+                                                                </Button>
+                                                            </>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </Card.Body>
+                                        )}
+
+                                        {contest.tests.length == 0 &&
+                                            <Card.Body className="row no-test">
+                                                Chưa có bài test nào!
+                                            </Card.Body>
+                                        }
+                                    </div>
+                                </Card>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             }
 
