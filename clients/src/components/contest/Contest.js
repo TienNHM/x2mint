@@ -8,38 +8,26 @@ import { getAllContestsByCreator } from 'actions/api/ContestAPI'
 import Share from 'components/common/share/Share'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, MODAL_ACTION_RETRY } from 'utils/constants'
 import './Contest.scss'
-import { initialContest } from 'actions/initialData'
+import { initialContest, blankContest } from 'actions/initialData'
 
 function Contest({ isCreator }) {
-    const [contests, setContests] = useState(initialContest)
+    const [contests, setContests] = useState(null)
     const [isShow, setIsShow] = useState(false)
     const [isShowShareModal, setIsShowShareModal] = useState(false)
     const [shareContent, setShareContent] = useState({})
-    const blankContest = {
-        id: '',
-        creator_id: 'user-1',
-        tests: [],
-        name: '',
-        description: '',
-        url: '',
-        embededMedia: '',
-        startTime: '',
-        endTime: '',
-        status: ''
-    }
-    const [selectedContest, setSelectedContest] = useState(blankContest)
+    const [selectedContest, setSelectedContest] = useState(null)
     const [isUpdate, setIsUpdate] = useState(false)
     const [isShowContestInfo, setIsShowContestInfo] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
 
     useEffect(() => {
-        // getAllContestsByCreator(
-        //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJpZnlBY2NvdW50Ijp7ImlkIjoiNjE4ZGNlYThhNjExZjQzNDAyOTYzMjhjIiwiaXNIaWRkZW4iOmZhbHNlLCJ1c2VybmFtZSI6Im1pbmhob2FuZzEiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjM3Njc5NTY3fQ.CPcIsCvLKejqGFm-VZSha-A4PdOjTE8XRKkUAeoFSes',
-        //     '618dcea8a611f4340296328c')
-        //     .then(data => {
-        //         setContests(data.contests)
-        //     })
-        //     .catch(err => console.log(err))
+        getAllContestsByCreator(
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJpZnlBY2NvdW50Ijp7ImlkIjoiNjE4ZGNlYThhNjExZjQzNDAyOTYzMjhjIiwiaXNIaWRkZW4iOmZhbHNlLCJ1c2VybmFtZSI6Im1pbmhob2FuZzEiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjM3Njc5NTY3fQ.CPcIsCvLKejqGFm-VZSha-A4PdOjTE8XRKkUAeoFSes',
+            '618dcea8a611f4340296328c')
+            .then(data => {
+                setContests(data.contests)
+            })
+            .catch(err => console.log(err))
     }, [])
 
     const onAction = (isUpdate, action, title = '', description = '', url = '', embededMedia = '', startTime = '', endTime = '') => {

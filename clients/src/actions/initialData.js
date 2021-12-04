@@ -6295,6 +6295,18 @@ export const initialTakeTest = {
     questionsOrder: ['question-1', 'question-2', 'question-3', 'question-4']
 }
 
+export const blankContest = {
+    id: '',
+    creator_id: 'user-1',
+    tests: [],
+    name: '',
+    description: '',
+    url: '',
+    embededMedia: '',
+    startTime: '',
+    endTime: '',
+    status: ''
+}
 
 /// Nháp
 

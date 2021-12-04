@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import './Register.scss'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 import { register } from 'actions/api/AuthAPI'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadUser } from 'redux/authSlice'
-import { LOCAL_STORAGE_TOKEN_NAME } from 'utils/constants'
+import { ACCESS_TOKEN, USER_ID, MAX_DAYS_EXPIRE } from 'utils/constants'
+import './Register.scss'
 
 const Register = () => {
     const navigate = useNavigate()
@@ -36,35 +37,38 @@ const Register = () => {
         console.log(data)
         if (data)
             if (data.success) {
-                localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, data.accessToken)
+                // Set cookies
+                Cookies.set(ACCESS_TOKEN, data.accessToken, { expires: MAX_DAYS_EXPIRE })
+                Cookies.set(USER_ID, data.user.id, { expires: MAX_DAYS_EXPIRE })
 
+                // Get User Info
                 await dispatch(loadUser(data.accessToken))
                 navigate('/', { replace: true })
             } else {
                 setError(data.message)
             }
         else setError('Some error happened!')
-    // try {
-    //     if ( username && email && password && (password === reEnterPassword))
-    //         axios.post('http://localhost:5000/register', JSON.parse(user))
-    //             .then( res => {
-    //                 alert(res.data.message)
-    //                 navigate.push('/login')})
-    // } catch (error) {
-    //     console.log(error)
-    // }
-    // const register = () => {
-    //     const { name, email, password, reEnterPassword } = user
-    //     if ( name && email && password && (password === reEnterPassword)) {
-    //         axios.post('http://localhost:5000/register', user)
-    //             .then( res => {
-    //                 alert(res.data.message)
-    //                 navigate.push('/login')
-    //             })
-    //     } else {
-    //         alert('invlid input')
-    //     }
-    // }
+        // try {
+        //     if ( username && email && password && (password === reEnterPassword))
+        //         axios.post('http://localhost:5000/register', JSON.parse(user))
+        //             .then( res => {
+        //                 alert(res.data.message)
+        //                 navigate.push('/login')})
+        // } catch (error) {
+        //     console.log(error)
+        // }
+        // const register = () => {
+        //     const { name, email, password, reEnterPassword } = user
+        //     if ( name && email && password && (password === reEnterPassword)) {
+        //         axios.post('http://localhost:5000/register', user)
+        //             .then( res => {
+        //                 alert(res.data.message)
+        //                 navigate.push('/login')
+        //             })
+        //     } else {
+        //         alert('invlid input')
+        //     }
+        // }
     }
 
     return (
@@ -120,7 +124,7 @@ const Register = () => {
                             className="btn__signup"
                             onClick={(e) => handleSubmit(e)}
                         >
-              Đăng ký
+                            Đăng ký
                         </button>
                     </div>
                     <p className="been-member">Bạn đã có tài khoản?</p>
@@ -128,7 +132,7 @@ const Register = () => {
                         className="btn__login"
                         onClick={() => navigate('/login', { replace: true })}
                     >
-            Đăng nhập
+                        Đăng nhập
                     </button>
                     {/* <button className="btn__signup-gg" onClick={register}><img src="google_32.png"></img></button> */}
                 </div>

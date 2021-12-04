@@ -78,7 +78,7 @@ const Login = () => {
 
             <AlertMessage info={alert} />
             <h1 h1 className="form__title">
-        Đăng nhập
+                Đăng nhập
             </h1>
             <Form className="form__body" onSubmit={login}>
                 <img className="auth__pic" src="auth.svg"></img>
@@ -106,7 +106,7 @@ const Login = () => {
                             type="submit"
                         >
                             {' '}
-              Đăng nhập
+                            Đăng nhập
                         </button>
                         <button className="forget__button">Quên mật khẩu</button>
                     </div>
@@ -121,7 +121,7 @@ const Login = () => {
                         className="nav__btn__login"
                         onClick={() => navigate('/register', { replace: true })}
                     >
-            Đăng ký
+                        Đăng ký
                     </button>
                 </div>
             </Form>
