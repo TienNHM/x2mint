@@ -1,9 +1,10 @@
 import { createContext, useReducer, useEffect } from 'react'
 import authReducer from '../reducers/authReducer'
-import { API_ROOT, LOCAL_STORAGE_TOKEN_NAME } from '../utils/constants'
+import { ACCESS_TOKEN, API_ROOT } from '../utils/constants'
 import axios from 'axios'
 import setAuthToken from '../utils/setAuthToken'
 import React from 'react'
+import Cookies from 'js-cookie'
 
 export const AuthContext = createContext()
 
@@ -16,8 +17,9 @@ const AuthContextProvider = ({ children }) => {
 
     // Authenticate user
     const loadUser = async () => {
-        if (localStorage[LOCAL_STORAGE_TOKEN_NAME]) {
-            setAuthToken(localStorage[LOCAL_STORAGE_TOKEN_NAME])
+        const accessToken = Cookies.get(ACCESS_TOKEN)
+        if (accessToken) {
+            setAuthToken(accessToken)
         }
         try {
             const response = await axios.get(`${API_ROOT}/auths`)
@@ -28,7 +30,7 @@ const AuthContextProvider = ({ children }) => {
                 })
             }
         } catch (error) {
-            localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME)
+            Cookies.remove(ACCESS_TOKEN)
             setAuthToken(null)
             dispatch({
                 type: 'SET_AUTH',
@@ -45,7 +47,7 @@ const AuthContextProvider = ({ children }) => {
             const response = await axios.post(`${API_ROOT}/auths/login`, userForm)
             if (response.data.success)
                 localStorage.setItem( //cookie thay cho localStorage   ===> coi doc
-                    LOCAL_STORAGE_TOKEN_NAME,
+                    ACCESS_TOKEN,
                     response.data.accessToken
                 )
             await loadUser()
@@ -62,7 +64,7 @@ const AuthContextProvider = ({ children }) => {
             const response = await axios.post(`${API_ROOT}/auths/register`, userForm)
             if (response.data.success)
                 localStorage.setItem(
-                    LOCAL_STORAGE_TOKEN_NAME,
+                    ACCESS_TOKEN,
                     response.data.accessToken
                 )
 
@@ -77,7 +79,7 @@ const AuthContextProvider = ({ children }) => {
 
     // Logout
     const logoutUser = () => {
-        localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME)
+        localStorage.removeItem(ACCESS_TOKEN)
         dispatch({
             type: 'SET_AUTH',
             payload: { isAuthenticated: false, user: null }

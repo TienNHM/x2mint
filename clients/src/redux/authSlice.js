@@ -71,7 +71,7 @@ export const loadUser = createAsyncThunk(
                     })
                 console.log('Heiii', response)
 
-                if (response.status === true) {
+                if (response.success === true) {
                     return {
                         isAuthenticated: true,
                         user: response.data.user
@@ -79,8 +79,8 @@ export const loadUser = createAsyncThunk(
                 }
                 else {
                     // Xóa cookies, do access token không hợp lệ
-                    Cookies.remove(ACCESS_TOKEN)
-                    Cookies.remove(USER_ID)
+                    // Cookies.remove(ACCESS_TOKEN)
+                    // Cookies.remove(USER_ID)
 
                     return {
                         isAuthenticated: false,
@@ -92,8 +92,8 @@ export const loadUser = createAsyncThunk(
             }
         } catch (error) {
             // Xóa cookies, do access token không hợp lệ
-            Cookies.remove(ACCESS_TOKEN)
-            Cookies.remove(USER_ID)
+            // Cookies.remove(ACCESS_TOKEN)
+            // Cookies.remove(USER_ID)
 
             return rejectWithValue(error.response.data.message)
         }
