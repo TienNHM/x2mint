@@ -7,10 +7,20 @@ import StatisticTest from 'components/contest/statistics/StatisticTest'
 import { emptyTest } from 'actions/initialData'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
 import Share from 'components/common/share/Share'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
+import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ACCESS_TOKEN } from 'utils/constants'
 import './ContestInfo.scss'
+import Cookies from 'js-cookie'
+import { useAxios } from 'actions/useAxios'
 
-export default function ContestInfo({ setIsShowContestInfo, contest, updateContest, isCreator }) {
+export default function ContestInfo({ setIsShowContestInfo, contestId, updateContest, isCreator }) {
+    const { response, loading, error } = useAxios({
+        method: 'GET',
+        url: `/contests/${contestId}}`,
+        headers: {
+            Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+        }
+    })
+    const [contest, setContest] = useState(null)
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
     const [isShowStatisticTest, setIsShowStatisticTest] = useState(false)
@@ -32,17 +42,34 @@ export default function ContestInfo({ setIsShowContestInfo, contest, updateConte
     const [endTime, setEndTime] = useState('')
 
     useEffect(() => {
-        setTitle(contest.name)
-        setDescription(contest.description)
-        setUrl(contest.url)
-        setEmbedMedia(contest.embededMedia)
-        const start_time = splitTime(contest.startTime)
-        const end_time = splitTime(contest.endTime)
-        setStartDate(start_time.date)
-        setStartTime(start_time.time)
-        setEndDate(end_time.date)
-        setEndTime(end_time.time)
-    }, [contest])
+        if (response) {
+            const c = response.data
+            setContest(c)
+            setTitle(c.name)
+            setDescription(c.description)
+            setUrl(c.url)
+            setEmbedMedia(c.embededMedia)
+            const start_time = splitTime(c.startTime)
+            const end_time = splitTime(c.endTime)
+            setStartDate(start_time.date)
+            setStartTime(start_time.time)
+            setEndDate(end_time.date)
+            setEndTime(end_time.time)
+        }
+    }, [response])
+
+    // useEffect(() => {
+    //     setTitle(contest.name)
+    //     setDescription(contest.description)
+    //     setUrl(contest.url)
+    //     setEmbedMedia(contest.embededMedia)
+    //     const start_time = splitTime(contest.startTime)
+    //     const end_time = splitTime(contest.endTime)
+    //     setStartDate(start_time.date)
+    //     setStartTime(start_time.time)
+    //     setEndDate(end_time.date)
+    //     setEndTime(end_time.time)
+    // }, [contest])
 
     const onAction = (isUpdate, action, title, description, url, embededMedia, startTime, endTime) => {
 
