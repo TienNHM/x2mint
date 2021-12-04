@@ -4,7 +4,7 @@ import { API_ROOT, ROLE_USER } from 'utils/constants'
 export const register = async (user) => {
     //TODO: register
     try {
-        const url = `${API_ROOT}/auths/register`
+        const url = `${process.env.REACT_APP_API_ROOT}/auths/register`
         const request = await axios.post(url, {
             ...user,
             role: ROLE_USER,
@@ -20,7 +20,7 @@ export const register = async (user) => {
 
 export const verify = async (accessToken) => {
     //TODO: verify
-    const url = `${API_ROOT}/auths/verify`
+    const url = `${process.env.REACT_APP_API_ROOT}/auths/verify`
     const request = await axios.get(url, {
         headers: {
             Authorization: `Bearer ${accessToken}`
@@ -33,7 +33,7 @@ export const verify = async (accessToken) => {
 
 export const loginWithGoogle = async (accessToken) => {
     //TODO: login with Google
-    const url = `${API_ROOT}/auths/login/google`
+    const url = `${process.env.REACT_APP_API_ROOT}/auths/login/google`
     const request = await axios.post(url, {
         headers: {
             Authorization: `Bearer ${accessToken}`
@@ -45,7 +45,7 @@ export const loginWithGoogle = async (accessToken) => {
 }
 
 export const auth = async (username, password) => {
-    const url = `${API_ROOT}/auths/login`
+    const url = `${process.env.REACT_APP_API_ROOT}/auths/login`
     const request = await axios.post(url, {
         username: username,
         password: password
