@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react'
-import { AuthContext } from 'contexts/AuthContext'
 import './Login.scss'
 import { Form } from 'react-bootstrap'
 import { AlertMessage } from 'utils/AlertMessage'
