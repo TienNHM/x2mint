@@ -1,6 +1,6 @@
 import { createContext, useReducer, useEffect } from 'react'
 import authReducer from '../reducers/authReducer'
-import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from '../utils/constants'
+import { API_ROOT, LOCAL_STORAGE_TOKEN_NAME } from '../utils/constants'
 import axios from 'axios'
 import setAuthToken from '../utils/setAuthToken'
 import React from 'react'
@@ -20,7 +20,7 @@ const AuthContextProvider = ({ children }) => {
             setAuthToken(localStorage[LOCAL_STORAGE_TOKEN_NAME])
         }
         try {
-            const response = await axios.get(`${apiUrl}/auths`)
+            const response = await axios.get(`${API_ROOT}/auths`)
             if (response.data.success) {
                 dispatch({
                     type: 'SET_AUTH',
@@ -42,7 +42,7 @@ const AuthContextProvider = ({ children }) => {
     // Login
     const loginUser = async (userForm) => {
         try {
-            const response = await axios.post(`${apiUrl}/auths/login`, userForm)
+            const response = await axios.post(`${API_ROOT}/auths/login`, userForm)
             if (response.data.success)
                 localStorage.setItem( //cookie thay cho localStorage   ===> coi doc
                     LOCAL_STORAGE_TOKEN_NAME,
@@ -59,7 +59,7 @@ const AuthContextProvider = ({ children }) => {
     // Register
     const registerUser = async (userForm) => {
         try {
-            const response = await axios.post(`${apiUrl}/auths/register`, userForm)
+            const response = await axios.post(`${API_ROOT}/auths/register`, userForm)
             if (response.data.success)
                 localStorage.setItem(
                     LOCAL_STORAGE_TOKEN_NAME,
