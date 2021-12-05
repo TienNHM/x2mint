@@ -17,7 +17,7 @@
     }
 
     .questions-preview {
-        height: 78vh;
+        height: 80vh;
         overflow-x: hidden;
         overflow-y: auto;
 
@@ -26,12 +26,12 @@
         }
 
         &::-webkit-scrollbar:vertical {
-            width: 11px;
+            width: 8px;
         }
 
         &::-webkit-scrollbar-thumb {
-            background-color: darken($color: $bg-color, $amount: 15);
-            border-right: 5px solid $bg-color;
+            background-color: lighten($color: $theme-color, $amount: 5);
+            border-radius: $gap;
         }
 
         .card-ghost {

@@ -36,7 +36,7 @@ $heading-height: 10vh;
         border: 2px dashed gray;
         border-radius: $gap;
         background-color: #f0e9d285;
-        height: 100vh - $navbar-height - $heading-height - 2vh;
+        height: calc(100vh - #{$navbar-height} - #{$heading-height} - 2vh);
         overflow-y: auto;
 
         >* {

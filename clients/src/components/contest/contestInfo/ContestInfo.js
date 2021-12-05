@@ -191,8 +191,8 @@ export default function ContestInfo() {
         <>
             {!isShowTest &&
                 <div className="contest-information">
-                    {/* <!-- Navbar Top of Contest Info page ---> */}
-                    <div className="nav-top">
+                    {/* <!-- Title of Contest Info page ---> */}
+                    <div className="contest-title">
                         <div className="heading h2 fw-bolder">{title}</div>
                     </div>
 

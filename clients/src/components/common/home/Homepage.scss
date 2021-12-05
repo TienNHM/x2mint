@@ -17,7 +17,7 @@ h1 {
   width: 100%;
   max-height: 990px;
   background-color: var(--body-color);
-  margin-top: var(--navbar-height);
+  margin-top: $navbar-height;
   left: 0;
   z-index: 0;
   transition: 0.4s; // For animation dark mod
@@ -43,7 +43,7 @@ h1 {
 #about .nav__logo :hover {
   transform: scale(1.5);
   font-weight: 300;
-  top: var(--navbar-height);
+  top: $navbar-height;
 }
 .about {
   margin-top: 90px;
@@ -169,7 +169,7 @@ h1 {
   background-color: var(--mint);
   margin: 0;
   padding: 0;
-  color: var(--white);
+  color: white;
   box-sizing: border-box;
 }
 

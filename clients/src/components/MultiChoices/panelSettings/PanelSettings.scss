@@ -18,7 +18,7 @@ $question-attribute-setting-height: 80px;
     }
 
     .attributes {
-        height: 77vh;
+        height: 78vh;
 
         input, textarea {
             outline: none !important;
@@ -110,6 +110,7 @@ $question-attribute-setting-height: 80px;
     .quick-actions {
         height: $quick-action-height;
         display: flex;
+        margin-top: $gap;
 
         > * {
             width: 50%;
@@ -122,7 +123,7 @@ $question-attribute-setting-height: 80px;
     .question-picker {
         background-color: rgba(217, 233, 207, 0.548);
         border-radius: $gap;
-        height: 66vh;
+        height: 70vh;
         padding: $gap/2;
         border: 2px solid $theme-color;
 
@@ -134,14 +135,14 @@ $question-attribute-setting-height: 80px;
             &::-webkit-scrollbar {
                 -webkit-appearance: none;
             }
-
+    
             &::-webkit-scrollbar:vertical {
-                width: 11px;
+                width: 8px;
             }
-
+    
             &::-webkit-scrollbar-thumb {
-                background-color: darken($color: $bg-color, $amount: 15);
-                border-left: 3px solid lightblue;
+                background-color: lighten($color: $theme-color, $amount: 5);
+                border-radius: $gap;
             }
 
             button {
