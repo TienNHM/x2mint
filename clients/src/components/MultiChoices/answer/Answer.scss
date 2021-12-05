@@ -1,7 +1,7 @@
 @import '_setting.scss';
 
 $answer-button-width: 50%;
-$answer-background-color: white;
+$answer-background-color: #82dfb5;
 $btn-check-size: 2rem;
 
 .question-answers {
@@ -11,7 +11,6 @@ $btn-check-size: 2rem;
     grid-row: auto auto;
 
     .answer {
-        height: 90%;
         display: flex;
         flex-direction: row;
         justify-content: left !important;

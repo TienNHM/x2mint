@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, Route, Outlet } from 'react-router-dom'
-import { loadUser } from '../redux/authSlice'
+import { loadUser } from 'redux/authSlice'
 
 const ProtectedRoute = ({ element: Element, ...rest }) => {
     const dispatch = useDispatch()
@@ -9,7 +9,6 @@ const ProtectedRoute = ({ element: Element, ...rest }) => {
     const [isTryLogin, setIsTryLogin] = useState(false)
     //loadUser
     useEffect(() => {
-        console.log('isAuthenticated', isAuthenticated)
         if (isAuthenticated) {
             setIsTryLogin(true)
         } else {

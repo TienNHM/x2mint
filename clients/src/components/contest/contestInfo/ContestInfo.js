@@ -7,13 +7,15 @@ import StatisticTest from 'components/contest/statistics/StatisticTest'
 import { emptyTest } from 'actions/initialData'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
 import Share from 'components/common/share/Share'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ACCESS_TOKEN } from 'utils/constants'
+import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ACCESS_TOKEN, ROLE_CREATOR, ROLE_USER } from 'utils/constants'
 import './ContestInfo.scss'
 import Cookies from 'js-cookie'
 import { useAxios } from 'actions/useAxios'
 import { useParams } from 'react-router'
+import { HashLoader } from 'react-spinners'
+import { useSelector } from 'react-redux'
 
-export default function ContestInfo({ setIsShowContestInfo, _contest, updateContest, isCreator }) {
+export default function ContestInfo() {
     // Load Contest information
     let { contestId } = useParams()
     const {
@@ -28,17 +30,7 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
         }
     })
 
-    const {
-        response: testsResponse,
-        loading: testsIsLoading,
-        error: testsIsError
-    } = useAxios({
-        method: 'GET',
-        url: `/contests/${contestId}`,
-        headers: {
-            Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
-        }
-    })
+    const user = useSelector((state) => state.auth.user)
 
     const [contest, setContest] = useState(null)
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
@@ -104,7 +96,7 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                 startTime: startTime,
                 endTime: endTime
             }
-            updateContest(newContest)
+            //TODO updateContest(newContest)
         }
         else if (action === MODAL_ACTION_CLOSE) {
             //
@@ -163,7 +155,7 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                 const newContest = { ...contest }
                 const index = newContest.tests.findIndex(c => c.id === selectedTest.id)
                 newContest.tests.splice(index, 1)
-                updateContest(newContest)
+                //TODO updateContest(newContest)
             }
         }
         else if (currentAction === 'CONFIRM_CREATE_TEST') {
@@ -173,7 +165,7 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                     ...emptyTest,
                     id: 'test-' + (contest.tests.length + 1)
                 })
-                updateContest(newContest)
+                //TODO updateContest(newContest)
                 const index = newContest.tests.length - 1
                 setSelectedTest(newContest.tests[index])
                 setIsShowTest(true)
@@ -191,7 +183,7 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
             const newContest = { ...contest }
             const index = newContest.tests.findIndex(t => t.id === selectedTest.id)
             newContest.tests[index] = selectedTest
-            updateContest(newContest)
+            //TODO updateContest(newContest)
         }
     }, [selectedTest])
 
@@ -199,14 +191,21 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
         <>
             {!isShowTest &&
                 <div className="contest-information">
-                    {/* <!-- Navbar Top of Contest Info page ---> */}
-                    <div className="nav-top">
+                    {/* <!-- Title of Contest Info page ---> */}
+                    <div className="contest-title">
                         <div className="heading h2 fw-bolder">{title}</div>
                     </div>
 
                     {/* <!-- ContestInfo container --> */}
+                    {contestIsLoading &&
+                        <div className='loading d-flex align-items-center justify-content-center'>
+                            <HashLoader
+                                color={'#7ED321'}
+                                loading={contestIsLoading}
+                            />
+                        </div>
+                    }
 
-                    {contestIsLoading && <div>Loading...</div>}
                     {!contestIsLoading &&
                         <div className="container-section">
                             <div className="contest-show-info">
@@ -218,6 +217,7 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                     <Card.Body>
                                         <Card.Title>{title}</Card.Title>
                                         <Card.Text>{description}</Card.Text>
+
                                         <ListGroup className="list-group-flush">
                                             <ListGroupItem>
                                                 <div className="duration">
@@ -258,7 +258,8 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                                 </div>
                                             </ListGroupItem>
                                         </ListGroup>
-                                        {isCreator &&
+
+                                        {user.role === ROLE_CREATOR &&
                                             <div>
                                                 <Button variant="primary" className="m-2 fw-bolder text-light" size="sm"
                                                     onClick={() => setIsShowCreateContest(true)}>
@@ -275,7 +276,8 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                                 </Button>
                                             </div>
                                         }
-                                        {!isCreator &&
+
+                                        {user.role === ROLE_USER &&
                                             <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
                                                 onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}
                                             >
@@ -286,6 +288,7 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                     </Card.Body>
                                 </Card>
                             </div>
+
                             <div className="list-tests">
                                 <Card border="secondary">
                                     <Card.Header className="row h5">
@@ -297,6 +300,7 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                         </div>
                                     </Card.Header>
                                     <hr />
+
                                     <div className="show-all-tests">
                                         {contest.tests.map((test, index) =>
                                             <Card.Body key={index} className="row">
@@ -304,9 +308,11 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                                     <div className="card-test-index col-md-1 col-sm-12">
                                                         <div className="test-index d-flex justify-content-center align-middle">{index + 1}</div>
                                                     </div>
+
                                                     <div className="card-test-info col-md-10 col-sm-12 pt-3 pb-3">
                                                         <div className="card-test-title h5">{test.name}</div>
                                                         <div className="card-test-description m-3">{test.description}</div>
+
                                                         <hr style={
                                                             {
                                                                 width: '50%',
@@ -314,11 +320,13 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                                                 margin: '12px auto'
                                                             }
                                                         } />
+
                                                         <div className="detail row">
                                                             <div className="start-time col-md-4 col-12">
                                                                 <div className="fw-bolder">Thời gian bắt đầu: </div>
                                                                 <div>{test.startTime}</div>
                                                             </div>
+
                                                             <div className="duration col-md-4 col-12">
                                                                 <div className="fw-bolder">Thời lượng làm bài: </div>
                                                                 <div>{displayTimeDelta(test.startTime, test.endTime)}</div>
@@ -329,21 +337,24 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div className="card-test-actions col-md-1 col-sm-12  pt-3 pb-3">
                                                         <Button variant="info" size="sm"
                                                             onClick={() => handleShareContent(test.url, test.name, test.description)}
                                                             className="fw-bolder text-light"
                                                         >
                                                             <i className="fa fa-share"></i>
-                                                        </Button>{' '}
-                                                        {isCreator &&
+                                                        </Button>
+
+                                                        {user.role === ROLE_CREATOR &&
                                                             <>
                                                                 <Button variant="warning" size="sm"
                                                                     onClick={() => handleStatisticsTest(test)} >
                                                                     <i className="fa fa-bar-chart"></i>
                                                                 </Button>{' '}
                                                                 <Button variant="primary" size="sm"
-                                                                    onClick={() => handleEditTest(test)} >
+                                                                    // onClick={() => handleEditTest(test)} 
+                                                                    href={`/test/${test._id}`}>
                                                                     <i className="fa fa-edit"></i>
                                                                 </Button>{' '}
                                                                 <Button variant="danger" size="sm"
@@ -353,11 +364,12 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                                             </>
                                                         }
 
-                                                        {!isCreator &&
+                                                        {user.role === ROLE_USER &&
                                                             <>
                                                                 <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
                                                                     disabled={Date.parse(test.endTime) - Date.now() <= 0}
-                                                                    onClick={() => handleTakeTest(test)}
+                                                                    //onClick={() => handleTakeTest(test)}
+                                                                    href={`/test/${test._id}`}
                                                                     size="sm"
                                                                 >
                                                                     <i className="fas fa-pen"></i>
@@ -386,7 +398,7 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                 <MultiChoices
                     setIsShowTest={setIsShowTest}
                     test={selectedTest}
-                    isCreator={isCreator}
+                    isCreator={user.role === ROLE_CREATOR}
                     updateTest={setSelectedTest}
                 />
             }

@@ -2,11 +2,11 @@
 /*=============== HEADER ===============*/
 /*=============== NAV ===============*/
 .nav{
-    height: var(--navbar-height);
+    height: $navbar-height;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--white);    
+    background-color: rgba(208, 240, 224, 0.514);
     padding: 10px 5% 10px !important;
     transition: .4s;
     position: fixed;
@@ -98,11 +98,11 @@
         font-size: 1rem;
         border: 1px solid var(--mint);
         color: var(--mint) !important;
-        background-color: var(--white);
+        background-color: white;
         font-weight:700;
         padding: 5px;
         &:hover{
-            color: var(--white) !important;
+            color: white !important;
             background-color: var(--light-mint);
         }
         
@@ -112,7 +112,7 @@
         border-radius: 50px;
         width: auto;
         font-size: 1rem;
-        color: var(--white);
+        color: white;
         background-color: var(--mint);
         padding: 5px 10px;
         border: 0px;

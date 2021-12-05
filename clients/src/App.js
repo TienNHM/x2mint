@@ -11,13 +11,14 @@ import Contact from 'components/common/home/Contact'
 import Login from 'components/common/login/Login'
 import Register from 'components/common/register/Register'
 import Profile from 'components/common/profile/Profile'
-import ProtectedRoute from './components/ProtectedRoute'
+import ProtectedRoute from 'components/ProtectedRoute'
 import { useDispatch, useSelector } from 'react-redux'
-import { loadUser } from './redux/authSlice'
+import { loadUser } from 'redux/authSlice'
 import Spinner from 'react-bootstrap/Spinner'
 import './App.scss'
 import ContestInfo from 'components/contest/contestInfo/ContestInfo'
 import MultiChoices from 'components/MultiChoices/MultiChoices'
+import { BeatLoader, HashLoader, SyncLoader } from 'react-spinners'
 
 const options = {
     // you can also just use 'bottom center'
@@ -48,21 +49,17 @@ function App() {
                                 width: '100%',
                                 height: '100%',
                                 position: 'absolute',
-                                textAlign: 'center',
-                                alignItems: 'center',
                                 top: 0,
                                 left: 0,
-                                backgroundColor: 'rgba(0,0,0,0.2)',
-                                zIndex: 10000,
-                                paddingTop: 300
+                                zIndex: 10000
                             }}
+                            className='d-flex align-items-center justify-content-center'
                         >
-                            <Spinner
-                                animation="border"
-                                color="#5FA509"
-                                style={{ color: '#188a0b' }}
-                                size={50}
-                            ></Spinner>
+                            <SyncLoader
+                                color={'#7ED321'}
+                                loading={authLoading}
+                                speedMultiplier={2}
+                            />
                         </div>
                     ) : (
                         <div className="bootstrap-container">

@@ -25,7 +25,7 @@
     &__signup{
         border-radius: 50px;
         border: 1px solid var(--mint);
-        color: var(--white);
+        color: white;
         background-color: var(--mint);
         width: 250px;
         font-size: var(--h2-font-size);
@@ -39,13 +39,13 @@
         border-radius: 50px;
         border: 1px solid var(--mint);
         color: var(--mint);
-        background-color: var(--white);
+        background-color: white;
         width: 150px;
         padding: auto;
         font-size: var(--h3-font-size);
         margin: 10px;
         &:hover{
-            color:var(--white);
+            color: white;
             background-color: var(--mint);
         }
     }

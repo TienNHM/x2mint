@@ -5,51 +5,84 @@ import Question from 'components/MultiChoices/question/Question'
 import PanelSettings from 'components/MultiChoices/panelSettings/PanelSettings'
 import { emptyTest, emptyTakeTest } from 'actions/initialData'
 import './MultiChoices.scss'
+import { useParams } from 'react-router'
+import { useAxios } from 'actions/useAxios'
+import Cookies from 'js-cookie'
+import { ACCESS_TOKEN, ROLE_CREATOR } from 'utils/constants'
+import { HashLoader } from 'react-spinners'
+import { loadUser } from 'redux/authSlice'
+import { useSelector } from 'react-redux'
+import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
 
-function MultiChoices({ setIsShowTest, test, updateTest, isCreator }) {
-    console.log(test)
-    const [currentTest, setCurrentTest] = useState(test)
-    const q = mapOrder(test.questions, test.questions_order, 'id')
-    const [questions, setQuestions] = useState(q)
-    const [selectedQuestion, setSelectedQuestion] = useState(q[0])
+function MultiChoices() {
+    let { testId } = useParams()
+    const {
+        response: testResponse,
+        loading: testIsLoading,
+        error: testIsError
+    } = useAxios({
+        method: 'GET',
+        url: `/tests/${testId}`,
+        headers: {
+            Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+        }
+    })
+
+    const user = useSelector((state) => state.auth.user)
+
+    const [test, setTest] = useState(null)
+    const [questions, setQuestions] = useState(null)
+    const [selectedQuestion, setSelectedQuestion] = useState(null)
     const [isLoadedSelectedQuestion, setIsLoadedSelectedQuestion] = useState(false)
     const [isSaved, setIsSaved] = useState(true)
     const [takeTest, setTakeTest] = useState({ ...emptyTakeTest })
 
-    // Load data
     useEffect(() => {
-        const questionsFromDB = test.questions
-        if (test) {
-            setCurrentTest(test)
+        if (testResponse) {
+            console.log('response', testResponse)
+            const t = testResponse.data
+            setTest(t)
+            console.log('test', t)
 
-            // thứ tự tuân theo thuộc tính questions_order
-            const q = mapOrder(questionsFromDB, test.questions_order, 'id')
+            const q = mapOrder(t.questions, t.questionsOrder, 'id')
             setQuestions(q)
-            setSelectedQuestion(q[0])
+            setSelectedQuestion(selectedQuestion ? selectedQuestion : q[0])
         }
-        else {
-            const newTest = { ...emptyTest, id: 'test-1' }
+    }, [testResponse])
 
-            setCurrentTest(newTest)
-            setQuestions(newTest.questions)
-            setSelectedQuestion(selectedQuestion | newTest.questions[0])
-        }
-        setIsLoadedSelectedQuestion(true)
-    }, [test])
+    // Load data
+    // useEffect(() => {
+    //     const questionsFromDB = test.questions
+    //     if (test) {
+    //         setCurrentTest(test)
+
+    //         // thứ tự tuân theo thuộc tính questionsOrder
+    //         const q = mapOrder(questionsFromDB, test.questionsOrder, 'id')
+    //         setQuestions(q)
+    //         setSelectedQuestion(q[0])
+    //     }
+    //     else {
+    //         const newTest = { ...emptyTest, id: 'test-1' }
+
+    //         setCurrentTest(newTest)
+    //         setQuestions(newTest.questions)
+    //         setSelectedQuestion(selectedQuestion | newTest.questions[0])
+    //     }
+    //     setIsLoadedSelectedQuestion(true)
+    // }, [test])
+
+    // useEffect(() => {
+    //     console.log('Current Test: ', test)
+    //     if (!isSaved) {
+    //         setIsSaved(true)
+    //         updateTest({ ...test })
+    //     }
+    // }, [test])
 
     useEffect(() => {
-        console.log('Current Test: ', currentTest)
-        if (!isSaved) {
-            setIsSaved(true)
-            test = { ...currentTest }
-            updateTest({ ...currentTest })
-        }
-    }, [currentTest])
-
-    useEffect(() => {
-        const newTest = { ...currentTest }
+        const newTest = { ...test }
         newTest.questions = questions
-        setCurrentTest(newTest)
+        setTest(newTest)
     }, [questions])
 
     useEffect(() => {
@@ -72,7 +105,7 @@ function MultiChoices({ setIsShowTest, test, updateTest, isCreator }) {
         console.log(question)
         const newTakeTest = { ...takeTest }
         const choose = {
-            questionId: question.id,
+            questionId: question._id,
             answers: [...chooseAnswer],
             correctAnswers: question.correct_answers,
             maxPoints: question.maxPoints
@@ -92,32 +125,55 @@ function MultiChoices({ setIsShowTest, test, updateTest, isCreator }) {
 
     return (
         <div className="app-container">
-            {isCreator &&
-                <PanelPreview
-                    test={currentTest}
-                    setTest={setCurrentTest}
-                    questions={questions}
-                    setQuestions={setQuestions}
-                    selectedQuestion={selectedQuestion}
-                    setSelectedQuestion={setSelectedQuestion}
-                />
+            {testIsLoading ? (
+                <div style={{
+                    width: '100%',
+                    height: '100%',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0
+                }}
+                    className='sweet-loading d-flex justify-content-center align-items-center'>
+                    <HashLoader color={'#7ED321'} loading={testIsLoading} />
+                </div>
+            ) : (
+                <>
+                    {user.role === ROLE_CREATOR ?
+                        (
+                            <PanelPreview
+                                test={test}
+                                setTest={setTest}
+                                questions={questions}
+                                setQuestions={setQuestions}
+                                selectedQuestion={selectedQuestion}
+                                setSelectedQuestion={setSelectedQuestion}
+                            />
+                        ) : (
+                            <PanelQuestionPicker
+                                test={test}
+                                selectedQuestion={selectedQuestion}
+                                setSelectedQuestion={setSelectedQuestion}
+                            />
+                        )
+                    }
+
+                    <Question
+                        question={selectedQuestion}
+                        updateQuestion={updateSelectedQuestion}
+                        isCreator={user.role === ROLE_CREATOR}
+                        updateTakeTest={updateTakeTest}
+                    />
+
+                    <PanelSettings
+                        test={test}
+                        setTest={setTest}
+                        isCreator={user.role === ROLE_CREATOR}
+                        setSelectedQuestion={updateSelectedQuestion}
+                        setIsSaved={setIsSaved}
+                    />
+                </>
+            )
             }
-
-            <Question
-                question={selectedQuestion}
-                updateQuestion={updateSelectedQuestion}
-                isCreator={isCreator | false}
-                updateTakeTest={updateTakeTest}
-            />
-
-            <PanelSettings
-                test={currentTest}
-                setTest={setCurrentTest}
-                isCreator={isCreator | false}
-                setSelectedQuestion={updateSelectedQuestion}
-                setIsShowTest={setIsShowTest}
-                setIsSaved={setIsSaved}
-            />
         </div>
     )
 }

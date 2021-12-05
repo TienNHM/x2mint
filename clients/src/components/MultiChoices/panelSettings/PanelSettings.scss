@@ -18,7 +18,7 @@ $question-attribute-setting-height: 80px;
     }
 
     .attributes {
-        height: 77vh;
+        height: 78vh;
 
         input, textarea {
             outline: none !important;
@@ -110,84 +110,13 @@ $question-attribute-setting-height: 80px;
     .quick-actions {
         height: $quick-action-height;
         display: flex;
+        margin-top: $gap;
 
         > * {
             width: 50%;
             margin: 0 3px;
             font-weight: bold;
             color: white;
-        }
-    }
-
-    .question-picker {
-        background-color: rgba(217, 233, 207, 0.548);
-        border-radius: $gap;
-        height: 66vh;
-        padding: $gap/2;
-        border: 2px solid $theme-color;
-
-        .btn-question {
-            overflow-y: auto;
-            height: 90%;
-            overflow-x: hidden;
-
-            &::-webkit-scrollbar {
-                -webkit-appearance: none;
-            }
-
-            &::-webkit-scrollbar:vertical {
-                width: 11px;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                background-color: darken($color: $bg-color, $amount: 15);
-                border-left: 3px solid lightblue;
-            }
-
-            button {
-                margin: $gap/2;
-                width: 40px;
-                border: 1px solid $theme-color;
-            }
-        }
-    }
-
-    .examinee-actions {
-
-        .time-remain {
-            border: 2px solid $theme-color;
-            border-radius: $gap;
-            margin: $gap 0;
-
-            .time-remain-show {
-                height: 50px;
-
-                .time-countdown {
-                    background-color: transparent !important;
-                    border-color: transparent !important;
-                    outline: none !important;
-                    font-size: 30px;
-                }
-
-                .timeout {
-                    font-size: 20px;
-                }
-
-                >* {
-                    color: red;
-                    font-weight: bold;
-                    text-align: center;
-                    margin-bottom: $gap;
-                }
-            }
-        }
-
-        .submit-test {
-            button {
-                width: 90%;
-                text-transform: uppercase;
-                font-weight: bold;
-            }
         }
     }
 }

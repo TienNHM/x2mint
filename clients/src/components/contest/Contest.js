@@ -14,13 +14,18 @@ import {
     MODAL_ACTION_CONFIRM,
     MODAL_ACTION_CLOSE,
     MODAL_ACTION_RETRY,
-    USER_ID, ACCESS_TOKEN
+    USER_ID, ACCESS_TOKEN, ROLE_CREATOR
 } from 'utils/constants'
+import { HashLoader } from 'react-spinners'
+import { useSelector } from 'react-redux'
 
-function Contest({ isCreator }) {
+function Contest() {
+    const user = useSelector((state) => state.auth.user)
+
+    const urlRequest = user.role === ROLE_CREATOR ? `/contests/creator/${Cookies.get(USER_ID)}` : '/contests'
     const { response, loading, error } = useAxios({
         method: 'GET',
-        url: `/contests/creator/${Cookies.get(USER_ID)}`,
+        url: urlRequest,
         headers: {
             Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
         }
@@ -96,7 +101,7 @@ function Contest({ isCreator }) {
 
     const handleShareContent = (id, title = '', content = '', hashtags = [], source = '') => {
         const url = `${process.env.REACT_APP_DOMAIN}/contest/${id}`
-        
+
         console.log(url)
         const obj = {
             url: url,
@@ -112,7 +117,7 @@ function Contest({ isCreator }) {
     //#endregion
 
     /**
-     * 
+     *
      * @param {*} c contest object
      * @param {*} index used as key for contest
      * @returns Contest card UI
@@ -143,7 +148,7 @@ function Contest({ isCreator }) {
                                 <i className="fa fa-info-circle"></i>
                             </Button>
 
-                            {isCreator &&
+                            {user.role === ROLE_CREATOR &&
                                 <Button
                                     variant="primary" size="sm"
                                     onClick={() => handleAction(c, true)}
@@ -180,7 +185,7 @@ function Contest({ isCreator }) {
                             </div>
                             <div className="heading-contest h4 col-8 col-sm-6">Các cuộc thi</div>
                             <div className="create-contest col-2 col-sm-3 d-flex justify-content-end">
-                                {isCreator &&
+                                {user.role === ROLE_CREATOR &&
                                     <Button variant="success" size="sm"
                                         onClick={() => setIsShowConfirmModal(true)}>
                                         <i className="fa fa-plus"> </i>
@@ -192,7 +197,9 @@ function Contest({ isCreator }) {
 
                         <div className="list-contests d-flex justify-content-center align-items-center">
                             {loading ? (
-                                <div>Loading...</div>
+                                <div className='sweet-loading'>
+                                    <HashLoader color={'#7ED321'} loading={loading} />
+                                </div>
                             ) : (
                                 error ? (
                                     <p>{error.message}</p>
@@ -226,7 +233,7 @@ function Contest({ isCreator }) {
                             setIsShowContestInfo={setIsShowContestInfo}
                             contest={selectedContest}
                             updateContest={setSelectedContest}
-                            isCreator={isCreator}
+                            isCreator={user.role === ROLE_CREATOR}
                         />
                     </div>
                 }

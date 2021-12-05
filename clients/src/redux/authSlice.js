@@ -3,7 +3,6 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
 import {
-    API_ROOT,
     MAX_DAYS_EXPIRE,
     ACCESS_TOKEN, USER_ID
 } from 'utils/constants'
@@ -56,6 +55,7 @@ export const loadUser = createAsyncThunk(
 
             if (accessToken) {
                 setAuthToken(accessToken)
+
                 await axios
                     .get(`${process.env.REACT_APP_API_ROOT}/auths`)
                     .then((res) => {

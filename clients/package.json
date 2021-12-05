@@ -35,6 +35,7 @@
     "react-scripts": "^4.0.3",
     "react-share": "^4.4.0",
     "react-smooth-dnd": "^0.11.1",
+    "react-spinners": "^0.11.0",
     "react-transition-group": "^4.4.2",
     "unsplash-js": "^7.0.15",
     "web-vitals": "^1.0.1",

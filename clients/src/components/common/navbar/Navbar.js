@@ -5,6 +5,7 @@ import { useHistory, NavLink } from 'react-router-dom'
 import { useLayoutEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { logOut } from '../../../redux/authSlice'
+import { ROLE_CREATOR, ROLE_USER } from 'utils/constants'
 function Navbar() {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
     const user = useSelector((state) => state.auth.user)
@@ -25,15 +26,19 @@ function Navbar() {
                         Trang chủ
                     </NavLink>
                 </li>
-                <li className="nav__item">
-                    <NavLink className="nav__link active__link" to="/contest">
-                        Các cuộc thi
-                    </NavLink>
-                </li>
-                {isAuthenticated && user.role === 'creator' && (
+
+                {isAuthenticated && user.role === ROLE_CREATOR && (
                     <li className="nav__item">
                         <NavLink className="nav__link active__link" to="/create">
                             Quản lý cuộc thi
+                        </NavLink>
+                    </li>
+                )}
+
+                {isAuthenticated && user.role === ROLE_USER && (
+                    <li className="nav__item">
+                        <NavLink className="nav__link active__link" to="/contest">
+                            Các cuộc thi
                         </NavLink>
                     </li>
                 )}
@@ -43,11 +48,13 @@ function Navbar() {
                         X2M!NT
                     </NavLink>
                 </li>
+
                 <li className="nav__item">
                     <NavLink className="nav__link active__link" to="/contact">
                         Liên hệ
                     </NavLink>
                 </li>
+
                 {!isAuthenticated && (
                     <>
                         <li className="nav__item">
@@ -58,6 +65,7 @@ function Navbar() {
                                 Đăng nhập
                             </NavLink>
                         </li>
+
                         <li className="nav__item">
                             <NavLink
                                 to="/register"
@@ -68,6 +76,7 @@ function Navbar() {
                         </li>
                     </>
                 )}
+
                 {isAuthenticated && (
                     <>
                         <li className="nav__item">
@@ -78,6 +87,7 @@ function Navbar() {
                                 Trang cá nhân
                             </NavLink>
                         </li>
+
                         <li className="nav__item">
                             <NavLink
                                 to="/"
@@ -97,6 +107,7 @@ function Navbar() {
                     </>
                 )}
             </div>
+
             <div className="nav__btn">
                 <i className="ri-moon-line change-theme" id="theme-button"></i>
                 <div className="nav__toggle" id="nav-toggle">

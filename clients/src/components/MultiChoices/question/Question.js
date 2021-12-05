@@ -3,11 +3,14 @@ import { Button, Form } from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
 import Answer from 'components/MultiChoices/answer/Answer'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
-import { MAX_QUESTION_LENGTH, MODAL_ACTION_CONFIRM } from 'utils/constants'
+import { ACCESS_TOKEN, MAX_QUESTION_LENGTH, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './Question.scss'
+import { useAxios } from 'actions/useAxios'
+import Cookies from 'js-cookie'
+import { HashLoader } from 'react-spinners'
 
 function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
-    const answers = question.answers
+    console.log(question)
     const [embededMedia, setEmbedMedia] = useState('')
     const [isUpdatedEmbedMedia, setIsUpdatedEmbedMedia] = useState(false)
     const [content, setContent] = useState('')
@@ -17,10 +20,12 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
     const [isShowLibrary, setIsShowLibrary] = useState(false)
 
     useEffect(() => {
-        setContent(question.content)
-        setEmbedMedia(question.embededMedia)
-        setQuestionLength(MAX_QUESTION_LENGTH - question.content.length)
-        if (!isCreator) setChooseAnswer([])
+        if (question) {
+            setContent(question.content)
+            setEmbedMedia(question.embededMedia)
+            setQuestionLength(MAX_QUESTION_LENGTH - question.content.length)
+            if (!isCreator) setChooseAnswer([])
+        }
     }, [question])
 
     useEffect(() => {
@@ -43,6 +48,8 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
             setIsUpdatedEmbedMedia(false)
         }
     }, [embededMedia])
+
+    //#region Handle
 
     const handleTextChange = (event) => {
         const value = event.target.value.replace(/\n/g, ' ')
@@ -79,6 +86,8 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
         setEmbedMedia('')
         setIsUpdatedEmbedMedia(true)
     }
+
+    //#endregion
 
     const onConfirmModalAction = (type, photo) => {
         if (photo && type === MODAL_ACTION_CONFIRM) {
@@ -148,12 +157,12 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
             </div>
 
             <div className="question-answers">
-                {answers.map((a, index) =>
+                {question && question.answers.map((a, index) =>
                     <Answer
                         key={index}
                         name={a.name}
                         index={index}
-                        answers={answers}
+                        answers={question.answers}
                         updateAnswers={updateAnswers}
                         onClick={handleOnAnswerClick}
                         disabled={!isCreator}

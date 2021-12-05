@@ -39,7 +39,7 @@ const Register = () => {
             if (data.success) {
                 // Set cookies
                 Cookies.set(ACCESS_TOKEN, data.accessToken, { expires: MAX_DAYS_EXPIRE })
-                Cookies.set(USER_ID, data.user.id, { expires: MAX_DAYS_EXPIRE })
+                Cookies.set(USER_ID, data.user._id, { expires: MAX_DAYS_EXPIRE })
 
                 // Get User Info
                 await dispatch(loadUser(data.accessToken))
