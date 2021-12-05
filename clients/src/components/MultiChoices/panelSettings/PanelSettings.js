@@ -8,7 +8,7 @@ import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
 import './PanelSettings.scss'
 
 function PanelSettings(props) {
-    const { test, setTest, setSelectedQuestion, isCreator, setIsShowTest, setIsSaved } = props
+    const { test, setTest, setSelectedQuestion, isCreator, setIsSaved } = props
     const btnSubmitRef = useRef(null)
     const timeRemainRef = useRef(null)
 
@@ -106,7 +106,6 @@ function PanelSettings(props) {
                 btnSubmitRef.current.disabled = true
                 timeRemainRef.current.stop()
                 setIsShowConfirm(false)
-                // setIsShowTest(false)
                 //TODO Show result page
             }
             else if (action === MODAL_ACTION_CLOSE) {
@@ -116,8 +115,6 @@ function PanelSettings(props) {
         }
         else if (currentAction === 'CONFIRM_EXIT') {
             if (action === MODAL_ACTION_CONFIRM) {
-                // setIsShowTest(false)
-                //TODO Show result page
                 setIsShowConfirm(false)
             }
             else if (action === MODAL_ACTION_CLOSE) {

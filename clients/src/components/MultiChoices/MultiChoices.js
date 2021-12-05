@@ -8,10 +8,12 @@ import './MultiChoices.scss'
 import { useParams } from 'react-router'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
-import { ACCESS_TOKEN } from 'utils/constants'
+import { ACCESS_TOKEN, ROLE_CREATOR } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
+import { loadUser } from 'redux/authSlice'
+import { useSelector } from 'react-redux'
 
-function MultiChoices({ setIsShowTest, _test, updateTest, isCreator }) {
+function MultiChoices() {
     let { testId } = useParams()
     const {
         response: testResponse,
@@ -24,6 +26,9 @@ function MultiChoices({ setIsShowTest, _test, updateTest, isCreator }) {
             Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
         }
     })
+
+    const user = useSelector((state) => state.auth.user)
+
     const [test, setTest] = useState(null)
     const [questions, setQuestions] = useState(null)
     const [selectedQuestion, setSelectedQuestion] = useState(null)
@@ -132,7 +137,7 @@ function MultiChoices({ setIsShowTest, _test, updateTest, isCreator }) {
                 </div>
             ) : (
                 <>
-                    {isCreator &&
+                    {user.role === ROLE_CREATOR &&
                         <PanelPreview
                             test={test}
                             setTest={setTest}
@@ -146,16 +151,15 @@ function MultiChoices({ setIsShowTest, _test, updateTest, isCreator }) {
                     <Question
                         question={selectedQuestion}
                         updateQuestion={updateSelectedQuestion}
-                        isCreator={isCreator | false}
+                        isCreator={user.role === ROLE_CREATOR}
                         updateTakeTest={updateTakeTest}
                     />
 
                     <PanelSettings
                         test={test}
                         setTest={setTest}
-                        isCreator={isCreator | false}
+                        isCreator={user.role === ROLE_CREATOR}
                         setSelectedQuestion={updateSelectedQuestion}
-                        setIsShowTest={setIsShowTest}
                         setIsSaved={setIsSaved}
                     />
                 </>

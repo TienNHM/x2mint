@@ -10,6 +10,7 @@ import Cookies from 'js-cookie'
 import { HashLoader } from 'react-spinners'
 
 function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
+    console.log(question)
     const [embededMedia, setEmbedMedia] = useState('')
     const [isUpdatedEmbedMedia, setIsUpdatedEmbedMedia] = useState(false)
     const [content, setContent] = useState('')
@@ -48,6 +49,8 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
         }
     }, [embededMedia])
 
+    //#region Handle
+
     const handleTextChange = (event) => {
         const value = event.target.value.replace(/\n/g, ' ')
         if (value.length <= MAX_QUESTION_LENGTH) {
@@ -83,6 +86,8 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
         setEmbedMedia('')
         setIsUpdatedEmbedMedia(true)
     }
+
+    //#endregion
 
     const onConfirmModalAction = (type, photo) => {
         if (photo && type === MODAL_ACTION_CONFIRM) {
@@ -152,7 +157,7 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
             </div>
 
             <div className="question-answers">
-                {question.answers.map((a, index) =>
+                {question && question.answers.map((a, index) =>
                     <Answer
                         key={index}
                         name={a.name}
