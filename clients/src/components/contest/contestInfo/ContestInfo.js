@@ -29,18 +29,6 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
         }
     })
 
-    const {
-        response: testsResponse,
-        loading: testsIsLoading,
-        error: testsIsError
-    } = useAxios({
-        method: 'GET',
-        url: `/contests/${contestId}`,
-        headers: {
-            Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
-        }
-    })
-
     const [contest, setContest] = useState(null)
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
@@ -373,7 +361,8 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                                             <>
                                                                 <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
                                                                     disabled={Date.parse(test.endTime) - Date.now() <= 0}
-                                                                    onClick={() => handleTakeTest(test)}
+                                                                    //onClick={() => handleTakeTest(test)}
+                                                                    href={`/test/${test._id}`}
                                                                     size="sm"
                                                                 >
                                                                     <i className="fas fa-pen"></i>

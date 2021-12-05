@@ -5,51 +5,79 @@ import Question from 'components/MultiChoices/question/Question'
 import PanelSettings from 'components/MultiChoices/panelSettings/PanelSettings'
 import { emptyTest, emptyTakeTest } from 'actions/initialData'
 import './MultiChoices.scss'
+import { useParams } from 'react-router'
+import { useAxios } from 'actions/useAxios'
+import Cookies from 'js-cookie'
+import { ACCESS_TOKEN } from 'utils/constants'
+import { HashLoader } from 'react-spinners'
 
-function MultiChoices({ setIsShowTest, test, updateTest, isCreator }) {
-    console.log(test)
-    const [currentTest, setCurrentTest] = useState(test)
-    const q = mapOrder(test.questions, test.questions_order, 'id')
-    const [questions, setQuestions] = useState(q)
-    const [selectedQuestion, setSelectedQuestion] = useState(q[0])
+function MultiChoices({ setIsShowTest, _test, updateTest, isCreator }) {
+    let { testId } = useParams()
+    const {
+        response: testResponse,
+        loading: testIsLoading,
+        error: testIsError
+    } = useAxios({
+        method: 'GET',
+        url: `/tests/${testId}`,
+        headers: {
+            Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+        }
+    })
+    const [test, setTest] = useState(null)
+    const [questions, setQuestions] = useState(null)
+    const [selectedQuestion, setSelectedQuestion] = useState(null)
     const [isLoadedSelectedQuestion, setIsLoadedSelectedQuestion] = useState(false)
     const [isSaved, setIsSaved] = useState(true)
     const [takeTest, setTakeTest] = useState({ ...emptyTakeTest })
 
-    // Load data
     useEffect(() => {
-        const questionsFromDB = test.questions
-        if (test) {
-            setCurrentTest(test)
+        if (testResponse) {
+            console.log('response', testResponse)
+            const t = testResponse.data
+            setTest(t)
+            console.log('test', t)
 
-            // thứ tự tuân theo thuộc tính questions_order
-            const q = mapOrder(questionsFromDB, test.questions_order, 'id')
+            const q = mapOrder(t.questions, t.questionsOrder, 'id')
             setQuestions(q)
-            setSelectedQuestion(q[0])
-        }
-        else {
-            const newTest = { ...emptyTest, id: 'test-1' }
 
-            setCurrentTest(newTest)
-            setQuestions(newTest.questions)
-            setSelectedQuestion(selectedQuestion | newTest.questions[0])
+            setSelectedQuestion(selectedQuestion ? selectedQuestion : t.questions[0])
         }
-        setIsLoadedSelectedQuestion(true)
-    }, [test])
+    }, [testResponse])
+
+    // Load data
+    // useEffect(() => {
+    //     const questionsFromDB = test.questions
+    //     if (test) {
+    //         setCurrentTest(test)
+
+    //         // thứ tự tuân theo thuộc tính questionsOrder
+    //         const q = mapOrder(questionsFromDB, test.questionsOrder, 'id')
+    //         setQuestions(q)
+    //         setSelectedQuestion(q[0])
+    //     }
+    //     else {
+    //         const newTest = { ...emptyTest, id: 'test-1' }
+
+    //         setCurrentTest(newTest)
+    //         setQuestions(newTest.questions)
+    //         setSelectedQuestion(selectedQuestion | newTest.questions[0])
+    //     }
+    //     setIsLoadedSelectedQuestion(true)
+    // }, [test])
+
+    // useEffect(() => {
+    //     console.log('Current Test: ', test)
+    //     if (!isSaved) {
+    //         setIsSaved(true)
+    //         updateTest({ ...test })
+    //     }
+    // }, [test])
 
     useEffect(() => {
-        console.log('Current Test: ', currentTest)
-        if (!isSaved) {
-            setIsSaved(true)
-            test = { ...currentTest }
-            updateTest({ ...currentTest })
-        }
-    }, [currentTest])
-
-    useEffect(() => {
-        const newTest = { ...currentTest }
+        const newTest = { ...test }
         newTest.questions = questions
-        setCurrentTest(newTest)
+        setTest(newTest)
     }, [questions])
 
     useEffect(() => {
@@ -70,54 +98,64 @@ function MultiChoices({ setIsShowTest, test, updateTest, isCreator }) {
     const updateTakeTest = (question, chooseAnswer) => {
         //Nếu ko phải creator thì update lại takeTest
         console.log(question)
-        const newTakeTest = { ...takeTest }
-        const choose = {
-            questionId: question.id,
-            answers: [...chooseAnswer],
-            correctAnswers: question.correct_answers,
-            maxPoints: question.maxPoints
-        }
-        if (newTakeTest.chooseAnswers.length > 0) {
-            const index = newTakeTest.chooseAnswers.findIndex(e => e.questionId === question.id)
-            if (index !== -1) {
-                newTakeTest.chooseAnswers[index] = choose
-            }
-            else newTakeTest.chooseAnswers.push(choose)
-        }
-        else newTakeTest.chooseAnswers = [choose]
+        // const newTakeTest = { ...takeTest }
+        // const choose = {
+        //     questionId: question.id,
+        //     answers: [...chooseAnswer],
+        //     correctAnswers: question.correct_answers,
+        //     maxPoints: question.maxPoints
+        // }
+        // if (newTakeTest.chooseAnswers.length > 0) {
+        //     const index = newTakeTest.chooseAnswers.findIndex(e => e.questionId === question.id)
+        //     if (index !== -1) {
+        //         newTakeTest.chooseAnswers[index] = choose
+        //     }
+        //     else newTakeTest.chooseAnswers.push(choose)
+        // }
+        // else newTakeTest.chooseAnswers = [choose]
 
-        setTakeTest(newTakeTest)
-        console.log('New take test', newTakeTest)
+        // setTakeTest(newTakeTest)
+        // console.log('New take test', newTakeTest)
     }
 
     return (
         <div className="app-container">
-            {isCreator &&
-                <PanelPreview
-                    test={currentTest}
-                    setTest={setCurrentTest}
-                    questions={questions}
-                    setQuestions={setQuestions}
-                    selectedQuestion={selectedQuestion}
-                    setSelectedQuestion={setSelectedQuestion}
-                />
+            {testIsLoading &&
+                <div className='sweet-loading'>
+                    <HashLoader color={'#7ED321'} loading={testIsLoading} />
+                </div>
             }
 
-            <Question
-                question={selectedQuestion}
-                updateQuestion={updateSelectedQuestion}
-                isCreator={isCreator | false}
-                updateTakeTest={updateTakeTest}
-            />
+            {!testIsLoading &&
+                <>
+                    {isCreator &&
+                        <PanelPreview
+                            test={test}
+                            setTest={setTest}
+                            questions={questions}
+                            setQuestions={setQuestions}
+                            selectedQuestion={selectedQuestion}
+                            setSelectedQuestion={setSelectedQuestion}
+                        />
+                    }
 
-            <PanelSettings
-                test={currentTest}
-                setTest={setCurrentTest}
-                isCreator={isCreator | false}
-                setSelectedQuestion={updateSelectedQuestion}
-                setIsShowTest={setIsShowTest}
-                setIsSaved={setIsSaved}
-            />
+                    <Question
+                        questionId={selectedQuestion}
+                        updateQuestion={updateSelectedQuestion}
+                        isCreator={isCreator | false}
+                        updateTakeTest={updateTakeTest}
+                    />
+
+                    <PanelSettings
+                        test={test}
+                        setTest={setTest}
+                        isCreator={isCreator | false}
+                        setSelectedQuestion={updateSelectedQuestion}
+                        setIsShowTest={setIsShowTest}
+                        setIsSaved={setIsSaved}
+                    />
+                </>
+            }
         </div>
     )
 }
