@@ -8,7 +8,7 @@ function Homepage() {
         <>
             <section className="homepage" id="homepage">
                 <div className="home__left">
-                    <img className="homepage__pic" src="home_pic.svg"></img>
+                    <img className="homepage__pic" src="assets/home_pic.svg"></img>
                 </div>
                 <div className="home__right">
                     <div>

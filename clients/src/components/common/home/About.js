@@ -12,12 +12,12 @@ function About() {
                 </p>
                 <div className="about__contest" id="about-contest">
                     <div className="left">
-                        <img className="create__pic" src="create.svg"></img>
+                        <img className="create__pic" src="assets/create.svg"></img>
                         <p id="create">TẠO BÀI KIỂM TRA</p>
                         <button className="nav__btn__signup">Thử ngay</button>
                     </div>
                     <div className="right">
-                        <img className="test__pic" src="contest.svg"></img>
+                        <img className="test__pic" src="assets/contest.svg"></img>
                         <p id="create">DỰ THI</p>
                         <button className="nav__btn__signup">Làm bài ngay !</button>
                     </div>

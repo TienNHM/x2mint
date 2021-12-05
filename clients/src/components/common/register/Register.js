@@ -138,7 +138,7 @@ const Register = () => {
                 </div>
                 <div className="register__right">
                     <h1 className="form__title">Đăng ký tài khoản</h1>
-                    <img className="auth__pic" src="auth.svg"></img>
+                    <img className="auth__pic" src="assets/auth.svg"></img>
                 </div>
             </section>
         </div>
