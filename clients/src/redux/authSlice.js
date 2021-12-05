@@ -55,6 +55,7 @@ export const loadUser = createAsyncThunk(
 
             if (accessToken) {
                 setAuthToken(accessToken)
+
                 await axios
                     .get(`${process.env.REACT_APP_API_ROOT}/auths`)
                     .then((res) => {
