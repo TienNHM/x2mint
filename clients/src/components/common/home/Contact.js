@@ -4,7 +4,7 @@ function About() {
     return (
         <>
             <section className="profile" id="contact">
-                <div className="card-info">
+                <div className="card-info ">
                     <div className="card__img">
                         <img id="avatar" src="./img/hoang.jpg" alt="" />
                     </div>
@@ -23,7 +23,8 @@ function About() {
                     </div>
                     <button className="btn__contact__me">Contact me</button>
                 </div>
-                <div className="card-info">
+
+                <div className="card-info ">
                     <div className="card__img">
                         <img id="avatar" src="./img/thien.jpg" alt="" />
                     </div>
@@ -42,7 +43,8 @@ function About() {
                     </div>
                     <button className="btn__contact__me">Contact me</button>
                 </div>
-                <div className="card-info">
+
+                <div className="card-info ">
                     <div className="card__img">
                         <img id="avatar" src="./img/tien.jpg" alt="" />
                     </div>
@@ -61,7 +63,8 @@ function About() {
                     </div>
                     <button className="btn__contact__me">Contact me</button>
                 </div>
-                <div className="card-info">
+
+                <div className="card-info ">
                     <div className="card__img">
                         <img id="avatar" src="./img/yen.jpg" alt="" />
                     </div>
