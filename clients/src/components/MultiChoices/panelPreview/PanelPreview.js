@@ -23,7 +23,7 @@ function PanelPreview(props) {
 
         // Tạo bản sao
         const newTest = cloneDeep(test)
-        newTest.questions_order = newQuestions.map(q => q.id)
+        newTest.questionsOrder = newQuestions.map(q => q.id)
         newTest.questions = newQuestions
         setQuestions(newQuestions)
         setTest(newTest)
@@ -35,14 +35,14 @@ function PanelPreview(props) {
         quiz.id = 'question-' + (questionsList.length + 1)
         setSelectedQuestion(quiz)
         questionsList.push(quiz)
-        const questions_order = test.questions.map(q => q.id)
-        questions_order.push(quiz.id)
-        questionsList.questions_order = questions_order
+        const questionsOrder = test.questions.map(q => q.id)
+        questionsOrder.push(quiz.id)
+        questionsList.questionsOrder = questionsOrder
         setQuestions(questionsList)
 
         const newTest = { ...test }
         newTest.questions = questionsList
-        newTest.questions_order = newTest.questions.map(q => q.id)
+        newTest.questionsOrder = newTest.questions.map(q => q.id)
         setTest(newTest)
         console.log('newTest', newTest)
     }
