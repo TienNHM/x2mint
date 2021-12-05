@@ -12,6 +12,7 @@ import './ContestInfo.scss'
 import Cookies from 'js-cookie'
 import { useAxios } from 'actions/useAxios'
 import { useParams } from 'react-router'
+import { HashLoader } from 'react-spinners'
 
 export default function ContestInfo({ setIsShowContestInfo, _contest, updateContest, isCreator }) {
     // Load Contest information
@@ -205,8 +206,15 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                     </div>
 
                     {/* <!-- ContestInfo container --> */}
+                    {contestIsLoading &&
+                        <div className='loading d-flex align-items-center justify-content-center'>
+                            <HashLoader
+                                color={'#7ED321'}
+                                loading={contestIsLoading}
+                            />
+                        </div>
+                    }
 
-                    {contestIsLoading && <div>Loading...</div>}
                     {!contestIsLoading &&
                         <div className="container-section">
                             <div className="contest-show-info">
@@ -286,6 +294,7 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                     </Card.Body>
                                 </Card>
                             </div>
+
                             <div className="list-tests">
                                 <Card border="secondary">
                                     <Card.Header className="row h5">
@@ -297,6 +306,7 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                         </div>
                                     </Card.Header>
                                     <hr />
+
                                     <div className="show-all-tests">
                                         {contest.tests.map((test, index) =>
                                             <Card.Body key={index} className="row">
@@ -304,9 +314,11 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                                     <div className="card-test-index col-md-1 col-sm-12">
                                                         <div className="test-index d-flex justify-content-center align-middle">{index + 1}</div>
                                                     </div>
+
                                                     <div className="card-test-info col-md-10 col-sm-12 pt-3 pb-3">
                                                         <div className="card-test-title h5">{test.name}</div>
                                                         <div className="card-test-description m-3">{test.description}</div>
+
                                                         <hr style={
                                                             {
                                                                 width: '50%',
@@ -314,11 +326,13 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                                                 margin: '12px auto'
                                                             }
                                                         } />
+
                                                         <div className="detail row">
                                                             <div className="start-time col-md-4 col-12">
                                                                 <div className="fw-bolder">Thời gian bắt đầu: </div>
                                                                 <div>{test.startTime}</div>
                                                             </div>
+
                                                             <div className="duration col-md-4 col-12">
                                                                 <div className="fw-bolder">Thời lượng làm bài: </div>
                                                                 <div>{displayTimeDelta(test.startTime, test.endTime)}</div>
@@ -329,13 +343,15 @@ export default function ContestInfo({ setIsShowContestInfo, _contest, updateCont
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div className="card-test-actions col-md-1 col-sm-12  pt-3 pb-3">
                                                         <Button variant="info" size="sm"
                                                             onClick={() => handleShareContent(test.url, test.name, test.description)}
                                                             className="fw-bolder text-light"
                                                         >
                                                             <i className="fa fa-share"></i>
-                                                        </Button>{' '}
+                                                        </Button>
+
                                                         {isCreator &&
                                                             <>
                                                                 <Button variant="warning" size="sm"
