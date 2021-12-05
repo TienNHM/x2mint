@@ -12,6 +12,7 @@ import { ACCESS_TOKEN, ROLE_CREATOR } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
 import { loadUser } from 'redux/authSlice'
 import { useSelector } from 'react-redux'
+import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
 
 function MultiChoices() {
     let { testId } = useParams()
@@ -137,15 +138,23 @@ function MultiChoices() {
                 </div>
             ) : (
                 <>
-                    {user.role === ROLE_CREATOR &&
-                        <PanelPreview
-                            test={test}
-                            setTest={setTest}
-                            questions={questions}
-                            setQuestions={setQuestions}
-                            selectedQuestion={selectedQuestion}
-                            setSelectedQuestion={setSelectedQuestion}
-                        />
+                    {user.role === ROLE_CREATOR ?
+                        (
+                            <PanelPreview
+                                test={test}
+                                setTest={setTest}
+                                questions={questions}
+                                setQuestions={setQuestions}
+                                selectedQuestion={selectedQuestion}
+                                setSelectedQuestion={setSelectedQuestion}
+                            />
+                        ) : (
+                            <PanelQuestionPicker
+                                test={test}
+                                selectedQuestion={selectedQuestion}
+                                setSelectedQuestion={setSelectedQuestion}
+                            />
+                        )
                     }
 
                     <Question

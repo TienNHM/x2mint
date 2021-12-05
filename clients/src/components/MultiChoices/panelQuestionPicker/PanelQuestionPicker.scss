@@ -1,0 +1,100 @@
+@import '_setting.scss';
+
+.take-test {
+    width: 23vw;
+    padding: 10px;
+    background-color: $bg-color;
+    font-size: 0px;
+
+    .section-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        margin: $gap/2 0;
+    }
+    
+    .question-picker {
+        background-color: rgba(217, 233, 207, 0.548);
+        border-radius: $gap;
+        height: 70vh;
+        padding: $gap/2;
+        border: 2px solid $theme-color;
+
+        &::-webkit-scrollbar {
+            -webkit-appearance: none;
+        }
+
+        &::-webkit-scrollbar:vertical {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: lighten($color: $theme-color, $amount: 5);
+            border-radius: $gap;
+        }
+
+        .btn-question {
+            overflow-y: auto;
+            height: 90%;
+            overflow-x: hidden;
+
+            &::-webkit-scrollbar {
+                -webkit-appearance: none;
+            }
+
+            &::-webkit-scrollbar:vertical {
+                width: 8px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: lighten($color: $theme-color, $amount: 5);
+                border-radius: $gap;
+            }
+
+            button {
+                margin: $gap/2;
+                width: 40px;
+                border: 1px solid $theme-color;
+            }
+        }
+    }
+
+    .examinee-actions {
+
+        .time-remain {
+            border: 2px solid $theme-color;
+            border-radius: $gap;
+            margin: $gap 0;
+
+            .time-remain-show {
+                height: 55px;
+
+                .time-countdown {
+                    background-color: transparent !important;
+                    border-color: transparent !important;
+                    outline: none !important;
+                    font-size: 30px;
+                }
+
+                .timeout {
+                    font-size: 20px;
+                }
+
+                >* {
+                    color: red;
+                    font-weight: bold;
+                    text-align: center;
+                    margin-bottom: $gap;
+                }
+            }
+        }
+
+        .submit-test {
+            button {
+                width: 90%;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+        }
+    }
+}
