@@ -40,8 +40,7 @@ function MultiChoices({ setIsShowTest, _test, updateTest, isCreator }) {
 
             const q = mapOrder(t.questions, t.questionsOrder, 'id')
             setQuestions(q)
-
-            setSelectedQuestion(selectedQuestion ? selectedQuestion : t.questions[0])
+            setSelectedQuestion(selectedQuestion ? selectedQuestion : q[0])
         }
     }, [testResponse])
 
@@ -98,35 +97,40 @@ function MultiChoices({ setIsShowTest, _test, updateTest, isCreator }) {
     const updateTakeTest = (question, chooseAnswer) => {
         //Nếu ko phải creator thì update lại takeTest
         console.log(question)
-        // const newTakeTest = { ...takeTest }
-        // const choose = {
-        //     questionId: question.id,
-        //     answers: [...chooseAnswer],
-        //     correctAnswers: question.correct_answers,
-        //     maxPoints: question.maxPoints
-        // }
-        // if (newTakeTest.chooseAnswers.length > 0) {
-        //     const index = newTakeTest.chooseAnswers.findIndex(e => e.questionId === question.id)
-        //     if (index !== -1) {
-        //         newTakeTest.chooseAnswers[index] = choose
-        //     }
-        //     else newTakeTest.chooseAnswers.push(choose)
-        // }
-        // else newTakeTest.chooseAnswers = [choose]
+        const newTakeTest = { ...takeTest }
+        const choose = {
+            questionId: question._id,
+            answers: [...chooseAnswer],
+            correctAnswers: question.correct_answers,
+            maxPoints: question.maxPoints
+        }
+        if (newTakeTest.chooseAnswers.length > 0) {
+            const index = newTakeTest.chooseAnswers.findIndex(e => e.questionId === question.id)
+            if (index !== -1) {
+                newTakeTest.chooseAnswers[index] = choose
+            }
+            else newTakeTest.chooseAnswers.push(choose)
+        }
+        else newTakeTest.chooseAnswers = [choose]
 
-        // setTakeTest(newTakeTest)
-        // console.log('New take test', newTakeTest)
+        setTakeTest(newTakeTest)
+        console.log('New take test', newTakeTest)
     }
 
     return (
         <div className="app-container">
-            {testIsLoading &&
-                <div className='sweet-loading'>
+            {testIsLoading ? (
+                <div style={{
+                    width: '100%',
+                    height: '100%',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0
+                }}
+                    className='sweet-loading d-flex justify-content-center align-items-center'>
                     <HashLoader color={'#7ED321'} loading={testIsLoading} />
                 </div>
-            }
-
-            {!testIsLoading &&
+            ) : (
                 <>
                     {isCreator &&
                         <PanelPreview
@@ -140,7 +144,7 @@ function MultiChoices({ setIsShowTest, _test, updateTest, isCreator }) {
                     }
 
                     <Question
-                        questionId={selectedQuestion}
+                        question={selectedQuestion}
                         updateQuestion={updateSelectedQuestion}
                         isCreator={isCreator | false}
                         updateTakeTest={updateTakeTest}
@@ -155,6 +159,7 @@ function MultiChoices({ setIsShowTest, _test, updateTest, isCreator }) {
                         setIsSaved={setIsSaved}
                     />
                 </>
+            )
             }
         </div>
     )

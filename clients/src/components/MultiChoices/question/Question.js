@@ -9,20 +9,7 @@ import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
 import { HashLoader } from 'react-spinners'
 
-function Question({ questionId, updateQuestion, isCreator, updateTakeTest }) {
-    const {
-        response: questionResponse,
-        loading: questionIsLoading,
-        error: questionIsError
-    } = useAxios({
-        method: 'GET',
-        url: `/questions/${questionId}`,
-        headers: {
-            Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
-        }
-    })
-
-    const [question, setQuestion] = useState(null)
+function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
     const [embededMedia, setEmbedMedia] = useState('')
     const [isUpdatedEmbedMedia, setIsUpdatedEmbedMedia] = useState(false)
     const [content, setContent] = useState('')
@@ -32,18 +19,13 @@ function Question({ questionId, updateQuestion, isCreator, updateTakeTest }) {
     const [isShowLibrary, setIsShowLibrary] = useState(false)
 
     useEffect(() => {
-        if (questionResponse) {
-            console.log('response', questionResponse)
-            setQuestion(questionResponse.data)
+        if (question) {
+            setContent(question.content)
+            setEmbedMedia(question.embededMedia)
+            setQuestionLength(MAX_QUESTION_LENGTH - question.content.length)
+            if (!isCreator) setChooseAnswer([])
         }
-    }, [questionResponse])
-
-    // useEffect(() => {
-    //     setContent(question.content)
-    //     setEmbedMedia(question.embededMedia)
-    //     setQuestionLength(MAX_QUESTION_LENGTH - question.content.length)
-    //     if (!isCreator) setChooseAnswer([])
-    // }, [question])
+    }, [question])
 
     useEffect(() => {
         if (isCreator) {
@@ -122,78 +104,68 @@ function Question({ questionId, updateQuestion, isCreator, updateTakeTest }) {
     }
 
     return (
-        <>
-            {questionIsLoading && (
-                <div className='sweet-loading'>
-                    <HashLoader color={'#7ED321'} loading={questionIsLoading} />
+        <div className="panel-center">
+            <div className="question">
+                <div className="question-content  align-items-center">
+                    <Form.Control
+                        size="sm"
+                        as="textarea"
+                        rows={rows}
+                        placeholder="Nhập nội dung câu hỏi..."
+                        className="textarea-enter"
+                        value={content}
+                        onChange={handleTextChange}
+                        onBlur={handleQuestionContentBlur}
+                        disabled={!isCreator}
+                    />
                 </div>
-            )}
+                <div className="lenght-limit">{questionLength}</div>
+            </div>
 
-            {!questionIsLoading &&
-                <div className="panel-center">
-                    <div className="question">
-                        <div className="question-content  align-items-center">
-                            <Form.Control
-                                size="sm"
-                                as="textarea"
-                                rows={rows}
-                                placeholder="Nhập nội dung câu hỏi..."
-                                className="textarea-enter"
-                                value={content}
-                                onChange={handleTextChange}
-                                onBlur={handleQuestionContentBlur}
-                                disabled={!isCreator}
-                            />
-                        </div>
-                        <div className="lenght-limit">{questionLength}</div>
-                    </div>
-
-                    <div className="embeded row">
-                        <div className="col-1 d-flex align-items-end justify-content-start">
-                            {isCreator &&
-                                <Button variant="warning"
-                                    className="fw-bolder text-light"
-                                    onClick={toggleShowLibrary}
-                                >
-                                    <i className="fa fa-edit"></i>
-                                </Button>
-                            }
-                        </div>
-
-                        <div className="question-embed col-10">
-                            {embededMedia.length > 0 && <Image src={embededMedia} />}
-                            {embededMedia.length <= 0 && <Image src="https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png" alt="Nothing" />}
-                        </div>
-
-                        <div className="col-1 d-flex align-items-end justify-content-end">
-                            {isCreator &&
-                                <Button variant="danger"
-                                    className="fw-bolder text-light"
-                                    onClick={handleOnRemoveClick}
-                                >
-                                    <i className="fa fa-remove"></i>
-                                </Button>
-                            }
-                        </div>
-                    </div>
-
-                    <div className="question-answers">
-                        {question.answers.map((a, index) =>
-                            <Answer
-                                key={index}
-                                name={a.name}
-                                index={index}
-                                answers={question.answers}
-                                updateAnswers={updateAnswers}
-                                onClick={handleOnAnswerClick}
-                                disabled={!isCreator}
-                            />)
-                        }
-                    </div>
-                    <BrowseLibrary show={isShowLibrary} onAction={onConfirmModalAction} />
+            <div className="embeded row">
+                <div className="col-1 d-flex align-items-end justify-content-start">
+                    {isCreator &&
+                        <Button variant="warning"
+                            className="fw-bolder text-light"
+                            onClick={toggleShowLibrary}
+                        >
+                            <i className="fa fa-edit"></i>
+                        </Button>
+                    }
                 </div>
-            }
-        </>
+
+                <div className="question-embed col-10">
+                    {embededMedia.length > 0 && <Image src={embededMedia} />}
+                    {embededMedia.length <= 0 && <Image src="https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png" alt="Nothing" />}
+                </div>
+
+                <div className="col-1 d-flex align-items-end justify-content-end">
+                    {isCreator &&
+                        <Button variant="danger"
+                            className="fw-bolder text-light"
+                            onClick={handleOnRemoveClick}
+                        >
+                            <i className="fa fa-remove"></i>
+                        </Button>
+                    }
+                </div>
+            </div>
+
+            <div className="question-answers">
+                {question.answers.map((a, index) =>
+                    <Answer
+                        key={index}
+                        name={a.name}
+                        index={index}
+                        answers={question.answers}
+                        updateAnswers={updateAnswers}
+                        onClick={handleOnAnswerClick}
+                        disabled={!isCreator}
+                    />)
+                }
+            </div>
+            <BrowseLibrary show={isShowLibrary} onAction={onConfirmModalAction} />
+        </div>
     )
 }
 
