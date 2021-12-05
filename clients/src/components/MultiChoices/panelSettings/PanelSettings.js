@@ -106,7 +106,8 @@ function PanelSettings(props) {
                 btnSubmitRef.current.disabled = true
                 timeRemainRef.current.stop()
                 setIsShowConfirm(false)
-                setIsShowTest(false)
+                // setIsShowTest(false)
+                //TODO Show result page
             }
             else if (action === MODAL_ACTION_CLOSE) {
                 timeRemainRef.current.start()
@@ -115,7 +116,8 @@ function PanelSettings(props) {
         }
         else if (currentAction === 'CONFIRM_EXIT') {
             if (action === MODAL_ACTION_CONFIRM) {
-                setIsShowTest(false)
+                // setIsShowTest(false)
+                //TODO Show result page
                 setIsShowConfirm(false)
             }
             else if (action === MODAL_ACTION_CLOSE) {
@@ -248,7 +250,7 @@ function PanelSettings(props) {
                             {test.questions.map((q, index) =>
                                 //TODO kiểm tra xem đã chọn đáp án cho câu hỏi này chưa để render màu tương ứng
                                 <Button key={index} variant={'light'}
-                                    onClick={() => setSelectedQuestion({ ...q }, isCreator)}
+                                    onClick={() => setSelectedQuestion(q, isCreator)}
                                 >
                                     {index + 1}
                                 </Button>
