@@ -80,7 +80,7 @@ const Login = () => {
                 Đăng nhập
             </h1>
             <Form className="form__body" onSubmit={login}>
-                <img className="auth__pic" src="auth.svg"></img>
+                <img className="auth__pic" src="assets/auth.svg"></img>
                 <div className="info__area">
                     <div className="input">
                         <input
@@ -113,7 +113,7 @@ const Login = () => {
                         className="button__login-gg"
                         onClick={() => navigate('/login-gg', { replace: true })}
                     >
-                        <img src="google_32.png"></img>Đăng nhập bằng Google
+                        <img src="assets/icons/google_32.png"></img>Đăng nhập bằng Google
                     </button>
                     <br />
                     <button
