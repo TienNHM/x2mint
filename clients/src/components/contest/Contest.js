@@ -16,6 +16,7 @@ import {
     MODAL_ACTION_RETRY,
     USER_ID, ACCESS_TOKEN
 } from 'utils/constants'
+import { HashLoader } from 'react-spinners'
 
 function Contest({ isCreator }) {
     const { response, loading, error } = useAxios({
@@ -96,7 +97,7 @@ function Contest({ isCreator }) {
 
     const handleShareContent = (id, title = '', content = '', hashtags = [], source = '') => {
         const url = `${process.env.REACT_APP_DOMAIN}/contest/${id}`
-        
+
         console.log(url)
         const obj = {
             url: url,
@@ -112,7 +113,7 @@ function Contest({ isCreator }) {
     //#endregion
 
     /**
-     * 
+     *
      * @param {*} c contest object
      * @param {*} index used as key for contest
      * @returns Contest card UI
@@ -192,7 +193,9 @@ function Contest({ isCreator }) {
 
                         <div className="list-contests d-flex justify-content-center align-items-center">
                             {loading ? (
-                                <div>Loading...</div>
+                                <div className='sweet-loading'>
+                                    <HashLoader color={'#7ED321'} loading={loading}/>
+                                </div>
                             ) : (
                                 error ? (
                                     <p>{error.message}</p>
