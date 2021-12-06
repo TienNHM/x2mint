@@ -6312,7 +6312,6 @@ export const blankContest = {
 
 export const emptyTakeTest = {
     status: '',
-    points: 0,
     submitTime: '',
     chooseAnswers: [],
     questionsOrder: [],

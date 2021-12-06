@@ -5,10 +5,10 @@ import { MODAL_ACTION_CLOSE, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './PanelQuestionPicker.scss'
 import SubmitResult from 'components/MultiChoices/submitResult/SubmitResult'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
+import { createTakeTest } from 'actions/api/TakeTest'
 
 export default function PanelQuestionPicker(props) {
     const { test, selectedQuestion, setSelectedQuestion, takeTest, setIsSubmitted } = props
-    const [isShowSubmitPage, setIsShowSubmitPage] = useState(false)
 
     const btnSubmitRef = useRef(null)
     const timeRemainRef = useRef(null)
@@ -18,12 +18,15 @@ export default function PanelQuestionPicker(props) {
     const contentToShow = 'Bạn có muốn xác nhận việc nộp bài?<br /><strong>Lưu ý, sau khi xác nhận, bạn không thể chỉnh sửa câu trả lời.</strong>'
 
     //#region  Submit
-    const handleConfirmSubmit = (action) => {
+    const handleConfirmSubmit = async (action) => {
         if (action === MODAL_ACTION_CONFIRM) {
             btnSubmitRef.current.disabled = true
             timeRemainRef.current.stop()
             setIsShowConfirm(false)
-            setIsShowSubmitPage(true)
+            const data = await createTakeTest(takeTest)
+            console.log(data)
+            takeTest.id = data.takeTestId
+            setIsSubmitted(true)
         }
         else if (action === MODAL_ACTION_CLOSE) {
             timeRemainRef.current.start()
@@ -31,9 +34,6 @@ export default function PanelQuestionPicker(props) {
         }
     }
 
-    const onActionSubmit = (action) => {
-        setIsShowSubmitPage(false)
-    }
     //#endregion
 
     //#region Coundown
@@ -44,8 +44,7 @@ export default function PanelQuestionPicker(props) {
         const s = ('' + seconds).length < 2 ? ('0' + seconds) : ('' + seconds)
         if (completed) {
             // Render a completed state
-            setIsShowSubmitPage(true)
-            setIsSubmitted(true)
+            handleConfirmSubmit(MODAL_ACTION_CONFIRM)
             return <Completionist />
         } else {
             // Render a countdown
@@ -103,11 +102,6 @@ export default function PanelQuestionPicker(props) {
                     content={contentToShow}
                     isShow={isShowConfirm}
                     onAction={handleConfirmSubmit}
-                />
-                <SubmitResult
-                    takeTest={takeTest}
-                    isShow={isShowSubmitPage}
-                    onAction={onActionSubmit}
                 />
             </div>
         </div>

@@ -11,10 +11,13 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
     const [isChecked, setIsChecked] = useState(false)
 
     useEffect(() => {
-        const value = answers[index].content
-        setContent(value)
-        setAnswerLength(MAX_ANSWER_LENGTH - value.length)
-        setIsChecked(false)
+        if (answers) {
+
+            const value = answers[index].content
+            setContent(value)
+            setAnswerLength(MAX_ANSWER_LENGTH - value.length)
+            setIsChecked(false)
+        }
     }, [answers, index])
 
     const handleTextChange = (event) => {
