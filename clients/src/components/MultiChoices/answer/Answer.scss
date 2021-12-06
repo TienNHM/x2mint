@@ -16,7 +16,7 @@ $btn-check-size: 2rem;
         justify-content: left !important;
         text-align: left;
         background-color: $answer-background-color;
-        margin: $gap;
+        margin: $gap/2;
 
         >* {
             display: flex;
@@ -47,6 +47,7 @@ $btn-check-size: 2rem;
         .answer-checkbox {
             width: 10%;
             align-items: center;
+            margin: 0 $gap 0 $gap;
 
             .lenght-limit {
                 font-size: 12px;

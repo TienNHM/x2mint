@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Container, Draggable } from 'react-smooth-dnd'
 import { cloneDeep, isEmpty } from 'lodash'
 import { Button } from 'react-bootstrap'
-import QuestionItemPreview from 'components/MultiChoices/questionItemPreview/QuestionItemPreview'
 import { applyDrag } from 'utils/dragDrop'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { MODAL_ACTION_CONFIRM } from 'utils/constants'
@@ -32,11 +31,11 @@ function PanelPreview(props) {
     const handleOnAddQuestion = () => {
         let questionsList = [...questions]
         const quiz = cloneDeep(emptyQuestion)
-        quiz.id = 'question-' + (questionsList.length + 1)
+        quiz._id = 'question-' + (questionsList.length + 1)
         setSelectedQuestion(quiz)
         questionsList.push(quiz)
         const questionsOrder = test.questions.map(q => q.id)
-        questionsOrder.push(quiz.id)
+        questionsOrder.push(quiz._id)
         questionsList.questionsOrder = questionsOrder
         setQuestions(questionsList)
 
@@ -44,7 +43,6 @@ function PanelPreview(props) {
         newTest.questions = questionsList
         newTest.questionsOrder = newTest.questions.map(q => q.id)
         setTest(newTest)
-        console.log('newTest', newTest)
     }
 
     const [isShow, setIsShow] = useState(false)
@@ -90,19 +88,30 @@ function PanelPreview(props) {
                         dropPlaceholderAnimationDuration={200}
                     >
                         {questions.map((q, index) => (
-                            <Draggable key={q.id}>
-                                <QuestionItemPreview
-                                    question={q}
-                                    index={index}
-                                    isSelected={q === selectedQuestion}
-                                    setSelectedQuestion={setSelectedQuestion}
-                                />
+                            <Draggable key={q._id}>
+                                <div className="question-item-preview">
+                                    <div className="question-number">{index + 1}</div>
+                                    <div
+                                        className={
+                                            q._id === selectedQuestion._id ? 'rv-content q-selected' : 'rv-content'
+                                        }
+                                        onClick={() => setSelectedQuestion({ ...q })}
+                                    >
+                                        {q.content.split(' ').slice(0, 12).join(' ')}
+                                    </div>
+                                </div>
                             </Draggable>
                         ))}
                     </Container>
                 }
-                {isEmpty(test) && <div className="not-found align-items-center">Please add more questions!</div>}
+
+                {isEmpty(test) &&
+                    <div className="not-found align-items-center">
+                        Vui lòng thêm câu hỏi mới!
+                    </div>
+                }
             </div>
+
             <div className="question-actions">
                 <Button
                     variant="primary"
@@ -111,6 +120,7 @@ function PanelPreview(props) {
                 </Button>{' '}
                 <Button variant="danger" onClick={handleOnDeleteQuestion}>Xóa</Button>{' '}
             </div>
+
             <ConfirmModal
                 content='Bạn có thực sự muốn xóa câu hỏi này không?'
                 isShow={isShow}

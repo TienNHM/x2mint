@@ -203,7 +203,7 @@ function Contest() {
                             ) : (
                                 error ? (
                                     <p>{error.message}</p>
-                                ) : contests.map((c, index) => RenderContest(c, index))
+                                ) : contests.map((c, index) => <div key={index}>{RenderContest(c, index)}</div>)
                             )
                             }
                         </div>

@@ -5,7 +5,7 @@ import { AlertMessage } from 'utils/AlertMessage'
 import { useNavigate } from 'react-router-dom'
 import Profile from 'components/common/profile/Profile'
 import { useSelector, useDispatch } from 'react-redux'
-import { loginUser } from '../../../redux/authSlice'
+import { loginUser } from 'redux/authSlice'
 import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 

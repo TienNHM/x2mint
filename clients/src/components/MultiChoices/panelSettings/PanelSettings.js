@@ -1,14 +1,16 @@
 import React, { useRef, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useAlert } from 'react-alert'
-import Countdown from 'react-countdown'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { splitTime } from 'utils/timeUtils'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
+import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ROLE_USER } from 'utils/constants'
 import './PanelSettings.scss'
+import { useSelector } from 'react-redux'
 
 function PanelSettings(props) {
     const { test, setTest, setIsSaved } = props
+    const user = useSelector((state) => state.auth.user)
+    const isUser = user.role === ROLE_USER
 
     // Test title
     const inputTestTitleRef = useRef(null)
@@ -90,8 +92,9 @@ function PanelSettings(props) {
     return (
         <div className="panel-right">
             <div className="panel-right-title">Thông tin chi tiết</div>
+
             <div className="attributes">
-                <div className="test-title">
+                <div className="attribute-title">
                     <div>Tên bài test</div>
                     <div className="title">
                         <Form.Control
@@ -99,13 +102,15 @@ function PanelSettings(props) {
                             type="text"
                             ref={inputTestTitleRef}
                             placeholder="Tên bài test..."
-                            className="test-title-input"
+                            className="attribute-title-input"
                             value={testTitle}
                             onChange={e => setTestTitle(e.target.value)}
+                            readOnly={isUser}
                         />
                     </div>
                 </div>
-                <div className="test-title">
+
+                <div className="attribute-title">
                     <div>Mô tả</div>
                     <div className="title">
                         <Form.Control
@@ -114,27 +119,15 @@ function PanelSettings(props) {
                             rows={4}
                             ref={inputTestDescriptionRef}
                             placeholder="Mô tả..."
-                            className="test-title-input"
+                            className="attribute-title-input"
                             value={testDescription}
                             onChange={e => setTestDescription(e.target.value)}
+                            readOnly={isUser}
                         />
                     </div>
                 </div>
-                <div className="test-title">
-                    <div>Link</div>
-                    <div className="title">
-                        <Form.Control
-                            size="sm"
-                            type="text"
-                            ref={inputLinkRef}
-                            placeholder="Link URL..."
-                            className="test-title-input"
-                            value={testLink}
-                            onChange={e => setTestLink(e.target.value)}
-                        />
-                    </div>
-                </div>
-                <div className="test-title">
+
+                <div className="attribute-title">
                     <div>Điểm tối đa</div>
                     <div className="title">
                         <Form.Control
@@ -142,54 +135,84 @@ function PanelSettings(props) {
                             type="text"
                             ref={inputMaxPointsRef}
                             placeholder="0"
-                            className="test-title-input"
+                            className="attribute-title-input max-points"
                             value={testMaxPoints}
                             onChange={e => setTestMaxPoints(e.target.value)}
+                            readOnly={isUser}
                         />
                     </div>
                 </div>
-                <div className="start-time-picker">
-                    <div>Thời gian bắt đầu</div>
-                    <div className="start-time">
-                        <Form.Control
-                            size="sm"
-                            type="date"
-                            ref={startDateRef}
-                            value={startDate}
-                            onChange={e => setStartDate(e.target.value)}
-                        />
-                        <Form.Control
-                            size="sm"
-                            type="time"
-                            ref={startTimeRef}
-                            value={startTime}
-                            onChange={e => setStartTime(e.target.value)}
-                        />
-                    </div>
-                </div>
-                <div className="start-time-picker">
-                    <div>Thời gian kết thúc</div>
-                    <div className="start-time">
-                        <Form.Control
-                            size="sm"
-                            type="date"
-                            ref={endDateRef}
-                            value={endDate}
-                            onChange={e => setEndDate(e.target.value)}
-                        />
-                        <Form.Control
-                            size="sm"
-                            type="time"
-                            ref={endTimeRef}
-                            value={endTime}
-                            onChange={e => setEndTime(e.target.value)}
-                        />
-                    </div>
-                </div>
+
+                {!isUser &&
+                    <>
+                        <div className="attribute-title">
+                            <div>Link</div>
+                            <div className="title">
+                                <Form.Control
+                                    size="sm"
+                                    type="text"
+                                    ref={inputLinkRef}
+                                    placeholder="Link URL..."
+                                    className="attribute-title-input"
+                                    value={testLink}
+                                    onChange={e => setTestLink(e.target.value)}
+                                    readOnly={isUser}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="time-picker">
+                            <div>Thời gian bắt đầu</div>
+                            <div className="start-time">
+                                <Form.Control
+                                    size="sm"
+                                    type="date"
+                                    ref={startDateRef}
+                                    value={startDate}
+                                    onChange={e => setStartDate(e.target.value)}
+                                    readOnly={isUser}
+                                />
+                                <Form.Control
+                                    size="sm"
+                                    type="time"
+                                    ref={startTimeRef}
+                                    value={startTime}
+                                    onChange={e => setStartTime(e.target.value)}
+                                    readOnly={isUser}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="time-picker">
+                            <div>Thời gian kết thúc</div>
+                            <div className="start-time">
+                                <Form.Control
+                                    size="sm"
+                                    type="date"
+                                    ref={endDateRef}
+                                    value={endDate}
+                                    onChange={e => setEndDate(e.target.value)}
+                                    readOnly={isUser}
+                                />
+                                <Form.Control
+                                    size="sm"
+                                    type="time"
+                                    ref={endTimeRef}
+                                    value={endTime}
+                                    onChange={e => setEndTime(e.target.value)}
+                                    readOnly={isUser}
+                                />
+                            </div>
+                        </div>
+                    </>
+                }
             </div>
-            <div className="quick-actions">
-                <Button variant="warning" onClick={handleSaveClick}>Lưu</Button>{' '}
-                <Button variant="danger" onClick={handleExit}>Thoát</Button>{' '}
+
+            <div className="quick-actions justify-content-center">
+                {!isUser &&
+                    <Button variant="warning" className="w-100" onClick={handleSaveClick}>Lưu</Button>
+                }
+                <Button variant="danger" className="w-100" onClick={handleExit}>Thoát</Button>
             </div>
 
             <div className="confirm-submit">

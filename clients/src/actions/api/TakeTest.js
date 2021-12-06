@@ -1,14 +1,16 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
+import { ACCESS_TOKEN } from 'utils/constants'
 
 
-export const takeTest = async (accessToken, takeTest) => {
+export const createTakeTest = async (takeTest) => {
     //TODO: takeTest
-    const url = `${process.env.REACT_APP_API_ROOT}/takeTest`
+    const url = `${process.env.REACT_APP_API_ROOT}/submit`
     const request = await axios.post(url, takeTest, {
         headers: {
-            'Authorization': `Bearer ${accessToken}`
+            'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
         }
-    })
+    }).then(response => response)
 
     console.log(request.data)
     return request.data
@@ -16,7 +18,7 @@ export const takeTest = async (accessToken, takeTest) => {
 
 export const getAllTakeTestByUser = async (accessToken, userId) => {
     //TODO: getAllTakeTestByUser
-    const url = `${process.env.REACT_APP_API_ROOT}/takeTest/user/${userId}`
+    const url = `${process.env.REACT_APP_API_ROOT}/submit/user/${userId}`
     const request = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -29,7 +31,7 @@ export const getAllTakeTestByUser = async (accessToken, userId) => {
 
 export const getAllTakeTestByTest = async (accessToken, testId) => {
     //TODO: getAllTakeTestByTest
-    const url = `${process.env.REACT_APP_API_ROOT}/takeTest/test/${testId}`
+    const url = `${process.env.REACT_APP_API_ROOT}/submit/test/${testId}`
     const request = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${accessToken}`

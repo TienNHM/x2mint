@@ -6311,17 +6311,12 @@ export const blankContest = {
 /// Nháp
 
 export const emptyTakeTest = {
-    id: '',
-    testId: '',
-    testName: '',
-    testUrl: '',
-    userId: 'user-1',
-    username: 'tiennhm',
-    status: 'DRAFT',
-    points: 0,
+    status: '',
     submitTime: '',
     chooseAnswers: [],
-    questionsOrder: []
+    questionsOrder: [],
+    test: null,
+    user: null
 }
 
 export const initialTest = {
@@ -6588,7 +6583,7 @@ export const emptyTest = {
 }
 
 export const emptyQuestion = {
-    id: '',
+    _id: '',
     type: 'MULTICHOICE',
     content: '',
     embededMedia: '',

@@ -12,7 +12,7 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     }
 
     .question {
-        height: 12vh;
+        height: 14vh;
         background-color: $question-content-background;
         box-shadow: $box-shadow;
         z-index: 1;
@@ -50,7 +50,7 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     
     .embeded {
         margin: $gap;
-        height: 48vh;
+        height: 46vh;
         color: $app-bg-color;
         font-size: 1px;
 
@@ -68,5 +68,6 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     
     .question-answers {
         height: 28vh;
+        padding: 0 1vw 0 1vw;
     }
 }

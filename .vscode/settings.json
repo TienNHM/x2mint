@@ -1,6 +1,6 @@
 {
     "git.ignoreLimitWarning": true,
-    "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontFamily": "'JetBrains Mono', 'Fira Code', Menlo, Monaco, 'Courier New', monospace, Consolas",
     "editor.fontLigatures": true,
     "workbench.colorCustomizations": {
         "terminal.background": "#151515",

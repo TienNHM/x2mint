@@ -11,10 +11,13 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
     const [isChecked, setIsChecked] = useState(false)
 
     useEffect(() => {
-        const value = answers[index].content
-        setContent(value)
-        setAnswerLength(MAX_ANSWER_LENGTH - value.length)
-        setIsChecked(false)
+        if (answers) {
+
+            const value = answers[index].content
+            setContent(value)
+            setAnswerLength(MAX_ANSWER_LENGTH - value.length)
+            setIsChecked(false)
+        }
     }, [answers, index])
 
     const handleTextChange = (event) => {
@@ -23,13 +26,11 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
             setContent(value)
             setAnswerLength(MAX_ANSWER_LENGTH - value.length)
             setRows(value.length / (MAX_ANSWER_LENGTH / 2) + 1)
-        }
-    }
 
-    const handleTextBlur = (event) => {
-        const newAnswers = [...answers]
-        newAnswers[index].content = event.target.value
-        updateAnswers(newAnswers)
+            const newAnswers = [...answers]
+            newAnswers[index].content = event.target.value
+            updateAnswers(newAnswers)
+        }
     }
 
     return (
@@ -44,7 +45,6 @@ function Answer({ name, index, answers, updateAnswers, onClick, disabled }) {
                     className="textarea-enter"
                     value={content}
                     onChange={handleTextChange}
-                    onBlur={handleTextBlur}
                     disabled={disabled}
                 />
             </div>
