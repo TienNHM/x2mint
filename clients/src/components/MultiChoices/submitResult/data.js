@@ -63,7 +63,7 @@ export default function exportData(data) {
             'Đáp án đúng': value.correctAnswers.map(x => x).join(', '),
             'Điểm tối đa': value.maxPoints,
             'Điểm đạt được': calcPoints(value.answers, value.correctAnswers, value.maxPoints),
-            'Chi tiết': <MDBBtn size="sm" onClick={() => alert(value.questionId)}><i className="fa fa-info-circle"></i></MDBBtn>
+            // 'Chi tiết': <MDBBtn size="sm" onClick={() => alert(value.questionId)}><i className="fa fa-info-circle"></i></MDBBtn>
         }
         return item
     })

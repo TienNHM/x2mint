@@ -28,6 +28,7 @@ function MultiChoices() {
     })
 
     const user = useSelector((state) => state.auth.user)
+    const [isSubmitted, setIsSubmitted] = useState(false)
 
     const [test, setTest] = useState(null)
     const [questions, setQuestions] = useState(null)
@@ -171,6 +172,7 @@ function MultiChoices() {
                                 selectedQuestion={selectedQuestion}
                                 setSelectedQuestion={setSelectedQuestion}
                                 takeTest={takeTest}
+                                setIsSubmitted={setIsSubmitted}
                             />
                         )
                     }

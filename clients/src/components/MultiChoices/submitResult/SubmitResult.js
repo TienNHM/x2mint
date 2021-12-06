@@ -10,6 +10,7 @@ export default function SubmitResult({ takeTest, isShow, onAction }) {
     console.log(takeTest)
     const submitTime = takeTest.submitTime.split(' ')
     const data = exportData(takeTest)
+    console.log('data', data)
 
     return (
         <>
@@ -22,7 +23,7 @@ export default function SubmitResult({ takeTest, isShow, onAction }) {
                 keyboard={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        <span className="fw-bolder">{takeTest.testName}</span>
+                        <span className="fw-bolder">{takeTest.test.testName}</span>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -65,7 +66,7 @@ export default function SubmitResult({ takeTest, isShow, onAction }) {
                             <div>
                                 <ExportToExcel
                                     apiData={data.rows}
-                                    fileName={takeTest.username + ' ' + takeTest.submitTime}
+                                    fileName={takeTest.user.username + ' ' + takeTest.submitTime}
                                 />
                             </div>
                         </div>

@@ -1,13 +1,14 @@
-import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import React, { useRef, useState } from 'react'
 import Countdown from 'react-countdown'
 import { Button } from 'react-bootstrap'
 import { MODAL_ACTION_CLOSE, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './PanelQuestionPicker.scss'
 import SubmitResult from 'components/MultiChoices/submitResult/SubmitResult'
+import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 
 export default function PanelQuestionPicker(props) {
-    const { test, selectedQuestion, setSelectedQuestion, takeTest } = props
+    const { test, selectedQuestion, setSelectedQuestion, takeTest, setIsSubmitted } = props
+    const [isShowSubmitPage, setIsShowSubmitPage] = useState(false)
 
     const btnSubmitRef = useRef(null)
     const timeRemainRef = useRef(null)
@@ -17,8 +18,6 @@ export default function PanelQuestionPicker(props) {
     const contentToShow = 'Bạn có muốn xác nhận việc nộp bài?<br /><strong>Lưu ý, sau khi xác nhận, bạn không thể chỉnh sửa câu trả lời.</strong>'
 
     //#region  Submit
-    const [isShowSubmitPage, setIsShowSubmitPage] = useState(false)
-
     const handleConfirmSubmit = (action) => {
         if (action === MODAL_ACTION_CONFIRM) {
             btnSubmitRef.current.disabled = true
@@ -46,6 +45,7 @@ export default function PanelQuestionPicker(props) {
         if (completed) {
             // Render a completed state
             setIsShowSubmitPage(true)
+            setIsSubmitted(true)
             return <Completionist />
         } else {
             // Render a countdown
