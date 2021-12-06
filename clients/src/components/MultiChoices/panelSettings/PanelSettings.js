@@ -1,14 +1,16 @@
 import React, { useRef, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useAlert } from 'react-alert'
-import Countdown from 'react-countdown'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { splitTime } from 'utils/timeUtils'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
+import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ROLE_USER } from 'utils/constants'
 import './PanelSettings.scss'
+import { useSelector } from 'react-redux'
 
 function PanelSettings(props) {
     const { test, setTest, setIsSaved } = props
+    const user = useSelector((state) => state.auth.user)
+    const isUser = user.role === ROLE_USER
 
     // Test title
     const inputTestTitleRef = useRef(null)
@@ -90,6 +92,7 @@ function PanelSettings(props) {
     return (
         <div className="panel-right">
             <div className="panel-right-title">Thông tin chi tiết</div>
+
             <div className="attributes">
                 <div className="test-title">
                     <div>Tên bài test</div>
@@ -102,6 +105,7 @@ function PanelSettings(props) {
                             className="test-title-input"
                             value={testTitle}
                             onChange={e => setTestTitle(e.target.value)}
+                            readOnly={isUser}
                         />
                     </div>
                 </div>
@@ -117,6 +121,7 @@ function PanelSettings(props) {
                             className="test-title-input"
                             value={testDescription}
                             onChange={e => setTestDescription(e.target.value)}
+                            readOnly={isUser}
                         />
                     </div>
                 </div>
@@ -131,6 +136,7 @@ function PanelSettings(props) {
                             className="test-title-input"
                             value={testLink}
                             onChange={e => setTestLink(e.target.value)}
+                            readOnly={isUser}
                         />
                     </div>
                 </div>
@@ -145,6 +151,7 @@ function PanelSettings(props) {
                             className="test-title-input"
                             value={testMaxPoints}
                             onChange={e => setTestMaxPoints(e.target.value)}
+                            readOnly={isUser}
                         />
                     </div>
                 </div>
@@ -157,6 +164,7 @@ function PanelSettings(props) {
                             ref={startDateRef}
                             value={startDate}
                             onChange={e => setStartDate(e.target.value)}
+                            readOnly={isUser}
                         />
                         <Form.Control
                             size="sm"
@@ -164,6 +172,7 @@ function PanelSettings(props) {
                             ref={startTimeRef}
                             value={startTime}
                             onChange={e => setStartTime(e.target.value)}
+                            readOnly={isUser}
                         />
                     </div>
                 </div>
@@ -176,6 +185,7 @@ function PanelSettings(props) {
                             ref={endDateRef}
                             value={endDate}
                             onChange={e => setEndDate(e.target.value)}
+                            readOnly={isUser}
                         />
                         <Form.Control
                             size="sm"
@@ -183,13 +193,17 @@ function PanelSettings(props) {
                             ref={endTimeRef}
                             value={endTime}
                             onChange={e => setEndTime(e.target.value)}
+                            readOnly={isUser}
                         />
                     </div>
                 </div>
             </div>
-            <div className="quick-actions">
-                <Button variant="warning" onClick={handleSaveClick}>Lưu</Button>{' '}
-                <Button variant="danger" onClick={handleExit}>Thoát</Button>{' '}
+
+            <div className="quick-actions justify-content-center">
+                {!isUser &&
+                    <Button variant="warning" onClick={handleSaveClick}>Lưu</Button>
+                }
+                <Button variant="danger" onClick={handleExit}>Thoát</Button>
             </div>
 
             <div className="confirm-submit">
