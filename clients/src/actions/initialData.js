@@ -6588,7 +6588,7 @@ export const emptyTest = {
 }
 
 export const emptyQuestion = {
-    id: '',
+    _id: '',
     type: 'MULTICHOICE',
     content: '',
     embededMedia: '',

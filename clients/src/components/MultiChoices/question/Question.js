@@ -3,14 +3,10 @@ import { Button, Form } from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
 import Answer from 'components/MultiChoices/answer/Answer'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
-import { ACCESS_TOKEN, MAX_QUESTION_LENGTH, MODAL_ACTION_CONFIRM } from 'utils/constants'
+import { MAX_QUESTION_LENGTH, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './Question.scss'
-import { useAxios } from 'actions/useAxios'
-import Cookies from 'js-cookie'
-import { HashLoader } from 'react-spinners'
 
 function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
-    console.log(question)
     const [embededMedia, setEmbedMedia] = useState('')
     const [isUpdatedEmbedMedia, setIsUpdatedEmbedMedia] = useState(false)
     const [content, setContent] = useState('')
@@ -41,7 +37,6 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
 
     useEffect(() => {
         if (isUpdatedEmbedMedia) {
-            console.log(embededMedia)
             const q = { ...question }
             q.embededMedia = embededMedia
             updateQuestion(q, isCreator)
@@ -56,14 +51,14 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
         if (value.length <= MAX_QUESTION_LENGTH) {
             setContent(value)
             setQuestionLength(MAX_QUESTION_LENGTH - value.length)
-            setRows(value.length / (MAX_QUESTION_LENGTH / 2 + 1) + 1)
-        }
-    }
 
-    const handleQuestionContentBlur = (event) => {
-        const newQuestion = { ...question }
-        newQuestion.content = event.target.value
-        updateQuestion(newQuestion, isCreator)
+            const r = Math.round(value.length / (MAX_QUESTION_LENGTH / 2 + 1) + 1)
+            setRows(r)
+
+            const newQuestion = { ...question }
+            newQuestion.content = event.target.value
+            updateQuestion(newQuestion, isCreator)
+        }
     }
 
     const handleOnAnswerClick = (event) => {
@@ -120,7 +115,6 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
                         className="textarea-enter"
                         value={content}
                         onChange={handleTextChange}
-                        onBlur={handleQuestionContentBlur}
                         disabled={!isCreator}
                     />
                 </div>
@@ -139,7 +133,7 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
                     }
                 </div>
 
-                <div className="question-embed col-10">
+                <div className="question-embed col-10 d-flex align-items-end justify-content-center">
                     {embededMedia.length > 0 && <Image src={embededMedia} />}
                     {embededMedia.length <= 0 && <Image src="https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png" alt="Nothing" />}
                 </div>

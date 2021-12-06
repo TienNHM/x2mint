@@ -1,5 +1,7 @@
 @import '_setting.scss';
 
+$question-preview-background: #F3F0D7;
+
 .panel-left {
     background-color: $bg-color;
     width: $panel-left-width;
@@ -57,6 +59,41 @@
             margin: 5px;
             height: 10vh;
         }
+
+        .question-item-preview {
+            box-shadow: $box-shadow;
+            margin: 0 $gap;
+            margin-top: $gap;
+            border: 2px solid white;
+            border-radius: $gap;
+
+            .question-number {
+                background-color: lighten($theme-color, 10);
+                color: white;
+                font-weight: bold;
+                cursor: move;
+                border-top-left-radius: $gap $gap;
+                border-top-right-radius: $gap $gap;
+            }
+
+            .rv-content {
+                background-color: $question-preview-background;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                height: 5vw;
+                cursor: pointer;
+                border-bottom-left-radius: $gap $gap;
+                border-bottom-right-radius: $gap $gap;
+            }
+
+            .q-selected {
+                background-color: #2ccf869c !important;
+                color: white;
+                font-weight: bold;
+            }
+        }
     }
 
     .question-actions {
@@ -64,7 +101,8 @@
         padding-right: $gap*2;
         padding-top: $gap;
         display: flex;
-        > * {
+
+        >* {
             width: 50%;
             margin: 0 3px;
             font-weight: bold;

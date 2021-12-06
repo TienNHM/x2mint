@@ -33,7 +33,6 @@ function MultiChoices() {
     const [test, setTest] = useState(null)
     const [questions, setQuestions] = useState(null)
     const [selectedQuestion, setSelectedQuestion] = useState(null)
-    const [isLoadedSelectedQuestion, setIsLoadedSelectedQuestion] = useState(false)
     const [isSaved, setIsSaved] = useState(true)
     const [takeTest, setTakeTest] = useState({ ...emptyTakeTest })
 
@@ -85,19 +84,16 @@ function MultiChoices() {
         setTest(newTest)
     }, [questions])
 
-    useEffect(() => {
-        if (isLoadedSelectedQuestion) {
-            console.log('Selected Question: ', selectedQuestion)
-            let newQuestions = [...questions]
-            const index = newQuestions.findIndex(question => question.id === selectedQuestion.id)
-            newQuestions[index] = selectedQuestion
-            setQuestions(newQuestions)
-        }
-    }, [selectedQuestion])
-
     const updateSelectedQuestion = (question) => {
-        setSelectedQuestion({ ...question })
-        console.log('Update Selected Question: ', question)
+        setSelectedQuestion(question)
+
+        // Update lại question trong list questions
+        let newQuestions = [...questions]
+        const index = newQuestions.findIndex(q => q._id === selectedQuestion._id)
+        newQuestions[index] = question
+        setQuestions(newQuestions)
+
+        console.log(newQuestions)
     }
 
     const updateTakeTest = (question, chooseAnswer) => {
@@ -126,14 +122,18 @@ function MultiChoices() {
     return (
         <div className="app-container">
             {testIsLoading ? (
-                <div style={{
-                    width: '100%',
-                    height: '100%',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0
-                }}
-                    className='sweet-loading d-flex justify-content-center align-items-center'>
+                <div
+                    className='sweet-loading d-flex justify-content-center align-items-center'
+                    style={
+                        {
+                            width: '100%',
+                            height: '100%',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0
+                        }
+                    }
+                >
                     <HashLoader color={'#7ED321'} loading={testIsLoading} />
                 </div>
             ) : (

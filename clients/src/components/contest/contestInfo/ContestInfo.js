@@ -353,7 +353,7 @@ export default function ContestInfo() {
                                                                     <i className="fa fa-bar-chart"></i>
                                                                 </Button>{' '}
                                                                 <Button variant="primary" size="sm"
-                                                                    // onClick={() => handleEditTest(test)} 
+                                                                    // onClick={() => handleEditTest(test)}
                                                                     href={`/test/${test._id}`}>
                                                                     <i className="fa fa-edit"></i>
                                                                 </Button>{' '}
