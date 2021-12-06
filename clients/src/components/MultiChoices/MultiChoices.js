@@ -10,7 +10,6 @@ import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
 import { ACCESS_TOKEN, ROLE_CREATOR } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
-import { loadUser } from 'redux/authSlice'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
 

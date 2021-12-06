@@ -20,7 +20,8 @@ $question-attribute-setting-height: 80px;
     .attributes {
         height: 78vh;
 
-        input, textarea {
+        input,
+        textarea {
             outline: none !important;
             box-shadow: none !important;
             margin: 0 !important;
@@ -37,9 +38,9 @@ $question-attribute-setting-height: 80px;
             border-radius: $gap;
         }
 
-        .test-title {
+        .attribute-title {
             .title {
-                .test-title-input {
+                .attribute-title-input {
                     width: 100%;
                     background-color: rgba(255, 255, 255, 0.877);
                 }
@@ -50,7 +51,7 @@ $question-attribute-setting-height: 80px;
             }
         }
 
-        .start-time-picker {
+        .time-picker {
             .start-time {
                 display: flex;
             }
@@ -112,11 +113,25 @@ $question-attribute-setting-height: 80px;
         display: flex;
         margin-top: $gap;
 
-        > * {
+        >* {
             width: 50%;
             margin: 0 3px;
             font-weight: bold;
             color: white;
         }
+    }
+
+    .form-control:disabled,
+    .form-control[readonly] {
+        background-color: transparent !important;
+        border: none;
+        color: $theme-color;
+        font-weight: bolder;
+        font-size: 1rem;
+    }
+
+    .max-points:disabled,
+    .max-points[readonly] {
+        font-size: 2.5rem;
     }
 }

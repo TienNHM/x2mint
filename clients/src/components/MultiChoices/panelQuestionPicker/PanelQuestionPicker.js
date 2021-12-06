@@ -81,10 +81,11 @@ export default function PanelQuestionPicker(props) {
                     <Button
                         variant="primary"
                         onClick={handleOnSubmitClick}
+                        className="w-100"
                         ref={btnSubmitRef}
                     >
                         Nộp bài
-                    </Button>{' '}
+                    </Button>
                 </div>
             </div>
 
