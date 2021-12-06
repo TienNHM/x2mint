@@ -33,7 +33,7 @@ function MultiChoices() {
     const [questions, setQuestions] = useState(null)
     const [selectedQuestion, setSelectedQuestion] = useState(null)
     const [isSaved, setIsSaved] = useState(true)
-    const [takeTest, setTakeTest] = useState({ ...emptyTakeTest })
+    const [takeTest, setTakeTest] = useState(null)
 
     useEffect(() => {
         if (testResponse) {
@@ -45,10 +45,28 @@ function MultiChoices() {
             const q = mapOrder(t.questions, t.questionsOrder, 'id')
             setQuestions(q)
             setSelectedQuestion(selectedQuestion ? selectedQuestion : q[0])
+
+            const chooseAnswers = q.map(quiz => {
+                return {
+                    questionId: quiz._id,
+                    answers: [],
+                    correctAnswers: quiz.correctAnswers,
+                    maxPoints: quiz.maxPoints
+                }
+            })
+
+            const newTakeTest = {
+                ...emptyTakeTest,
+                questionsOrder: t.questionsOrder,
+                chooseAnswers: chooseAnswers,
+                test: { ...t },
+                user: { ...user }
+            }
+            setTakeTest(newTakeTest)
         }
     }, [testResponse])
 
-    // Load data
+    //#region  Load data
     // useEffect(() => {
     //     const questionsFromDB = test.questions
     //     if (test) {
@@ -76,6 +94,7 @@ function MultiChoices() {
     //         updateTest({ ...test })
     //     }
     // }, [test])
+    //#endregion
 
     useEffect(() => {
         const newTest = { ...test }
@@ -97,16 +116,16 @@ function MultiChoices() {
 
     const updateTakeTest = (question, chooseAnswer) => {
         //Nếu ko phải creator thì update lại takeTest
-        console.log(question)
         const newTakeTest = { ...takeTest }
         const choose = {
             questionId: question._id,
             answers: [...chooseAnswer],
-            correctAnswers: question.correct_answers,
+            correctAnswers: question.correctAnswers,
             maxPoints: question.maxPoints
         }
+
         if (newTakeTest.chooseAnswers.length > 0) {
-            const index = newTakeTest.chooseAnswers.findIndex(e => e.questionId === question.id)
+            const index = newTakeTest.chooseAnswers.findIndex(e => e.questionId === question._id)
             if (index !== -1) {
                 newTakeTest.chooseAnswers[index] = choose
             }
@@ -115,7 +134,6 @@ function MultiChoices() {
         else newTakeTest.chooseAnswers = [choose]
 
         setTakeTest(newTakeTest)
-        console.log('New take test', newTakeTest)
     }
 
     return (
@@ -152,6 +170,7 @@ function MultiChoices() {
                                 test={test}
                                 selectedQuestion={selectedQuestion}
                                 setSelectedQuestion={setSelectedQuestion}
+                                takeTest={takeTest}
                             />
                         )
                     }

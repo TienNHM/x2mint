@@ -4,23 +4,27 @@ import Countdown from 'react-countdown'
 import { Button } from 'react-bootstrap'
 import { MODAL_ACTION_CLOSE, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './PanelQuestionPicker.scss'
+import SubmitResult from 'components/MultiChoices/submitResult/SubmitResult'
 
 export default function PanelQuestionPicker(props) {
-    const { test, selectedQuestion, setSelectedQuestion } = props
+    const { test, selectedQuestion, setSelectedQuestion, takeTest } = props
 
     const btnSubmitRef = useRef(null)
     const timeRemainRef = useRef(null)
 
     // Confirm Modal
     const [isShowConfirm, setIsShowConfirm] = useState(false)
-    const [content, setContent] = useState('')
+    const contentToShow = 'Bạn có muốn xác nhận việc nộp bài?<br /><strong>Lưu ý, sau khi xác nhận, bạn không thể chỉnh sửa câu trả lời.</strong>'
+
+    //#region  Submit
+    const [isShowSubmitPage, setIsShowSubmitPage] = useState(false)
 
     const handleConfirmSubmit = (action) => {
         if (action === MODAL_ACTION_CONFIRM) {
             btnSubmitRef.current.disabled = true
             timeRemainRef.current.stop()
             setIsShowConfirm(false)
-            //TODO Show result page
+            setIsShowSubmitPage(true)
         }
         else if (action === MODAL_ACTION_CLOSE) {
             timeRemainRef.current.start()
@@ -28,11 +32,12 @@ export default function PanelQuestionPicker(props) {
         }
     }
 
-    const handleOnSubmitClick = () => {
-        setContent('Bạn có muốn xác nhận việc nộp bài?<br /><strong>Lưu ý, sau khi xác nhận, bạn không thể chỉnh sửa câu trả lời.</strong>')
-        setIsShowConfirm(true)
+    const onActionSubmit = (action) => {
+        setIsShowSubmitPage(false)
     }
+    //#endregion
 
+    //#region Coundown
     const Completionist = () => <h6 className="time-countdown">Hết giờ</h6>
 
     const renderer = ({ hours, minutes, seconds, completed }) => {
@@ -40,8 +45,7 @@ export default function PanelQuestionPicker(props) {
         const s = ('' + seconds).length < 2 ? ('0' + seconds) : ('' + seconds)
         if (completed) {
             // Render a completed state
-            handleOnSubmitClick()
-            console.log('Completed state: ', completed)
+            setIsShowSubmitPage(true)
             return <Completionist />
         } else {
             // Render a countdown
@@ -50,6 +54,8 @@ export default function PanelQuestionPicker(props) {
             </span>
         }
     }
+
+    //#endregion
 
     return (
         <div className="take-test">
@@ -60,8 +66,9 @@ export default function PanelQuestionPicker(props) {
                     {test.questions.map((q, index) =>
                         //TODO kiểm tra xem đã chọn đáp án cho câu hỏi này chưa để render màu tương ứng
                         <Button key={index}
-                            variant={q._id === selectedQuestion._id ? 'primary' : 'light'}
+                            variant={q._id === selectedQuestion._id ? 'warning' : 'light'}
                             onClick={() => setSelectedQuestion(q, false)}
+                            className="fw-bold text-success"
                         >
                             {index + 1}
                         </Button>
@@ -80,7 +87,7 @@ export default function PanelQuestionPicker(props) {
                 <div className="submit-test">
                     <Button
                         variant="primary"
-                        onClick={handleOnSubmitClick}
+                        onClick={() => setIsShowConfirm(true)}
                         className="w-100"
                         ref={btnSubmitRef}
                     >
@@ -90,12 +97,17 @@ export default function PanelQuestionPicker(props) {
             </div>
 
 
-            <div className="confirm-submit">
+            <div className="submit-area">
                 <ConfirmModal
                     title="Xác nhận"
-                    content={content}
+                    content={contentToShow}
                     isShow={isShowConfirm}
                     onAction={handleConfirmSubmit}
+                />
+                <SubmitResult
+                    takeTest={takeTest}
+                    isShow={isShowSubmitPage}
+                    onAction={onActionSubmit}
                 />
             </div>
         </div>

@@ -4,11 +4,10 @@ import { MDBDataTableV5 } from 'mdbreact'
 import { MODAL_ACTION_CLOSE } from 'utils/constants'
 import exportData from './data.js'
 import { ExportToExcel } from 'utils/ExportToExcel'
-import { initialTakeTest } from 'actions/initialData'
 import './SubmitResult.scss'
 
-export default function SubmitResult({ isShow, onAction }) {
-    const takeTest = { ...initialTakeTest }
+export default function SubmitResult({ takeTest, isShow, onAction }) {
+    console.log(takeTest)
     const submitTime = takeTest.submitTime.split(' ')
     const data = exportData(takeTest)
 
