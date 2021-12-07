@@ -136,67 +136,65 @@ function MultiChoices() {
 
     return (
         <div className="app-container">
-            {isSubmitted ? (
+            {isSubmitted &&
                 <Navigate to={`/submit/${takeTest.id}`} />
-            ) : (
+            }
+
+            {testIsLoading &&
+                <div
+                    className='sweet-loading d-flex justify-content-center align-items-center'
+                    style={
+                        {
+                            width: '100%',
+                            height: '100%',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0
+                        }
+                    }
+                >
+                    <HashLoader color={'#7ED321'} loading={testIsLoading} />
+                </div>
+            }
+
+            {!testIsLoading &&
                 <>
-                    {testIsLoading ? (
-                        <div
-                            className='sweet-loading d-flex justify-content-center align-items-center'
-                            style={
-                                {
-                                    width: '100%',
-                                    height: '100%',
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0
-                                }
-                            }
-                        >
-                            <HashLoader color={'#7ED321'} loading={testIsLoading} />
-                        </div>
-                    ) : (
-                        <>
-                            {user.role === ROLE_CREATOR ?
-                                (
-                                    <PanelPreview
-                                        test={test}
-                                        setTest={setTest}
-                                        questions={questions}
-                                        setQuestions={setQuestions}
-                                        selectedQuestion={selectedQuestion}
-                                        setSelectedQuestion={setSelectedQuestion}
-                                    />
-                                ) : (
-                                    <PanelQuestionPicker
-                                        test={test}
-                                        selectedQuestion={selectedQuestion}
-                                        setSelectedQuestion={setSelectedQuestion}
-                                        takeTest={takeTest}
-                                        setIsSubmitted={setIsSubmitted}
-                                    />
-                                )
-                            }
-
-                            <Question
-                                question={selectedQuestion}
-                                updateQuestion={updateSelectedQuestion}
-                                isCreator={user.role === ROLE_CREATOR}
-                                updateTakeTest={updateTakeTest}
-                            />
-
-                            <PanelSettings
+                    {user.role === ROLE_CREATOR ?
+                        (
+                            <PanelPreview
                                 test={test}
                                 setTest={setTest}
-                                isCreator={user.role === ROLE_CREATOR}
-                                setSelectedQuestion={updateSelectedQuestion}
-                                setIsSaved={setIsSaved}
+                                questions={questions}
+                                setQuestions={setQuestions}
+                                selectedQuestion={selectedQuestion}
+                                setSelectedQuestion={setSelectedQuestion}
                             />
-                        </>
-                    )
+                        ) : (
+                            <PanelQuestionPicker
+                                test={test}
+                                selectedQuestion={selectedQuestion}
+                                setSelectedQuestion={setSelectedQuestion}
+                                takeTest={takeTest}
+                                setIsSubmitted={setIsSubmitted}
+                            />
+                        )
                     }
+
+                    <Question
+                        question={selectedQuestion}
+                        updateQuestion={updateSelectedQuestion}
+                        isCreator={user.role === ROLE_CREATOR}
+                        updateTakeTest={updateTakeTest}
+                    />
+
+                    <PanelSettings
+                        test={test}
+                        setTest={setTest}
+                        isCreator={user.role === ROLE_CREATOR}
+                        setSelectedQuestion={updateSelectedQuestion}
+                        setIsSaved={setIsSaved}
+                    />
                 </>
-            )
             }
         </div>
     )

@@ -5,13 +5,16 @@ import { ACCESS_TOKEN, MODAL_ACTION_CLOSE } from 'utils/constants'
 import exportData from './data.js'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import './SubmitResult.scss'
-import { Navigate, useParams } from 'react-router'
+import { Navigate, useNavigate, useParams } from 'react-router'
+import { useHistory } from "react-router-dom"
 import { useAxios } from 'actions/useAxios.js'
 import Cookies from 'js-cookie'
 import { HashLoader } from 'react-spinners'
 
 export default function SubmitResult() {
     let { takeTestId } = useParams()
+    let navigate = useNavigate()
+
     const {
         response,
         loading,
@@ -45,7 +48,7 @@ export default function SubmitResult() {
                 keyboard={false}>
                 <Modal.Header>
                     <Modal.Title>
-                        <span className="fw-bolder">{takeTest && takeTest.test.testName}</span>
+                        <span className="fw-bolder">{takeTest && takeTest.test.name}</span>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -112,7 +115,7 @@ export default function SubmitResult() {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary"
-                        href="/contest"
+                        onClick={() => navigate(-2)}
                     >
                         Đóng
                     </Button>

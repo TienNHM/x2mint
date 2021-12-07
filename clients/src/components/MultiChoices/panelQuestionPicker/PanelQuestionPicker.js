@@ -3,7 +3,6 @@ import Countdown from 'react-countdown'
 import { Button } from 'react-bootstrap'
 import { MODAL_ACTION_CLOSE, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './PanelQuestionPicker.scss'
-import SubmitResult from 'components/MultiChoices/submitResult/SubmitResult'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { createTakeTest } from 'actions/api/TakeTest'
 
@@ -63,7 +62,6 @@ export default function PanelQuestionPicker(props) {
                 <hr style={{ margin: '8px' }} />
                 <div className="btn-question">
                     {test.questions.map((q, index) =>
-                        //TODO kiểm tra xem đã chọn đáp án cho câu hỏi này chưa để render màu tương ứng
                         <Button key={index}
                             variant={q._id === selectedQuestion._id ? 'warning' : 'light'}
                             onClick={() => setSelectedQuestion(q, false)}

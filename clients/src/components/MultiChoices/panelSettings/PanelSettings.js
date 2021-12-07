@@ -6,11 +6,14 @@ import { splitTime } from 'utils/timeUtils'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ROLE_USER } from 'utils/constants'
 import './PanelSettings.scss'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 
 function PanelSettings(props) {
     const { test, setTest, setIsSaved } = props
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE_USER
+
+    const navigate = useNavigate()
 
     // Test title
     const inputTestTitleRef = useRef(null)
@@ -81,11 +84,9 @@ function PanelSettings(props) {
     }
 
     const handleConfirmModal = (action) => {
+        setIsShowConfirm(false)
         if (action === MODAL_ACTION_CONFIRM) {
-            setIsShowConfirm(false)
-        }
-        else if (action === MODAL_ACTION_CLOSE) {
-            setIsShowConfirm(false)
+            return navigate(-1)
         }
     }
 
