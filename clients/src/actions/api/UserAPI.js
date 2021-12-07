@@ -1,58 +1,75 @@
 import axios from 'axios'
-import { API_ROOT, ROLE_USER } from 'utils/constants'
+import Cookies from 'js-cookie'
+import { ACCESS_TOKEN } from 'utils/constants'
 
-export const getAllUsers = async (accessToken) => {
-    //TODO: getAllUsers
-    const url = `${process.env.REACT_APP_API_ROOT}/users`
-    const request = await axios.get(url, {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    })
+export const getAllUsers = async () => {
+    try {
+        const url = `${process.env.REACT_APP_API_ROOT}/users`
+        const request = await axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            }
+        }).then(response => response)
 
-    console.log(request.data)
-    return request.data
-}
-
-export const getUserInfo = async (accessToken, userId) => {
-    //TODO: getAllUsers
-    const url = `${process.env.REACT_APP_API_ROOT}/users/info/${userId}`
-    const request = await axios.get(url, {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    })
-
-    console.log(request.data)
-    return request.data
-}
-
-export const updateUserInfo = async (accessToken, user) => {
-    //TODO: updateUserInfo
-    const url = `${process.env.REACT_APP_API_ROOT}/users/info/${user.id}`
-    const request = await axios.get(url, user, {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    })
-
-    console.log(request.data)
-    return request.data
-}
-
-export const resetPassword = async (accessToken, oldPassword, newPassword) => {
-    //TODO: resetPassword
-    const url = `${process.env.REACT_APP_API_ROOT}/users/resetPassword`
-    const data = {
-        oldPassword: oldPassword,
-        newPassword: newPassword
+        return request.data
     }
-    const request = await axios.put(url, data, {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    })
+    catch (err) {
+        console.error(err)
+        return null
+    }
+}
 
-    console.log(request.data)
-    return request.data
+export const getUserInfo = async (userId) => {
+    try {
+        const url = `${process.env.REACT_APP_API_ROOT}/users/info/${userId}`
+        const request = await axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            }
+        }).then(response => response)
+
+        return request.data
+    }
+    catch (err) {
+        console.error(err)
+        return null
+    }
+}
+
+export const updateUserInfo = async (user) => {
+    try {
+        const url = `${process.env.REACT_APP_API_ROOT}/users/info/${user.id}`
+        const request = await axios.get(url, user, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            }
+        }).then(response => response)
+
+        return request.data
+    }
+    catch (err) {
+        console.error(err)
+        return null
+    }
+}
+
+export const resetPassword = async (oldPassword, newPassword) => {
+    try {
+        const url = `${process.env.REACT_APP_API_ROOT}/users/resetPassword`
+        const data = {
+            oldPassword: oldPassword,
+            newPassword: newPassword
+        }
+        const request = await axios.put(url, data, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            }
+        }).then(response => response)
+
+        return request.data
+    }
+    catch (err) {
+        console.error(err)
+        return null
+    }
 }

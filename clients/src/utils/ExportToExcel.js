@@ -3,9 +3,9 @@ import * as FileSaver from 'file-saver'
 import * as XLSX from 'xlsx'
 import { Button } from 'react-bootstrap'
 
-export const RemoveFields = (data, field) => {
-    return data.map(({ field, ...keepAttrs }) => keepAttrs)
-}
+// export const RemoveFields = (data, field) => {
+//     return data.map(({ field, ...keepAttrs }) => keepAttrs)
+// }
 
 export const ExportToExcel = ({ apiData, fileName }) => {
     const fileType =
@@ -23,10 +23,11 @@ export const ExportToExcel = ({ apiData, fileName }) => {
     return (
         <Button
             variant="success"
-            onClick={(e) => exportToCSV(apiData, fileName)}
+            onClick={() => exportToCSV(apiData, fileName)}
             className="fw-bolder"
         >
-            Lưu (Excel)
+            <i className="fas fa-save"></i>
+            <span> Lưu (Excel)</span>
         </Button>
     )
 }

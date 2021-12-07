@@ -23,7 +23,7 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
     }
 
     .loading {
-        height: calc(100vh - #{$navbar-height});
+        height: calc(100vh - 3*#{$navbar-height});
     }
 
     .container-section {
