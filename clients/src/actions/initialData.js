@@ -6296,7 +6296,6 @@ export const initialTakeTest = {
 }
 
 export const blankContest = {
-    creator_id: 'user-1',
     tests: [],
     name: '',
     description: '',

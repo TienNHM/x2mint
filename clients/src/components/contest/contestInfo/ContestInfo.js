@@ -11,11 +11,13 @@ import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ACCESS_TOKEN, ROLE_CREATOR, R
 import './ContestInfo.scss'
 import Cookies from 'js-cookie'
 import { useAxios } from 'actions/useAxios'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 
 export default function ContestInfo() {
+    const navigate = useNavigate()
+
     // Load Contest information
     let { contestId } = useParams()
     const {
@@ -353,8 +355,7 @@ export default function ContestInfo() {
                                                                     <i className="fa fa-bar-chart"></i>
                                                                 </Button>{' '}
                                                                 <Button variant="primary" size="sm"
-                                                                    // onClick={() => handleEditTest(test)}
-                                                                    href={`/test/${test._id}`}>
+                                                                    onClick={() => navigate(`/test/${test._id}`)}>
                                                                     <i className="fa fa-edit"></i>
                                                                 </Button>{' '}
                                                                 <Button variant="danger" size="sm"
@@ -368,8 +369,7 @@ export default function ContestInfo() {
                                                             <>
                                                                 <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
                                                                     disabled={Date.parse(test.endTime) - Date.now() <= 0}
-                                                                    //onClick={() => handleTakeTest(test)}
-                                                                    href={`/test/${test._id}`}
+                                                                    onClick={() => navigate(`/test/${test._id}`)}
                                                                     size="sm"
                                                                 >
                                                                     <i className="fas fa-pen"></i>

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { useEffect, useState } from 'react'
 import { ACCESS_TOKEN, USER_ID } from 'utils/constants'
 
 export const getAllContests = async () => {
@@ -46,6 +45,7 @@ export const createContest = async (contest) => {
             }
         }).then(response => response)
 
+        console.log(request.data)
         return request.data
     }
     catch (err) {

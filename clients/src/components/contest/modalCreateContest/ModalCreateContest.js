@@ -12,6 +12,8 @@ import {
 import './ModalCreateContest.scss'
 
 function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
+
+    //#region States
     const [title, setTitle] = useState(' ')
     const [description, setDescription] = useState(' ')
     const [url, setUrl] = useState(' ')
@@ -21,10 +23,11 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     const [endDate, setEndDate] = useState('')
     const [endTime, setEndTime] = useState('')
     const [isShowLibrary, setIsShowLibrary] = useState(false)
+    //#endregion
+
     const alert = useAlert()
 
     useEffect(() => {
-        console.log('contest', contest)
         if (!contest) return
 
         setTitle(contest.name)
@@ -55,13 +58,15 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
             const start_time = startDate + ' ' + startTime
             const end_time = endDate + ' ' + endTime
             const str = startDate.trim() + startTime.trim() + endDate.trim() + endTime.trim()
-            console.log(str.length)
             if (str.length === 0) {
                 alert.error('Vui lòng nhập đầy đủ thông tin về cuộc thi')
                 onAction(isUpdate, MODAL_ACTION_RETRY)
             }
             else {
-                onAction(isUpdate, MODAL_ACTION_CONFIRM, title, description, url, embededMedia, start_time, end_time)
+                onAction(isUpdate, MODAL_ACTION_CONFIRM,
+                    title, description, url, embededMedia,
+                    start_time, end_time
+                )
             }
         }
     }
@@ -74,9 +79,11 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                 onHide={() => handleAction(MODAL_ACTION_CLOSE)}
                 backdrop='static'
                 keyboard={false}>
+
                 <Modal.Header closeButton>
                     <Modal.Title className="h5 fw-bolder">Tạo mới</Modal.Title>
                 </Modal.Header>
+
                 <Modal.Body>
                     <div className="contest-info">
                         <div className="body-left">
@@ -91,6 +98,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                                     onChange={e => setTitle(e.target.value)}
                                 />
                             </div>
+
                             <div className="contest-title-section">
                                 <div className="label">URL</div>
                                 <Form.Control
@@ -102,6 +110,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                                     onChange={e => setUrl(e.target.value)}
                                 />
                             </div>
+
                             <div className="contest-description-section">
                                 <div className="label">Mô tả</div>
                                 <Form.Control
@@ -114,6 +123,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                                     onChange={e => setDescription(e.target.value)}
                                 />
                             </div>
+
                             <div className="datetime-picker">
                                 <div className="label">Thời gian bắt đầu</div>
                                 <div className="datetime">
@@ -132,6 +142,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                                     />
                                 </div>
                             </div>
+
                             <div className="datetime-picker">
                                 <div className="label">Thời gian kết thúc</div>
                                 <div className="datetime">
@@ -150,28 +161,38 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                                 </div>
                             </div>
                         </div>
+
                         <div className="body-right">
                             <div className="label">Ảnh cover</div>
+
                             <div className="display-image">
-                                <Image fluid src={link || 'https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png'} />
+                                <Image fluid src={link || process.env.PUBLIC_URL + '/assets/placeholder.png'} />
                             </div>
+
                             <div className="change-image">
-                                <Button size="sm" variant="warning" onClick={() => setIsShowLibrary(true)}>
+                                <Button size="sm"
+                                    variant="warning"
+                                    onClick={() => setIsShowLibrary(true)}>
                                     Đổi ảnh
-                                </Button>{' '}
+                                </Button>
                             </div>
                         </div>
                     </div>
                 </Modal.Body>
+
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => handleAction(MODAL_ACTION_CLOSE)}>
+                    <Button variant="secondary"
+                        onClick={() => handleAction(MODAL_ACTION_CLOSE)}>
                         Đóng
                     </Button>
-                    <Button variant="primary" onClick={() => handleAction(MODAL_ACTION_CONFIRM)}>
+
+                    <Button variant="primary"
+                        onClick={() => handleAction(MODAL_ACTION_CONFIRM)}>
                         Lưu
                     </Button>
                 </Modal.Footer>
             </Modal>
+
             <BrowseLibrary show={isShowLibrary} onAction={openLibrary} />
         </>
     )
