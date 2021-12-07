@@ -34,8 +34,8 @@ export default function exportData(data) {
 
     const rows = data.chooseAnswers.map((value, index) => {
         const status = data.isCorrect[index] ?
-            <img src="https://img.icons8.com/fluency/24/000000/checkmark.png" /> :
-            <img src="https://img.icons8.com/fluency/24/000000/delete-sign.png"/>
+            <img src={process.env.PUBLIC_URL + '/assets/icons/checkmark.png'} alt='T'/> :
+            <img src={process.env.PUBLIC_URL + '/assets/icons/delete-sign.png'} alt='F'/>
 
         const statusText = data.isCorrect[index] ? 'Đúng' : 'Sai'
 

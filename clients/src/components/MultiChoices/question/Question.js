@@ -135,7 +135,7 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
 
                 <div className="question-embed col-10 d-flex align-items-end justify-content-center">
                     {embededMedia.length > 0 && <Image src={embededMedia} />}
-                    {embededMedia.length <= 0 && <Image src="https://sites.udel.edu/machineshop/wp-content/themes/oria/images/placeholder.png" alt="Nothing" />}
+                    {embededMedia.length <= 0 && <Image src={process.env.PUBLIC_URL + '/assets/placeholder.png'} alt="Nothing" />}
                 </div>
 
                 <div className="col-1 d-flex align-items-end justify-content-end">
