@@ -106,7 +106,11 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logOut: (state) => {
-            window.localStorage.clear()
+            // Xóa Cookies
+            Cookies.remove(ACCESS_TOKEN)
+            Cookies.remove(USER_ID)
+
+            //Xóa Token
             clearAuthToken()
             state.isAuthenticated = false
             state.user = null

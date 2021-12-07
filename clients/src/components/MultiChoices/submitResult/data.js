@@ -1,7 +1,4 @@
 import React from 'react'
-import { MDBBtn } from 'mdbreact'
-import SubmitResult from 'components/MultiChoices/submitResult/SubmitResult'
-import { mapOrder } from 'utils/sorts'
 
 export const COLUMNS = [
     {

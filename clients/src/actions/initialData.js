@@ -6296,7 +6296,6 @@ export const initialTakeTest = {
 }
 
 export const blankContest = {
-    id: '',
     creator_id: 'user-1',
     tests: [],
     name: '',
@@ -6307,8 +6306,6 @@ export const blankContest = {
     endTime: '',
     status: ''
 }
-
-/// Nháp
 
 export const emptyTakeTest = {
     status: '',
