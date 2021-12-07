@@ -59,7 +59,6 @@ export default function SubmitResult() {
                                 <div>
                                     <div className="label">
                                         Thời gian nộp bài:
-                                        <span className="fw-light"> <i>(Nộp đúng hạn)</i></span>
                                     </div>
                                     <div className="row">
                                         <Form.Control

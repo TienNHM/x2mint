@@ -23,27 +23,28 @@ export const COLUMNS = [
         width: 200
     },
     {
-        label: 'Điểm tối đa',
-        field: 'Điểm tối đa',
-        sort: 'asc',
-        width: 100
-    },
-    {
-        label: 'Điểm đạt được',
-        field: 'Điểm đạt được',
+        label: 'Status',
+        field: 'Status',
         sort: 'asc',
         width: 100
     }
 ]
 
 export default function exportData(data) {
+
     const rows = data.chooseAnswers.map((value, index) => {
+        const status = data.isCorrect[index] ?
+            <img src="https://img.icons8.com/fluency/24/000000/checkmark.png" /> :
+            <img src="https://img.icons8.com/fluency/24/000000/delete-sign.png"/>
+
+        const statusText = data.isCorrect[index] ? 'Đúng' : 'Sai'
+
         const item = {
             'Câu': index + 1,
             'Đáp án đã chọn': value.answers.map(x => x).join(', '),
             'Đáp án đúng': value.question.correctAnswers.map(x => x).join(', '),
-            'Điểm tối đa': value.question.maxPoints,
-            'Điểm đạt được': value.points | 0
+            'Đúng/Sai': statusText,
+            'Status': status
         }
         return item
     })

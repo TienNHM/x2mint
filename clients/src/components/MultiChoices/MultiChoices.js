@@ -59,7 +59,8 @@ function MultiChoices() {
                 ...emptyTakeTest,
                 questionsOrder: t.questionsOrder,
                 chooseAnswers: chooseAnswers,
-                test: t.id
+                test: t.id,
+                isCorrect: []
             }
             setTakeTest(newTakeTest)
         }
