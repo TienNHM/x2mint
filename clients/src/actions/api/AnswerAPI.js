@@ -1,67 +1,89 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
+import { ACCESS_TOKEN } from 'utils/constants'
 
 
-export const createAnswer = async (accessToken, answer) => {
-    //TODO: createAnswer
-    const url = `${process.env.REACT_APP_API_ROOT}/answers`
-    const request = await axios.post(url, answer, {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    })
+export const createAnswer = async (answer) => {
+    try {
+        const url = `${process.env.REACT_APP_API_ROOT}/answers`
+        const request = await axios.post(url, answer, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            }
+        }).then(response => response)
 
-    console.log(request.data)
-    return request.data
+        return request.data
+    }
+    catch (err) {
+        console.error(err)
+        return null
+    }
 }
 
-export const updateAnswer = async (accessToken, answer) => {
-    //TODO: updateAnswer
-    const url = `${process.env.REACT_APP_API_ROOT}/answers/${answer.id}`
-    const request = await axios.put(url, answer, {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    })
+export const updateAnswer = async (answer) => {
+    try {
+        const url = `${process.env.REACT_APP_API_ROOT}/answers/${answer.id}`
+        const request = await axios.put(url, answer, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            }
+        }).then(response => response)
 
-    console.log(request.data)
-    return request.data
+        return request.data
+    }
+    catch (err) {
+        console.error(err)
+        return null
+    }
 }
 
-export const getAllAnswers = async (accessToken) => {
-    //TODO: getAllAnswers
-    const url = `${process.env.REACT_APP_API_ROOT}/answers`
-    const request = await axios.get(url, {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    })
+export const getAllAnswers = async () => {
+    try {
+        const url = `${process.env.REACT_APP_API_ROOT}/answers`
+        const request = await axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            }
+        }).then(response => response)
 
-    console.log(request.data)
-    return request.data
+        return request.data
+    }
+    catch (err) {
+        console.error(err)
+        return null
+    }
 }
 
-export const getAnswer = async (accessToken, answerId) => {
-    //TODO: getAnswer
-    const url = `${process.env.REACT_APP_API_ROOT}/answers/${answerId}`
-    const request = await axios.get(url, {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    })
+export const getAnswer = async (answerId) => {
+    try {
+        const url = `${process.env.REACT_APP_API_ROOT}/answers/${answerId}`
+        const request = await axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            }
+        }).then(response => response)
 
-    console.log(request.data)
-    return request.data
+        return request.data
+    }
+    catch (err) {
+        console.error(err)
+        return null
+    }
 }
 
-export const deleteAnswer = async (accessToken, answerId) => {
-    //TODO: deleteAnswer
-    const url = `${process.env.REACT_APP_API_ROOT}/answers/${answerId}/delete`
-    const request = await axios.post(url, {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    })
+export const deleteAnswer = async (answerId) => {
+    try {
+        const url = `${process.env.REACT_APP_API_ROOT}/answers/${answerId}/delete`
+        const request = await axios.post(url, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            }
+        }).then(response => response)
 
-    console.log(request.data)
-    return request.data
+        return request.data
+    }
+    catch (err) {
+        console.error(err)
+        return null
+    }
 }
