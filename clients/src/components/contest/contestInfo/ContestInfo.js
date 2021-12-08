@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card, ListGroup, ListGroupItem, Form, Image } from 'react-bootstrap'
 import ModalCreateContest from 'components/contest/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
-import MultiChoices from 'components/MultiChoices/MultiChoices'
 import StatisticTest from 'components/contest/statistics/StatisticTest'
 import { emptyTest } from 'actions/initialData'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
@@ -347,7 +346,7 @@ export default function ContestInfo() {
                                                                 <i className="fa fa-bar-chart"></i>
                                                             </Button>
                                                             <Button variant="primary" size="sm"
-                                                                onClick={() => navigate(`/test/${test._id | test.id}`)}>
+                                                                onClick={() => navigate(`/test/${test._id}`)}>
                                                                 <i className="fa fa-edit"></i>
                                                             </Button>
                                                             <Button variant="danger" size="sm"

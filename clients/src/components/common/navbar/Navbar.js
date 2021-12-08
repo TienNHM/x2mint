@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logOut } from 'redux/authSlice'
 import { ROLE_CREATOR, ROLE_USER } from 'utils/constants'
+
 function Navbar() {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
     const user = useSelector((state) => state.auth.user)

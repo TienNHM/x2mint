@@ -253,29 +253,8 @@ export const emptyQuestion = {
     type: 'MULTICHOICE',
     content: '',
     embededMedia: '',
-    answers: [
-        {
-            id: '1',
-            name: 'A',
-            content: ''
-        },
-        {
-            id: '2',
-            name: 'B',
-            content: ''
-        },
-        {
-            id: '3',
-            name: 'C',
-            content: ''
-        },
-        {
-            id: '4',
-            name: 'D',
-            content: ''
-        }
-    ],
-    correct_answers: []
+    answers: [],
+    correctAnswers: []
 }
 
 export const questionTypes = {

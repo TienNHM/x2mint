@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 import Image from 'react-bootstrap/Image'
 import Answer from 'components/MultiChoices/answer/Answer'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
-import { MAX_QUESTION_LENGTH, MODAL_ACTION_CONFIRM } from 'utils/constants'
+import {
+    MAX_QUESTION_LENGTH,
+    MODAL_ACTION_CONFIRM,
+    ROLE_CREATOR
+} from 'utils/constants'
 import './Question.scss'
-import { emptyQuestion } from 'actions/initialData'
 
-function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
-    console.log(question)
+function Question({ question, updateQuestion, updateTakeTest }) {
+    // Lấy thông tin user
+    const user = useSelector((state) => state.auth.user)
+    const isCreator = user.role === ROLE_CREATOR
+
     const [embededMedia, setEmbedMedia] = useState('')
     const [isUpdatedEmbedMedia, setIsUpdatedEmbedMedia] = useState(false)
     const [content, setContent] = useState('')
@@ -110,7 +117,11 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
 
     return (
         <div className="panel-center">
-            {(!question || !question.answers) && <div>Chưa có câu hỏi nào</div>}
+            {(!question || !question.answers) &&
+                <div className="d-flex align-items-center justify-content-center h-100">
+                    Chưa có câu hỏi nào! Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!
+                </div>
+            }
 
             {question && question.answers &&
                 <>
@@ -166,17 +177,24 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
                     </div>
 
                     <div className="question-answers">
-                        {question.answers.map((a, index) =>
-                            <Answer
-                                key={index}
-                                name={a.name}
-                                index={index}
-                                answers={question.answers}
-                                updateAnswers={updateAnswers}
-                                onClick={handleOnAnswerClick}
-                                disabled={!isCreator}
-                            />)
-                        }
+                        {question.answers.length > 0 ? (
+                            <>
+                                {question.answers.map((a, index) =>
+                                    <Answer
+                                        key={index}
+                                        name={a.name}
+                                        index={index}
+                                        answers={question.answers}
+                                        updateAnswers={updateAnswers}
+                                        onClick={handleOnAnswerClick}
+                                        disabled={!isCreator}
+                                    />)
+                                }
+                            </>
+                        ) : (
+                            <div>Thêm câu trả lời...</div>
+                        )}
+
                     </div>
                     <BrowseLibrary show={isShowLibrary} onAction={onConfirmModalAction} />
                 </>

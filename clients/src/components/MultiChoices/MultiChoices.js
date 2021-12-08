@@ -103,6 +103,7 @@ function MultiChoices() {
     }, [questions])
 
     const updateSelectedQuestion = (question) => {
+        // TODO kiểm tra lại
         setSelectedQuestion(question)
 
         // Update lại question trong list questions
