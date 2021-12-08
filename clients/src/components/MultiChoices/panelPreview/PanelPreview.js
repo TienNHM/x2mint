@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap'
 import { applyDrag } from 'utils/dragDrop'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { MODAL_ACTION_CONFIRM, STATUS } from 'utils/constants'
-import { emptyQuestion } from 'actions/initialData'
+import { blankQuestion } from 'actions/initialData'
 import './PanelPreview.scss'
 import { createQuestion, updateQuestion, deleteQuestion } from 'actions/api/QuestionAPI'
 
@@ -38,7 +38,7 @@ function PanelPreview(props) {
 
     const handleOnAddQuestion = async () => {
         // Tạo mới 1 question
-        const quiz = cloneDeep(emptyQuestion)
+        const quiz = cloneDeep(blankQuestion)
         const newQuiz = await createQuestion(quiz, test.id)
         console.log(newQuiz)
 
@@ -78,11 +78,6 @@ function PanelPreview(props) {
             const newQuestions = [...questions]
             const index = newQuestions.indexOf(selectedQuestion)
             newQuestions.splice(index, 1)
-            // if (newQuestions.length <= 0) {
-            //     const quiz = cloneDeep(emptyQuestion)
-            //     quiz.id = 'question-1'
-            //     newQuestions.push(quiz)
-            // }
 
             setQuestions(newQuestions)
             setSelectedQuestion(newQuestions[index > 0 ? index - 1 : 0])

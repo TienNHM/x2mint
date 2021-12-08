@@ -10,11 +10,14 @@ import {
     ROLE_CREATOR
 } from 'utils/constants'
 import './Question.scss'
+import { createAnswer } from 'actions/api/AnswerAPI'
+import { blankAnswer } from 'actions/initialData'
 
 function Question({ question, updateQuestion, updateTakeTest }) {
     // Lấy thông tin user
     const user = useSelector((state) => state.auth.user)
     const isCreator = user.role === ROLE_CREATOR
+    const answerIndex = ['A', 'B', 'C', 'D']
 
     const [embededMedia, setEmbedMedia] = useState('')
     const [isUpdatedEmbedMedia, setIsUpdatedEmbedMedia] = useState(false)
@@ -94,6 +97,21 @@ function Question({ question, updateQuestion, updateTakeTest }) {
         setIsUpdatedEmbedMedia(true)
     }
 
+    const handleOnAddAnswer = async () => {
+        const data = await createAnswer(
+            {
+                ...blankAnswer,
+                name: answerIndex[question.answers.length]
+            },
+            question._id
+        )
+        console.log(data)
+
+        const newQuestion = { ...question }
+        newQuestion.answers.push(data.answer)
+        updateQuestion(newQuestion)
+    }
+
     //#endregion
 
     const onConfirmModalAction = (type, photo) => {
@@ -115,6 +133,19 @@ function Question({ question, updateQuestion, updateTakeTest }) {
         setIsShowLibrary(!isShowLibrary)
     }
 
+    const renderAddAnswer = () => {
+        return (
+            <div className="empty-answer d-flex align-items-center justify-content-center">
+                <div className="decor d-flex align-items-center justify-content-center">
+                    <Button variant="primary" size="lg"
+                        onClick={() => handleOnAddAnswer()}>
+                        Thêm đáp án
+                    </Button>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="panel-center">
             {(!question || !question.answers) &&
@@ -128,8 +159,7 @@ function Question({ question, updateQuestion, updateTakeTest }) {
                     <div className="question">
                         <div className="question-content  align-items-center">
                             <Form.Control
-                                size="sm"
-                                as="textarea"
+                                size="sm" as="textarea"
                                 rows={rows}
                                 placeholder="Nhập nội dung câu hỏi..."
                                 className="textarea-enter"
@@ -176,26 +206,27 @@ function Question({ question, updateQuestion, updateTakeTest }) {
                         </div>
                     </div>
 
-                    <div className="question-answers">
-                        {question.answers.length > 0 ? (
-                            <>
-                                {question.answers.map((a, index) =>
-                                    <Answer
-                                        key={index}
-                                        name={a.name}
-                                        index={index}
-                                        answers={question.answers}
-                                        updateAnswers={updateAnswers}
-                                        onClick={handleOnAnswerClick}
-                                        disabled={!isCreator}
-                                    />)
-                                }
-                            </>
-                        ) : (
-                            <div>Thêm câu trả lời...</div>
-                        )}
+                    {question.answers.length > 0 ? (
+                        <div className="question-answers">
+                            {question.answers.map((a, index) =>
+                                <Answer
+                                    key={index}
+                                    name={a.name}
+                                    index={index}
+                                    answers={question.answers}
+                                    updateAnswers={updateAnswers}
+                                    onClick={handleOnAnswerClick}
+                                    disabled={!isCreator}
+                                />)
+                            }
 
-                    </div>
+                            {question.answers.length < 4 && renderAddAnswer()}
+                        </div>
+                    ) : (
+                        <>{renderAddAnswer()}</>
+                    )
+                    }
+
                     <BrowseLibrary show={isShowLibrary} onAction={onConfirmModalAction} />
                 </>
             }

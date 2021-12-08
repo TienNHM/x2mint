@@ -3,14 +3,17 @@ import Cookies from 'js-cookie'
 import { ACCESS_TOKEN } from 'utils/constants'
 
 
-export const createAnswer = async (answer) => {
+export const createAnswer = async (answer, questionId) => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/answers`
-        const request = await axios.post(url, answer, {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
-            }
-        }).then(response => response)
+        const request = await axios.post(url,
+            {
+                ...answer,
+                questionId: questionId,
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                }
+            }).then(response => response)
 
         return request.data
     }

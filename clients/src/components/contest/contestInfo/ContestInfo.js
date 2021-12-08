@@ -3,7 +3,7 @@ import { Button, Card, ListGroup, ListGroupItem, Form, Image } from 'react-boots
 import ModalCreateContest from 'components/contest/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import StatisticTest from 'components/contest/statistics/StatisticTest'
-import { emptyTest } from 'actions/initialData'
+import { blankTest } from 'actions/initialData'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
 import Share from 'components/common/share/Share'
 import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ACCESS_TOKEN, ROLE_CREATOR, ROLE_USER } from 'utils/constants'
@@ -146,7 +146,7 @@ export default function ContestInfo() {
         else if (currentAction === 'CONFIRM_CREATE_TEST') {
             if (action === MODAL_ACTION_CONFIRM) {
                 const newTest = {
-                    ...emptyTest,
+                    ...blankTest,
                     creatorId: user.id,
                     startTime: new Date().toISOString(),
                     endTime: new Date().toISOString()
