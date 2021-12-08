@@ -12,15 +12,15 @@ import {
 import './Question.scss'
 import { createAnswer } from 'actions/api/AnswerAPI'
 import { blankAnswer } from 'actions/initialData'
+import { updateQuestion } from 'actions/api/QuestionAPI'
 
-function Question({ question, updateQuestion, updateTakeTest }) {
+function Question({ question, setQuestion, updateTakeTest }) {
     // Lấy thông tin user
     const user = useSelector((state) => state.auth.user)
     const isCreator = user.role === ROLE_CREATOR
     const answerIndex = ['A', 'B', 'C', 'D']
 
     const [embededMedia, setEmbedMedia] = useState('')
-    const [isUpdatedEmbedMedia, setIsUpdatedEmbedMedia] = useState(false)
     const [content, setContent] = useState('')
     const [rows, setRows] = useState(1)
     const [chooseAnswer, setChooseAnswer] = useState([])
@@ -43,21 +43,12 @@ function Question({ question, updateQuestion, updateTakeTest }) {
         if (isCreator) {
             const newQuestion = { ...question }
             newQuestion.correct_answers = chooseAnswer
-            updateQuestion(newQuestion)
+            setQuestion(newQuestion)
         }
         else {
             updateTakeTest(question, chooseAnswer)
         }
     }, [chooseAnswer])
-
-    useEffect(() => {
-        if (isUpdatedEmbedMedia) {
-            const q = { ...question }
-            q.embededMedia = embededMedia
-            updateQuestion(q, isCreator)
-            setIsUpdatedEmbedMedia(false)
-        }
-    }, [embededMedia])
 
     //#region Handle
 
@@ -72,8 +63,14 @@ function Question({ question, updateQuestion, updateTakeTest }) {
 
             const newQuestion = { ...question }
             newQuestion.content = event.target.value
-            updateQuestion(newQuestion, isCreator)
+            setQuestion(newQuestion, isCreator)
         }
+    }
+
+    const handleTextBlur = async () => {
+        console.log(question)
+        const data = await updateQuestion(question)
+        console.log(data)
     }
 
     const handleOnAnswerClick = (event) => {
@@ -92,9 +89,13 @@ function Question({ question, updateQuestion, updateTakeTest }) {
         }
     }
 
-    const handleOnRemoveClick = () => {
+    const handleOnRemoveClick = async () => {
         setEmbedMedia('')
-        setIsUpdatedEmbedMedia(true)
+        const q = { ...question }
+        q.embededMedia = ''
+        setQuestion(q, isCreator)
+        const data = await updateQuestion(q)
+        console.log(data)
     }
 
     const handleOnAddAnswer = async () => {
@@ -109,29 +110,30 @@ function Question({ question, updateQuestion, updateTakeTest }) {
 
         const newQuestion = { ...question }
         newQuestion.answers.push(data.answer)
-        updateQuestion(newQuestion)
+        setQuestion(newQuestion)
     }
 
     //#endregion
 
-    const onConfirmModalAction = (type, photo) => {
+    const onConfirmModalAction = async (type, photo) => {
         if (photo && type === MODAL_ACTION_CONFIRM) {
             setEmbedMedia(photo.src.large)
+
+            const q = { ...question }
+            q.embededMedia = photo.src.large
+            setQuestion(q, isCreator)
+            const data = await updateQuestion(q)
+            console.log(data)
         }
 
-        toggleShowLibrary()
+        setIsShowLibrary(false)
     }
 
     const updateAnswer = (answer) => {
         const newQuestion = { ...question }
         const index = newQuestion.answers.findIndex(a => a._d === answer._id)
         newQuestion.answers[index] = answer
-        updateQuestion(newQuestion, isCreator)
-    }
-
-    const toggleShowLibrary = () => {
-        setIsUpdatedEmbedMedia(true)
-        setIsShowLibrary(!isShowLibrary)
+        setQuestion(newQuestion, isCreator)
     }
 
     const renderAddAnswer = () => {
@@ -150,8 +152,11 @@ function Question({ question, updateQuestion, updateTakeTest }) {
     return (
         <div className="panel-center">
             {(!question || !question.answers) &&
-                <div className="d-flex align-items-center justify-content-center h-100">
-                    Chưa có câu hỏi nào! Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!
+                <div className="d-flex align-items-center justify-content-center h-100 flex-column">
+                    <h1 className="fw-bolder">Chưa có câu hỏi nào!</h1>
+                    <Image src={process.env.PUBLIC_URL + '/assets/no-records.svg'}
+                        style={{ height: '50vh' }} />
+                    <h4 className="fw-bold text-warning">Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!</h4>
                 </div>
             }
 
@@ -166,6 +171,7 @@ function Question({ question, updateQuestion, updateTakeTest }) {
                                 className="textarea-enter"
                                 value={content}
                                 onChange={handleTextChange}
+                                onBlur={handleTextBlur}
                                 disabled={!isCreator}
                             />
                         </div>
@@ -177,7 +183,7 @@ function Question({ question, updateQuestion, updateTakeTest }) {
                             {isCreator &&
                                 <Button variant="warning"
                                     className="fw-bolder text-light"
-                                    onClick={toggleShowLibrary}
+                                    onClick={() => setIsShowLibrary(true)}
                                 >
                                     <i className="fa fa-edit"></i>
                                 </Button>

@@ -152,7 +152,7 @@ function MultiChoices() {
 
                     <Question
                         question={selectedQuestion}
-                        updateQuestion={updateSelectedQuestion}
+                        setQuestion={updateSelectedQuestion}
                         isCreator={user.role === ROLE_CREATOR}
                         updateTakeTest={updateTakeTest}
                     />
