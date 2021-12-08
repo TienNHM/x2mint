@@ -122,9 +122,10 @@ function Question({ question, updateQuestion, updateTakeTest }) {
         toggleShowLibrary()
     }
 
-    const updateAnswers = (answers) => {
+    const updateAnswer = (answer) => {
         const newQuestion = { ...question }
-        newQuestion.answers = answers
+        const index = newQuestion.answers.findIndex(a => a._d === answer._id)
+        newQuestion.answers[index] = answer
         updateQuestion(newQuestion, isCreator)
     }
 
@@ -211,10 +212,8 @@ function Question({ question, updateQuestion, updateTakeTest }) {
                             {question.answers.map((a, index) =>
                                 <Answer
                                     key={index}
-                                    name={a.name}
-                                    index={index}
-                                    answers={question.answers}
-                                    updateAnswers={updateAnswers}
+                                    answer={a}
+                                    setAnswer={updateAnswer}
                                     onClick={handleOnAnswerClick}
                                     disabled={!isCreator}
                                 />)

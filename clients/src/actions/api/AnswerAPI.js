@@ -25,12 +25,14 @@ export const createAnswer = async (answer, questionId) => {
 
 export const updateAnswer = async (answer) => {
     try {
-        const url = `${process.env.REACT_APP_API_ROOT}/answers/${answer.id}`
+        const url = `${process.env.REACT_APP_API_ROOT}/answers/${answer._id}`
         const request = await axios.put(url, answer, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
             }
         }).then(response => response)
+        
+        console.log(request.data)
 
         return request.data
     }
