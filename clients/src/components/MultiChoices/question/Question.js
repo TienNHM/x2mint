@@ -5,8 +5,10 @@ import Answer from 'components/MultiChoices/answer/Answer'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import { MAX_QUESTION_LENGTH, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './Question.scss'
+import { emptyQuestion } from 'actions/initialData'
 
 function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
+    console.log(question)
     const [embededMedia, setEmbedMedia] = useState('')
     const [isUpdatedEmbedMedia, setIsUpdatedEmbedMedia] = useState(false)
     const [content, setContent] = useState('')
@@ -19,7 +21,10 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
         if (question) {
             setContent(question.content)
             setEmbedMedia(question.embededMedia)
-            setQuestionLength(MAX_QUESTION_LENGTH - question.content.length)
+            setQuestionLength(question.content ?
+                MAX_QUESTION_LENGTH - question.content.length :
+                MAX_QUESTION_LENGTH
+            )
             if (!isCreator) setChooseAnswer([])
         }
     }, [question])
@@ -105,65 +110,77 @@ function Question({ question, updateQuestion, isCreator, updateTakeTest }) {
 
     return (
         <div className="panel-center">
-            <div className="question">
-                <div className="question-content  align-items-center">
-                    <Form.Control
-                        size="sm"
-                        as="textarea"
-                        rows={rows}
-                        placeholder="Nhập nội dung câu hỏi..."
-                        className="textarea-enter"
-                        value={content}
-                        onChange={handleTextChange}
-                        disabled={!isCreator}
-                    />
-                </div>
-                <div className="lenght-limit">{questionLength}</div>
-            </div>
+            {(!question || !question.answers) && <div>Chưa có câu hỏi nào</div>}
 
-            <div className="embeded row">
-                <div className="col-1 d-flex align-items-end justify-content-start">
-                    {isCreator &&
-                        <Button variant="warning"
-                            className="fw-bolder text-light"
-                            onClick={toggleShowLibrary}
-                        >
-                            <i className="fa fa-edit"></i>
-                        </Button>
-                    }
-                </div>
+            {question && question.answers &&
+                <>
+                    <div className="question">
+                        <div className="question-content  align-items-center">
+                            <Form.Control
+                                size="sm"
+                                as="textarea"
+                                rows={rows}
+                                placeholder="Nhập nội dung câu hỏi..."
+                                className="textarea-enter"
+                                value={content}
+                                onChange={handleTextChange}
+                                disabled={!isCreator}
+                            />
+                        </div>
+                        <div className="lenght-limit">{questionLength}</div>
+                    </div>
 
-                <div className="question-embed col-10 d-flex align-items-end justify-content-center">
-                    {embededMedia.length > 0 && <Image src={embededMedia} />}
-                    {embededMedia.length <= 0 && <Image src={process.env.PUBLIC_URL + '/assets/placeholder.png'} alt="Nothing" />}
-                </div>
+                    <div className="embeded row">
+                        <div className="col-1 d-flex align-items-end justify-content-start">
+                            {isCreator &&
+                                <Button variant="warning"
+                                    className="fw-bolder text-light"
+                                    onClick={toggleShowLibrary}
+                                >
+                                    <i className="fa fa-edit"></i>
+                                </Button>
+                            }
+                        </div>
 
-                <div className="col-1 d-flex align-items-end justify-content-end">
-                    {isCreator &&
-                        <Button variant="danger"
-                            className="fw-bolder text-light"
-                            onClick={handleOnRemoveClick}
-                        >
-                            <i className="fa fa-remove"></i>
-                        </Button>
-                    }
-                </div>
-            </div>
+                        <div className="question-embed col-10 d-flex align-items-end justify-content-center">
+                            {embededMedia &&
+                                <Image src={embededMedia} />
+                            }
 
-            <div className="question-answers">
-                {question && question.answers.map((a, index) =>
-                    <Answer
-                        key={index}
-                        name={a.name}
-                        index={index}
-                        answers={question.answers}
-                        updateAnswers={updateAnswers}
-                        onClick={handleOnAnswerClick}
-                        disabled={!isCreator}
-                    />)
-                }
-            </div>
-            <BrowseLibrary show={isShowLibrary} onAction={onConfirmModalAction} />
+                            {!embededMedia &&
+                                <Image src={process.env.PUBLIC_URL + '/assets/placeholder.png'}
+                                    alt="Nothing" />
+                            }
+                        </div>
+
+                        <div className="col-1 d-flex align-items-end justify-content-end">
+                            {isCreator &&
+                                <Button variant="danger"
+                                    className="fw-bolder text-light"
+                                    onClick={handleOnRemoveClick}
+                                >
+                                    <i className="fa fa-remove"></i>
+                                </Button>
+                            }
+                        </div>
+                    </div>
+
+                    <div className="question-answers">
+                        {question.answers.map((a, index) =>
+                            <Answer
+                                key={index}
+                                name={a.name}
+                                index={index}
+                                answers={question.answers}
+                                updateAnswers={updateAnswers}
+                                onClick={handleOnAnswerClick}
+                                disabled={!isCreator}
+                            />)
+                        }
+                    </div>
+                    <BrowseLibrary show={isShowLibrary} onAction={onConfirmModalAction} />
+                </>
+            }
         </div>
     )
 }

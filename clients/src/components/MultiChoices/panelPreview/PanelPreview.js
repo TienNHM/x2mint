@@ -31,7 +31,7 @@ function PanelPreview(props) {
     const handleOnAddQuestion = () => {
         let questionsList = [...questions]
         const quiz = cloneDeep(emptyQuestion)
-        quiz._id = 'question-' + (questionsList.length + 1)
+        // quiz._id = 'question-' + (questionsList.length + 1)
         setSelectedQuestion(quiz)
         questionsList.push(quiz)
         const questionsOrder = test.questions.map(q => q.id)

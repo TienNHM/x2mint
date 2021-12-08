@@ -250,7 +250,6 @@ export const emptyTest = {
 }
 
 export const emptyQuestion = {
-    _id: '',
     type: 'MULTICHOICE',
     content: '',
     embededMedia: '',
