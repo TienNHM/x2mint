@@ -74,11 +74,13 @@ export const updateContest = async (contest) => {
 export const updateTestsInContest = async (contestId, testsList) => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/contests/${contestId}/tests`
-        const request = await axios.put(url, testsList, {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
-            }
-        }).then(response => response)
+        const request = await axios.put(url,
+            {
+                tests: testsList,
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                }
+            }).then(response => response)
 
         return request.data
     }
