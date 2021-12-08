@@ -1,6 +1,5 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { useSelector } from 'react-redux'
 import { ACCESS_TOKEN } from 'utils/constants'
 
 
@@ -92,7 +91,7 @@ export const getAllTestsByCreator = async (creatorId) => {
 export const deleteTest = async (testId) => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/tests/${testId}/delete`
-        const request = await axios.get(url, {
+        const request = await axios.put(url, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
             }

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { useEffect, useState } from 'react'
 import { ACCESS_TOKEN, USER_ID } from 'utils/constants'
 
 export const getAllContests = async () => {
@@ -46,6 +45,7 @@ export const createContest = async (contest) => {
             }
         }).then(response => response)
 
+        console.log(request.data)
         return request.data
     }
     catch (err) {
@@ -74,11 +74,13 @@ export const updateContest = async (contest) => {
 export const updateTestsInContest = async (contestId, testsList) => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/contests/${contestId}/tests`
-        const request = await axios.put(url, testsList, {
-            headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
-            }
-        }).then(response => response)
+        const request = await axios.put(url,
+            {
+                tests: testsList,
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                }
+            }).then(response => response)
 
         return request.data
     }

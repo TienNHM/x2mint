@@ -10,13 +10,11 @@ function BrowseLibrary({ show, onAction }) {
     const [link, setLink] = useState('')
     const [selectedPhoto, setSelectedPhoto] = useState(null)
     const [selectedIndex, setSelectedIndex] = useState(-1)
-    const handleLinkChange = (event) => setLink(event.target.value)
-
     const [photos, setPhotos] = useState(null)
     const [limit, setLimit] = useState(1)
-    const queryRef = useRef('')
-
     const [isHidden, setIsHidden] = useState(true)
+
+    const queryRef = useRef('')
 
     const search = (query, limit_num) => {
         const numPhotos = MAX_PHOTOS_PER_PAGE * limit_num
@@ -34,15 +32,22 @@ function BrowseLibrary({ show, onAction }) {
 
     const handleOnSearchClick = () => {
         const query = queryRef.current.value.trim()
-        setLimit(1)
-        search(query, limit)
+        if (query.length <= 0) {
+            alert('Vui lòng nhập từ khóa tìm kiếm')
+        }
+        else {
+            setLimit(1)
+            search(query, limit)
+        }
     }
 
     const handleOnLoadMoreClick = () => {
         const query = queryRef.current.value.trim()
         setLimit(limit + 1)
-        search(query, limit+1)
+        search(query, limit + 1)
     }
+
+    const handleLinkChange = (event) => setLink(event.target.value)
 
     const updateSelectedPhoto = (photo, index) => {
         setSelectedPhoto(photo)
@@ -71,7 +76,7 @@ function BrowseLibrary({ show, onAction }) {
                     <div className="top-modal">
                         <div className="search-area">
                             <div>Tìm kiếm: </div>
-                            <div className="search">
+                            <div className="search d-flex justify-content-start">
                                 <Form.Control
                                     size="sm"
                                     type="text"
@@ -80,7 +85,12 @@ function BrowseLibrary({ show, onAction }) {
                                     className="text-input"
                                     onKeyDown={event => event.key === 'Enter' && handleOnSearchClick()}
                                 />
-                                <Button variant="primary" size="sm" onClick={handleOnSearchClick}>Tìm</Button>{' '}
+                                <Button
+                                    variant="primary" size="sm"
+                                    onClick={handleOnSearchClick}
+                                >
+                                    <i className="fa fa-search"></i>
+                                </Button>
                             </div>
                         </div>
                         <div className="link-input-area">
@@ -122,10 +132,13 @@ function BrowseLibrary({ show, onAction }) {
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() => onAction(MODAL_ACTION_CLOSE, selectedPhoto)}>
+                <Button variant="secondary"
+                    onClick={() => onAction(MODAL_ACTION_CLOSE, selectedPhoto)}>
                     Đóng
                 </Button>
-                <Button variant="primary" onClick={() => onAction(MODAL_ACTION_CONFIRM, selectedPhoto)}>
+
+                <Button variant="primary"
+                    onClick={() => onAction(MODAL_ACTION_CONFIRM, selectedPhoto)}>
                     OK
                 </Button>
             </Modal.Footer>

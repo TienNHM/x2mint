@@ -3,10 +3,10 @@ import Cookies from 'js-cookie'
 import { ACCESS_TOKEN } from 'utils/constants'
 
 
-export const createQuestion = async (test) => {
+export const createQuestion = async (question, testId) => {
     try {
-        const url = `${process.env.REACT_APP_API_ROOT}/questions/new/${test.id}`
-        const request = await axios.post(url, test, {
+        const url = `${process.env.REACT_APP_API_ROOT}/questions/new/${testId}`
+        const request = await axios.post(url, question, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
             }
@@ -20,15 +20,34 @@ export const createQuestion = async (test) => {
     }
 }
 
-export const updateQuestion = async (test) => {
+export const updateQuestion = async (question) => {
     try {
-        const url = `${process.env.REACT_APP_API_ROOT}/questions/update/${test.id}`
-        const request = await axios.put(url, test, {
+        const url = `${process.env.REACT_APP_API_ROOT}/questions/${question._id}`
+        const request = await axios.put(url, question, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
+        console.log(request.data)
+        return request.data
+    }
+    catch (err) {
+        console.error(err)
+        return null
+    }
+}
+
+export const deleteQuestion = async (questionId) => {
+    try {
+        const url = `${process.env.REACT_APP_API_ROOT}/questions/${questionId}/delete`
+        const request = await axios.put(url, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            }
+        }).then(response => response)
+
+        console.log(request.data)
         return request.data
     }
     catch (err) {

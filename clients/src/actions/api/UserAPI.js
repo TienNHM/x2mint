@@ -39,7 +39,7 @@ export const getUserInfo = async (userId) => {
 export const updateUserInfo = async (user) => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/users/info/${user.id}`
-        const request = await axios.get(url, user, {
+        const request = await axios.put(url, user, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
             }

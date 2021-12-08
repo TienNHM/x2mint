@@ -3,18 +3,21 @@ import { Form, Button } from 'react-bootstrap'
 import { useAlert } from 'react-alert'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { splitTime } from 'utils/timeUtils'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ROLE_USER } from 'utils/constants'
+import { MODAL_ACTION_CONFIRM, ROLE_USER } from 'utils/constants'
 import './PanelSettings.scss'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
+import { updateTest } from 'actions/api/TestAPI'
 
 function PanelSettings(props) {
-    const { test, setTest, setIsSaved } = props
+    const { test, setTest } = props
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE_USER
 
     const navigate = useNavigate()
+    const alert = useAlert()
 
+    //#region States
     // Test title
     const inputTestTitleRef = useRef(null)
     const [testTitle, setTestTitle] = useState(test.name)
@@ -29,7 +32,7 @@ function PanelSettings(props) {
 
     // Điểm tối đa
     const inputMaxPointsRef = useRef(null)
-    const [testMaxPoints, setTestMaxPoints] = useState(test.maxPoints)
+    const [testMaxPoints, setTestMaxPoints] = useState(test.maxPoints ? test.maxPoints : 0)
 
     // Duration
     const start_time = splitTime(test.startTime)
@@ -46,9 +49,9 @@ function PanelSettings(props) {
     // Confirm Modal
     const [isShowConfirm, setIsShowConfirm] = useState(false)
     const [content, setContent] = useState('')
+    //#endregion
 
-    const alert = useAlert()
-    const handleSaveClick = () => {
+    const handleSaveClick = async () => {
         const titleValue = inputTestTitleRef.current.value
         if (titleValue.trim() === '') {
             inputTestTitleRef.current.focus()
@@ -67,8 +70,13 @@ function PanelSettings(props) {
                     maxPoints: testMaxPoints,
                     url: testLink
                 }
+
+                // Lưu vào CSDL
+                const data = await updateTest(newTest)
+                console.log(data)
+
+                // Update lại test
                 setTest(newTest)
-                setIsSaved(false)
                 alert.success('Đã lưu lại những thay đổi của bạn!')
             }
             else {

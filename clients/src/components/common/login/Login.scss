@@ -1,106 +1,120 @@
 @import '_setting.scss';
 
-.login{
+.login {
     margin: 10% auto 0;
     font-family: var(--body-font);
     border: 1.5px solid var(--mint);
     height: 400px;
     width: 920px;
     border-radius: 30px;
-}
-form__title{
-    text-align: center;
-    padding-top: 40px;
-    font-family: var(--logo-font);
-    color: var(--mint);
-    font-weight: 700;
-}
-.form__body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    margin: -15px 10%;
-}
-.info__area{
-    display: block;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    margin: -50px 10px 0 10%;
-    .nav__btn__login{
-        padding: 5px 30px;
-    }
-}
 
-.auth__pic {
-    max-width: 500px;
-}
-input{
-    padding: 10px 20px;
-    margin: 10px;
-    display: block;
-    border-radius: 50px;
-    width: 300px;
-    font-size: 1rem;
-    border-radius: 50px;
-    border: 1px solid var(--mint);
-    color: var(--mint);
-    background-color: white;
-    font-weight:700;
-    ::placeholder{
-        border: 1px solid var(--mint);
-    }
-}
-.button{
-    &__login{ 
-        &-gg{
-            background: none;
-            border: none;
-            margin: 10px auto;
-            &:hover{
-                background: none;
-                color:var(--mint)
-            }
-        }     
+    .form__title {
+        text-align: center;
+        padding-top: 40px;
+        font-family: var(--logo-font);
+        color: var(--mint);
+        font-weight: 700;
     }
 
-    &__signup{
-        border: 1px solid var(--mint);
-        max-width: 150px;
-        border-radius: 50px;
-        color: white;
-        background-color: var(--mint);
-        padding: 5px 0;
-        font-weight: 600;       
+    .form__body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        margin: -15px 10%;
+    }
 
-        &:hover{
-            color: var(--strong-mint);
-            background: var(--light-mint);
+    .info__area {
+        display: block;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        margin: -50px 10px 0 10%;
+
+        .nav__btn__login {
+            padding: 5px 30px;
         }
     }
-}
-.input{
-    padding: auto;
-    margin: 20px;
-}
-.login__forget{
-    display: inline; 
-    .nav__btn__signup{
-        padding: 5px 30px;
-    } 
 
-}
-.forget__button{
-    background: none;
-    border: none;
-    color: var(--gray);
-    text-decoration: underline;
-    &:hover{
-        background: none;
-        color:var(--mint)
+    .auth__pic {
+        max-width: 500px;
     }
-}
-.register{
-    display:inline-flex;
+
+    input {
+        padding: 10px 20px;
+        margin: 10px;
+        display: block;
+        border-radius: 50px;
+        width: 300px;
+        font-size: 1rem;
+        border-radius: 50px;
+        border: 1px solid var(--mint);
+        color: var(--mint);
+        background-color: white;
+        font-weight: 700;
+
+        ::placeholder {
+            border: 1px solid var(--mint);
+        }
+    }
+
+    .button {
+        &__login {
+            &-gg {
+                background: none;
+                border: none;
+                margin: 10px auto;
+
+                &:hover {
+                    background: none;
+                    color: var(--mint)
+                }
+            }
+        }
+
+        &__signup {
+            border: 1px solid var(--mint);
+            max-width: 150px;
+            border-radius: 50px;
+            color: white;
+            background-color: var(--mint);
+            padding: 5px 0;
+            font-weight: 600;
+
+            &:hover {
+                color: var(--strong-mint);
+                background: var(--light-mint);
+            }
+        }
+    }
+
+    .input {
+        padding: auto;
+        margin: 20px;
+    }
+
+    .login__forget {
+        display: inline;
+
+        .nav__btn__signup {
+            padding: 5px 30px;
+        }
+
+    }
+
+    .forget__button {
+        background: none;
+        border: none;
+        color: var(--gray);
+        text-decoration: underline;
+
+        &:hover {
+            background: none;
+            color: var(--mint)
+        }
+    }
+
+    .register {
+        display: inline-flex;
+    }
 }

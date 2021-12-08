@@ -9,25 +9,20 @@
         >* {
             width: 48%;
             margin: 0 1%;
-
-            input {
-                width: 95%;
-            }
         }
 
         .search-area {
             .search {
-                display: flex;
-
-                .text-input {
-                    box-shadow: none !important;
-                    margin-right: $gap;
-                }
 
                 button {
                     margin: $gap 0;
                 }
             }
+        }
+
+        .text-input {
+            box-shadow: none !important;
+            margin: $gap $gap $gap 0;
         }
     }
 
