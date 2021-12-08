@@ -3,7 +3,7 @@ import { mapOrder } from 'utils/sorts'
 import PanelPreview from 'components/MultiChoices/panelPreview/PanelPreview'
 import Question from 'components/MultiChoices/question/Question'
 import PanelSettings from 'components/MultiChoices/panelSettings/PanelSettings'
-import { blankTest, emptyTakeTest } from 'actions/initialData'
+import { blankTakeTest } from 'actions/initialData'
 import './MultiChoices.scss'
 import { useParams } from 'react-router'
 import { Navigate } from 'react-router-dom'
@@ -34,7 +34,6 @@ function MultiChoices() {
     const [test, setTest] = useState(null)
     const [questions, setQuestions] = useState(null)
     const [selectedQuestion, setSelectedQuestion] = useState(null)
-    const [isSaved, setIsSaved] = useState(true)
     const [takeTest, setTakeTest] = useState(null)
 
     useEffect(() => {
@@ -56,7 +55,7 @@ function MultiChoices() {
             })
 
             const newTakeTest = {
-                ...emptyTakeTest,
+                ...blankTakeTest,
                 questionsOrder: t.questionsOrder,
                 chooseAnswers: chooseAnswers,
                 test: t.id,
@@ -65,36 +64,6 @@ function MultiChoices() {
             setTakeTest(newTakeTest)
         }
     }, [testResponse])
-
-    //#region  Load data
-    // useEffect(() => {
-    //     const questionsFromDB = test.questions
-    //     if (test) {
-    //         setCurrentTest(test)
-
-    //         // thứ tự tuân theo thuộc tính questionsOrder
-    //         const q = mapOrder(questionsFromDB, test.questionsOrder, 'id')
-    //         setQuestions(q)
-    //         setSelectedQuestion(q[0])
-    //     }
-    //     else {
-    //         const newTest = { ...emptyTest, id: 'test-1' }
-
-    //         setCurrentTest(newTest)
-    //         setQuestions(newTest.questions)
-    //         setSelectedQuestion(selectedQuestion | newTest.questions[0])
-    //     }
-    //     setIsLoadedSelectedQuestion(true)
-    // }, [test])
-
-    // useEffect(() => {
-    //     console.log('Current Test: ', test)
-    //     if (!isSaved) {
-    //         setIsSaved(true)
-    //         updateTest({ ...test })
-    //     }
-    // }, [test])
-    //#endregion
 
     useEffect(() => {
         const newTest = { ...test }
@@ -193,7 +162,6 @@ function MultiChoices() {
                         setTest={setTest}
                         isCreator={user.role === ROLE_CREATOR}
                         setSelectedQuestion={updateSelectedQuestion}
-                        setIsSaved={setIsSaved}
                     />
                 </>
             }

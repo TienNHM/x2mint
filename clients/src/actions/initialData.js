@@ -9,7 +9,7 @@ export const blankContest = {
     status: ''
 }
 
-export const emptyTakeTest = {
+export const blankTakeTest = {
     status: '',
     submitTime: '',
     chooseAnswers: [],
