@@ -71,14 +71,17 @@ export default function Contest() {
                     endTime: endTime,
                     creatorId: user.id
                 }
-                data = await updateContest(newContest)
-                console.log(data)
 
+                // Update lại hiển thị trên trang Quản lý các cuộc thi
                 const index = contests.findIndex(c => c.id === selectedContest.id)
                 let tmpContests = [...contests]
                 tmpContests[index] = newContest
                 setContests(tmpContests)
                 setIsShow(false)
+
+                // Update lại Database
+                data = await updateContest(newContest)
+                console.log(data)
             }
             else {
                 const newContest = {

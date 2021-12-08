@@ -1,6 +1,5 @@
 import React from 'react'
 import { MDBBtn } from 'mdbreact'
-import { initialTakeTest } from 'actions/initialData'
 
 export const COLUMNS = [
     {
@@ -52,12 +51,12 @@ export default function exportData(data, setIsShowSubmitPage) {
         columns: COLUMNS,
         rows: [
             {
-                'Username': initialTakeTest.username,
-                'Họ tên': initialTakeTest.fullname,
+                'Username': data.user.username,
+                'Họ tên': data.user.fullname,
                 'Thời gian bắt đầu': '//TODO',
-                'Thời gian nộp bài': initialTakeTest.submitTime,
+                'Thời gian nộp bài': data.submitTime,
                 'Số câu đúng': 100000000, //TODO
-                'Điểm': initialTakeTest.points,
+                'Điểm': data.points,
                 'Chi tiết': <MDBBtn size="sm" onClick={() => setIsShowSubmitPage(true)}><i className="fa fa-info-circle"></i></MDBBtn>
             }
         ]

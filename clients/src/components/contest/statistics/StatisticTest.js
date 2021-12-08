@@ -17,7 +17,8 @@ export default function StatisticTest({ isShow, onAction, test }) {
     const startTime = test.startTime.split(' ')
     const endTime = test.endTime.split(' ')
 
-    const data = exportData(null, setIsShowSubmitPage) //TODO export data
+    //TODO Statistic
+    // const data = exportData(test, setIsShowSubmitPage) //TODO export data
 
     const handleAction = (action) => {
         if (action === MODAL_ACTION_CLOSE) {
@@ -104,7 +105,7 @@ export default function StatisticTest({ isShow, onAction, test }) {
                             <div>
                                 <ExportToExcel
                                     //TODO: Custom export
-                                    apiData={data.rows}
+                                    // apiData={data.rows}
                                     fileName={'data'}
                                 />
                             </div>
@@ -115,7 +116,7 @@ export default function StatisticTest({ isShow, onAction, test }) {
                                 entriesOptions={[10, 25, 50, 100]}
                                 entries={10}
                                 pagesAmount={4}
-                                data={data}
+                                // data={data}
                                 materialSearch
                                 fullPagination
                             />
@@ -129,10 +130,10 @@ export default function StatisticTest({ isShow, onAction, test }) {
                 </Modal.Footer>
             </Modal>
 
-            <SubmitResult
+            {/* <SubmitResult
                 isShow={isShowSubmitPage}
                 onAction={handleAction}
-            />
+            /> */}
         </>
     )
 }

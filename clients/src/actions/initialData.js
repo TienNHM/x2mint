@@ -241,44 +241,12 @@ export const initialTest = {
 }
 
 export const emptyTest = {
-    id: '',
     name: '',
-    creator_id: 'user-1',
-    status: 'DRAFT',
-    startTime: '',
-    endTime: '',
-    questions: [
-        {
-            id: 'question-1',
-            type: 'MULTICHOICE',
-            content: '',
-            embededMedia: '',
-            answers: [
-                {
-                    id: '1',
-                    name: 'A',
-                    content: ''
-                },
-                {
-                    id: '2',
-                    name: 'B',
-                    content: ''
-                },
-                {
-                    id: '3',
-                    name: 'C',
-                    content: ''
-                },
-                {
-                    id: '4',
-                    name: 'D',
-                    content: ''
-                }
-            ],
-            correct_answers: ['1']
-        }
-    ],
-    questionsOrder: ['question-1']
+    status: '',
+    // startTime: '',
+    // endTime: '',
+    questions: [],
+    questionsOrder: []
 }
 
 export const emptyQuestion = {

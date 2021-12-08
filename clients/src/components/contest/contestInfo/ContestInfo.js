@@ -14,6 +14,8 @@ import { useAxios } from 'actions/useAxios'
 import { useNavigate, useParams } from 'react-router'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
+import { createTest, deleteTest } from 'actions/api/TestAPI'
+import { updateContest } from 'actions/api/ContestAPI'
 
 export default function ContestInfo() {
     const navigate = useNavigate()
@@ -73,19 +75,6 @@ export default function ContestInfo() {
         }
     }, [contestResponse])
 
-    // useEffect(() => {
-    //     setTitle(contest.name)
-    //     setDescription(contest.description)
-    //     setUrl(contest.url)
-    //     setEmbedMedia(contest.embededMedia)
-    //     const start_time = splitTime(contest.startTime)
-    //     const end_time = splitTime(contest.endTime)
-    //     setStartDate(start_time.date)
-    //     setStartTime(start_time.time)
-    //     setEndDate(end_time.date)
-    //     setEndTime(end_time.time)
-    // }, [contest])
-
     const onAction = (isUpdate, action, title, description, url, embededMedia, startTime, endTime) => {
 
         if (action === MODAL_ACTION_CONFIRM) {
@@ -106,12 +95,6 @@ export default function ContestInfo() {
         setIsShowCreateContest(false)
     }
 
-    //#region Handle
-    const handleEditTest = (test) => {
-        setSelectedTest(test)
-        setIsShowTest(true)
-    }
-
     const handleCreateTest = () => {
         setCurrentAction('CONFIRM_CREATE_TEST')
         setConfirmModalContent('Bạn muốn tạo một bài test mới?')
@@ -130,20 +113,15 @@ export default function ContestInfo() {
         setIsShowConfirmModal(true)
     }
 
-    const handleTakeTest = (test) => {
-        //TODO code phần làm bài test với isCreator=false
-        console.log('Take a test:', test)
-        setSelectedTest(test)
-        setIsShowTest(true)
-    }
-
-    const handleShareContent = (url, title = '', content = '', hashtags = [], source = '') => {
+    const handleShareContent = (url = '',
+        title = '', content = '', hashtags = [], source = ''
+    ) => {
         const obj = {
-            url: url,
-            title: title,
-            content: content,
-            hashtags: hashtags,
-            source: source
+            url: url | process.env.REACT_APP_DOMAIN,
+            title: title | '',
+            content: content | '',
+            hashtags: hashtags | '',
+            source: source | ''
         }
         setShareContent(obj)
         setIsShowShareModal(true)
@@ -151,26 +129,45 @@ export default function ContestInfo() {
 
     //#endregion
 
-    const onTestAction = (action) => {
+    const onTestAction = async (action) => {
         if (currentAction === 'CONFIRM_DELETE_TEST') {
             if (selectedTest && action === MODAL_ACTION_CONFIRM) {
                 const newContest = { ...contest }
                 const index = newContest.tests.findIndex(c => c.id === selectedTest.id)
                 newContest.tests.splice(index, 1)
-                //TODO updateContest(newContest)
+
+                // Xóa selected test trong CSDL
+                const data = await deleteTest(selectedTest._id)
+                console.log(data)
+
+                const tmp = await updateContest(newContest)
+                console.log(tmp)
             }
         }
         else if (currentAction === 'CONFIRM_CREATE_TEST') {
             if (action === MODAL_ACTION_CONFIRM) {
-                const newContest = { ...contest }
-                newContest.tests.push({
+                const newTest = {
                     ...emptyTest,
-                    id: 'test-' + (contest.tests.length + 1)
-                })
-                //TODO updateContest(newContest)
-                const index = newContest.tests.length - 1
-                setSelectedTest(newContest.tests[index])
+                    creatorId: user.id,
+                    startTime: new Date().toISOString(),
+                    endTime: new Date().toISOString()
+                }
+
+                // Tạo mới test, lưu vào CSDL
+                const data = await createTest(newTest)
+                console.log(data)
+
+                // Cập nhật lại contest hiện tại
+                const newContest = { ...contest }
+                newContest.tests.push(data.test)
+                console.log('newContest', newContest)
+                setContest(newContest)
+                // setSelectedTest(data.test)
                 setIsShowTest(true)
+
+                //cập nhật danh sách tests của contest trong CSDL
+                const tmp = await updateContest(newContest)
+                console.log('zxz', tmp)
             }
         }
         setIsShowConfirmModal(false)
@@ -353,15 +350,15 @@ export default function ContestInfo() {
                                                                 <Button variant="warning" size="sm"
                                                                     onClick={() => handleStatisticsTest(test)} >
                                                                     <i className="fa fa-bar-chart"></i>
-                                                                </Button>{' '}
+                                                                </Button>
                                                                 <Button variant="primary" size="sm"
-                                                                    onClick={() => navigate(`/test/${test._id}`)}>
+                                                                    onClick={() => navigate(`/test/${test._id | test.id}`)}>
                                                                     <i className="fa fa-edit"></i>
-                                                                </Button>{' '}
+                                                                </Button>
                                                                 <Button variant="danger" size="sm"
                                                                     onClick={() => handleDeleteTest(test)} >
                                                                     <i className="fa fa-remove"></i>
-                                                                </Button>{' '}
+                                                                </Button>
                                                             </>
                                                         }
 
@@ -369,7 +366,7 @@ export default function ContestInfo() {
                                                             <>
                                                                 <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
                                                                     disabled={Date.parse(test.endTime) - Date.now() <= 0}
-                                                                    onClick={() => navigate(`/test/${test._id}`)}
+                                                                    onClick={() => navigate(`/test/${test._id | test.id}`)}
                                                                     size="sm"
                                                                 >
                                                                     <i className="fas fa-pen"></i>
