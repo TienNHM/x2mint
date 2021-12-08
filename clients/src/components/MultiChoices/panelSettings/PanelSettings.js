@@ -32,7 +32,7 @@ function PanelSettings(props) {
 
     // Điểm tối đa
     const inputMaxPointsRef = useRef(null)
-    const [testMaxPoints, setTestMaxPoints] = useState(test.maxPoints)
+    const [testMaxPoints, setTestMaxPoints] = useState(test.maxPoints ? test.maxPoints : 0)
 
     // Duration
     const start_time = splitTime(test.startTime)
