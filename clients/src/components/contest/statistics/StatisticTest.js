@@ -4,7 +4,6 @@ import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import { MODAL_ACTION_CLOSE } from 'utils/constants'
 import exportData from './data.js'
-import SubmitResult from 'components/MultiChoices/submitResult/SubmitResult'
 import './StatisticTest.scss'
 
 export default function StatisticTest({ isShow, onAction, test }) {

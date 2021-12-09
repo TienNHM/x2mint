@@ -9,10 +9,11 @@ import { useParams } from 'react-router'
 import { Navigate } from 'react-router-dom'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
-import { ACCESS_TOKEN, ROLE_CREATOR } from 'utils/constants'
+import { ACCESS_TOKEN, ROLE_CREATOR, STATUS } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
+import { createTakeTest, updateTakeTest } from 'actions/api/TakeTestAPI'
 
 function MultiChoices() {
     let { testId } = useParams()
@@ -29,6 +30,7 @@ function MultiChoices() {
     })
 
     const user = useSelector((state) => state.auth.user)
+    const isCreator = user.role === ROLE_CREATOR
     const [isSubmitted, setIsSubmitted] = useState(false)
 
     const [test, setTest] = useState(null)
@@ -37,6 +39,16 @@ function MultiChoices() {
     const [takeTest, setTakeTest] = useState(null)
 
     useEffect(() => {
+        async function callCreateTakeTest(_takeTest) {
+            const data = await createTakeTest(_takeTest)
+            console.log(data)
+
+            setTakeTest({
+                ..._takeTest,
+                _id: data.takeTestId
+            })
+        }
+
         if (testResponse) {
             console.log('response', testResponse)
             const t = testResponse.data
@@ -47,21 +59,23 @@ function MultiChoices() {
             setQuestions(q)
             setSelectedQuestion(selectedQuestion ? selectedQuestion : q[0])
 
-            const chooseAnswers = q.map(quiz => {
-                return {
-                    question: quiz._id,
-                    answers: []
-                }
-            })
+            if (!isCreator) {
+                const chooseAnswers = q.map(quiz => {
+                    return {
+                        question: quiz._id,
+                        answers: []
+                    }
+                })
 
-            const newTakeTest = {
-                ...blankTakeTest,
-                questionsOrder: t.questionsOrder,
-                chooseAnswers: chooseAnswers,
-                test: t.id,
-                isCorrect: []
+                const newTakeTest = {
+                    _status: STATUS.OK,
+                    questionsOrder: t.questionsOrder,
+                    chooseAnswers: chooseAnswers,
+                    test: t.id
+                }
+
+                callCreateTakeTest(newTakeTest)
             }
-            setTakeTest(newTakeTest)
         }
     }, [testResponse])
 
@@ -85,7 +99,7 @@ function MultiChoices() {
         console.log(newQuestions)
     }
 
-    const updateTakeTest = (question, chooseAnswer) => {
+    const updateTakeTestInfo = async (question, chooseAnswer) => {
         //Nếu ko phải creator thì update lại takeTest
         const newTakeTest = { ...takeTest }
         const choose = {
@@ -102,13 +116,18 @@ function MultiChoices() {
         }
         else newTakeTest.chooseAnswers = [choose]
 
-        setTakeTest(newTakeTest)
+        const data = await updateTakeTest(newTakeTest)
+
+        setTakeTest({
+            ...data.takeTest,
+            _id: data.takeTest.id
+        })
     }
 
     return (
         <div className="app-container">
             {isSubmitted &&
-                <Navigate to={`/submit/${takeTest.id}`} />
+                <Navigate to={`/takeTest/${takeTest.id}`} />
             }
 
             {testIsLoading &&
@@ -154,14 +173,15 @@ function MultiChoices() {
                     <Question
                         question={selectedQuestion}
                         setQuestion={updateSelectedQuestion}
-                        isCreator={user.role === ROLE_CREATOR}
-                        updateTakeTest={updateTakeTest}
+                        isCreator={isCreator}
+                        takeTest={takeTest}
+                        updateTakeTest={updateTakeTestInfo}
                     />
 
                     <PanelSettings
                         test={test}
                         setTest={setTest}
-                        isCreator={user.role === ROLE_CREATOR}
+                        isCreator={isCreator}
                         setSelectedQuestion={updateSelectedQuestion}
                     />
                 </>

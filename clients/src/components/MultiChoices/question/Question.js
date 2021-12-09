@@ -13,10 +13,11 @@ import './Question.scss'
 import { createAnswer } from 'actions/api/AnswerAPI'
 import { updateQuestion } from 'actions/api/QuestionAPI'
 
-function Question({ question, setQuestion, updateTakeTest }) {
+function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     // Lấy thông tin user
     const user = useSelector((state) => state.auth.user)
     const isCreator = user.role === ROLE_CREATOR
+
     const answerIndex = ['A', 'B', 'C', 'D']
 
     const [embededMedia, setEmbedMedia] = useState('')
@@ -37,6 +38,40 @@ function Question({ question, setQuestion, updateTakeTest }) {
             setChooseAnswers(isCreator ? question.correctAnswers : [])
         }
     }, [question])
+
+    const RenderEmptyQuestion = () => {
+        return (
+            <div className="d-flex align-items-center justify-content-center h-100 flex-column">
+                <h1 className="fw-bolder">Chưa có câu hỏi nào!</h1>
+                <Image src={process.env.PUBLIC_URL + '/assets/no-records.svg'}
+                    style={{ height: '50vh' }} />
+                <h4 className="fw-bold text-warning">Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!</h4>
+            </div>
+        )
+    }
+
+    const renderAddAnswer = () => {
+        return (
+            <div className="empty-answer d-flex align-items-center justify-content-center">
+                <div className="decor d-flex align-items-center justify-content-center">
+                    <Button variant="primary" size="lg"
+                        onClick={() => handleOnAddAnswer()}>
+                        Thêm đáp án
+                    </Button>
+                </div>
+            </div>
+        )
+    }
+
+    let indexQuestion = -1
+    if (!isCreator && !takeTest) {
+        return (<>
+            {RenderEmptyQuestion()}
+        </>)
+    }
+    else if (!isCreator && takeTest) {
+        indexQuestion = takeTest.chooseAnswers.findIndex(c => c.question === question._id)
+    }
 
     //#region Handle
 
@@ -72,7 +107,6 @@ function Question({ question, setQuestion, updateTakeTest }) {
         if (index < 0) {
             // Nhưng checkStatus = true, nghĩa là đang thêm answerName vào chooseAnswer
             if (checkStatus) {
-                console.log(newValue)
                 newValue.push(answerName)
                 choose = newValue
             }
@@ -91,14 +125,12 @@ function Question({ question, setQuestion, updateTakeTest }) {
         //#endregion
 
         if (isCreator) {
-            console.log(question.answers)
             const newQuestion = {
                 ...question,
                 answers: question.answers.map(a => a._id),
                 correctAnswers: choose
             }
 
-            console.log('....', newQuestion)
 
             const data = await updateQuestion(newQuestion)
             console.log(data)
@@ -168,28 +200,10 @@ function Question({ question, setQuestion, updateTakeTest }) {
         setQuestion(newQuestion, isCreator)
     }
 
-    const renderAddAnswer = () => {
-        return (
-            <div className="empty-answer d-flex align-items-center justify-content-center">
-                <div className="decor d-flex align-items-center justify-content-center">
-                    <Button variant="primary" size="lg"
-                        onClick={() => handleOnAddAnswer()}>
-                        Thêm đáp án
-                    </Button>
-                </div>
-            </div>
-        )
-    }
-
     return (
         <div className="panel-center">
             {(!question || !question.answers) &&
-                <div className="d-flex align-items-center justify-content-center h-100 flex-column">
-                    <h1 className="fw-bolder">Chưa có câu hỏi nào!</h1>
-                    <Image src={process.env.PUBLIC_URL + '/assets/no-records.svg'}
-                        style={{ height: '50vh' }} />
-                    <h4 className="fw-bold text-warning">Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!</h4>
-                </div>
+                <>{RenderEmptyQuestion()}</>
             }
 
             {question && question.answers &&
@@ -254,7 +268,10 @@ function Question({ question, setQuestion, updateTakeTest }) {
                                     setAnswer={updateAnswer}
                                     onClick={handleOnAnswerClick}
                                     disabled={!isCreator}
-                                    isChosen={question.correctAnswers.includes(a.name)}
+                                    isChosen={
+                                        isCreator ? question.correctAnswers.includes(a.name) :
+                                            takeTest.chooseAnswers[indexQuestion].answers.includes(a.name)
+                                    }
                                 />)
                             }
 
