@@ -31,8 +31,6 @@ export const updateAnswer = async (answer) => {
                 'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
             }
         }).then(response => response)
-        
-        console.log(request.data)
 
         return request.data
     }

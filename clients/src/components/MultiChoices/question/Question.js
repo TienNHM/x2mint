@@ -11,19 +11,18 @@ import {
 } from 'utils/constants'
 import './Question.scss'
 import { createAnswer } from 'actions/api/AnswerAPI'
-import { blankAnswer } from 'actions/initialData'
+import { updateQuestion } from 'actions/api/QuestionAPI'
 
-function Question({ question, updateQuestion, updateTakeTest }) {
+function Question({ question, setQuestion, updateTakeTest }) {
     // Lấy thông tin user
     const user = useSelector((state) => state.auth.user)
     const isCreator = user.role === ROLE_CREATOR
     const answerIndex = ['A', 'B', 'C', 'D']
 
     const [embededMedia, setEmbedMedia] = useState('')
-    const [isUpdatedEmbedMedia, setIsUpdatedEmbedMedia] = useState(false)
     const [content, setContent] = useState('')
     const [rows, setRows] = useState(1)
-    const [chooseAnswer, setChooseAnswer] = useState([])
+    const [chooseAnswers, setChooseAnswers] = useState([])
     const [questionLength, setQuestionLength] = useState(MAX_QUESTION_LENGTH)
     const [isShowLibrary, setIsShowLibrary] = useState(false)
 
@@ -35,29 +34,9 @@ function Question({ question, updateQuestion, updateTakeTest }) {
                 MAX_QUESTION_LENGTH - question.content.length :
                 MAX_QUESTION_LENGTH
             )
-            if (!isCreator) setChooseAnswer([])
+            setChooseAnswers(isCreator ? question.correctAnswers : [])
         }
     }, [question])
-
-    useEffect(() => {
-        if (isCreator) {
-            const newQuestion = { ...question }
-            newQuestion.correct_answers = chooseAnswer
-            updateQuestion(newQuestion)
-        }
-        else {
-            updateTakeTest(question, chooseAnswer)
-        }
-    }, [chooseAnswer])
-
-    useEffect(() => {
-        if (isUpdatedEmbedMedia) {
-            const q = { ...question }
-            q.embededMedia = embededMedia
-            updateQuestion(q, isCreator)
-            setIsUpdatedEmbedMedia(false)
-        }
-    }, [embededMedia])
 
     //#region Handle
 
@@ -72,66 +51,121 @@ function Question({ question, updateQuestion, updateTakeTest }) {
 
             const newQuestion = { ...question }
             newQuestion.content = event.target.value
-            updateQuestion(newQuestion, isCreator)
+            setQuestion(newQuestion, isCreator)
         }
     }
 
-    const handleOnAnswerClick = (event) => {
-        const value = event.target.value
-        const newValue = [...chooseAnswer]
-        const index = newValue.indexOf(value)
+    const handleTextBlur = async () => {
+        console.log(question)
+        const data = await updateQuestion(question)
+        console.log(data)
+    }
 
+    const handleOnAnswerClick = async (answerName, checkStatus) => {
+        // TODO update correctAnswers of question when choose answer
+        const newValue = [...chooseAnswers]
+        const index = newValue.indexOf(answerName)
+        let choose = []
+
+        //#region Update lại chooseAnswers
+        // Nếu trong mảng chooseAnswer hiện tại không có giá trị answerName
         if (index < 0) {
-            newValue.push(value)
-            setChooseAnswer(newValue)
+            // Nhưng checkStatus = true, nghĩa là đang thêm answerName vào chooseAnswer
+            if (checkStatus) {
+                console.log(newValue)
+                newValue.push(answerName)
+                choose = newValue
+            }
+        }
+        // Ngược lại, answerName đã có trong chooseAnswer
+        else {
+            // Nhưng nếu checkStatus = false, nghĩa là loại bỏ answerName ra khỏi chooseAnswer
+            if (!checkStatus) {
+                var arr = []
+                newValue.map(x => x !== answerName && arr.push(x))
+                choose = arr
+            }
+        }
+
+        setChooseAnswers(choose)
+        //#endregion
+
+        if (isCreator) {
+            console.log(question.answers)
+            const newQuestion = {
+                ...question,
+                answers: question.answers.map(a => a._id),
+                correctAnswers: choose
+            }
+
+            console.log('....', newQuestion)
+
+            const data = await updateQuestion(newQuestion)
+            console.log(data)
+            setQuestion({
+                ...data.question,
+                _id: data.question.id
+            })
         }
         else {
-            var arr = []
-            newValue.map(x => x !== value && arr.push(x))
-            setChooseAnswer(arr)
+            updateTakeTest(question, choose)
+
+            //TODO update choose answer
         }
     }
 
-    const handleOnRemoveClick = () => {
+    const handleOnRemoveClick = async () => {
         setEmbedMedia('')
-        setIsUpdatedEmbedMedia(true)
+        const q = { ...question }
+        q.embededMedia = ''
+        setQuestion(q, isCreator)
+        const data = await updateQuestion(q)
+        console.log(data)
     }
 
     const handleOnAddAnswer = async () => {
         const data = await createAnswer(
             {
-                ...blankAnswer,
+                content: '',
+                embededMedia: '',
+                _status: '',
                 name: answerIndex[question.answers.length]
             },
             question._id
         )
-        console.log(data)
 
-        const newQuestion = { ...question }
-        newQuestion.answers.push(data.answer)
-        updateQuestion(newQuestion)
+        const newQuestion = {
+            ...data.question,
+            _id: data.question.id
+        }
+
+        delete newQuestion.id // Mặc định mọi thứ đều dùng _id
+
+        setQuestion(newQuestion)
     }
 
     //#endregion
 
-    const onConfirmModalAction = (type, photo) => {
+    const onConfirmModalAction = async (type, photo) => {
         if (photo && type === MODAL_ACTION_CONFIRM) {
             setEmbedMedia(photo.src.large)
+
+            const q = { ...question }
+            q.embededMedia = photo.src.large
+            setQuestion(q, isCreator)
+            const data = await updateQuestion(q)
+            console.log(data)
         }
 
-        toggleShowLibrary()
+        setIsShowLibrary(false)
     }
 
     const updateAnswer = (answer) => {
         const newQuestion = { ...question }
-        const index = newQuestion.answers.findIndex(a => a._d === answer._id)
+        console.log('123', newQuestion)
+        const index = newQuestion.answers.findIndex(a => a.id === answer.id)
         newQuestion.answers[index] = answer
-        updateQuestion(newQuestion, isCreator)
-    }
-
-    const toggleShowLibrary = () => {
-        setIsUpdatedEmbedMedia(true)
-        setIsShowLibrary(!isShowLibrary)
+        setQuestion(newQuestion, isCreator)
     }
 
     const renderAddAnswer = () => {
@@ -150,8 +184,11 @@ function Question({ question, updateQuestion, updateTakeTest }) {
     return (
         <div className="panel-center">
             {(!question || !question.answers) &&
-                <div className="d-flex align-items-center justify-content-center h-100">
-                    Chưa có câu hỏi nào! Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!
+                <div className="d-flex align-items-center justify-content-center h-100 flex-column">
+                    <h1 className="fw-bolder">Chưa có câu hỏi nào!</h1>
+                    <Image src={process.env.PUBLIC_URL + '/assets/no-records.svg'}
+                        style={{ height: '50vh' }} />
+                    <h4 className="fw-bold text-warning">Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!</h4>
                 </div>
             }
 
@@ -166,6 +203,7 @@ function Question({ question, updateQuestion, updateTakeTest }) {
                                 className="textarea-enter"
                                 value={content}
                                 onChange={handleTextChange}
+                                onBlur={handleTextBlur}
                                 disabled={!isCreator}
                             />
                         </div>
@@ -177,7 +215,7 @@ function Question({ question, updateQuestion, updateTakeTest }) {
                             {isCreator &&
                                 <Button variant="warning"
                                     className="fw-bolder text-light"
-                                    onClick={toggleShowLibrary}
+                                    onClick={() => setIsShowLibrary(true)}
                                 >
                                     <i className="fa fa-edit"></i>
                                 </Button>
@@ -216,6 +254,7 @@ function Question({ question, updateQuestion, updateTakeTest }) {
                                     setAnswer={updateAnswer}
                                     onClick={handleOnAnswerClick}
                                     disabled={!isCreator}
+                                    isChosen={question.correctAnswers.includes(a.name)}
                                 />)
                             }
 
