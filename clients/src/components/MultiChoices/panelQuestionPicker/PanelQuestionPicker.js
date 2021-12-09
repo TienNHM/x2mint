@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap'
 import { MODAL_ACTION_CLOSE, MODAL_ACTION_CONFIRM } from 'utils/constants'
 import './PanelQuestionPicker.scss'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
-import { createTakeTest } from 'actions/api/TakeTestAPI'
+import { createTakeTest, submit } from 'actions/api/TakeTestAPI'
 
 export default function PanelQuestionPicker(props) {
     const { test, selectedQuestion, setSelectedQuestion, takeTest, setIsSubmitted } = props
@@ -22,9 +22,10 @@ export default function PanelQuestionPicker(props) {
             btnSubmitRef.current.disabled = true
             timeRemainRef.current.stop()
             setIsShowConfirm(false)
-            const data = await createTakeTest(takeTest)
-            takeTest.id = data.takeTestId
+            const data = await submit(takeTest._id)
+            // takeTest.id = data.takeTestId
             setIsSubmitted(true)
+            console.log(data)
         }
         else if (action === MODAL_ACTION_CLOSE) {
             timeRemainRef.current.start()

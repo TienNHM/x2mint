@@ -20,7 +20,7 @@ export default function SubmitResult() {
         error
     } = useAxios({
         method: 'GET',
-        url: `/submit/${takeTestId}`,
+        url: `/takeTest/${takeTestId}`,
         headers: {
             Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
         }

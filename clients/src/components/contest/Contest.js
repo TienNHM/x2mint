@@ -50,6 +50,7 @@ export default function Contest() {
     useEffect(() => {
         if (response) {
             setContests(response.contests)
+            console.log(response)
         }
     }, [response])
 

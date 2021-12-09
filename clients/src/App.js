@@ -91,9 +91,9 @@ function App() {
                                     />
                                 </Route>
 
-                                <Route path="/submit" element={<ProtectedRoute />}>
+                                <Route path="/takeTest" element={<ProtectedRoute />}>
                                     <Route
-                                        path="/submit/:takeTestId"
+                                        path="/takeTest/:takeTestId"
                                         element={<SubmitResult />}
                                     />
                                 </Route>

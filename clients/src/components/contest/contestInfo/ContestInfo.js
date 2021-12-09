@@ -306,14 +306,17 @@ export default function ContestInfo() {
                                                 onClick={() => setIsShowCreateContest(true)}>
                                                 <i className="fa fa-edit"></i>
                                             </Button>
+
                                             <Button variant="success" className="m-2 fw-bolder text-light" size="sm"
                                                 onClick={handleCreateTest}>
                                                 <i className="fa fa-plus"></i>
                                             </Button>
+
                                             <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
                                                 onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}>
                                                 <i className="fa fa-share"></i>
                                             </Button>
+
                                             {contest._status !== STATUS.ARCHIVED &&
                                                 <Button variant="danger" className="m-2 fw-bolder text-light" size="sm"
                                                     onClick={handleDeleteContest}>
@@ -414,7 +417,7 @@ export default function ContestInfo() {
                                                         <>
                                                             <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
                                                                 disabled={Date.parse(test.endTime) - Date.now() <= 0}
-                                                                onClick={() => navigate(`/test/${test._id | test.id}`)}
+                                                                onClick={() => navigate(`/test/${test._id}`)}
                                                                 size="sm"
                                                             >
                                                                 <i className="fas fa-pen"></i>
