@@ -77,6 +77,7 @@ function MultiChoices() {
 
         // Update lại question trong list questions
         let newQuestions = [...questions]
+        // console.log('update selected question', newQuestions)
         const index = newQuestions.findIndex(q => q._id === selectedQuestion._id)
         newQuestions[index] = question
         setQuestions(newQuestions)

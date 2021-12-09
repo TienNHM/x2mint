@@ -4,23 +4,25 @@ import { Form } from 'react-bootstrap'
 import { MAX_ANSWER_LENGTH } from 'utils/constants'
 import './Answer.scss'
 
-function Answer({ answer, setAnswer, onClick, disabled }) {
+function Answer({ answer, setAnswer, onClick, disabled, isChosen }) {
     const css = answer ? 'answer answer-' + answer.name : 'answer'
+    const [name, setName] = useState(answer.name)
     const [rows, setRows] = useState(1)
-    const [content, setContent] = useState('')
-    const [answerLength, setAnswerLength] = useState(MAX_ANSWER_LENGTH)
-    const [isChecked, setIsChecked] = useState(false)
+    const [content, setContent] = useState(answer.content)
+    const [answerLength, setAnswerLength] = useState(MAX_ANSWER_LENGTH - answer.content.length)
+    const [isChecked, setIsChecked] = useState(isChosen)
 
     useEffect(() => {
         if (answer) {
             const value = answer.content
             setContent(value)
             setAnswerLength(MAX_ANSWER_LENGTH - value.length)
-            setIsChecked(false)
+            setName(answer.name)
+            setIsChecked(isChosen)
         }
     }, [answer])
 
-    const handleTextChange = (event) => {
+    const handleTextChange = async (event) => {
         const value = event.target.value.replace(/\n/g, ' ')
         if (value.length <= MAX_ANSWER_LENGTH) {
             setContent(value)
@@ -30,26 +32,38 @@ function Answer({ answer, setAnswer, onClick, disabled }) {
     }
 
     const handleOnTextBlur = async () => {
-        const newAnswer = { ...answer }
-        newAnswer.content = content
-        // Update lại trong CSDL
+        // Update lại
+        let newAnswer = {
+            ...answer,
+            content: content
+        }
         console.log(newAnswer)
+        // Update lại trong CSDL
         const data = await updateAnswer(newAnswer)
-        console.log(data)
+        console.log('****', data)
         // Update lại answer hiện tại vào question
-        setAnswer(newAnswer)
+        setAnswer({
+            ...data.answer,
+            id: data.answer.id
+        })
     }
 
+    const handleOnClickAnswer = (event) => {
+        const checkStatus = event.target.checked
+        setIsChecked(checkStatus)
+        onClick(answer.name, checkStatus)
+    }
     return (
         <div className={css}>
             {answer &&
                 <>
-                    <div className="answer-icon">{answer.name}</div>
+                    <div className="answer-icon">{name}</div>
                     <div className="answer-content">
                         <Form.Control
                             size="sm"
                             as="textarea"
                             rows={rows}
+                            name={name}
                             placeholder="Nhập nội dung câu trả lời..."
                             className="textarea-enter"
                             value={content}
@@ -63,11 +77,10 @@ function Answer({ answer, setAnswer, onClick, disabled }) {
                         <input
                             type="checkbox"
                             className="btn-checkbox"
-                            name={answer.name}
-                            value={answer.name}
-                            onClick={() => setIsChecked(!isChecked)}
+                            name={name}
+                            value={name}
                             checked={isChecked}
-                            onChange={(event) => onClick(event)}>
+                            onChange={(event) => handleOnClickAnswer(event)}>
                         </input>
                     </div>
                 </>

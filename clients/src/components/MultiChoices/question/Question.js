@@ -11,7 +11,6 @@ import {
 } from 'utils/constants'
 import './Question.scss'
 import { createAnswer } from 'actions/api/AnswerAPI'
-import { blankAnswer } from 'actions/initialData'
 import { updateQuestion } from 'actions/api/QuestionAPI'
 
 function Question({ question, setQuestion, updateTakeTest }) {
@@ -23,7 +22,7 @@ function Question({ question, setQuestion, updateTakeTest }) {
     const [embededMedia, setEmbedMedia] = useState('')
     const [content, setContent] = useState('')
     const [rows, setRows] = useState(1)
-    const [chooseAnswer, setChooseAnswer] = useState([])
+    const [chooseAnswers, setChooseAnswers] = useState([])
     const [questionLength, setQuestionLength] = useState(MAX_QUESTION_LENGTH)
     const [isShowLibrary, setIsShowLibrary] = useState(false)
 
@@ -35,20 +34,9 @@ function Question({ question, setQuestion, updateTakeTest }) {
                 MAX_QUESTION_LENGTH - question.content.length :
                 MAX_QUESTION_LENGTH
             )
-            if (!isCreator) setChooseAnswer([])
+            setChooseAnswers(isCreator ? question.correctAnswers : [])
         }
     }, [question])
-
-    useEffect(() => {
-        if (isCreator) {
-            const newQuestion = { ...question }
-            newQuestion.correct_answers = chooseAnswer
-            setQuestion(newQuestion)
-        }
-        else {
-            updateTakeTest(question, chooseAnswer)
-        }
-    }, [chooseAnswer])
 
     //#region Handle
 
@@ -73,19 +61,54 @@ function Question({ question, setQuestion, updateTakeTest }) {
         console.log(data)
     }
 
-    const handleOnAnswerClick = (event) => {
-        const value = event.target.value
-        const newValue = [...chooseAnswer]
-        const index = newValue.indexOf(value)
+    const handleOnAnswerClick = async (answerName, checkStatus) => {
+        // TODO update correctAnswers of question when choose answer
+        const newValue = [...chooseAnswers]
+        const index = newValue.indexOf(answerName)
+        let choose = []
 
+        //#region Update lại chooseAnswers
+        // Nếu trong mảng chooseAnswer hiện tại không có giá trị answerName
         if (index < 0) {
-            newValue.push(value)
-            setChooseAnswer(newValue)
+            // Nhưng checkStatus = true, nghĩa là đang thêm answerName vào chooseAnswer
+            if (checkStatus) {
+                console.log(newValue)
+                newValue.push(answerName)
+                choose = newValue
+            }
+        }
+        // Ngược lại, answerName đã có trong chooseAnswer
+        else {
+            // Nhưng nếu checkStatus = false, nghĩa là loại bỏ answerName ra khỏi chooseAnswer
+            if (!checkStatus) {
+                var arr = []
+                newValue.map(x => x !== answerName && arr.push(x))
+                choose = arr
+            }
+        }
+
+        setChooseAnswers(choose)
+        //#endregion
+
+        if (isCreator) {
+            console.log(question.answers)
+            const newQuestion = {
+                ...question,
+                answers: question.answers.map(a => a.id),
+                correctAnswers: choose,
+                id: question._id
+            }
+
+            console.log('....', newQuestion)
+
+            const data = await updateQuestion(newQuestion)
+            console.log(data)
+            setQuestion(data.question)
         }
         else {
-            var arr = []
-            newValue.map(x => x !== value && arr.push(x))
-            setChooseAnswer(arr)
+            updateTakeTest(question, choose)
+
+            //TODO update choose answer
         }
     }
 
@@ -101,15 +124,21 @@ function Question({ question, setQuestion, updateTakeTest }) {
     const handleOnAddAnswer = async () => {
         const data = await createAnswer(
             {
-                ...blankAnswer,
+                content: '',
+                embededMedia: '',
+                _status: '',
                 name: answerIndex[question.answers.length]
             },
             question._id
         )
-        console.log(data)
 
-        const newQuestion = { ...question }
-        newQuestion.answers.push(data.answer)
+        const newQuestion = {
+            ...data.question,
+            _id: data.question.id
+        }
+
+        delete newQuestion.id // Mặc định mọi thứ đều dùng _id
+
         setQuestion(newQuestion)
     }
 
@@ -131,7 +160,8 @@ function Question({ question, setQuestion, updateTakeTest }) {
 
     const updateAnswer = (answer) => {
         const newQuestion = { ...question }
-        const index = newQuestion.answers.findIndex(a => a._d === answer._id)
+        console.log('123', newQuestion)
+        const index = newQuestion.answers.findIndex(a => a.id === answer.id)
         newQuestion.answers[index] = answer
         setQuestion(newQuestion, isCreator)
     }
@@ -222,6 +252,7 @@ function Question({ question, setQuestion, updateTakeTest }) {
                                     setAnswer={updateAnswer}
                                     onClick={handleOnAnswerClick}
                                     disabled={!isCreator}
+                                    isChosen={question.correctAnswers.includes(a.name)}
                                 />)
                             }
 
