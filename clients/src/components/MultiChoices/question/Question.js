@@ -65,9 +65,11 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
     let indexQuestion = -1
     if (!isCreator && !takeTest) {
-        return (<>
-            {RenderEmptyQuestion()}
-        </>)
+        return (
+            <div className="panel-center">
+                {RenderEmptyQuestion()}
+            </div>
+        )
     }
     else if (!isCreator && takeTest) {
         indexQuestion = takeTest.chooseAnswers.findIndex(c => c.question === question._id)
