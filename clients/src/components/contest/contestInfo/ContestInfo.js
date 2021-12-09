@@ -6,7 +6,7 @@ import StatisticTest from 'components/contest/statistics/StatisticTest'
 import { blankTest } from 'actions/initialData'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
 import Share from 'components/common/share/Share'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ACCESS_TOKEN, ROLE_CREATOR, ROLE_USER } from 'utils/constants'
+import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ACCESS_TOKEN, ROLE_CREATOR, ROLE_USER, STATUS } from 'utils/constants'
 import './ContestInfo.scss'
 import Cookies from 'js-cookie'
 import { useAxios } from 'actions/useAxios'
@@ -14,7 +14,8 @@ import { useNavigate, useParams } from 'react-router'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import { createTest, deleteTest } from 'actions/api/TestAPI'
-import { updateContest, updateTestsInContest } from 'actions/api/ContestAPI'
+import { deleteContest, updateContest, updateTestsInContest } from 'actions/api/ContestAPI'
+import Badge from 'react-bootstrap/Badge'
 
 export default function ContestInfo() {
     const navigate = useNavigate()
@@ -33,8 +34,16 @@ export default function ContestInfo() {
         }
     })
 
+    const CURRENT_ACTION = {
+        DELETE_TEST: 'delete-test',
+        CREATE_TEST: 'create-test',
+        ARCHIVE_CONTEST: 'delete-contest',
+        REOPEN_CONTEST: 'reopen-contest'
+    }
+
     const user = useSelector((state) => state.auth.user)
 
+    //#region States
     const [contest, setContest] = useState(null)
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
@@ -54,27 +63,43 @@ export default function ContestInfo() {
     const [startTime, setStartTime] = useState('')
     const [endDate, setEndDate] = useState('')
     const [endTime, setEndTime] = useState('')
+    //#endregion
 
     useEffect(() => {
         if (contestResponse) {
             console.log('response', contestResponse)
-            const c = contestResponse.data
-            setContest(c)
-            setTitle(c.name)
-            setDescription(c.description)
-            setUrl(c.url)
-            setEmbedMedia(c.embededMedia)
-            const start_time = splitTime(c.startTime)
-            const end_time = splitTime(c.endTime)
+            setContest(contestResponse.data)
+        }
+    }, [contestResponse])
+
+    useEffect(() => {
+        if (contest) {
+            setTitle(contest.name)
+            setDescription(contest.description)
+            setUrl(contest.url)
+            setEmbedMedia(contest.embededMedia)
+            const start_time = splitTime(contest.startTime)
+            const end_time = splitTime(contest.endTime)
             setStartDate(start_time.date)
             setStartTime(start_time.time)
             setEndDate(end_time.date)
             setEndTime(end_time.time)
         }
-    }, [contestResponse])
+    }, [contest])
 
-    const onAction = (isUpdate, action, title, description, url, embededMedia, startTime, endTime) => {
+    useEffect(() => {
+        if (selectedTest) {
+            const newContest = { ...contest }
+            const index = newContest.tests.findIndex(t => t.id === selectedTest.id)
+            newContest.tests[index] = selectedTest
+            updateContest(newContest)
+        }
+    }, [selectedTest])
 
+    const onAction = async (
+        isUpdate, action, title, description,
+        url, embededMedia, startTime, endTime
+    ) => {
         if (action === MODAL_ACTION_CONFIRM) {
             const newContest = {
                 ...contest,
@@ -85,7 +110,9 @@ export default function ContestInfo() {
                 startTime: startTime,
                 endTime: endTime
             }
-            //TODO updateContest(newContest)
+            const data = await updateContest(newContest)
+            console.log(data)
+            setContest(data.contest)
         }
         else if (action === MODAL_ACTION_CLOSE) {
             //
@@ -93,8 +120,20 @@ export default function ContestInfo() {
         setIsShowCreateContest(false)
     }
 
+    const handleDeleteContest = () => {
+        setConfirmModalContent('Bạn có thật sự muốn lưu trữ cuộc thi này?')
+        setCurrentAction(CURRENT_ACTION.ARCHIVE_CONTEST)
+        setIsShowConfirmModal(true)
+    }
+
+    const handleReopenContest = () => {
+        setConfirmModalContent('Bạn có thật sự muốn mở lại cuộc thi này?')
+        setCurrentAction(CURRENT_ACTION.REOPEN_CONTEST)
+        setIsShowConfirmModal(true)
+    }
+
     const handleCreateTest = () => {
-        setCurrentAction('CONFIRM_CREATE_TEST')
+        setCurrentAction(CURRENT_ACTION.CREATE_TEST)
         setConfirmModalContent('Bạn muốn tạo một bài test mới?')
         setIsShowConfirmModal(true)
     }
@@ -107,7 +146,7 @@ export default function ContestInfo() {
     const handleDeleteTest = (test) => {
         setSelectedTest({ ...test })
         setConfirmModalContent(`Bạn có muốn xóa bài test này khỏi cuộc thi ${title} không?`)
-        setCurrentAction('CONFIRM_DELETE_TEST')
+        setCurrentAction(CURRENT_ACTION.DELETE_TEST)
         setIsShowConfirmModal(true)
     }
 
@@ -128,7 +167,7 @@ export default function ContestInfo() {
     //#endregion
 
     const onTestAction = async (action) => {
-        if (currentAction === 'CONFIRM_DELETE_TEST') {
+        if (currentAction === CURRENT_ACTION.DELETE_TEST) {
             if (selectedTest && action === MODAL_ACTION_CONFIRM) {
                 const newContest = { ...contest }
                 const index = newContest.tests.findIndex(c => c.id === selectedTest.id)
@@ -143,7 +182,7 @@ export default function ContestInfo() {
                 console.log(tmp)
             }
         }
-        else if (currentAction === 'CONFIRM_CREATE_TEST') {
+        else if (currentAction === CURRENT_ACTION.CREATE_TEST) {
             if (action === MODAL_ACTION_CONFIRM) {
                 const newTest = {
                     ...blankTest,
@@ -165,21 +204,23 @@ export default function ContestInfo() {
                 navigate(`/test/${newTestRes.test.id}`)
             }
         }
+        else if (currentAction === CURRENT_ACTION.ARCHIVE_CONTEST) {
+            const data = await deleteContest(contest)
+            console.log(data)
+            setContest({ ...contest, _status: STATUS.DELETED })
+        }
+        else if (currentAction === CURRENT_ACTION.REOPEN_CONTEST) {
+            const newContest = { ...contest, _status: STATUS.OK }
+            const data = await updateContest(newContest)
+            console.log(data)
+            setContest(newContest)
+        }
         setIsShowConfirmModal(false)
     }
 
     const onShowStatistics = (action) => {
         setIsShowStatisticTest(false)
     }
-
-    useEffect(() => {
-        if (selectedTest) {
-            const newContest = { ...contest }
-            const index = newContest.tests.findIndex(t => t.id === selectedTest.id)
-            newContest.tests[index] = selectedTest
-            //TODO updateContest(newContest)
-        }
-    }, [selectedTest])
 
     return (
         <>
@@ -209,7 +250,14 @@ export default function ContestInfo() {
                                 />
                                 <Card.Body>
                                     <Card.Title>{title}</Card.Title>
-                                    <Card.Text>{description}</Card.Text>
+
+                                    {contest._status === STATUS.ARCHIVED &&
+                                        <Badge pill bg="warning" text="dark">
+                                            {contest._status}
+                                        </Badge>
+                                    }
+
+                                    <Card.Text className="m-2">{description}</Card.Text>
 
                                     <ListGroup className="list-group-flush">
                                         <ListGroupItem>
@@ -259,14 +307,26 @@ export default function ContestInfo() {
                                                 <i className="fa fa-edit"></i>
                                             </Button>
                                             <Button variant="success" className="m-2 fw-bolder text-light" size="sm"
-                                                onClick={handleCreateTest}
-                                            >
+                                                onClick={handleCreateTest}>
                                                 <i className="fa fa-plus"></i>
                                             </Button>
                                             <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
                                                 onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}>
                                                 <i className="fa fa-share"></i>
                                             </Button>
+                                            {contest._status !== STATUS.ARCHIVED &&
+                                                <Button variant="danger" className="m-2 fw-bolder text-light" size="sm"
+                                                    onClick={handleDeleteContest}>
+                                                    <i className="fa fa-archive"></i>
+                                                </Button>
+                                            }
+
+                                            {contest._status === STATUS.ARCHIVED &&
+                                                <Button variant="warning" className="m-2 fw-bolder text-light" size="sm"
+                                                    onClick={handleReopenContest}>
+                                                    <i className="fa fa-folder-open"></i>
+                                                </Button>
+                                            }
                                         </div>
                                     }
 
@@ -306,13 +366,7 @@ export default function ContestInfo() {
                                                     <div className="card-test-title h5">{test.name}</div>
                                                     <div className="card-test-description m-3">{test.description}</div>
 
-                                                    <hr style={
-                                                        {
-                                                            width: '50%',
-                                                            height: '1px',
-                                                            margin: '12px auto'
-                                                        }
-                                                    } />
+                                                    <hr style={{ width: '50%', height: '1px', margin: '12px auto' }} />
 
                                                     <div className="detail row">
                                                         <div className="start-time col-md-4 col-12">

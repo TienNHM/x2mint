@@ -25,6 +25,7 @@ export const MAX_DAYS_EXPIRE = 365
 export const STATUS = {
     DEACTIVE: 'deactive',
     DELETED: 'deleted',
-    OK: 'ok'
+    OK: 'ok',
+    ARCHIVED: 'archived'
 }
 //#endregion
