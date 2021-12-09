@@ -94,16 +94,18 @@ function Question({ question, setQuestion, updateTakeTest }) {
             console.log(question.answers)
             const newQuestion = {
                 ...question,
-                answers: question.answers.map(a => a.id),
-                correctAnswers: choose,
-                id: question._id
+                answers: question.answers.map(a => a._id),
+                correctAnswers: choose
             }
 
             console.log('....', newQuestion)
 
             const data = await updateQuestion(newQuestion)
             console.log(data)
-            setQuestion(data.question)
+            setQuestion({
+                ...data.question,
+                _id: data.question.id
+            })
         }
         else {
             updateTakeTest(question, choose)
