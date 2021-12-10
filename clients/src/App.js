@@ -18,6 +18,9 @@ import './App.scss'
 import ContestInfo from 'components/contest/contestInfo/ContestInfo'
 import MultiChoices from 'components/MultiChoices/MultiChoices'
 import { SyncLoader } from 'react-spinners'
+import Admin from 'components/admin/Admin'
+import Page404 from 'pages/Page404'
+import Page500 from 'pages/Page500'
 
 const options = {
     // you can also just use 'bottom center'
@@ -28,6 +31,15 @@ const options = {
     containerStyle: {
         zIndex: 100
     }
+}
+
+const loadingCss = {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 10000
 }
 
 function App() {
@@ -43,17 +55,7 @@ function App() {
             <AlertProvider template={AlertTemplate} {...options}>
                 <div className="app">
                     {authLoading ? (
-                        <div
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                zIndex: 10000
-                            }}
-                            className='d-flex align-items-center justify-content-center'
-                        >
+                        <div style={loadingCss} className='d-flex align-items-center justify-content-center'>
                             <SyncLoader
                                 color={'#7ED321'}
                                 loading={authLoading}
@@ -65,9 +67,23 @@ function App() {
                             <Navbar />
                             <Routes>
                                 <Route exact path="/" element={<Homepage />} />
-                                <Route path="/create" element={<ProtectedRoute />}>
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/register" element={<Register />} />
+                                <Route path="/about" element={<About />} />
+                                <Route path="/contact" element={<Contact />} />
+                                <Route path="/404" element={<Page404 />} />
+                                <Route path="/500" element={<Page500 />} />
+
+                                <Route path="/dashboard" element={<ProtectedRoute />}>
                                     <Route
-                                        path="/create"
+                                        path="/dashboard"
+                                        element={<Admin />}
+                                    />
+                                </Route>
+
+                                <Route path="/contests-mangement" element={<ProtectedRoute />}>
+                                    <Route
+                                        path="/contests-mangement"
                                         element={<Contest isCreator={true} />}
                                     />
                                 </Route>
@@ -96,11 +112,6 @@ function App() {
                                         element={<SubmitResult />}
                                     />
                                 </Route>
-
-                                <Route path="/login" element={<Login />} />
-                                <Route path="/register" element={<Register />} />
-                                <Route path="/about" element={<About />} />
-                                <Route path="/contact" element={<Contact />} />
                             </Routes>
                         </div>
                     )}
