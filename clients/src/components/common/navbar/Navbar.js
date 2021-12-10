@@ -26,9 +26,17 @@ function Navbar() {
                     </NavLink>
                 </li>
 
-                {isAuthenticated && user.role !== ROLE.USER && (
+                {isAuthenticated && user.role === ROLE.ADMIN && (
                     <li className="nav__item">
-                        <NavLink className="nav__link active__link" to="/create">
+                        <NavLink className="nav__link active__link" to="/dashboard">
+                            Dashboard
+                        </NavLink>
+                    </li>
+                )}
+
+                {isAuthenticated && user.role === ROLE.CREATOR && (
+                    <li className="nav__item">
+                        <NavLink className="nav__link active__link" to="/contests-mangement">
                             Quản lý cuộc thi
                         </NavLink>
                     </li>
