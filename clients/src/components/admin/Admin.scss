@@ -1,1 +1,13 @@
 @import '_setting.scss';
+
+.dashboard {
+    margin-top: $navbar-height;
+    height: calc(100vh - #{$navbar-height + $gap});
+
+    .sidebar {
+        max-width: 250px;
+    }
+    .main-container {
+        width: 100%;
+    }
+}

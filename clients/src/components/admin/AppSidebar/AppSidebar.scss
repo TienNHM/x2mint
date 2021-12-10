@@ -1,0 +1,57 @@
+@import '_setting.scss';
+
+.sidebar {
+    width: 100%;
+    height: calc(100vh - #{$navbar-height});
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+    .sidebar-title {
+        color: $theme-color;
+    }
+
+    .settings {
+        height: 79vh;
+
+        &::-webkit-scrollbar {
+            -webkit-appearance: none;
+        }
+
+        &::-webkit-scrollbar:vertical {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: lighten($color: $theme-color, $amount: 5);
+            border-radius: $gap;
+        }
+        
+        .accordion-item {
+            .accordion-header {
+                .accordion-button {
+                    font-weight: bolder;
+                    font-size: 1.1rem;
+                    color: $theme-color;
+                    text-transform: uppercase;
+                }
+            }
+
+            .accordion-collapse {
+                .accordion-body {
+                    padding: 0 !important;
+
+                    button {
+                        background-color: transparent;
+                        color: $theme-color;
+                        border: none !important;
+                        font-size: 1.1rem;
+                        border-radius: 0 !important;
+                    }
+
+                    button:hover {
+                        background-color: $light-theme-color;
+                    }
+                }
+            }
+        }
+    }
+}
