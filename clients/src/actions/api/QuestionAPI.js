@@ -7,7 +7,7 @@ export const createQuestion = async (question, testId) => {
         const url = `${process.env.REACT_APP_API_ROOT}/questions/new/${testId}`
         const request = await axios.post(url, question, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -24,7 +24,7 @@ export const updateQuestion = async (question) => {
         const url = `${process.env.REACT_APP_API_ROOT}/questions/${question._id}`
         const request = await axios.put(url, question, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -42,7 +42,7 @@ export const deleteQuestion = async (questionId) => {
         const url = `${process.env.REACT_APP_API_ROOT}/questions/${questionId}/delete`
         const request = await axios.put(url, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -60,7 +60,7 @@ export const getAllQuestions = async () => {
         const url = `${process.env.REACT_APP_API_ROOT}/questions`
         const request = await axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -77,7 +77,7 @@ export const getAllAnswersOfQuestions = async (questionId) => {
         const url = `${process.env.REACT_APP_API_ROOT}/questions/${questionId}/answers`
         const request = await axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 

@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux'
 import Image from 'react-bootstrap/Image'
 import Answer from 'components/MultiChoices/answer/Answer'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
-import { MAX, MODAL_ACTION, ROLE } from 'utils/constants'
-import './Question.scss'
+import { SyncLoader } from 'react-spinners'
 import { createAnswer } from 'actions/api/AnswerAPI'
 import { updateQuestion } from 'actions/api/QuestionAPI'
+import { MAX, MODAL_ACTION, ROLE } from 'utils/constants'
+import './Question.scss'
 
 function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     // Lấy thông tin user
@@ -38,14 +39,20 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     const RenderEmptyQuestion = () => {
         return (
             <div className="d-flex align-items-center justify-content-center h-100 flex-column">
-                <h1 className="fw-bolder">Chưa có câu hỏi nào!</h1>
-                <Image src={process.env.PUBLIC_URL + '/assets/no-records.svg'}
-                    style={{ height: '50vh' }} />
                 {isUser &&
-                    <h4 className="fw-bold text-warning">Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!</h4>
+                    <div className='sweet-loading'>
+                        <SyncLoader color={'#7ED321'} loading={true} speedMultiplier={2}/>
+                    </div>
                 }
 
-                {!isUser}
+                {!isUser &&
+                    <>
+                        <h1 className="fw-bolder">Chưa có câu hỏi nào!</h1>
+                        <Image src={process.env.PUBLIC_URL + '/assets/no-records.svg'}
+                            style={{ height: '50vh' }} />
+                        <h4 className="fw-bold text-warning">Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!</h4>
+                    </>
+                }
             </div>
         )
     }

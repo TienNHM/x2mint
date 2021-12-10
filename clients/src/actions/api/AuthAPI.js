@@ -23,7 +23,7 @@ export const verify = async () => {
         const url = `${process.env.REACT_APP_API_ROOT}/auths/verify`
         const request = await axios.get(url, {
             headers: {
-                Authorization: `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
+                Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -40,7 +40,7 @@ export const loginWithGoogle = async () => {
         const url = `${process.env.REACT_APP_API_ROOT}/auths/login/google`
         const request = await axios.post(url, {
             headers: {
-                Authorization: `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
+                Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 

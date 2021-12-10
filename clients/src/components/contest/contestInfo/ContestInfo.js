@@ -198,7 +198,7 @@ export default function ContestInfo() {
                 listTestId.push(newTestRes.test.id)
                 console.log(listTestId)
                 const contestRes = await updateTestsInContest(contest.id, listTestId)
-                console.log(contestRes)
+                console.log('contestRes', contestRes)
                 setContest(contestRes.contest)
                 navigate(`/test/${newTestRes.test.id}`)
             }
