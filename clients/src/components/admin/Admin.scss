@@ -12,8 +12,14 @@
         width: 100%;
 
         .header {
-            background-color: lightgray;
-            height: 8vh;
+            background-color: lighten($light-theme-color, 10);
+            height: 6vh;
+        }
+
+        .current-action {
+            text-transform: uppercase;
+            color: $theme-color;
+            font-weight: bolder;
         }
 
         .footer {

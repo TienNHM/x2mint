@@ -1,49 +1,49 @@
 import React from 'react'
-import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
+import { Navbar, Container, Button } from 'react-bootstrap'
+import './AppNavbar.scss'
 
 export default function AppNavbar() {
     const OpenSidebar = () => {
         document.querySelector('#settings').hidden = false
     }
 
+    const handleSettingsTheme = () => {
+        alert('settings theme')
+    }
+
+    const handleOpenFullScreen = () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen()
+            document.querySelector('#fullscreen').className = 'fa fa-compress-arrows-alt'
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen()
+                document.querySelector('#fullscreen').className = 'fa fa-expand-arrows-alt'
+            }
+        }
+    }
+
     return (
-        <Navbar bg="light" expand="lg">
-            <Container fluid>
-                <Button variant="light" onClick={() => OpenSidebar()}>
-                    <i className="fa fa-bars"></i>
-                </Button>
-                <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll">
-                    <Nav
-                        className="me-auto my-2 my-lg-0"
-                        style={{ maxHeight: '100px' }}
-                        navbarScroll
-                    >
-                        <Nav.Link href="#action1">Home</Nav.Link>
-                        <Nav.Link href="#action2">Link</Nav.Link>
-                        <NavDropdown title="Link" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action5">
-                                Something else here
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                        <Nav.Link href="#" disabled>
-                            Link
-                        </Nav.Link>
-                    </Nav>
-                    <Form className="d-flex">
-                        <FormControl
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+        <div className="navbar-admin">
+            <Navbar bg="light" expand="lg" className="shadow mb-2 mt-1 p-3 bg-white rounded" >
+                <Container fluid>
+                    <Button variant="light" onClick={() => OpenSidebar()}>
+                        <i className="fa fa-bars"></i>
+                    </Button>
+                    <Navbar.Toggle aria-controls="navbarScroll" />
+                    <Navbar.Collapse id="navbarScroll" className="d-flex justify-content-end">
+                        <Button variant="light" onClick={() => handleOpenFullScreen()}>
+                            <i className="fa fa-bell" id="fullscreen"></i>
+                        </Button>
+                        <Button variant="light" onClick={() => handleOpenFullScreen()}>
+                            <i className="fa fa-expand-arrows-alt" id="fullscreen"></i>
+                        </Button>
+                        <Button variant="light" onClick={() => handleSettingsTheme()}>
+                            <i className="fa fa-adjust"></i>
+                        </Button>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        </div>
     )
 }
