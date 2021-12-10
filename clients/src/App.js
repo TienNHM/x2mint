@@ -21,6 +21,9 @@ import { SyncLoader } from 'react-spinners'
 import Admin from 'components/admin/Admin'
 import Page404 from 'pages/Page404'
 import Page500 from 'pages/Page500'
+import { BeatLoader, HashLoader, SyncLoader } from 'react-spinners'
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 const options = {
     // you can also just use 'bottom center'
@@ -52,6 +55,7 @@ function App() {
 
     return (
         <BrowserRouter>
+            <ReactNotification />
             <AlertProvider template={AlertTemplate} {...options}>
                 <div className="app">
                     {authLoading ? (

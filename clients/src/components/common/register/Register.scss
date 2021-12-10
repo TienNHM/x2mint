@@ -15,7 +15,7 @@
 }
 .form__title{
     text-align: center;
-    padding-top: 60px;
+    padding-top: 30px;
     font-family: var(--logo-font);
     color: var(--mint);
     font-weight: 700;
@@ -51,7 +51,7 @@
     }
 }
 .auth__pic {
-    max-width: 350px;
+    width: 300px;
     vertical-align: center;
     margin-top: -30px;
 }
@@ -64,7 +64,7 @@
     color:var(--gray)
 }
 div .signup__area{
-    margin-top: 20px;
+    margin: 30px 60px 0 20px;
     display:block;
     .btn__signup{
 
@@ -81,4 +81,24 @@ div .signup__area{
 }
 .input{
     margin-bottom: 0;
+    justify-content: center;
+    display: block;
+    align-items: center;
+}
+input {
+    padding: 10px 20px;
+    margin: 5px !important;
+    display: block;
+    border-radius: 50px;
+    width: 300px;
+    font-size: 1rem;
+    border-radius: 50px;
+    border: 1px solid var(--mint);
+    color: var(--mint);
+    background-color: white;
+    font-weight: 700;
+
+    ::placeholder {
+        border: 1px solid var(--mint);
+    }
 }
