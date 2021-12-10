@@ -8,12 +8,7 @@ import { blankContest } from 'actions/initialData'
 import { useAxios } from 'actions/useAxios'
 import { createContest, updateContest } from 'actions/api/ContestAPI'
 import Cookies from 'js-cookie'
-import {
-    MODAL_ACTION_CONFIRM,
-    MODAL_ACTION_CLOSE,
-    MODAL_ACTION_RETRY,
-    USER_ID, ACCESS_TOKEN, ROLE_CREATOR
-} from 'utils/constants'
+import { MODAL_ACTION, COOKIES, ROLE } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
@@ -24,15 +19,15 @@ export default function Contest() {
     const navigate = useNavigate()
 
     //#region Get all contests created by CreatorID
-    const urlRequest = user.role === ROLE_CREATOR ?
-        `/contests/creator/${Cookies.get(USER_ID)}` :
-        '/contests'
+    const urlRequest = user.role === ROLE.USER ?
+        '/contests' :
+        `/contests/creator/${Cookies.get(COOKIES.USER_ID)}`
 
     const { response, loading, error } = useAxios({
         method: 'GET',
         url: urlRequest,
         headers: {
-            Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
         }
     })
     //#endregion
@@ -58,7 +53,7 @@ export default function Contest() {
         isUpdate, action, title = '', description = '',
         url = '', embededMedia = '', startTime = '', endTime = ''
     ) => {
-        if (action === MODAL_ACTION_CONFIRM) {
+        if (action === MODAL_ACTION.CONFIRM) {
             let data = null
             if (isUpdate) {
                 const newContest = {
@@ -101,10 +96,10 @@ export default function Contest() {
                 navigate(`/contest/${data.contest.id}`)
             }
         }
-        else if (action === MODAL_ACTION_CLOSE) {
+        else if (action === MODAL_ACTION.CLOSE) {
             setIsShow(false)
         }
-        else if (action === MODAL_ACTION_RETRY) {
+        else if (action === MODAL_ACTION.RETRY) {
             // Do nothing
         }
     }
@@ -118,12 +113,14 @@ export default function Contest() {
 
     const handleConfirmModalAction = (action) => {
         setIsShowConfirmModal(false)
-        if (action === MODAL_ACTION_CONFIRM) {
+        if (action === MODAL_ACTION.CONFIRM) {
             handleEditContest(blankContest, false)
         }
     }
 
-    const handleShareContent = (id, title = '', content = '', hashtags = [], source = '') => {
+    const handleShareContent = (
+        id, title = '', content = '', hashtags = [], source = ''
+    ) => {
         const url = `${process.env.REACT_APP_DOMAIN}/contest/${id}`
 
         console.log(url)
@@ -173,7 +170,7 @@ export default function Contest() {
                             <i className="fa fa-info-circle"></i>
                         </Button>
 
-                        {user.role === ROLE_CREATOR &&
+                        {user.role !== ROLE.USER &&
                             <Button
                                 variant="primary" size="sm"
                                 onClick={() => handleEditContest(c, true)}
@@ -207,7 +204,7 @@ export default function Contest() {
                 <div className="heading-contest h4 col-8 col-sm-6">Các cuộc thi</div>
 
                 <div className="create-contest col-2 col-sm-3 d-flex justify-content-end">
-                    {user.role === ROLE_CREATOR &&
+                    {user.role !== ROLE.USER &&
                         <Button variant="success" size="sm"
                             onClick={() => setIsShowConfirmModal(true)}>
                             <i className="fa fa-plus"> </i>

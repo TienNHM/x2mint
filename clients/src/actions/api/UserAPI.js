@@ -1,13 +1,13 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { ACCESS_TOKEN } from 'utils/constants'
+import { COOKIES } from 'utils/constants'
 
 export const getAllUsers = async () => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/users`
         const request = await axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -24,7 +24,7 @@ export const getUserInfo = async (userId) => {
         const url = `${process.env.REACT_APP_API_ROOT}/users/info/${userId}`
         const request = await axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -41,7 +41,7 @@ export const updateUserInfo = async (user) => {
         const url = `${process.env.REACT_APP_API_ROOT}/users/info/${user.id}`
         const request = await axios.put(url, user, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -62,7 +62,7 @@ export const resetPassword = async (oldPassword, newPassword) => {
         }
         const request = await axios.put(url, data, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 

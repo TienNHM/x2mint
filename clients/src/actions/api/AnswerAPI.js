@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { ACCESS_TOKEN } from 'utils/constants'
+import { COOKIES } from 'utils/constants'
 
 
 export const createAnswer = async (answer, questionId) => {
@@ -11,7 +11,7 @@ export const createAnswer = async (answer, questionId) => {
                 ...answer,
                 questionId: questionId,
                 headers: {
-                    'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                    'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
                 }
             }).then(response => response)
 
@@ -28,7 +28,7 @@ export const updateAnswer = async (answer) => {
         const url = `${process.env.REACT_APP_API_ROOT}/answers/${answer._id}`
         const request = await axios.put(url, answer, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -45,7 +45,7 @@ export const getAllAnswers = async () => {
         const url = `${process.env.REACT_APP_API_ROOT}/answers`
         const request = await axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -62,7 +62,7 @@ export const getAnswer = async (answerId) => {
         const url = `${process.env.REACT_APP_API_ROOT}/answers/${answerId}`
         const request = await axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -79,7 +79,7 @@ export const deleteAnswer = async (answerId) => {
         const url = `${process.env.REACT_APP_API_ROOT}/answers/${answerId}/delete`
         const request = await axios.post(url, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 

@@ -3,7 +3,7 @@ import './Navbar.scss'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logOut } from 'redux/authSlice'
-import { ROLE_CREATOR, ROLE_USER } from 'utils/constants'
+import { ROLE } from 'utils/constants'
 
 function Navbar() {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
@@ -26,7 +26,7 @@ function Navbar() {
                     </NavLink>
                 </li>
 
-                {isAuthenticated && user.role === ROLE_CREATOR && (
+                {isAuthenticated && user.role !== ROLE.USER && (
                     <li className="nav__item">
                         <NavLink className="nav__link active__link" to="/create">
                             Quản lý cuộc thi
@@ -34,7 +34,7 @@ function Navbar() {
                     </li>
                 )}
 
-                {isAuthenticated && user.role === ROLE_USER && (
+                {isAuthenticated && user.role === ROLE.USER && (
                     <li className="nav__item">
                         <NavLink className="nav__link active__link" to="/contest">
                             Các cuộc thi

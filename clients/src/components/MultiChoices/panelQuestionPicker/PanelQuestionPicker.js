@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react'
 import Countdown from 'react-countdown'
 import { Button } from 'react-bootstrap'
-import { MODAL_ACTION_CLOSE, MODAL_ACTION_CONFIRM } from 'utils/constants'
-import './PanelQuestionPicker.scss'
+import { MODAL_ACTION } from 'utils/constants'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
-import { createTakeTest, submit } from 'actions/api/TakeTestAPI'
+import { submit } from 'actions/api/TakeTestAPI'
+import './PanelQuestionPicker.scss'
 
 export default function PanelQuestionPicker(props) {
     const { test, selectedQuestion, setSelectedQuestion, takeTest, setIsSubmitted } = props
@@ -18,7 +18,7 @@ export default function PanelQuestionPicker(props) {
 
     //#region  Submit
     const handleConfirmSubmit = async (action) => {
-        if (action === MODAL_ACTION_CONFIRM) {
+        if (action === MODAL_ACTION.CONFIRM) {
             btnSubmitRef.current.disabled = true
             timeRemainRef.current.stop()
             setIsShowConfirm(false)
@@ -27,7 +27,7 @@ export default function PanelQuestionPicker(props) {
             setIsSubmitted(true)
             console.log(data)
         }
-        else if (action === MODAL_ACTION_CLOSE) {
+        else if (action === MODAL_ACTION.CLOSE) {
             timeRemainRef.current.start()
             setIsShowConfirm(false)
         }
@@ -43,7 +43,7 @@ export default function PanelQuestionPicker(props) {
         const s = ('' + seconds).length < 2 ? ('0' + seconds) : ('' + seconds)
         if (completed) {
             // Render a completed state
-            handleConfirmSubmit(MODAL_ACTION_CONFIRM)
+            handleConfirmSubmit(MODAL_ACTION.CONFIRM)
             return <Completionist />
         } else {
             // Render a countdown

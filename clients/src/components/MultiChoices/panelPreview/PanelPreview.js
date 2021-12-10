@@ -4,10 +4,10 @@ import { cloneDeep, isEmpty } from 'lodash'
 import { Button } from 'react-bootstrap'
 import { applyDrag } from 'utils/dragDrop'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
-import { MODAL_ACTION_CONFIRM, STATUS } from 'utils/constants'
+import { MODAL_ACTION } from 'utils/constants'
 import { blankQuestion } from 'actions/initialData'
 import './PanelPreview.scss'
-import { createQuestion, updateQuestion, deleteQuestion } from 'actions/api/QuestionAPI'
+import { createQuestion, deleteQuestion } from 'actions/api/QuestionAPI'
 
 function PanelPreview(props) {
     const {
@@ -70,7 +70,7 @@ function PanelPreview(props) {
     }
 
     const onActionDeleteQuestion = async (action) => {
-        if (action === MODAL_ACTION_CONFIRM) {
+        if (action === MODAL_ACTION.CONFIRM) {
             // TODO delete question
             const data = await deleteQuestion(selectedQuestion._id)
             console.log(data)

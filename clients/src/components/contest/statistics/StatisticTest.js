@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Button, Modal, Form, Overlay, Popover } from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
-import { MODAL_ACTION_CLOSE } from 'utils/constants'
+import { MODAL_ACTION } from 'utils/constants'
 import exportData from './data.js'
 import './StatisticTest.scss'
 
@@ -20,7 +20,7 @@ export default function StatisticTest({ isShow, onAction, test }) {
     // const data = exportData(test, setIsShowSubmitPage) //TODO export data
 
     const handleAction = (action) => {
-        if (action === MODAL_ACTION_CLOSE) {
+        if (action === MODAL_ACTION.CLOSE) {
             setIsShowSubmitPage(false)
         }
     }
@@ -31,7 +31,7 @@ export default function StatisticTest({ isShow, onAction, test }) {
                 size="lg"
                 fullscreen={true}
                 show={isShow}
-                onHide={() => onAction(MODAL_ACTION_CLOSE)}
+                onHide={() => onAction(MODAL_ACTION.CLOSE)}
                 backdrop='static'
                 keyboard={false}>
                 <Modal.Header closeButton>
@@ -123,7 +123,7 @@ export default function StatisticTest({ isShow, onAction, test }) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => onAction(MODAL_ACTION_CLOSE)}>
+                    <Button variant="secondary" onClick={() => onAction(MODAL_ACTION.CLOSE)}>
                         Đóng
                     </Button>
                 </Modal.Footer>

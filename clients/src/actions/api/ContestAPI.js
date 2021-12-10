@@ -1,13 +1,13 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { ACCESS_TOKEN, USER_ID } from 'utils/constants'
+import { COOKIES } from 'utils/constants'
 
 export const getAllContests = async () => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/contests`
         const request = await axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -21,10 +21,10 @@ export const getAllContests = async () => {
 
 export const useGetAllContestsByCreatorId = async () => {
     try {
-        const url = `${process.env.REACT_APP_API_ROOT}/contests/creator/${Cookies.get(USER_ID)}`
+        const url = `${process.env.REACT_APP_API_ROOT}/contests/creator/${Cookies.get(COOKIES.USER_ID)}`
         const request = await axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -41,7 +41,7 @@ export const createContest = async (contest) => {
         const url = `${process.env.REACT_APP_API_ROOT}/contests`
         const request = await axios.post(url, contest, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -59,7 +59,7 @@ export const updateContest = async (contest) => {
         const url = `${process.env.REACT_APP_API_ROOT}/contests/${contest.id}`
         const request = await axios.put(url, contest, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -78,7 +78,7 @@ export const updateTestsInContest = async (contestId, testsList) => {
             {
                 tests: testsList,
                 headers: {
-                    'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                    'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
                 }
             }).then(response => response)
 
@@ -95,7 +95,7 @@ export const deleteContest = async (contest) => {
         const url = `${process.env.REACT_APP_API_ROOT}/contests/${contest.id}/delete`
         const request = await axios.put(url, contest, {
             headers: {
-                'Authorization': `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                'Authorization': `Bearer ${Cookies.get(COOKIES.COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 

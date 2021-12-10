@@ -3,13 +3,12 @@ import { mapOrder } from 'utils/sorts'
 import PanelPreview from 'components/MultiChoices/panelPreview/PanelPreview'
 import Question from 'components/MultiChoices/question/Question'
 import PanelSettings from 'components/MultiChoices/panelSettings/PanelSettings'
-import { blankTakeTest } from 'actions/initialData'
 import './MultiChoices.scss'
 import { useParams } from 'react-router'
 import { Navigate } from 'react-router-dom'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
-import { ACCESS_TOKEN, ROLE_CREATOR, STATUS } from 'utils/constants'
+import { COOKIES, ROLE, STATUS } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
@@ -19,18 +18,17 @@ function MultiChoices() {
     let { testId } = useParams()
     const {
         response: testResponse,
-        loading: testIsLoading,
-        error: testIsError
+        loading: testIsLoading
     } = useAxios({
         method: 'GET',
         url: `/tests/${testId}`,
         headers: {
-            Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
         }
     })
 
     const user = useSelector((state) => state.auth.user)
-    const isCreator = user.role === ROLE_CREATOR
+    const isUser = user.role === ROLE.USER
     const [isSubmitted, setIsSubmitted] = useState(false)
 
     const [test, setTest] = useState(null)
@@ -59,7 +57,7 @@ function MultiChoices() {
             setQuestions(q)
             setSelectedQuestion(selectedQuestion ? selectedQuestion : q[0])
 
-            if (!isCreator) {
+            if (isUser) {
                 const chooseAnswers = q.map(quiz => {
                     return {
                         question: quiz._id,
@@ -149,7 +147,7 @@ function MultiChoices() {
 
             {!testIsLoading &&
                 <>
-                    {user.role === ROLE_CREATOR ?
+                    {!isUser ?
                         (
                             <PanelPreview
                                 test={test}
@@ -173,7 +171,7 @@ function MultiChoices() {
                     <Question
                         question={selectedQuestion}
                         setQuestion={updateSelectedQuestion}
-                        isCreator={isCreator}
+                        isCreator={!isUser}
                         takeTest={takeTest}
                         updateTakeTest={updateTakeTestInfo}
                     />
@@ -181,7 +179,7 @@ function MultiChoices() {
                     <PanelSettings
                         test={test}
                         setTest={setTest}
-                        isCreator={isCreator}
+                        isCreator={!isUser}
                         setSelectedQuestion={updateSelectedQuestion}
                     />
                 </>

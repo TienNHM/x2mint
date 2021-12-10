@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact'
-import { ACCESS_TOKEN } from 'utils/constants'
+import { COOKIES } from 'utils/constants'
 import exportData from './data.js'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import './SubmitResult.scss'
@@ -22,7 +22,7 @@ export default function SubmitResult() {
         method: 'GET',
         url: `/takeTest/${takeTestId}`,
         headers: {
-            Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
         }
     })
 
