@@ -19,6 +19,8 @@ import ContestInfo from 'components/contest/contestInfo/ContestInfo'
 import MultiChoices from 'components/MultiChoices/MultiChoices'
 import { SyncLoader } from 'react-spinners'
 import Admin from 'components/admin/Admin'
+import Page404 from 'pages/Page404'
+import Page500 from 'pages/Page500'
 
 const options = {
     // you can also just use 'bottom center'
@@ -65,6 +67,12 @@ function App() {
                             <Navbar />
                             <Routes>
                                 <Route exact path="/" element={<Homepage />} />
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/register" element={<Register />} />
+                                <Route path="/about" element={<About />} />
+                                <Route path="/contact" element={<Contact />} />
+                                <Route path="/404" element={<Page404 />} />
+                                <Route path="/500" element={<Page500 />} />
 
                                 <Route path="/dashboard" element={<ProtectedRoute />}>
                                     <Route
@@ -104,11 +112,6 @@ function App() {
                                         element={<SubmitResult />}
                                     />
                                 </Route>
-
-                                <Route path="/login" element={<Login />} />
-                                <Route path="/register" element={<Register />} />
-                                <Route path="/about" element={<About />} />
-                                <Route path="/contact" element={<Contact />} />
                             </Routes>
                         </div>
                     )}
