@@ -2,12 +2,25 @@
 
 .dashboard {
     margin-top: $navbar-height;
-    height: calc(100vh - #{$navbar-height + $gap});
+    height: calc(100vh - #{$navbar-height});
 
     .sidebar {
         max-width: 250px;
+        width: 240px;
     }
     .main-container {
         width: 100%;
+
+        .header {
+            background-color: lightgray;
+            height: 8vh;
+        }
+
+        .footer {
+            height: 2.5*$gap;
+            border-radius: 0px;
+            border: 0px;
+            text-align: center;
+        }
     }
 }
