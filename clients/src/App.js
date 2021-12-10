@@ -19,6 +19,8 @@ import './App.scss'
 import ContestInfo from 'components/contest/contestInfo/ContestInfo'
 import MultiChoices from 'components/MultiChoices/MultiChoices'
 import { BeatLoader, HashLoader, SyncLoader } from 'react-spinners'
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 const options = {
     // you can also just use 'bottom center'
@@ -41,6 +43,7 @@ function App() {
 
     return (
         <BrowserRouter>
+            <ReactNotification />
             <AlertProvider template={AlertTemplate} {...options}>
                 <div className="app">
                     {authLoading ? (

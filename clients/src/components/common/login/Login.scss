@@ -10,7 +10,7 @@
 
     .form__title {
         text-align: center;
-        padding-top: 40px;
+        padding-top: 25px;
         font-family: var(--logo-font);
         color: var(--mint);
         font-weight: 700;
@@ -29,7 +29,7 @@
         justify-content: center;
         align-items: center;
         box-sizing: border-box;
-        margin: -50px 10px 0 10%;
+        margin: -20px 10px 0 10%;
 
         .nav__btn__login {
             padding: 5px 30px;
@@ -37,7 +37,7 @@
     }
 
     .auth__pic {
-        max-width: 500px;
+        max-width: 350px;
     }
 
     input {
