@@ -2,7 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
+<<<<<<< HEAD
 import { COOKIES } from 'utils/constants'
+=======
+>>>>>>> fc562ee94ae9e4e5136b97a0c38cec55ed56af7c
 import { store } from 'react-notifications-component'
 import { ROLE_USER } from 'utils/constants'
 
