@@ -1,0 +1,13 @@
+@import '_setting.scss';
+
+.navbar-admin {
+    nav {
+        height: 50px;
+
+        .right-nav {
+            button {
+                margin-right: $gap;
+            }
+        }
+    }
+}
