@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ADMIN } from 'utils/constants'
 import AccountRegister from './AccountRegister/AccountRegister'
+import Dashboard from './Dashboard/Dashboard'
 
 export default function AppContent({ currentAction }) {
     const [component, setComponent] = useState(null)
@@ -10,7 +11,7 @@ export default function AppContent({ currentAction }) {
             setComponent(<AccountRegister />)
         }
         else {
-            setComponent(<AccountRegister />)
+            setComponent(<Dashboard />)
         }
     }, [currentAction])
 
