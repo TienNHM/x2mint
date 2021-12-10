@@ -30,6 +30,15 @@ const options = {
     }
 }
 
+const loadingCss = {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 10000
+}
+
 function App() {
     const dispatch = useDispatch()
     const { authLoading, isAuthenticated } = useSelector((state) => state.auth)
@@ -43,17 +52,7 @@ function App() {
             <AlertProvider template={AlertTemplate} {...options}>
                 <div className="app">
                     {authLoading ? (
-                        <div
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                zIndex: 10000
-                            }}
-                            className='d-flex align-items-center justify-content-center'
-                        >
+                        <div style={loadingCss} className='d-flex align-items-center justify-content-center'>
                             <SyncLoader
                                 color={'#7ED321'}
                                 loading={authLoading}

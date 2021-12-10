@@ -18,10 +18,15 @@ export default function Contest() {
     const user = useSelector((state) => state.auth.user)
     const navigate = useNavigate()
 
-    //#region Get all contests created by CreatorID
-    const urlRequest = user.role === ROLE.USER ?
-        '/contests' :
-        `/contests/creator/${Cookies.get(COOKIES.USER_ID)}`
+    //#region Get contests
+    let urlRequest = '/contests'
+
+    if (user.role === ROLE.USER) {
+        urlRequest = `/contests/creator/${Cookies.get(COOKIES.USER_ID)}`
+    }
+    else if (user.role === ROLE.ADMIN) {
+        urlRequest = '/contests/all'
+    }
 
     const { response, loading, error } = useAxios({
         method: 'GET',
