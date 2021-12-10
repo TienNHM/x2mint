@@ -1,57 +1,68 @@
 @import '_setting.scss';
 
-.sidebar {
-    width: 100%;
-    height: calc(100vh - #{$navbar-height});
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+.sidebar-settings {
+    background-color: lighten($color: rgba(208, 240, 224, 0.514), $amount: 5);
 
-    .sidebar-title {
-        color: $theme-color;
+    .sidebar {
+        width: 100%;
+        height: calc(100vh - #{$navbar-height});
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+        .sidebar-title {
+            color: $theme-color;
+        }
+
+        .settings {
+            height: 80vh;
+
+            &::-webkit-scrollbar {
+                -webkit-appearance: none;
+            }
+
+            &::-webkit-scrollbar:vertical {
+                width: 8px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: lighten($color: $theme-color, $amount: 5);
+                border-radius: $gap;
+            }
+
+            .accordion-item {
+                .accordion-header {
+                    .accordion-button {
+                        font-weight: bolder;
+                        font-size: 1.1rem;
+                        color: $theme-color;
+                        text-transform: uppercase;
+                    }
+                }
+
+                .accordion-collapse {
+                    .accordion-body {
+                        padding: 0 !important;
+
+                        button {
+                            background-color: transparent;
+                            color: rgb(24, 109, 86);
+                            border: none !important;
+                            font-size: 1.1rem;
+                            border-radius: 0 !important;
+                        }
+
+                        button:hover {
+                            background-color: $light-theme-color;
+                            // color: #6adf5f;
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    .settings {
-        height: 79vh;
-
-        &::-webkit-scrollbar {
-            -webkit-appearance: none;
-        }
-
-        &::-webkit-scrollbar:vertical {
-            width: 8px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: lighten($color: $theme-color, $amount: 5);
-            border-radius: $gap;
-        }
-        
-        .accordion-item {
-            .accordion-header {
-                .accordion-button {
-                    font-weight: bolder;
-                    font-size: 1.1rem;
-                    color: $theme-color;
-                    text-transform: uppercase;
-                }
-            }
-
-            .accordion-collapse {
-                .accordion-body {
-                    padding: 0 !important;
-
-                    button {
-                        background-color: transparent;
-                        color: $theme-color;
-                        border: none !important;
-                        font-size: 1.1rem;
-                        border-radius: 0 !important;
-                    }
-
-                    button:hover {
-                        background-color: $light-theme-color;
-                    }
-                }
-            }
-        }
+    .rtf {
+        left: 0 !important;
+        bottom: 50% !important;
+        margin: 0 !important;
     }
 }
