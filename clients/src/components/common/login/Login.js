@@ -30,16 +30,6 @@ const Login = () => {
     const login = async (event) => {
         event.preventDefault()
         try {
-            // const loginData = await loginUser(loginForm)
-            // if (!loginData.success) {
-            //     setAlert({ type: 'danger', message: loginData.message })
-            //     setTimeout(() => setAlert(null), 5000)
-            //     console.log(loginData)
-            // }
-            // if (loginData.success) {
-            //     navigate('/profile'),
-            //     console.log(loginData)
-            // }
             dispatch(loginUser(loginForm))
         } catch (error) {
             console.log(error)
