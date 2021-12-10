@@ -18,6 +18,7 @@ import './App.scss'
 import ContestInfo from 'components/contest/contestInfo/ContestInfo'
 import MultiChoices from 'components/MultiChoices/MultiChoices'
 import { SyncLoader } from 'react-spinners'
+import Admin from 'components/admin/Admin'
 
 const options = {
     // you can also just use 'bottom center'
@@ -64,9 +65,17 @@ function App() {
                             <Navbar />
                             <Routes>
                                 <Route exact path="/" element={<Homepage />} />
-                                <Route path="/create" element={<ProtectedRoute />}>
+
+                                <Route path="/dashboard" element={<ProtectedRoute />}>
                                     <Route
-                                        path="/create"
+                                        path="/dashboard"
+                                        element={<Admin />}
+                                    />
+                                </Route>
+
+                                <Route path="/contests-mangement" element={<ProtectedRoute />}>
+                                    <Route
+                                        path="/contests-mangement"
                                         element={<Contest isCreator={true} />}
                                     />
                                 </Route>
