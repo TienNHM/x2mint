@@ -1,7 +1,7 @@
 import { updateAnswer } from 'actions/api/AnswerAPI'
 import React, { useState, useEffect } from 'react'
 import { Form } from 'react-bootstrap'
-import { MAX_ANSWER_LENGTH } from 'utils/constants'
+import { MAX } from 'utils/constants'
 import './Answer.scss'
 
 function Answer({ answer, setAnswer, onClick, disabled, isChosen }) {
@@ -9,14 +9,14 @@ function Answer({ answer, setAnswer, onClick, disabled, isChosen }) {
     const [name, setName] = useState(answer.name)
     const [rows, setRows] = useState(1)
     const [content, setContent] = useState(answer.content)
-    const [answerLength, setAnswerLength] = useState(MAX_ANSWER_LENGTH - answer.content.length)
+    const [answerLength, setAnswerLength] = useState(MAX.ANSWER_LENGTH - answer.content.length)
     const [isChecked, setIsChecked] = useState(isChosen)
 
     useEffect(() => {
         if (answer) {
             const value = answer.content
             setContent(value)
-            setAnswerLength(MAX_ANSWER_LENGTH - value.length)
+            setAnswerLength(MAX.ANSWER_LENGTH - value.length)
             setName(answer.name)
             setIsChecked(isChosen)
         }
@@ -24,10 +24,10 @@ function Answer({ answer, setAnswer, onClick, disabled, isChosen }) {
 
     const handleTextChange = async (event) => {
         const value = event.target.value.replace(/\n/g, ' ')
-        if (value.length <= MAX_ANSWER_LENGTH) {
+        if (value.length <= MAX.ANSWER_LENGTH) {
             setContent(value)
-            setAnswerLength(MAX_ANSWER_LENGTH - value.length)
-            setRows(value.length / (MAX_ANSWER_LENGTH / 2) + 1)
+            setAnswerLength(MAX.ANSWER_LENGTH - value.length)
+            setRows(value.length / (MAX.ANSWER_LENGTH / 2) + 1)
         }
     }
 

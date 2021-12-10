@@ -1,13 +1,13 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { ACCESS_TOKEN, ROLE_USER } from 'utils/constants'
+import { COOKIES, ROLE } from 'utils/constants'
 
 export const register = async (user) => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/auths/register`
         const request = await axios.post(url, {
             ...user,
-            role: ROLE_USER,
+            role: ROLE.USER,
             isHidden: false
         })
         console.log(request.data)
@@ -23,7 +23,7 @@ export const verify = async () => {
         const url = `${process.env.REACT_APP_API_ROOT}/auths/verify`
         const request = await axios.get(url, {
             headers: {
-                Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 
@@ -40,7 +40,7 @@ export const loginWithGoogle = async () => {
         const url = `${process.env.REACT_APP_API_ROOT}/auths/login/google`
         const request = await axios.post(url, {
             headers: {
-                Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+                Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }
         }).then(response => response)
 

@@ -1,13 +1,13 @@
 import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import HTMLReactParser from 'html-react-parser'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE } from 'utils/constants'
+import { MODAL_ACTION } from 'utils/constants'
 
 function ConfirmModal({ title, content, isShow, onAction }) {
     return (
         <Modal
             show={isShow}
-            onHide={() => onAction(MODAL_ACTION_CLOSE)}
+            onHide={() => onAction(MODAL_ACTION.CLOSE)}
             backdrop='static'
             keyboard={false}>
             <Modal.Header closeButton>
@@ -17,10 +17,10 @@ function ConfirmModal({ title, content, isShow, onAction }) {
             </Modal.Header>
             <Modal.Body>{HTMLReactParser(content)}</Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() => onAction(MODAL_ACTION_CLOSE)}>
+                <Button variant="secondary" onClick={() => onAction(MODAL_ACTION.CLOSE)}>
                     Đóng
                 </Button>
-                <Button variant="primary" onClick={() => onAction(MODAL_ACTION_CONFIRM)}>
+                <Button variant="primary" onClick={() => onAction(MODAL_ACTION.CONFIRM)}>
                     Xác nhận
                 </Button>
             </Modal.Footer>

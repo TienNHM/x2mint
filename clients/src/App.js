@@ -14,11 +14,10 @@ import Profile from 'components/common/profile/Profile'
 import ProtectedRoute from 'components/ProtectedRoute'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadUser } from 'redux/authSlice'
-import Spinner from 'react-bootstrap/Spinner'
 import './App.scss'
 import ContestInfo from 'components/contest/contestInfo/ContestInfo'
 import MultiChoices from 'components/MultiChoices/MultiChoices'
-import { BeatLoader, HashLoader, SyncLoader } from 'react-spinners'
+import { SyncLoader } from 'react-spinners'
 
 const options = {
     // you can also just use 'bottom center'

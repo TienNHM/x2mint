@@ -4,19 +4,16 @@ import { useSelector } from 'react-redux'
 import Image from 'react-bootstrap/Image'
 import Answer from 'components/MultiChoices/answer/Answer'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
-import {
-    MAX_QUESTION_LENGTH,
-    MODAL_ACTION_CONFIRM,
-    ROLE_CREATOR
-} from 'utils/constants'
-import './Question.scss'
+import { SyncLoader } from 'react-spinners'
 import { createAnswer } from 'actions/api/AnswerAPI'
 import { updateQuestion } from 'actions/api/QuestionAPI'
+import { MAX, MODAL_ACTION, ROLE } from 'utils/constants'
+import './Question.scss'
 
 function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     // Lấy thông tin user
     const user = useSelector((state) => state.auth.user)
-    const isCreator = user.role === ROLE_CREATOR
+    const isUser = user.role === ROLE.USER
 
     const answerIndex = ['A', 'B', 'C', 'D']
 
@@ -24,7 +21,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     const [content, setContent] = useState('')
     const [rows, setRows] = useState(1)
     const [chooseAnswers, setChooseAnswers] = useState([])
-    const [questionLength, setQuestionLength] = useState(MAX_QUESTION_LENGTH)
+    const [questionLength, setQuestionLength] = useState(MAX.QUESTION_LENGTH)
     const [isShowLibrary, setIsShowLibrary] = useState(false)
 
     useEffect(() => {
@@ -32,20 +29,30 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
             setContent(question.content)
             setEmbedMedia(question.embededMedia)
             setQuestionLength(question.content ?
-                MAX_QUESTION_LENGTH - question.content.length :
-                MAX_QUESTION_LENGTH
+                MAX.QUESTION_LENGTH - question.content.length :
+                MAX.QUESTION_LENGTH
             )
-            setChooseAnswers(isCreator ? question.correctAnswers : [])
+            setChooseAnswers(isUser ? [] : question.correctAnswers)
         }
-    }, [question])
+    }, [question, isUser])
 
     const RenderEmptyQuestion = () => {
         return (
             <div className="d-flex align-items-center justify-content-center h-100 flex-column">
-                <h1 className="fw-bolder">Chưa có câu hỏi nào!</h1>
-                <Image src={process.env.PUBLIC_URL + '/assets/no-records.svg'}
-                    style={{ height: '50vh' }} />
-                <h4 className="fw-bold text-warning">Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!</h4>
+                {isUser &&
+                    <div className='sweet-loading'>
+                        <SyncLoader color={'#7ED321'} loading={true} speedMultiplier={2}/>
+                    </div>
+                }
+
+                {!isUser &&
+                    <>
+                        <h1 className="fw-bolder">Chưa có câu hỏi nào!</h1>
+                        <Image src={process.env.PUBLIC_URL + '/assets/no-records.svg'}
+                            style={{ height: '50vh' }} />
+                        <h4 className="fw-bold text-warning">Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!</h4>
+                    </>
+                }
             </div>
         )
     }
@@ -64,14 +71,14 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     }
 
     let indexQuestion = -1
-    if (!isCreator && !takeTest) {
+    if (isUser && !takeTest) {
         return (
             <div className="panel-center">
                 {RenderEmptyQuestion()}
             </div>
         )
     }
-    else if (!isCreator && takeTest) {
+    else if (isUser && takeTest) {
         indexQuestion = takeTest.chooseAnswers.findIndex(c => c.question === question._id)
     }
 
@@ -79,16 +86,16 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
     const handleTextChange = (event) => {
         const value = event.target.value.replace(/\n/g, ' ')
-        if (value.length <= MAX_QUESTION_LENGTH) {
+        if (value.length <= MAX.QUESTION_LENGTH) {
             setContent(value)
-            setQuestionLength(MAX_QUESTION_LENGTH - value.length)
+            setQuestionLength(MAX.QUESTION_LENGTH - value.length)
 
-            const r = Math.round(value.length / (MAX_QUESTION_LENGTH / 2 + 1) + 1)
+            const r = Math.round(value.length / (MAX.QUESTION_LENGTH / 2 + 1) + 1)
             setRows(r)
 
             const newQuestion = { ...question }
             newQuestion.content = event.target.value
-            setQuestion(newQuestion, isCreator)
+            setQuestion(newQuestion, !isUser)
         }
     }
 
@@ -126,7 +133,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
         setChooseAnswers(choose)
         //#endregion
 
-        if (isCreator) {
+        if (!isUser) {
             const newQuestion = {
                 ...question,
                 answers: question.answers.map(a => a._id),
@@ -152,7 +159,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
         setEmbedMedia('')
         const q = { ...question }
         q.embededMedia = ''
-        setQuestion(q, isCreator)
+        setQuestion(q, !isUser)
         const data = await updateQuestion(q)
         console.log(data)
     }
@@ -181,12 +188,12 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     //#endregion
 
     const onConfirmModalAction = async (type, photo) => {
-        if (photo && type === MODAL_ACTION_CONFIRM) {
+        if (photo && type === MODAL_ACTION.CONFIRM) {
             setEmbedMedia(photo.src.large)
 
             const q = { ...question }
             q.embededMedia = photo.src.large
-            setQuestion(q, isCreator)
+            setQuestion(q, !isUser)
             const data = await updateQuestion(q)
             console.log(data)
         }
@@ -199,7 +206,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
         console.log('123', newQuestion)
         const index = newQuestion.answers.findIndex(a => a.id === answer.id)
         newQuestion.answers[index] = answer
-        setQuestion(newQuestion, isCreator)
+        setQuestion(newQuestion, !isUser)
     }
 
     return (
@@ -220,7 +227,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                                 value={content}
                                 onChange={handleTextChange}
                                 onBlur={handleTextBlur}
-                                disabled={!isCreator}
+                                disabled={isUser}
                             />
                         </div>
                         <div className="lenght-limit">{questionLength}</div>
@@ -228,7 +235,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
                     <div className="embeded row">
                         <div className="col-1 d-flex align-items-end justify-content-start">
-                            {isCreator &&
+                            {!isUser &&
                                 <Button variant="warning"
                                     className="fw-bolder text-light"
                                     onClick={() => setIsShowLibrary(true)}
@@ -250,7 +257,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                         </div>
 
                         <div className="col-1 d-flex align-items-end justify-content-end">
-                            {isCreator &&
+                            {!isUser &&
                                 <Button variant="danger"
                                     className="fw-bolder text-light"
                                     onClick={handleOnRemoveClick}
@@ -269,10 +276,10 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                                     answer={a}
                                     setAnswer={updateAnswer}
                                     onClick={handleOnAnswerClick}
-                                    disabled={!isCreator}
+                                    disabled={isUser}
                                     isChosen={
-                                        isCreator ? question.correctAnswers.includes(a.name) :
-                                            takeTest.chooseAnswers[indexQuestion].answers.includes(a.name)
+                                        isUser ? takeTest.chooseAnswers[indexQuestion].answers.includes(a.name) :
+                                            question.correctAnswers.includes(a.name)
                                     }
                                 />)
                             }

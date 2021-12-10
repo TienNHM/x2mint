@@ -1,31 +1,31 @@
-export const MAX_QUESTION_LENGTH = 200
-export const MAX_ANSWER_LENGTH = 120
-export const MAX_PHOTOS_PER_PAGE = 20
-export const MAX_PHOTOS_IN_RESULTS = 80
+export const MAX = {
+    QUESTION_LENGTH: 200,
+    ANSWER_LENGTH: 120,
+    PHOTOS_PER_PAGE: 20,
+    PHOTOS_IN_RESULTS: 80
+}
 
-//#region MODAL
-export const MODAL_ACTION_CLOSE = 'MODAL_ACTION_CLOSE'
-export const MODAL_ACTION_CONFIRM = 'MODAL_ACTION_CONFIRM'
-export const MODAL_ACTION_RETRY = 'MODAL_ACTION_RETRY'
-//#endregion
+export const MODAL_ACTION = {
+    CONFIRM: 'MODAL_ACTION_CONFIRM',
+    CLOSE: 'MODAL_ACTION_CLOSE',
+    RETRY: 'MODAL_ACTION_RETRY'
+}
 
-//#region ROLE
-export const ROLE_ADMIN = 'admin'
-export const ROLE_CREATOR = 'creator'
-export const ROLE_USER = 'user'
-//#endregion
+export const ROLE = {
+    ADMIN: 'admin',
+    CREATOR: 'creator',
+    USER: 'user'
+}
 
-//#region COOKIES
-export const ACCESS_TOKEN = 'accessToken'
-export const USER_ID = 'uid'
-export const MAX_DAYS_EXPIRE = 365
-//#endregion
+export const COOKIES = {
+    ACCESS_TOKEN: 'accessToken',
+    USER_ID: 'uid',
+    MAX_DAYS_EXPIRE: 365
+}
 
-//#region STATUS
 export const STATUS = {
     DEACTIVE: 'deactive',
     DELETED: 'deleted',
     OK: 'ok',
     ARCHIVED: 'archived'
 }
-//#endregion

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
 import { createClient } from 'pexels'
 import Image from 'components/common/image/Image'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, MAX_PHOTOS_PER_PAGE, MAX_PHOTOS_IN_RESULTS } from 'utils/constants'
+import { MODAL_ACTION, MAX } from 'utils/constants'
 import './BrowseLibrary.scss'
 
 function BrowseLibrary({ show, onAction }) {
@@ -17,12 +17,12 @@ function BrowseLibrary({ show, onAction }) {
     const queryRef = useRef('')
 
     const search = (query, limit_num) => {
-        const numPhotos = MAX_PHOTOS_PER_PAGE * limit_num
+        const numPhotos = MAX.PHOTOS_PER_PAGE * limit_num
         client.photos
             .search({ query, per_page: numPhotos })
             .then((result) => {
                 setPhotos(result.photos)
-                if (numPhotos >= MAX_PHOTOS_IN_RESULTS) {
+                if (numPhotos >= MAX.PHOTOS_IN_RESULTS) {
                     setIsHidden(true)
                     setLimit(1)
                 }
@@ -65,7 +65,7 @@ function BrowseLibrary({ show, onAction }) {
             size="lg"
             show={show}
             fullscreen={true}
-            onHide={() => onAction(MODAL_ACTION_CLOSE)}
+            onHide={() => onAction(MODAL_ACTION.CLOSE)}
             backdrop='static'
             keyboard={false}>
             <Modal.Header closeButton>
@@ -133,12 +133,12 @@ function BrowseLibrary({ show, onAction }) {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary"
-                    onClick={() => onAction(MODAL_ACTION_CLOSE, selectedPhoto)}>
+                    onClick={() => onAction(MODAL_ACTION.CLOSE, selectedPhoto)}>
                     Đóng
                 </Button>
 
                 <Button variant="primary"
-                    onClick={() => onAction(MODAL_ACTION_CONFIRM, selectedPhoto)}>
+                    onClick={() => onAction(MODAL_ACTION.CONFIRM, selectedPhoto)}>
                     OK
                 </Button>
             </Modal.Footer>

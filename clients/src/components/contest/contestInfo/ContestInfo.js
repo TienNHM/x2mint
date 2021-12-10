@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card, ListGroup, ListGroupItem, Form, Image } from 'react-bootstrap'
-import ModalCreateContest from 'components/contest/modalCreateContest/ModalCreateContest'
-import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
-import StatisticTest from 'components/contest/statistics/StatisticTest'
-import { blankTest } from 'actions/initialData'
-import { displayTimeDelta, splitTime } from 'utils/timeUtils'
-import Share from 'components/common/share/Share'
-import { MODAL_ACTION_CONFIRM, MODAL_ACTION_CLOSE, ACCESS_TOKEN, ROLE_CREATOR, ROLE_USER, STATUS } from 'utils/constants'
-import './ContestInfo.scss'
 import Cookies from 'js-cookie'
-import { useAxios } from 'actions/useAxios'
 import { useNavigate, useParams } from 'react-router'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
-import { createTest, deleteTest } from 'actions/api/TestAPI'
-import { deleteContest, updateContest, updateTestsInContest } from 'actions/api/ContestAPI'
+import { Button, Card, ListGroup, ListGroupItem, Form, Image } from 'react-bootstrap'
 import Badge from 'react-bootstrap/Badge'
+import ModalCreateContest from 'components/contest/modalCreateContest/ModalCreateContest'
+import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
+import StatisticTest from 'components/contest/statistics/StatisticTest'
+import Share from 'components/common/share/Share'
+import { useAxios } from 'actions/useAxios'
+import { createTest, deleteTest } from 'actions/api/TestAPI'
+import { blankTest } from 'actions/initialData'
+import { displayTimeDelta, splitTime } from 'utils/timeUtils'
+import { deleteContest, updateContest, updateTestsInContest } from 'actions/api/ContestAPI'
+import { MODAL_ACTION, COOKIES, ROLE, STATUS } from 'utils/constants'
+import './ContestInfo.scss'
 
 export default function ContestInfo() {
     const navigate = useNavigate()
@@ -24,13 +24,12 @@ export default function ContestInfo() {
     let { contestId } = useParams()
     const {
         response: contestResponse,
-        loading: contestIsLoading,
-        error: contestIsError
+        loading: contestIsLoading
     } = useAxios({
         method: 'GET',
         url: `/contests/${contestId}`,
         headers: {
-            Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN)}`
+            Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
         }
     })
 
@@ -100,7 +99,7 @@ export default function ContestInfo() {
         isUpdate, action, title, description,
         url, embededMedia, startTime, endTime
     ) => {
-        if (action === MODAL_ACTION_CONFIRM) {
+        if (action === MODAL_ACTION.CONFIRM) {
             const newContest = {
                 ...contest,
                 name: title,
@@ -114,7 +113,7 @@ export default function ContestInfo() {
             console.log(data)
             setContest(data.contest)
         }
-        else if (action === MODAL_ACTION_CLOSE) {
+        else if (action === MODAL_ACTION.CLOSE) {
             //
         }
         setIsShowCreateContest(false)
@@ -168,7 +167,7 @@ export default function ContestInfo() {
 
     const onTestAction = async (action) => {
         if (currentAction === CURRENT_ACTION.DELETE_TEST) {
-            if (selectedTest && action === MODAL_ACTION_CONFIRM) {
+            if (selectedTest && action === MODAL_ACTION.CONFIRM) {
                 const newContest = { ...contest }
                 const index = newContest.tests.findIndex(c => c.id === selectedTest.id)
                 newContest.tests.splice(index, 1)
@@ -183,7 +182,7 @@ export default function ContestInfo() {
             }
         }
         else if (currentAction === CURRENT_ACTION.CREATE_TEST) {
-            if (action === MODAL_ACTION_CONFIRM) {
+            if (action === MODAL_ACTION.CONFIRM) {
                 const newTest = {
                     ...blankTest,
                     creatorId: user.id,
@@ -199,7 +198,7 @@ export default function ContestInfo() {
                 listTestId.push(newTestRes.test.id)
                 console.log(listTestId)
                 const contestRes = await updateTestsInContest(contest.id, listTestId)
-                console.log(contestRes)
+                console.log('contestRes', contestRes)
                 setContest(contestRes.contest)
                 navigate(`/test/${newTestRes.test.id}`)
             }
@@ -300,7 +299,7 @@ export default function ContestInfo() {
                                         </ListGroupItem>
                                     </ListGroup>
 
-                                    {user.role === ROLE_CREATOR &&
+                                    {user.role !== ROLE.USER &&
                                         <div>
                                             <Button variant="primary" className="m-2 fw-bolder text-light" size="sm"
                                                 onClick={() => setIsShowCreateContest(true)}>
@@ -333,7 +332,7 @@ export default function ContestInfo() {
                                         </div>
                                     }
 
-                                    {user.role === ROLE_USER &&
+                                    {user.role === ROLE.USER &&
                                         <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
                                             onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}
                                         >
@@ -396,7 +395,7 @@ export default function ContestInfo() {
                                                         <i className="fa fa-share"></i>
                                                     </Button>
 
-                                                    {user.role === ROLE_CREATOR &&
+                                                    {user.role !== ROLE.USER &&
                                                         <>
                                                             <Button variant="warning" size="sm"
                                                                 onClick={() => handleStatisticsTest(test)} >
@@ -413,7 +412,7 @@ export default function ContestInfo() {
                                                         </>
                                                     }
 
-                                                    {user.role === ROLE_USER &&
+                                                    {user.role === ROLE.USER &&
                                                         <>
                                                             <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
                                                                 disabled={Date.parse(test.endTime) - Date.now() <= 0}

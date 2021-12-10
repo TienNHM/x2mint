@@ -4,11 +4,7 @@ import Image from 'react-bootstrap/Image'
 import { useAlert } from 'react-alert'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import { splitTime } from 'utils/timeUtils'
-import {
-    MODAL_ACTION_CONFIRM,
-    MODAL_ACTION_CLOSE,
-    MODAL_ACTION_RETRY
-} from 'utils/constants'
+import { MODAL_ACTION } from 'utils/constants'
 import './ModalCreateContest.scss'
 
 function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
@@ -43,15 +39,15 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     }, [contest])
 
     const openLibrary = (action, photo) => {
-        if (action === MODAL_ACTION_CONFIRM) {
+        if (action === MODAL_ACTION.CONFIRM) {
             setLink(photo.src.medium)
         }
         setIsShowLibrary(false)
     }
 
     const handleAction = (action) => {
-        if (action === MODAL_ACTION_CLOSE) {
-            onAction(isUpdate, MODAL_ACTION_CLOSE)
+        if (action === MODAL_ACTION.CLOSE) {
+            onAction(isUpdate, MODAL_ACTION.CLOSE)
         }
         else {
             const embededMedia = link
@@ -60,10 +56,10 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
             const str = startDate.trim() + startTime.trim() + endDate.trim() + endTime.trim()
             if (str.length === 0) {
                 alert.error('Vui lòng nhập đầy đủ thông tin về cuộc thi')
-                onAction(isUpdate, MODAL_ACTION_RETRY)
+                onAction(isUpdate, MODAL_ACTION.RETRY)
             }
             else {
-                onAction(isUpdate, MODAL_ACTION_CONFIRM,
+                onAction(isUpdate, MODAL_ACTION.CONFIRM,
                     title, description, url, embededMedia,
                     start_time, end_time
                 )
@@ -76,7 +72,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
             <Modal
                 size="lg"
                 show={isShow}
-                onHide={() => handleAction(MODAL_ACTION_CLOSE)}
+                onHide={() => handleAction(MODAL_ACTION.CLOSE)}
                 backdrop='static'
                 keyboard={false}>
 
@@ -182,12 +178,12 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
 
                 <Modal.Footer>
                     <Button variant="secondary"
-                        onClick={() => handleAction(MODAL_ACTION_CLOSE)}>
+                        onClick={() => handleAction(MODAL_ACTION.CLOSE)}>
                         Đóng
                     </Button>
 
                     <Button variant="primary"
-                        onClick={() => handleAction(MODAL_ACTION_CONFIRM)}>
+                        onClick={() => handleAction(MODAL_ACTION.CONFIRM)}>
                         Lưu
                     </Button>
                 </Modal.Footer>

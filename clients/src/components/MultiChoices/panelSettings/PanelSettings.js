@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap'
 import { useAlert } from 'react-alert'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { splitTime } from 'utils/timeUtils'
-import { MODAL_ACTION_CONFIRM, ROLE_USER } from 'utils/constants'
+import { MODAL_ACTION, ROLE } from 'utils/constants'
 import './PanelSettings.scss'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
@@ -12,7 +12,7 @@ import { updateTest } from 'actions/api/TestAPI'
 function PanelSettings(props) {
     const { test, setTest } = props
     const user = useSelector((state) => state.auth.user)
-    const isUser = user.role === ROLE_USER
+    const isUser = user.role === ROLE.USER
 
     const navigate = useNavigate()
     const alert = useAlert()
@@ -93,7 +93,7 @@ function PanelSettings(props) {
 
     const handleConfirmModal = (action) => {
         setIsShowConfirm(false)
-        if (action === MODAL_ACTION_CONFIRM) {
+        if (action === MODAL_ACTION.CONFIRM) {
             return navigate(-1)
         }
     }

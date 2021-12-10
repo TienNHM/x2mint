@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 import { register } from 'actions/api/AuthAPI'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadUser } from 'redux/authSlice'
-import { ACCESS_TOKEN, USER_ID, MAX_DAYS_EXPIRE } from 'utils/constants'
+import { COOKIES } from 'utils/constants'
 import './Register.scss'
 
 const Register = () => {
@@ -38,8 +38,17 @@ const Register = () => {
         if (data)
             if (data.success) {
                 // Set cookies
-                Cookies.set(ACCESS_TOKEN, data.accessToken, { expires: MAX_DAYS_EXPIRE })
-                Cookies.set(USER_ID, data.user._id, { expires: MAX_DAYS_EXPIRE })
+                Cookies.set(
+                    COOKIES.ACCESS_TOKEN,
+                    data.accessToken,
+                    { expires: COOKIES.MAX_DAYS_EXPIRE }
+                )
+
+                Cookies.set(
+                    COOKIES.USER_ID,
+                    data.user._id,
+                    { expires: COOKIES.MAX_DAYS_EXPIRE }
+                )
 
                 // Get User Info
                 await dispatch(loadUser(data.accessToken))

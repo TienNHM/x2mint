@@ -2,10 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
-import {
-    MAX_DAYS_EXPIRE,
-    ACCESS_TOKEN, USER_ID
-} from 'utils/constants'
+import { COOKIES } from 'utils/constants'
 
 //Login by email and password
 export const loginUser = createAsyncThunk(
@@ -30,8 +27,17 @@ export const loginUser = createAsyncThunk(
             setAuthToken(res.data.accessToken)
 
             // Set cookies
-            Cookies.set(ACCESS_TOKEN, res.data.accessToken, { expires: MAX_DAYS_EXPIRE })
-            Cookies.set(USER_ID, res.data.user.id, { expires: MAX_DAYS_EXPIRE })
+            Cookies.set(
+                COOKIES.ACCESS_TOKEN,
+                res.data.accessToken,
+                { expires: COOKIES.MAX_DAYS_EXPIRE }
+            )
+
+            Cookies.set(
+                COOKIES.USER_ID,
+                res.data.user.id,
+                { expires: COOKIES.MAX_DAYS_EXPIRE }
+            )
 
             return {
                 user: res.data.user,
@@ -51,7 +57,7 @@ export const loadUser = createAsyncThunk(
     async (params, { rejectWithValue }) => {
         let response = null
         try {
-            const accessToken = Cookies.get(ACCESS_TOKEN)
+            const accessToken = Cookies.get(COOKIES.ACCESS_TOKEN)
 
             if (accessToken) {
                 setAuthToken(accessToken)
@@ -73,8 +79,8 @@ export const loadUser = createAsyncThunk(
                 }
                 else {
                     // Xóa cookies, do access token không hợp lệ
-                    Cookies.remove(ACCESS_TOKEN)
-                    Cookies.remove(USER_ID)
+                    Cookies.remove(COOKIES.ACCESS_TOKEN)
+                    Cookies.remove(COOKIES.USER_ID)
 
                     return {
                         isAuthenticated: false,
@@ -86,8 +92,8 @@ export const loadUser = createAsyncThunk(
             }
         } catch (error) {
             // Xóa cookies, do access token không hợp lệ
-            Cookies.remove(ACCESS_TOKEN)
-            Cookies.remove(USER_ID)
+            Cookies.remove(COOKIES.ACCESS_TOKEN)
+            Cookies.remove(COOKIES.USER_ID)
 
             return rejectWithValue(error.response.data.message)
         }
@@ -107,8 +113,8 @@ const authSlice = createSlice({
     reducers: {
         logOut: (state) => {
             // Xóa Cookies
-            Cookies.remove(ACCESS_TOKEN)
-            Cookies.remove(USER_ID)
+            Cookies.remove(COOKIES.ACCESS_TOKEN)
+            Cookies.remove(COOKIES.USER_ID)
 
             //Xóa Token
             clearAuthToken()
