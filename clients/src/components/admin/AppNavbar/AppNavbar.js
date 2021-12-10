@@ -31,7 +31,7 @@ export default function AppNavbar() {
                         <i className="fa fa-bars"></i>
                     </Button>
                     <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Collapse id="navbarScroll" className="d-flex justify-content-end">
+                    <Navbar.Collapse id="navbarScroll" className="right-nav d-flex justify-content-end">
                         <Button variant="light" onClick={() => handleOpenFullScreen()}>
                             <i className="fa fa-bell" id="fullscreen"></i>
                         </Button>
