@@ -2,12 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
-<<<<<<< HEAD
 import { COOKIES } from 'utils/constants'
-=======
->>>>>>> fc562ee94ae9e4e5136b97a0c38cec55ed56af7c
 import { store } from 'react-notifications-component'
-import { ROLE_USER } from 'utils/constants'
+import { ROLE } from 'utils/constants'
 
 const notify = {
     insert: 'top',
@@ -20,10 +17,6 @@ const notify = {
     }
 }
 
-import {
-    MAX_DAYS_EXPIRE,
-    ACCESS_TOKEN, USER_ID
-} from 'utils/constants'
 
 //Register
 export const register = createAsyncThunk(
@@ -35,7 +28,7 @@ export const register = createAsyncThunk(
             await axios
                 .post(`${process.env.REACT_APP_API_ROOT}/auths/register`,
                     { ...userForm,
-                        role: ROLE_USER })
+                        role: ROLE.USER })
                 .then((response) => {
                     res = response
                 })
@@ -82,10 +75,9 @@ export const register = createAsyncThunk(
             }
 
             setAuthToken(res.data.accessToken)
-
             // Set cookies
-            Cookies.set(ACCESS_TOKEN, res.data.accessToken, { expires: MAX_DAYS_EXPIRE })
-            Cookies.set(USER_ID, res.data.user.id, { expires: MAX_DAYS_EXPIRE })
+            Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
+            Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
 
             return {
                 user: res.data.user,
