@@ -13,7 +13,7 @@ import { useAxios } from 'actions/useAxios'
 import { createTest, deleteTest } from 'actions/api/TestAPI'
 import { blankTest } from 'actions/initialData'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
-import { deleteContest, updateContest, updateTestsInContest } from 'actions/api/ContestAPI'
+import { deleteContest as archiveContest, updateContest, updateTestsInContest } from 'actions/api/ContestAPI'
 import { MODAL_ACTION, COOKIES, ROLE, STATUS } from 'utils/constants'
 import './ContestInfo.scss'
 
@@ -119,7 +119,7 @@ export default function ContestInfo() {
         setIsShowCreateContest(false)
     }
 
-    const handleDeleteContest = () => {
+    const handleArchiveContest = () => {
         setConfirmModalContent('Bạn có thật sự muốn lưu trữ cuộc thi này?')
         setCurrentAction(CURRENT_ACTION.ARCHIVE_CONTEST)
         setIsShowConfirmModal(true)
@@ -204,9 +204,9 @@ export default function ContestInfo() {
             }
         }
         else if (currentAction === CURRENT_ACTION.ARCHIVE_CONTEST) {
-            const data = await deleteContest(contest)
+            const data = await archiveContest(contest)
             console.log(data)
-            setContest({ ...contest, _status: STATUS.DELETED })
+            setContest(data.contest)
         }
         else if (currentAction === CURRENT_ACTION.REOPEN_CONTEST) {
             const newContest = { ...contest, _status: STATUS.OK }
@@ -318,7 +318,7 @@ export default function ContestInfo() {
 
                                             {contest._status !== STATUS.ARCHIVED &&
                                                 <Button variant="danger" className="m-2 fw-bolder text-light" size="sm"
-                                                    onClick={handleDeleteContest}>
+                                                    onClick={handleArchiveContest}>
                                                     <i className="fa fa-archive"></i>
                                                 </Button>
                                             }
