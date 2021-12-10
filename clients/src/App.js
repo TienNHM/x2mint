@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
+import { useDispatch, useSelector } from 'react-redux'
+import { SyncLoader } from 'react-spinners'
 import Navbar from 'components/common/navbar/Navbar'
 import Contest from 'components/contest/Contest'
 import SubmitResult from 'components/MultiChoices/submitResult/SubmitResult'
@@ -12,15 +14,13 @@ import Login from 'components/common/login/Login'
 import Register from 'components/common/register/Register'
 import Profile from 'components/common/profile/Profile'
 import ProtectedRoute from 'components/ProtectedRoute'
-import { useDispatch, useSelector } from 'react-redux'
 import { loadUser } from 'redux/authSlice'
-import './App.scss'
 import ContestInfo from 'components/contest/contestInfo/ContestInfo'
 import MultiChoices from 'components/MultiChoices/MultiChoices'
-import { SyncLoader } from 'react-spinners'
 import Admin from 'components/admin/Admin'
 import Page404 from 'pages/Page404'
 import Page500 from 'pages/Page500'
+import './App.scss'
 
 const options = {
     // you can also just use 'bottom center'
@@ -44,7 +44,7 @@ const loadingCss = {
 
 function App() {
     const dispatch = useDispatch()
-    const { authLoading, isAuthenticated } = useSelector((state) => state.auth)
+    const { authLoading } = useSelector((state) => state.auth)
 
     useEffect(() => {
         dispatch(loadUser())
@@ -65,6 +65,7 @@ function App() {
                     ) : (
                         <div className="bootstrap-container">
                             <Navbar />
+
                             <Routes>
                                 <Route exact path="/" element={<Homepage />} />
                                 <Route path="/login" element={<Login />} />
