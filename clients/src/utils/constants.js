@@ -29,3 +29,30 @@ export const STATUS = {
     OK: 'ok',
     ARCHIVED: 'archived'
 }
+
+export const ADMIN = {
+    DASHBOARD: 'dashboard',
+    ACCOUNT: {
+        REGISTER: 'Đăng ký',
+        GRANT_PERMISSIONS: 'Cấp quyền tài khoản',
+        REPORT: 'Tài khoản bị báo cáo',
+        STATISTICS: 'Thống kê'
+    },
+    CONTEST: {
+        PARTICIPANT: 'Lượt dự thi',
+        LEADERBOARD: 'Bảng xếp hạng',
+        TRAFFIC: 'Lưu lượng truy cập',
+        ARCHIVE: 'Lưu trữ'
+    },
+    RESOURCE: {
+        SAMPLE_QUESTION: 'Câu hỏi mẫu',
+        IMAGE: 'Hình ảnh',
+        VIDEO: 'Video',
+        MUSIC: 'Âm thanh'
+    },
+    SETTINGS: {
+        ACCOUNT: 'Tài khoản',
+        THEME: 'Theme',
+        NOTIFICATION: 'Thông báo'
+    }
+}
