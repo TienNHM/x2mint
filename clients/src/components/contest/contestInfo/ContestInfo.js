@@ -205,8 +205,10 @@ export default function ContestInfo() {
         }
         else if (currentAction === CURRENT_ACTION.ARCHIVE_CONTEST) {
             const data = await archiveContest(contest)
-            console.log(data)
-            setContest(data.contest)
+            console.log(data.contest)
+            setContest({
+                ...data.contest
+            })
         }
         else if (currentAction === CURRENT_ACTION.REOPEN_CONTEST) {
             const newContest = { ...contest, _status: STATUS.OK }
