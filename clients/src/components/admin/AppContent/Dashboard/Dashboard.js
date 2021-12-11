@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card } from 'react-bootstrap'
+import { Accordion, Card, Button } from 'react-bootstrap'
 import './Dashboard.scss'
 import Chart from 'chart.js/auto'
 import { Line, Doughnut, Bar } from 'react-chartjs-2'
@@ -39,7 +39,15 @@ export default function Dashboard() {
         <div className="account-register">
 
             {loading &&
-                <div className='sweet-loading'>
+                <div
+                    className='sweet-loading d-flex justify-content-center align-items-center'
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'absolute',
+                        top: 0,
+                        left: 100
+                    }}>
                     <HashLoader color={'#7ED321'} loading={loading} />
                 </div>
             }
@@ -133,40 +141,6 @@ export default function Dashboard() {
                     </div>
 
                     <div className="chart-data d-flex justify-content-between m-4 align-item-end">
-
-                        {/* <div className="chart-circle">
-                            <Doughnut
-                                data={{
-                                    labels: [
-                                        'Africa',
-                                        'Asia',
-                                        'Europe',
-                                        'Latin America',
-                                        'North America'
-                                    ],
-                                    datasets: [
-                                        {
-                                            label: 'Population (millions)',
-                                            backgroundColor: [
-                                                '#3e95cd',
-                                                '#8e5ea2',
-                                                '#3cba9f',
-                                                '#e8c3b9',
-                                                '#c45850'
-                                            ],
-                                            data: [2478, 5267, 734, 784, 433]
-                                        }
-                                    ]
-                                }}
-                                option={{
-                                    title: {
-                                        display: true,
-                                        text: 'Predicted world population (millions) in 2050'
-                                    }
-                                }}
-                            />
-                        </div> */}
-
                         <div className="char-bar">
                             <Bar
                                 data={takeTestStatistics}

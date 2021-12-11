@@ -14,6 +14,9 @@ export function StatisticTakeTest(takeTests) {
         }
     })
 
+    // Sắp xếp lại theo thứ tự tăng dần
+    labels.sort((a, b) => a - b)
+
     labels.map(point => {
         var count = 0
         for (var i = 0; i < takeTests.length; i++) {
