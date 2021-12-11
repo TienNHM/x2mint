@@ -46,15 +46,15 @@ export default function Dashboard() {
 
             {!loading &&
                 <>
-                    <div className="section-header m-3 h4 d-flex align-items-center">
+                    <div className="section-header m-3 h4 d-flex">
                         Tổng quan
                     </div>
 
                     <div className="overview d-flex align-items-center justify-content-center">
                         <Card
                             bg="success" text="light"
-                            style={{ width: '18rem' }}
-                            className="mb-2"
+                            style={{ width: '18rem', height: '11rem' }}
+                            className="mb-2 shadow-lg"
                         >
                             <Card.Header>Số người dùng</Card.Header>
                             <Card.Body>
@@ -72,8 +72,8 @@ export default function Dashboard() {
 
                         <Card
                             bg="info" text="light"
-                            style={{ width: '18rem' }}
-                            className="mb-2"
+                            style={{ width: '18rem', height: '11rem' }}
+                            className="mb-2 shadow-lg"
                         >
                             <Card.Header>Số cuộc thi</Card.Header>
                             <Card.Body>
@@ -84,15 +84,15 @@ export default function Dashboard() {
                                     <img src="https://img.icons8.com/fluency/48/000000/categorize.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số cuộc thi hiện có trên hệ thống. <i>(Bao gồm cả các cuộc thi đã được lưu trữ).</i>
+                                    Tổng số cuộc thi hiện có. <i>(Bao gồm cả các cuộc thi đã được lưu trữ).</i>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
 
                         <Card
                             bg="primary" text="light"
-                            style={{ width: '18rem' }}
-                            className="mb-2"
+                            style={{ width: '18rem', height: '11rem' }}
+                            className="mb-2 shadow-lg"
                         >
                             <Card.Header>Số bài kiểm tra</Card.Header>
                             <Card.Body>
@@ -110,8 +110,8 @@ export default function Dashboard() {
 
                         <Card
                             bg="danger" text="light"
-                            style={{ width: '18rem' }}
-                            className="mb-2"
+                            style={{ width: '18rem', height: '11rem' }}
+                            className="mb-2 shadow-lg"
                         >
                             <Card.Header>Số lượt thi</Card.Header>
                             <Card.Body>
@@ -128,7 +128,7 @@ export default function Dashboard() {
                         </Card>
                     </div>
 
-                    <div className="section-header m-3 h4 d-flex align-items-end">
+                    <div className="section-header m-3 h4 d-flex">
                         Biểu đồ thống kê
                     </div>
 
@@ -171,12 +171,20 @@ export default function Dashboard() {
                             <Bar
                                 data={takeTestStatistics}
                                 options={{
-                                    legend: { display: true },
-                                    title: {
-                                        display: true,
-                                        text: 'Thống kê điểm số các bài thi'
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            display: true,
+                                            position: 'bottom'
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Thống kê điểm số các bài thi'
+                                        }
                                     }
                                 }}
+                                height="400"
+                                width="500"
                             />
                         </div>
 
@@ -218,15 +226,20 @@ export default function Dashboard() {
                                     ]
                                 }}
                                 options={{
-                                    title: {
-                                        display: true,
-                                        text: 'World population per region (in millions)'
-                                    },
-                                    legend: {
-                                        display: true,
-                                        position: 'bottom'
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            display: true,
+                                            position: 'bottom'
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Thống kê'
+                                        }
                                     }
                                 }}
+                                height="400"
+                                width="500"
                             />
                         </div>
                     </div>

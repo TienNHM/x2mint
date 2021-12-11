@@ -1,15 +1,11 @@
+import { COLOR } from 'utils/colors'
+
 export function StatisticTakeTest(takeTests) {
     let labels = []
     let datasets = [{
         label: 'Điểm',
         data: [],
-        backgroundColor: [
-            '#3e95cd',
-            '#8e5ea2',
-            '#3cba9f',
-            '#e8c3b9',
-            '#c45850'
-        ]
+        backgroundColor: COLOR.TABLEAU.NEW.HueCircle19
     }]
 
     takeTests.map(x => {
