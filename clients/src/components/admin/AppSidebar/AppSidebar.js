@@ -5,8 +5,10 @@ import { Button, Accordion } from 'react-bootstrap'
 import 'react-tiny-fab/dist/styles.css'
 import './AppSidebar.scss'
 import { ADMIN } from 'utils/constants'
+import { useNavigate } from 'react-router'
 
 export default function AppSidebar({ setCurrentAction }) {
+    const navigate = useNavigate()
 
     const HideSidebar = () => {
         document.querySelector('#settings').hidden = true
@@ -60,6 +62,10 @@ export default function AppSidebar({ setCurrentAction }) {
                             <Accordion.Item eventKey="1">
                                 <Accordion.Header>Quản lý cuộc thi</Accordion.Header>
                                 <Accordion.Body>
+                                    <Button className="w-100"
+                                        onClick={() => navigate('/contest')}>
+                                        Tất cả cuộc thi
+                                    </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.PARTICIPANT)}>
                                         Lượt dự thi

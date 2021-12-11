@@ -8,6 +8,7 @@ import { MODAL_ACTION } from 'utils/constants'
 import { blankQuestion } from 'actions/initialData'
 import './PanelPreview.scss'
 import { createQuestion, deleteQuestion } from 'actions/api/QuestionAPI'
+import { updateTest } from 'actions/api/TestAPI'
 
 function PanelPreview(props) {
     const {
@@ -32,6 +33,9 @@ function PanelPreview(props) {
         const newTest = cloneDeep(test)
         newTest.questionsOrder = newQuestions.map(q => q.id)
         newTest.questions = newQuestions
+
+        const data = updateTest(newTest)
+        console.log(data)
         setQuestions(newQuestions)
         setTest(newTest)
     }

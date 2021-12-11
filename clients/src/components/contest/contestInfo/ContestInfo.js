@@ -153,11 +153,11 @@ export default function ContestInfo() {
         title = '', content = '', hashtags = [], source = ''
     ) => {
         const obj = {
-            url: url | process.env.REACT_APP_DOMAIN,
-            title: title | '',
-            content: content | '',
-            hashtags: hashtags | '',
-            source: source | ''
+            url: process.env.REACT_APP_DOMAIN + url,
+            title: title + ' ',
+            content: content + ' ',
+            hashtags: hashtags,
+            source: source + ' '
         }
         setShareContent(obj)
         setIsShowShareModal(true)
@@ -389,7 +389,7 @@ export default function ContestInfo() {
 
                                                 <div className="card-test-actions col-md-1 col-sm-12  pt-3 pb-3">
                                                     <Button variant="info" size="sm"
-                                                        onClick={() => handleShareContent(test.url, test.name, test.description)}
+                                                        onClick={() => handleShareContent(`/test/${test._id}`, test.name, test.description)}
                                                         className="fw-bolder text-light"
                                                     >
                                                         <i className="fa fa-share"></i>
