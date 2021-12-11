@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { Accordion, Card, Button } from 'react-bootstrap'
-import './Dashboard.scss'
-import Chart from 'chart.js/auto'
-import { Line, Doughnut, Bar } from 'react-chartjs-2'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
-import { COOKIES } from 'utils/constants'
+import React, { useEffect, useState } from 'react'
+import { Card } from 'react-bootstrap'
+import { Bar, Line } from 'react-chartjs-2'
 import { HashLoader } from 'react-spinners'
-import { StatisticTakeTest } from './data'
+import { COOKIES, ROLE } from 'utils/constants'
+import { StatisticAccount, StatisticAccountOverview } from '../data'
+import './AccountStatistics.scss'
 
-export default function Dashboard() {
+export default function AccountStatistics() {
     const [data, setData] = useState(null)
+    const [overview, setOverview] = useState(null)
     const [takeTestStatistics, setTakeTestStatistics] = useState(null)
 
     const {
@@ -18,7 +18,7 @@ export default function Dashboard() {
         loading
     } = useAxios({
         method: 'GET',
-        url: '/statistics',
+        url: '/users',
         headers: {
             Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
         }
@@ -29,15 +29,16 @@ export default function Dashboard() {
             setData(response.data)
             console.log('response', response.data)
 
-            const takeTestStatisticsData = StatisticTakeTest(response.data.takeTests)
-            setTakeTestStatistics(takeTestStatisticsData)
-            console.log('takeTestStatistics', takeTestStatisticsData)
+            const usersStatisticsData = StatisticAccount(response.data)
+            setTakeTestStatistics(usersStatisticsData)
+            console.log('usersStatisticsData', usersStatisticsData)
+
+            setOverview(StatisticAccountOverview(response.data))
         }
     }, [response])
 
     return (
-        <div className="account-register">
-
+        <div className="account-statistics">
             {loading &&
                 <div
                     className='sweet-loading d-flex justify-content-center align-items-center'
@@ -68,12 +69,12 @@ export default function Dashboard() {
                             <Card.Body>
                                 <Card.Title className="d-flex justify-content-around">
                                     <span className="h1 number">
-                                        {data.users.length}
+                                        {data.length}
                                     </span>
                                     <img src="https://img.icons8.com/fluency/48/000000/user-group-man-woman.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số người dùng trên hệ thống. <i>(Bao gồm cả các Creators).</i>
+                                    Tổng số người dùng trên hệ thống.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -83,16 +84,16 @@ export default function Dashboard() {
                             style={{ width: '18rem', height: '11rem' }}
                             className="mb-2 shadow-lg"
                         >
-                            <Card.Header>Số cuộc thi</Card.Header>
+                            <Card.Header>Examinee</Card.Header>
                             <Card.Body>
                                 <Card.Title className="d-flex justify-content-around">
                                     <span className="h1 number">
-                                        {data.contests.length}
+                                        {overview[ROLE.USER]}
                                     </span>
                                     <img src="https://img.icons8.com/fluency/48/000000/categorize.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số cuộc thi hiện có. <i>(Bao gồm cả các cuộc thi đã được lưu trữ).</i>
+                                    Tổng số Examinees trong hệ thống.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -102,16 +103,16 @@ export default function Dashboard() {
                             style={{ width: '18rem', height: '11rem' }}
                             className="mb-2 shadow-lg"
                         >
-                            <Card.Header>Số bài kiểm tra</Card.Header>
+                            <Card.Header>Creators</Card.Header>
                             <Card.Body>
                                 <Card.Title className="d-flex justify-content-around">
                                     <span className="h1 number">
-                                        {data.tests.length}
+                                        {overview[ROLE.CREATOR]}
                                     </span>
                                     <img src="https://img.icons8.com/fluency/48/000000/where-to-quest.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số bài kiểm tra hiện có trên hệ thống.
+                                    Tổng số Creators hiện có trên hệ thống.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -121,16 +122,16 @@ export default function Dashboard() {
                             style={{ width: '18rem', height: '11rem' }}
                             className="mb-2 shadow-lg"
                         >
-                            <Card.Header>Số lượt thi</Card.Header>
+                            <Card.Header>Admins</Card.Header>
                             <Card.Body>
                                 <Card.Title className="d-flex justify-content-around">
                                     <span className="h1 number">
-                                        {data.takeTests.length}
+                                        {overview[ROLE.ADMIN]}
                                     </span>
                                     <img src="https://img.icons8.com/fluency/48/000000/test-passed.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số lượt thí sinh tham gia làm bài kiểm tra trên hệ thống.
+                                    Tổng số Admins trên hệ thống.
                                 </Card.Text>
                             </Card.Body>
                         </Card>

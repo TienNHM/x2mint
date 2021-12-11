@@ -10,16 +10,15 @@
 
         .sidebar-title {
             color: $theme-color;
+        }
 
-            button {
-                background-color: transparent !important;
-                text-transform: uppercase !important;
-                color: $theme-color !important;
-                font-size: 1.25rem !important ;
-                font-weight: bolder !important;
-                border: 0 !important;
-                border-radius: 0 !important;
-            }
+        .button-title {
+            background-color: transparent !important;
+            text-transform: uppercase !important;
+            color: $theme-color !important;
+            font-weight: bolder !important;
+            border: 0 !important;
+            border-radius: 0 !important;
         }
 
         .settings {

@@ -38,15 +38,17 @@ export const ADMIN = {
         REGISTER: 'Đăng ký',
         GRANT_PERMISSIONS: 'Cấp quyền tài khoản',
         REPORT: 'Tài khoản bị báo cáo',
-        STATISTICS: 'Thống kê'
+        STATISTICS: 'Thống kê người dùng'
     },
     CONTEST: {
+        STATISTICS: 'Thống kê cuộc thi',
         PARTICIPANT: 'Lượt dự thi',
         LEADERBOARD: 'Bảng xếp hạng',
         TRAFFIC: 'Lưu lượng truy cập',
         ARCHIVE: 'Lưu trữ'
     },
-    RESOURCE: {
+    RESOURCES: {
+        STATISTICS: 'Thống kê tài nguyên',
         SAMPLE_QUESTION: 'Câu hỏi mẫu',
         IMAGE: 'Hình ảnh',
         VIDEO: 'Video',

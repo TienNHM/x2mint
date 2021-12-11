@@ -25,7 +25,7 @@ export default function AppNavbar() {
 
     return (
         <div className="navbar-admin">
-            <Navbar bg="light" expand="lg" className="shadow mb-2 mt-1 p-3 bg-white rounded" >
+            <Navbar bg="light" expand="lg" className="shadow mb-3 mt-1 bg-white rounded" >
                 <Container fluid>
                     <Button variant="light" onClick={() => OpenSidebar()}>
                         <i className="fa fa-bars"></i>
