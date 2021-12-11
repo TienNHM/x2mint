@@ -50,7 +50,7 @@ export default function Dashboard() {
                         Tổng quan
                     </div>
 
-                    <div className="overview d-flex">
+                    <div className="overview d-flex align-items-center justify-content-center">
                         <Card
                             bg="success" text="light"
                             style={{ width: '18rem' }}
@@ -133,6 +133,53 @@ export default function Dashboard() {
                     </div>
 
                     <div className="chart-data d-flex justify-content-between m-4 align-item-end">
+
+                        {/* <div className="chart-circle">
+                            <Doughnut
+                                data={{
+                                    labels: [
+                                        'Africa',
+                                        'Asia',
+                                        'Europe',
+                                        'Latin America',
+                                        'North America'
+                                    ],
+                                    datasets: [
+                                        {
+                                            label: 'Population (millions)',
+                                            backgroundColor: [
+                                                '#3e95cd',
+                                                '#8e5ea2',
+                                                '#3cba9f',
+                                                '#e8c3b9',
+                                                '#c45850'
+                                            ],
+                                            data: [2478, 5267, 734, 784, 433]
+                                        }
+                                    ]
+                                }}
+                                option={{
+                                    title: {
+                                        display: true,
+                                        text: 'Predicted world population (millions) in 2050'
+                                    }
+                                }}
+                            />
+                        </div> */}
+
+                        <div className="char-bar">
+                            <Bar
+                                data={takeTestStatistics}
+                                options={{
+                                    legend: { display: true },
+                                    title: {
+                                        display: true,
+                                        text: 'Thống kê điểm số các bài thi'
+                                    }
+                                }}
+                            />
+                        </div>
+
                         <div className="chart-line">
                             <Line
                                 data={{
@@ -178,52 +225,6 @@ export default function Dashboard() {
                                     legend: {
                                         display: true,
                                         position: 'bottom'
-                                    }
-                                }}
-                            />
-                        </div>
-
-                        {/* <div className="chart-circle">
-                            <Doughnut
-                                data={{
-                                    labels: [
-                                        'Africa',
-                                        'Asia',
-                                        'Europe',
-                                        'Latin America',
-                                        'North America'
-                                    ],
-                                    datasets: [
-                                        {
-                                            label: 'Population (millions)',
-                                            backgroundColor: [
-                                                '#3e95cd',
-                                                '#8e5ea2',
-                                                '#3cba9f',
-                                                '#e8c3b9',
-                                                '#c45850'
-                                            ],
-                                            data: [2478, 5267, 734, 784, 433]
-                                        }
-                                    ]
-                                }}
-                                option={{
-                                    title: {
-                                        display: true,
-                                        text: 'Predicted world population (millions) in 2050'
-                                    }
-                                }}
-                            />
-                        </div> */}
-
-                        <div className="char-bar">
-                            <Bar
-                                data={takeTestStatistics}
-                                options={{
-                                    legend: { display: false },
-                                    title: {
-                                        display: true,
-                                        text: 'Predicted world population (millions) in 2050'
                                     }
                                 }}
                             />
