@@ -21,7 +21,7 @@ export default function Contest() {
     //#region Get contests
     let urlRequest = '/contests'
 
-    if (user.role === ROLE.USER) {
+    if (user.role === ROLE.CREATOR) {
         urlRequest = `/contests/creator/${Cookies.get(COOKIES.USER_ID)}`
     }
     else if (user.role === ROLE.ADMIN) {
