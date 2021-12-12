@@ -35,6 +35,20 @@ export default function Dashboard() {
         }
     }, [response])
 
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Thống kê điểm số các bài thi'
+            }
+        }
+    }
+
     return (
         <div className="account-register">
 
@@ -144,19 +158,7 @@ export default function Dashboard() {
                         <div className="char-bar">
                             <Bar
                                 data={takeTestStatistics}
-                                options={{
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            display: true,
-                                            position: 'bottom'
-                                        },
-                                        title: {
-                                            display: true,
-                                            text: 'Thống kê điểm số các bài thi'
-                                        }
-                                    }
-                                }}
+                                options={options}
                                 height="400"
                                 width="500"
                             />

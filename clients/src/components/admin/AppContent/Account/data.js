@@ -1,35 +1,31 @@
 import { COLOR } from 'utils/colors'
 import { ROLE } from 'utils/constants'
+import { splitTime } from 'utils/timeUtils'
 
-export function StatisticAccount(users) {
-    let labels = []
+export function StatisticAccountSignUp(users) {
+
     let datasets = [{
-        label: 'Điểm',
+        label: 'Thời gian',
         data: [],
         backgroundColor: COLOR.TABLEAU.NEW.HueCircle19
     }]
 
-    users.map(x => {
-        if (!labels.includes(x.points)) {
-            labels.push(x.points)
-        }
-    })
+    let datetime = users.map(x => x.createdAt)
+    datetime.sort((a, b) => new Date(a) - new Date(b))
+    const labels = datetime.map(x => splitTime(x).date)
 
-    // Sắp xếp lại theo thứ tự tăng dần
-    labels.sort((a, b) => a - b)
-
-    labels.map(point => {
+    labels.map(date => {
         var count = 0
         for (var i = 0; i < users.length; i++) {
-            if (users[i].points === point) {
+            const d = splitTime(users[i].createdAt)
+            if (d.date === date) {
                 count += 1
             }
         }
-        datasets[0].data.push(count)
+        datasets[0].data.push({ x: date, y: count })
     })
 
     return {
-        labels: labels,
         datasets: datasets
     }
 }
@@ -42,9 +38,8 @@ export function StatisticAccountOverview(users) {
     }
 
     users.map(u => {
-        res[u.role] +=1
+        res[u.role] += 1
     })
 
-    console.log(res)
     return res
 }
