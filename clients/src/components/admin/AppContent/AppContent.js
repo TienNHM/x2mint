@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ADMIN } from 'utils/constants'
 import AccountRegister from './Account/AccountRegister/AccountRegister'
 import AccountStatistics from './Account/AccountStatistics/AccountStatistics'
+import ContestStatistics from './Contest/ContestStatistics/ContestStatistics'
 import Dashboard from './Dashboard/Dashboard'
 
 export default function AppContent({ currentAction }) {
@@ -13,6 +14,9 @@ export default function AppContent({ currentAction }) {
         }
         if (currentAction === ADMIN.ACCOUNT.STATISTICS) {
             setComponent(<AccountStatistics />)
+        }
+        else if (currentAction === ADMIN.CONTEST.STATISTICS) {
+            setComponent(<ContestStatistics />)
         }
         else {
             setComponent(<Dashboard />)

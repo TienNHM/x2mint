@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Accordion, Card, Button } from 'react-bootstrap'
-import './Dashboard.scss'
+import { Card } from 'react-bootstrap'
+import './ContestStatistics.scss'
 import Chart from 'chart.js/auto'
-import { Line, Doughnut, Bar } from 'react-chartjs-2'
+import { Line, Bar } from 'react-chartjs-2'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
 import { COOKIES } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
+import { StatisticTakeTest } from '../data'
 
-export default function Dashboard() {
+export default function ContestStatistics() {
     const [data, setData] = useState(null)
+    const [takeTestStatistics, setTakeTestStatistics] = useState(null)
 
     const {
         response,
@@ -27,9 +29,9 @@ export default function Dashboard() {
             setData(response.data)
             console.log('response', response.data)
 
-            // const takeTestStatisticsData = StatisticTakeTest(response.data.takeTests)
-            // setTakeTestStatistics(takeTestStatisticsData)
-            // console.log('takeTestStatistics', takeTestStatisticsData)
+            const takeTestStatisticsData = StatisticTakeTest(response.data.takeTests)
+            setTakeTestStatistics(takeTestStatisticsData)
+            console.log('takeTestStatistics', takeTestStatisticsData)
         }
     }, [response])
 
@@ -76,16 +78,16 @@ export default function Dashboard() {
                             style={{ width: '18rem', height: '11rem' }}
                             className="mb-2 shadow-lg"
                         >
-                            <Card.Header>Số người dùng</Card.Header>
+                            <Card.Header>Số cuộc thi</Card.Header>
                             <Card.Body>
                                 <Card.Title className="d-flex justify-content-around">
                                     <span className="h1 number">
-                                        {data.users.length}
+                                        {data.contests.length}
                                     </span>
                                     <img src="https://img.icons8.com/fluency/48/000000/user-group-man-woman.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số người dùng trên hệ thống hiện tại.
+                                    Tổng số cuộc thi hiện có. <i>(Bao gồm cả các cuộc thi đã được lưu trữ).</i>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -95,16 +97,16 @@ export default function Dashboard() {
                             style={{ width: '18rem', height: '11rem' }}
                             className="mb-2 shadow-lg"
                         >
-                            <Card.Header>Số cuộc thi</Card.Header>
+                            <Card.Header>Số bài kiểm tra</Card.Header>
                             <Card.Body>
                                 <Card.Title className="d-flex justify-content-around">
                                     <span className="h1 number">
-                                        {data.contests.length}
+                                        {data.tests.length}
                                     </span>
                                     <img src="https://img.icons8.com/fluency/48/000000/categorize.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số cuộc thi hiện có. <i>(Bao gồm cả các cuộc thi đã được lưu trữ).</i>
+                                    Tổng số bài kiểm tra hiện có trên hệ thống.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -114,16 +116,16 @@ export default function Dashboard() {
                             style={{ width: '18rem', height: '11rem' }}
                             className="mb-2 shadow-lg"
                         >
-                            <Card.Header>Số bài kiểm tra</Card.Header>
+                            <Card.Header>Số lượt thi</Card.Header>
                             <Card.Body>
                                 <Card.Title className="d-flex justify-content-around">
                                     <span className="h1 number">
-                                        {data.tests.length}
+                                        {data.takeTests.length}
                                     </span>
                                     <img src="https://img.icons8.com/fluency/48/000000/where-to-quest.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số bài kiểm tra hiện có trên hệ thống.
+                                    Tổng số lượt thí sinh tham gia làm bài kiểm tra trên hệ thống.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -133,16 +135,16 @@ export default function Dashboard() {
                             style={{ width: '18rem', height: '11rem' }}
                             className="mb-2 shadow-lg"
                         >
-                            <Card.Header>Số lượt thi</Card.Header>
+                            <Card.Header>Số câu hỏi</Card.Header>
                             <Card.Body>
                                 <Card.Title className="d-flex justify-content-around">
                                     <span className="h1 number">
-                                        {data.takeTests.length}
+                                        {data.questions.length}
                                     </span>
                                     <img src="https://img.icons8.com/fluency/48/000000/test-passed.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số lượt thí sinh tham gia làm bài kiểm tra trên hệ thống.
+                                    Tổng số câu hỏi đã được tạo trên hệ thống.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -154,12 +156,12 @@ export default function Dashboard() {
 
                     <div className="chart-data d-flex justify-content-around m-4 align-item-end">
                         <div className="char-bar">
-                            {/* <Bar
+                            <Bar
                                 data={takeTestStatistics}
                                 options={options}
                                 height="400"
                                 width="500"
-                            /> */}
+                            />
                         </div>
 
                         <div className="chart-line">
