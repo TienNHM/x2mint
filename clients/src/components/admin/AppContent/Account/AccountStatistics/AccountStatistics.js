@@ -171,7 +171,7 @@ export default function AccountStatistics() {
                     </div>
 
                     <div className="chart-data d-flex justify-content-around m-4 align-item-end">
-                        <div className="chart-bar">
+                        <div className="chart-line">
                             <Line
                                 data={signupStatistics}
                                 options={signupLineChartOptions}

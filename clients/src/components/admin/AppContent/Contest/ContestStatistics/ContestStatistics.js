@@ -7,11 +7,12 @@ import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
 import { COOKIES } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
-import { StatisticTakeTest } from '../data'
+import { StatisticSubmitTime, StatisticTakeTest } from '../data'
 
 export default function ContestStatistics() {
     const [data, setData] = useState(null)
     const [takeTestStatistics, setTakeTestStatistics] = useState(null)
+    const [statisticsSubmitTime, setStatisticsSubmitTime] = useState(null)
 
     const {
         response,
@@ -32,6 +33,10 @@ export default function ContestStatistics() {
             const takeTestStatisticsData = StatisticTakeTest(response.data.takeTests)
             setTakeTestStatistics(takeTestStatisticsData)
             console.log('takeTestStatistics', takeTestStatisticsData)
+
+            const submitTimeStatisticsData = StatisticSubmitTime(response.data.takeTests)
+            setStatisticsSubmitTime(submitTimeStatisticsData)
+            console.log('signupStatisticsData', submitTimeStatisticsData)
         }
     }, [response])
 
@@ -45,6 +50,20 @@ export default function ContestStatistics() {
             title: {
                 display: true,
                 text: 'Thống kê điểm số các bài thi'
+            }
+        }
+    }
+
+    const submitTimeLineChart = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Thống kê lượt nộp bài theo thời gian'
             }
         }
     }
@@ -166,54 +185,8 @@ export default function ContestStatistics() {
 
                         <div className="chart-line">
                             <Line
-                                data={{
-                                    labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
-                                    datasets: [
-                                        {
-                                            data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
-                                            label: 'Africa',
-                                            borderColor: '#3e95cd',
-                                            fill: false
-                                        },
-                                        {
-                                            data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
-                                            label: 'Asia',
-                                            borderColor: '#8e5ea2',
-                                            fill: false
-                                        },
-                                        {
-                                            data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
-                                            label: 'Europe',
-                                            borderColor: '#3cba9f',
-                                            fill: false
-                                        },
-                                        {
-                                            data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
-                                            label: 'Latin America',
-                                            borderColor: '#e8c3b9',
-                                            fill: false
-                                        },
-                                        {
-                                            data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433],
-                                            label: 'North America',
-                                            borderColor: '#c45850',
-                                            fill: false
-                                        }
-                                    ]
-                                }}
-                                options={{
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            display: true,
-                                            position: 'bottom'
-                                        },
-                                        title: {
-                                            display: true,
-                                            text: 'Thống kê'
-                                        }
-                                    }
-                                }}
+                                data={statisticsSubmitTime}
+                                options={submitTimeLineChart}
                                 height="400"
                                 width="500"
                             />

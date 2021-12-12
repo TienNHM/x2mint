@@ -1,4 +1,5 @@
 import { COLOR } from "utils/colors"
+import { splitTime } from "utils/timeUtils"
 
 export function StatisticTakeTest(takeTests) {
     let labels = []
@@ -29,6 +30,33 @@ export function StatisticTakeTest(takeTests) {
 
     return {
         labels: labels,
+        datasets: datasets
+    }
+}
+
+export function StatisticSubmitTime(takeTests) {
+    let datasets = [{
+        label: 'Thời gian',
+        data: [],
+        backgroundColor: COLOR.TABLEAU.NEW.HueCircle19
+    }]
+
+    let datetime = takeTests.map(x => x.submitTime)
+    datetime.sort((a, b) => new Date(a) - new Date(b))
+    const labels = datetime.map(x => splitTime(x).date)
+
+    labels.map(date => {
+        var count = 0
+        for (var i = 0; i < takeTests.length; i++) {
+            const d = splitTime(takeTests[i].submitTime)
+            if (d.date === date) {
+                count += 1
+            }
+        }
+        datasets[0].data.push({ x: date, y: count })
+    })
+
+    return {
         datasets: datasets
     }
 }
