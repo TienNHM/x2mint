@@ -64,6 +64,14 @@ export default function ContestStatistics() {
             title: {
                 display: true,
                 text: 'Thống kê lượt nộp bài theo thời gian'
+            },
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
         }
     }

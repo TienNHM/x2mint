@@ -41,25 +41,25 @@ export default function AppSidebar({ setCurrentAction }) {
                                 <Accordion.Header>
                                     <Button className="w-100 button-title"
                                         onClick={() => setCurrentAction(ADMIN.ACCOUNT.STATISTICS)}>
-                                        Quản lý người dùng
+                                        Người dùng
                                     </Button>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.ACCOUNT.STATISTICS)}>
-                                        Thống kê
+                                        {ADMIN.ACCOUNT.STATISTICS}
                                     </Button>
                                     <Button className="w-100"
-                                        onClick={() => setCurrentAction(ADMIN.ACCOUNT.REGISTER)}>
-                                        Đăng ký
+                                        onClick={() => setCurrentAction(ADMIN.ACCOUNT.MANAGE)}>
+                                        {ADMIN.ACCOUNT.MANAGE}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.ACCOUNT.GRANT_PERMISSIONS)}>
-                                        Cấp quyền tài khoản
+                                        {ADMIN.ACCOUNT.GRANT_PERMISSIONS}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.ACCOUNT.REPORT)}>
-                                        Tài khoản bị báo cáo
+                                        {ADMIN.ACCOUNT.REPORT}
                                     </Button>
                                 </Accordion.Body>
                             </Accordion.Item>
@@ -74,7 +74,7 @@ export default function AppSidebar({ setCurrentAction }) {
                                 <Accordion.Body>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.STATISTICS)}>
-                                        Thống kê
+                                        {ADMIN.CONTEST.STATISTICS}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => navigate('/contest')}>
@@ -82,19 +82,19 @@ export default function AppSidebar({ setCurrentAction }) {
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.PARTICIPANT)}>
-                                        Lượt dự thi
+                                        {ADMIN.CONTEST.PARTICIPANT}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.LEADERBOARD)}>
-                                        Bảng xếp hạng
+                                        {ADMIN.CONTEST.LEADERBOARD}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.TRAFFIC)}>
-                                        Lưu lượng truy cập
+                                        {ADMIN.CONTEST.TRAFFIC}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.ARCHIVE)}>
-                                        Lưu trữ
+                                        {ADMIN.CONTEST.ARCHIVE}
                                     </Button>
                                 </Accordion.Body>
                             </Accordion.Item>
@@ -103,29 +103,29 @@ export default function AppSidebar({ setCurrentAction }) {
                                 <Accordion.Header>
                                     <Button className="w-100 button-title"
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.STATISTICS)}>
-                                        Quản lý tài nguyên
+                                        Tài nguyên
                                     </Button>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.STATISTICS)}>
-                                        Thống kê
+                                        {ADMIN.RESOURCES.STATISTICS}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.SAMPLE_QUESTION)}>
-                                        Câu hỏi mẫu
+                                        {ADMIN.RESOURCES.SAMPLE_QUESTION}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.IMAGE)}>
-                                        Hình ảnh
+                                        {ADMIN.RESOURCES.IMAGE}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.VIDEO)}>
-                                        Video
+                                        {ADMIN.RESOURCES.VIDEO}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.MUSIC)}>
-                                        Âm thanh
+                                        {ADMIN.RESOURCES.MUSIC}
                                     </Button>
                                 </Accordion.Body>
                             </Accordion.Item>
@@ -140,15 +140,15 @@ export default function AppSidebar({ setCurrentAction }) {
                                 <Accordion.Body>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.SETTINGS.ACCOUNT)}>
-                                        Tài khoản
+                                        {ADMIN.SETTINGS.ACCOUNT}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.SETTINGS.THEME)}>
-                                        Theme
+                                        {ADMIN.SETTINGS.THEME}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.SETTINGS.NOTIFICATION)}>
-                                        Thông báo
+                                        {ADMIN.SETTINGS.NOTIFICATION}
                                     </Button>
                                 </Accordion.Body>
                             </Accordion.Item>

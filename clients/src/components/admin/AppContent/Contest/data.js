@@ -43,7 +43,9 @@ export function StatisticSubmitTime(takeTests) {
 
     let datetime = takeTests.map(x => x.submitTime)
     datetime.sort((a, b) => new Date(a) - new Date(b))
-    const labels = datetime.map(x => splitTime(x).date)
+    let labels = datetime.map(x => splitTime(x).date)
+
+    labels = [...new Set(labels)]
 
     labels.map(date => {
         var count = 0
@@ -55,6 +57,8 @@ export function StatisticSubmitTime(takeTests) {
         }
         datasets[0].data.push({ x: date, y: count })
     })
+
+    console.log('datasets', datasets)
 
     return {
         datasets: datasets

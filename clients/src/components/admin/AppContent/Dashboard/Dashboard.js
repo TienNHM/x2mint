@@ -7,9 +7,11 @@ import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
 import { COOKIES } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
+import { StatisticTakeTest } from '../Contest/data'
 
 export default function Dashboard() {
     const [data, setData] = useState(null)
+    const [takeTestStatistics, setTakeTestStatistics] = useState(null)
 
     const {
         response,
@@ -27,9 +29,9 @@ export default function Dashboard() {
             setData(response.data)
             console.log('response', response.data)
 
-            // const takeTestStatisticsData = StatisticTakeTest(response.data.takeTests)
-            // setTakeTestStatistics(takeTestStatisticsData)
-            // console.log('takeTestStatistics', takeTestStatisticsData)
+            const takeTestStatisticsData = StatisticTakeTest(response.data.takeTests)
+            setTakeTestStatistics(takeTestStatisticsData)
+            console.log('takeTestStatistics', takeTestStatisticsData)
         }
     }, [response])
 
@@ -154,12 +156,12 @@ export default function Dashboard() {
 
                     <div className="chart-data d-flex justify-content-around m-4 align-item-end">
                         <div className="char-bar">
-                            {/* <Bar
+                            <Bar
                                 data={takeTestStatistics}
                                 options={options}
                                 height="400"
                                 width="500"
-                            /> */}
+                            />
                         </div>
 
                         <div className="chart-line">

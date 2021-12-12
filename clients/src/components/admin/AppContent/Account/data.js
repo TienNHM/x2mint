@@ -12,7 +12,8 @@ export function StatisticAccountSignUp(users) {
 
     let datetime = users.map(x => x.createdAt)
     datetime.sort((a, b) => new Date(a) - new Date(b))
-    const labels = datetime.map(x => splitTime(x).date)
+    let labels = datetime.map(x => splitTime(x).date)
+    labels = [...new Set(labels)]
 
     labels.map(date => {
         var count = 0

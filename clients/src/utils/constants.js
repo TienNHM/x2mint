@@ -35,7 +35,7 @@ export const STATUS = {
 export const ADMIN = {
     DASHBOARD: 'dashboard',
     ACCOUNT: {
-        REGISTER: 'Đăng ký',
+        MANAGE: 'Quản lý người dùng',
         GRANT_PERMISSIONS: 'Cấp quyền tài khoản',
         REPORT: 'Tài khoản bị báo cáo',
         STATISTICS: 'Thống kê người dùng'
