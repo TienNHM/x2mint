@@ -66,6 +66,37 @@ export function StatisticSubmitTime(takeTests) {
     }
 }
 
+export function StatisticTakeTestStatus(takeTests) {
+    let count = {
+        [STATUS.PASSED] : 0,
+        [STATUS.FAILED] : 0,
+        [STATUS.NOT_SUBMITTED]: 0
+    }
+
+    takeTests.forEach(value => {
+        count[value._status] +=1
+    })
+
+    const data = {
+        labels: [STATUS.PASSED, STATUS.FAILED, STATUS.NOT_SUBMITTED],
+        datasets: [
+            {
+                label: 'Tỉ lệ (%)',
+                data: [
+                    count[STATUS.PASSED],
+                    count[STATUS.FAILED],
+                    count[STATUS.NOT_SUBMITTED]
+                ].map(x => x * 100 / takeTests.length),
+                backgroundColor: COLOR.BREWER.YELLOW_GREEN_BLUE.YlGnBu3,
+                borderWidth: 1,
+                hoverBorderColor: COLOR.BREWER.YELLOW_GREEN_BLUE.YlGnBu3
+            }
+        ]
+    }
+
+    return data
+}
+
 export const COLUMNS = [
     {
         label: STATISTICS.TAKE_TEST.STT,
