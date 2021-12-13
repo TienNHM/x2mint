@@ -174,6 +174,5 @@ export function ExportDataTakeTest(data) {
         rows: rows
     }
 
-    console.log('*Result*', result)
     return result
 }

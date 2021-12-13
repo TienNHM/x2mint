@@ -65,6 +65,21 @@ export const ADMIN = {
 }
 
 export const STATISTICS = {
+    ACCOUNT: {
+        STT: 'STT',
+        USERNAME: 'Username',
+        FULLNAME: 'Họ tên',
+        EMAIL: 'Email',
+        ROLE: 'Loại tài khoản',
+        ADDRESS: 'Địa chỉ',
+        DOB: 'Ngày sinh',
+        SCHOOL: 'Trường',
+        PHONE: 'SĐT',
+        AVATAR: 'Ảnh đại diện',
+        STATUS: 'Trạng thái',
+        _AVATAR: 'Ảnh',
+        _STATUS: 'Status'
+    },
     TAKE_TEST: {
         STT: 'STT',
         TEST_NAME: 'Tên bài thi',
