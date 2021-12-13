@@ -15,6 +15,7 @@ import { ExportDataUser } from '../data'
 
 export default function AccountManagement() {
     const [tableData, setTableData] = useState(null)
+    const [ckbSelectedUser, setCkbSelectedUser] = useState(null)
 
     const {
         response,
@@ -27,9 +28,13 @@ export default function AccountManagement() {
         }
     })
 
+    const onClickUserStatus = (user, newStatus) => {
+        console.log(user.username, newStatus)
+    }
+
     useEffect(() => {
         if (response) {
-            setTableData(ExportDataUser(response.data.users))
+            setTableData(ExportDataUser(response.data.users, onClickUserStatus))
         }
     }, [response])
 

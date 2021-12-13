@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Badge } from 'react-bootstrap'
+import { Image, Button, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
 import { COLOR } from 'utils/colors'
 import { ROLE, STATISTICS, STATUS } from 'utils/constants'
 import { splitTime } from 'utils/timeUtils'
@@ -102,24 +102,43 @@ export const COLUMNS = [
     }
 ]
 
-export function ExportDataUser(data) {
+export function ExportDataUser(data, onClickUserStatus) {
     const rows = data.map((value, index) => {
         const avatar = value.avatar ?
             <Image roundedCircle src={value.avatar} width="32px" height="32px" alt="avatar" /> :
             <Image roundedCircle src={process.env.PUBLIC_URL + '/assets/male-user.png'} width="32px" height="32px" alt="avatar" />
 
         //#region Status
-        let status = <div></div>
+        let variant = 'secondary'
 
         if (value._status === STATUS.OK) {
-            status = <Badge pill bg="success">{value._status}</Badge>
+            variant = 'primary'
         }
         else if (value._status === STATUS.DEACTIVE) {
-            status = <Badge pill bg="warning">{value._status}</Badge>
+            variant = 'warning'
         }
         else if (value._status === STATUS.DELETED) {
-            status = <Badge pill bg="danger">{value._status}</Badge>
+            variant = 'danger'
         }
+
+        const status = (
+            <DropdownButton id="dropdown-basic-button"
+                title={value._status}
+                variant={variant} size="sm">
+                <Dropdown.Item
+                    onClick={() => onClickUserStatus(value, STATUS.OK)}>
+                    <Badge pill bg="primary">{STATUS.OK}</Badge>
+                </Dropdown.Item>
+                <Dropdown.Item
+                    onClick={() => onClickUserStatus(value, STATUS.DEACTIVE)}>
+                    <Badge pill bg="warning">{STATUS.DEACTIVE}</Badge>
+                </Dropdown.Item>
+                <Dropdown.Item
+                    onClick={() => onClickUserStatus(value, STATUS.DELETED)}>
+                    <Badge pill bg="danger">{STATUS.DELETED}</Badge>
+                </Dropdown.Item>
+            </DropdownButton>
+        )
         //#endregion
 
         const item = {
