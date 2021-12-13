@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "proxy": "http://localhost:5050",
+  "homepage": "http://x2mint.github.io/x2mint",
   "dependencies": {
     "@coreui/coreui": "^4.1.0",
     "@coreui/icons": "^2.1.0",
@@ -60,7 +61,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "eslint": "eslint src"
+    "eslint": "eslint src",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
