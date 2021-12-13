@@ -29,7 +29,10 @@ export const STATUS = {
     DEACTIVE: 'deactive',
     DELETED: 'deleted',
     OK: 'ok',
-    ARCHIVED: 'archived'
+    ARCHIVED: 'archived',
+    NOT_SUBMITTED: 'not submitted',
+    PASSED: 'passed',
+    FAILED: 'failed'
 }
 
 export const ADMIN = {
@@ -71,6 +74,7 @@ export const STATISTICS = {
         EXAMINEE_USERNAME: 'Username',
         POINTS: 'Điểm',
         SUBMIT_TIME: 'Thời gian nộp bài',
-        STATUS: 'Trạng thái'
+        STATUS: 'Trạng thái',
+        IS_PASSED: 'Pass/Fail'
     }
 }

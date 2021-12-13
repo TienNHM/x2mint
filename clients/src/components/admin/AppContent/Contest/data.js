@@ -1,7 +1,7 @@
 import React from 'react'
 import { Badge, Image } from 'react-bootstrap'
 import { COLOR } from 'utils/colors'
-import { STATISTICS } from 'utils/constants'
+import { STATISTICS, STATUS } from 'utils/constants'
 import { splitTime } from 'utils/timeUtils'
 
 export function StatisticTakeTest(takeTests) {
@@ -91,8 +91,8 @@ export const COLUMNS = [
         width: 200
     },
     {
-        label: STATISTICS.TAKE_TEST.STATUS,
-        field: STATISTICS.TAKE_TEST.STATUS,
+        label: STATISTICS.TAKE_TEST.IS_PASSED,
+        field: STATISTICS.TAKE_TEST.IS_PASSED,
         sort: 'asc',
         width: 100
     }
@@ -120,6 +120,12 @@ export function ExportDataTakeTest(data) {
 
         const submitTime = splitTime(value.submitTime)
 
+        const status = value._status === STATUS.PASSED ?
+            <Badge pill bg="success">{value._status}</Badge> :
+            value._status === STATUS.FAILED ?
+                <Badge pill bg="danger">{value._status}</Badge> :
+                <Badge pill bg="warning">{value._status}</Badge>
+
         const item = {
             [STATISTICS.TAKE_TEST.STT]: index + 1,
             [STATISTICS.TAKE_TEST.EXAMINEE]: user,
@@ -127,6 +133,7 @@ export function ExportDataTakeTest(data) {
             [STATISTICS.TAKE_TEST.EXAMINEE_USERNAME]: value.user.username,
             [STATISTICS.TAKE_TEST.SUBMIT_TIME]: submitTime.time + ' ngày ' + submitTime.date,
             [STATISTICS.TAKE_TEST.POINTS]: value.points,
+            [STATISTICS.TAKE_TEST.IS_PASSED]: status,
             [STATISTICS.TAKE_TEST.STATUS]: value._status
         }
         return item

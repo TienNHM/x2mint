@@ -133,7 +133,10 @@ export default function ContestParticipants() {
                             <ExportToExcel
                                 apiData={cloneDeep(tableData.rows)}
                                 fileName={Date.now().toString()}
-                                fieldsToBeRemoved={[STATISTICS.TAKE_TEST.EXAMINEE]}
+                                fieldsToBeRemoved={[
+                                    STATISTICS.TAKE_TEST.EXAMINEE,
+                                    STATISTICS.TAKE_TEST.IS_PASSED
+                                ]}
                             />
                         </div>
 

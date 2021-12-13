@@ -284,7 +284,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                                 />)
                             }
 
-                            {question.answers.length < 4 && renderAddAnswer()}
+                            {!isUser && question.answers.length < 4 && renderAddAnswer()}
                         </div>
                     ) : (
                         <>{renderAddAnswer()}</>

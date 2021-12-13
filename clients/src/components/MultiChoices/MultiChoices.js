@@ -45,8 +45,6 @@ function MultiChoices() {
                 ..._takeTest,
                 _id: data.takeTestId
             })
-
-            console.log('000000')
         }
 
         if (testResponse) {
@@ -68,7 +66,7 @@ function MultiChoices() {
                 })
 
                 const newTakeTest = {
-                    _status: STATUS.OK,
+                    _status: STATUS.NOT_SUBMITTED,
                     questionsOrder: t.questionsOrder,
                     chooseAnswers: chooseAnswers,
                     test: t.id,
