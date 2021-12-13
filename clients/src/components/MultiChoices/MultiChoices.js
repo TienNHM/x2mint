@@ -69,7 +69,8 @@ function MultiChoices() {
                     _status: STATUS.OK,
                     questionsOrder: t.questionsOrder,
                     chooseAnswers: chooseAnswers,
-                    test: t.id
+                    test: t.id,
+                    user: user.id
                 }
 
                 callCreateTakeTest(newTakeTest)
@@ -99,7 +100,9 @@ function MultiChoices() {
 
     const updateTakeTestInfo = async (question, chooseAnswer) => {
         //Nếu ko phải creator thì update lại takeTest
-        const newTakeTest = { ...takeTest }
+        const newTakeTest = {
+            ...takeTest
+        }
         const choose = {
             question: question._id,
             answers: [...chooseAnswer]
