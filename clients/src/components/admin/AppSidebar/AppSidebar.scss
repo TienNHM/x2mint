@@ -58,7 +58,7 @@
                             border-radius: 0 !important;
                         }
 
-                        button:hover {
+                        button:hover, button:focus, button:active {
                             background-color: $light-theme-color;
                             // color: #6adf5f;
                         }

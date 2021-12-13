@@ -7,7 +7,7 @@ import './AppSidebar.scss'
 import { ADMIN } from 'utils/constants'
 import { useNavigate } from 'react-router'
 
-export default function AppSidebar({ setCurrentAction }) {
+export default function AppSidebar({currentAction, setCurrentAction }) {
     const navigate = useNavigate()
 
     const HideSidebar = () => {
