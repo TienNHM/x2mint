@@ -114,6 +114,7 @@ export default function ContestParticipants() {
                 <>
                     <div id="charts">
                         <div className="section-header m-3 h4 d-flex">
+                            <i className="fa fa-line-chart me-3"></i>
                             Biểu đồ thống kê
                         </div>
 
@@ -148,6 +149,7 @@ export default function ContestParticipants() {
 
                     <div id="table-data">
                         <div className="section-header m-3 h4 d-flex">
+                            <i className="fa fa-list me-3"></i>
                             Danh sách
                         </div>
 

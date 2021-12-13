@@ -85,6 +85,7 @@ export default function AccountStatistics() {
             {!loading &&
                 <>
                     <div className="section-header m-3 h4 d-flex">
+                        <i className="fa fa-map-signs me-3"></i>
                         Tổng quan
                     </div>
 
@@ -119,7 +120,7 @@ export default function AccountStatistics() {
                                     <span className="h1 number">
                                         {overview[ROLE.USER]}
                                     </span>
-                                    <img src="https://img.icons8.com/fluency/48/000000/categorize.png" />
+                                    <img src="https://img.icons8.com/color/48/000000/student-male.png"/>
                                 </Card.Title>
                                 <Card.Text>
                                     Tổng số Examinees trong hệ thống.
@@ -138,7 +139,7 @@ export default function AccountStatistics() {
                                     <span className="h1 number">
                                         {overview[ROLE.CREATOR]}
                                     </span>
-                                    <img src="https://img.icons8.com/fluency/48/000000/where-to-quest.png" />
+                                    <img src="https://img.icons8.com/color/48/000000/female-teacher.png"/>
                                 </Card.Title>
                                 <Card.Text>
                                     Tổng số Creators hiện có trên hệ thống.
@@ -157,7 +158,7 @@ export default function AccountStatistics() {
                                     <span className="h1 number">
                                         {overview[ROLE.ADMIN]}
                                     </span>
-                                    <img src="https://img.icons8.com/fluency/48/000000/test-passed.png" />
+                                    <img src="https://img.icons8.com/fluent/48/000000/microsoft-admin.png"/>
                                 </Card.Title>
                                 <Card.Text>
                                     Tổng số Admins trên hệ thống.
@@ -167,6 +168,7 @@ export default function AccountStatistics() {
                     </div>
 
                     <div className="section-header m-3 h4 d-flex">
+                        <i className="fa fa-line-chart me-3"></i>
                         Biểu đồ thống kê
                     </div>
 
