@@ -7,10 +7,18 @@ import { Button } from 'react-bootstrap'
 //     return data.map(({ field, ...keepAttrs }) => keepAttrs)
 // }
 
-export const ExportToExcel = ({ apiData, fileName }) => {
+export const ExportToExcel = ({ apiData, fileName, fieldsToBeRemoved=[] }) => {
     const fileType =
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheetcharset=UTF-8'
     const fileExtension = '.xlsx'
+
+    apiData.forEach(value => {
+        fieldsToBeRemoved.map(field => {
+            delete value[field]
+        })
+    })
+
+    console.log(apiData)
 
     const exportToCSV = (apiData, fileName) => {
         const ws = XLSX.utils.json_to_sheet(apiData)
