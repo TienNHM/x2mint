@@ -12,7 +12,7 @@ import {
 import './Share.scss'
 
 export function ShareFacebook({ url, title = '', hashtags = [] }) {
-    const tags = hashtags.map(tag => '#' + tag).join(' ')
+    const tags = hashtags.length > 0 ? hashtags.map(tag => '#' + tag).join(' ') : ''
     return (
         <FacebookShareButton
             url={url}

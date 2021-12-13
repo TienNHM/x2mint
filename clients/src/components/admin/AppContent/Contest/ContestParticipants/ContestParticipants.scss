@@ -1,6 +1,6 @@
 @import '_setting.scss';
 
-.account-register {
+.contest-participants {
     &::-webkit-scrollbar {
         -webkit-appearance: none;
     }
@@ -48,16 +48,10 @@
 
     .chart-data {
 
-        .chart-line {
-           
-        }
+        .chart-line {}
 
-        .chart-circle {
-            
-        }
+        .chart-circle {}
 
-        .chart-bar {
-            
-        }
+        .chart-bar {}
     }
 }

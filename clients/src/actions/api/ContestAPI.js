@@ -92,7 +92,7 @@ export const updateTestsInContest = async (contestId, testsList) => {
 
 export const deleteContest = async (contest) => {
     try {
-        const url = `${process.env.REACT_APP_API_ROOT}/contests/${contest.id}/delete`
+        const url = `${process.env.REACT_APP_API_ROOT}/contests/${contest.id}/archive`
         const request = await axios.put(url, contest, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`

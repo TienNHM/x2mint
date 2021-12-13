@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { Accordion, Card, Button } from 'react-bootstrap'
-import './Dashboard.scss'
-import Chart from 'chart.js/auto'
-import { Line, Doughnut, Bar } from 'react-chartjs-2'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
-import { COOKIES } from 'utils/constants'
+import React, { useEffect, useState } from 'react'
+import { Card } from 'react-bootstrap'
+import { Bar, Line, Pie, Scatter } from 'react-chartjs-2'
 import { HashLoader } from 'react-spinners'
-import { StatisticTakeTest } from '../Contest/data'
+import { COLOR } from 'utils/colors'
+import { COOKIES, ROLE } from 'utils/constants'
+import { StatisticAccountSignUp, StatisticAccountOverview } from '../data'
+import './AccountStatistics.scss'
 
-export default function Dashboard() {
+export default function AccountStatistics() {
     const [data, setData] = useState(null)
-    const [takeTestStatistics, setTakeTestStatistics] = useState(null)
+    const [overview, setOverview] = useState(null)
+    const [signupStatistics, setSignupStatistics] = useState(null)
 
     const {
         response,
         loading
     } = useAxios({
         method: 'GET',
-        url: '/statistics',
+        url: '/users',
         headers: {
             Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
         }
@@ -29,13 +30,15 @@ export default function Dashboard() {
             setData(response.data)
             console.log('response', response.data)
 
-            const takeTestStatisticsData = StatisticTakeTest(response.data.takeTests)
-            setTakeTestStatistics(takeTestStatisticsData)
-            console.log('takeTestStatistics', takeTestStatisticsData)
+            const signupStatisticsData = StatisticAccountSignUp(response.data)
+            setSignupStatistics(signupStatisticsData)
+            console.log('signupStatisticsData', signupStatisticsData)
+
+            setOverview(StatisticAccountOverview(response.data))
         }
     }, [response])
 
-    const options = {
+    const signupLineChartOptions = {
         responsive: true,
         plugins: {
             legend: {
@@ -44,14 +47,27 @@ export default function Dashboard() {
             },
             title: {
                 display: true,
-                text: 'Thống kê điểm số các bài thi'
+                text: 'Thống kê số lượng tài khoản đăng ký mới'
+            }
+        }
+    }
+
+    const usertypePieChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Tỉ lệ phân bổ giữa các loại tài khoản trong hệ thống (%)'
             }
         }
     }
 
     return (
-        <div className="account-register">
-
+        <div className="account-statistics">
             {loading &&
                 <div
                     className='sweet-loading d-flex justify-content-center align-items-center'
@@ -82,12 +98,12 @@ export default function Dashboard() {
                             <Card.Body>
                                 <Card.Title className="d-flex justify-content-around">
                                     <span className="h1 number">
-                                        {data.users.length}
+                                        {data.length}
                                     </span>
                                     <img src="https://img.icons8.com/fluency/48/000000/user-group-man-woman.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số người dùng trên hệ thống hiện tại.
+                                    Tổng số người dùng trên hệ thống.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -97,16 +113,16 @@ export default function Dashboard() {
                             style={{ width: '18rem', height: '11rem' }}
                             className="mb-2 shadow-lg"
                         >
-                            <Card.Header>Số cuộc thi</Card.Header>
+                            <Card.Header>Examinee</Card.Header>
                             <Card.Body>
                                 <Card.Title className="d-flex justify-content-around">
                                     <span className="h1 number">
-                                        {data.contests.length}
+                                        {overview[ROLE.USER]}
                                     </span>
                                     <img src="https://img.icons8.com/fluency/48/000000/categorize.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số cuộc thi hiện có. <i>(Bao gồm cả các cuộc thi đã được lưu trữ).</i>
+                                    Tổng số Examinees trong hệ thống.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -116,16 +132,16 @@ export default function Dashboard() {
                             style={{ width: '18rem', height: '11rem' }}
                             className="mb-2 shadow-lg"
                         >
-                            <Card.Header>Số bài kiểm tra</Card.Header>
+                            <Card.Header>Creators</Card.Header>
                             <Card.Body>
                                 <Card.Title className="d-flex justify-content-around">
                                     <span className="h1 number">
-                                        {data.tests.length}
+                                        {overview[ROLE.CREATOR]}
                                     </span>
                                     <img src="https://img.icons8.com/fluency/48/000000/where-to-quest.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số bài kiểm tra hiện có trên hệ thống.
+                                    Tổng số Creators hiện có trên hệ thống.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -135,16 +151,16 @@ export default function Dashboard() {
                             style={{ width: '18rem', height: '11rem' }}
                             className="mb-2 shadow-lg"
                         >
-                            <Card.Header>Số lượt thi</Card.Header>
+                            <Card.Header>Admins</Card.Header>
                             <Card.Body>
                                 <Card.Title className="d-flex justify-content-around">
                                     <span className="h1 number">
-                                        {data.takeTests.length}
+                                        {overview[ROLE.ADMIN]}
                                     </span>
                                     <img src="https://img.icons8.com/fluency/48/000000/test-passed.png" />
                                 </Card.Title>
                                 <Card.Text>
-                                    Tổng số lượt thí sinh tham gia làm bài kiểm tra trên hệ thống.
+                                    Tổng số Admins trên hệ thống.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -155,68 +171,36 @@ export default function Dashboard() {
                     </div>
 
                     <div className="chart-data d-flex justify-content-around m-4 align-item-end">
-                        <div className="char-bar">
-                            <Bar
-                                data={takeTestStatistics}
-                                options={options}
+                        <div className="chart-line">
+                            <Line
+                                data={signupStatistics}
+                                options={signupLineChartOptions}
                                 height="400"
                                 width="500"
                             />
                         </div>
 
-                        <div className="chart-line">
-                            <Line
+                        <div className="chart-pie">
+                            <Pie
+                                options={usertypePieChartOptions}
                                 data={{
-                                    labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
+                                    labels: ['User', 'Creator', 'Admin'],
                                     datasets: [
                                         {
-                                            data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
-                                            label: 'Africa',
-                                            borderColor: '#3e95cd',
-                                            fill: false
-                                        },
-                                        {
-                                            data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
-                                            label: 'Asia',
-                                            borderColor: '#8e5ea2',
-                                            fill: false
-                                        },
-                                        {
-                                            data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
-                                            label: 'Europe',
-                                            borderColor: '#3cba9f',
-                                            fill: false
-                                        },
-                                        {
-                                            data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
-                                            label: 'Latin America',
-                                            borderColor: '#e8c3b9',
-                                            fill: false
-                                        },
-                                        {
-                                            data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433],
-                                            label: 'North America',
-                                            borderColor: '#c45850',
-                                            fill: false
+                                            label: 'Tỉ lệ (%)',
+                                            data: [
+                                                overview[ROLE.USER],
+                                                overview[ROLE.CREATOR],
+                                                overview[ROLE.ADMIN]
+                                            ].map(x => x * 100 / data.length),
+                                            backgroundColor: COLOR.BREWER.YELLOW_GREEN_BLUE.YlGnBu3,
+                                            borderWidth: 1,
+                                            hoverBorderColor: COLOR.BREWER.YELLOW_GREEN_BLUE.YlGnBu3
                                         }
                                     ]
                                 }}
-                                options={{
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            display: true,
-                                            position: 'bottom'
-                                        },
-                                        title: {
-                                            display: true,
-                                            text: 'Thống kê'
-                                        }
-                                    }
-                                }}
                                 height="400"
-                                width="500"
-                            />
+                                width="400" />
                         </div>
                     </div>
                 </>

@@ -5,8 +5,10 @@ import { Button, Accordion } from 'react-bootstrap'
 import 'react-tiny-fab/dist/styles.css'
 import './AppSidebar.scss'
 import { ADMIN } from 'utils/constants'
+import { useNavigate } from 'react-router'
 
-export default function AppSidebar({ setCurrentAction }) {
+export default function AppSidebar({currentAction, setCurrentAction }) {
+    const navigate = useNavigate()
 
     const HideSidebar = () => {
         document.querySelector('#settings').hidden = true
@@ -27,94 +29,126 @@ export default function AppSidebar({ setCurrentAction }) {
             <div className="sidebar" id="settings">
                 <CSidebar>
                     <div className="sidebar-title">
-                        <Button className="w-100"
+                        <Button className="w-100 button-title"
                             onClick={() => setCurrentAction(ADMIN.DASHBOARD)}>
-                            Dashboard
+                            <span style={{fontSize: '1.5rem'}}>Dashboard</span>
                         </Button>
                     </div>
 
                     <div className="settings">
                         <Accordion className="mt-2 mb-2" flush>
                             <Accordion.Item eventKey="0">
-                                <Accordion.Header>Quản lý người dùng</Accordion.Header>
+                                <Accordion.Header>
+                                    <Button className="w-100 button-title"
+                                        onClick={() => setCurrentAction(ADMIN.ACCOUNT.STATISTICS)}>
+                                        Người dùng
+                                    </Button>
+                                </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
-                                        onClick={() => setCurrentAction(ADMIN.ACCOUNT.REGISTER)}>
-                                        Đăng ký
+                                        onClick={() => setCurrentAction(ADMIN.ACCOUNT.STATISTICS)}>
+                                        {ADMIN.ACCOUNT.STATISTICS}
+                                    </Button>
+                                    <Button className="w-100"
+                                        onClick={() => setCurrentAction(ADMIN.ACCOUNT.MANAGE)}>
+                                        {ADMIN.ACCOUNT.MANAGE}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.ACCOUNT.GRANT_PERMISSIONS)}>
-                                        Cấp quyền tài khoản
+                                        {ADMIN.ACCOUNT.GRANT_PERMISSIONS}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.ACCOUNT.REPORT)}>
-                                        Tài khoản bị báo cáo
-                                    </Button>
-                                    <Button className="w-100"
-                                        onClick={() => setCurrentAction(ADMIN.ACCOUNT.STATISTICS)}>
-                                        Thống kê
+                                        {ADMIN.ACCOUNT.REPORT}
                                     </Button>
                                 </Accordion.Body>
                             </Accordion.Item>
 
                             <Accordion.Item eventKey="1">
-                                <Accordion.Header>Quản lý cuộc thi</Accordion.Header>
+                                <Accordion.Header>
+                                    <Button className="w-100 button-title"
+                                        onClick={() => setCurrentAction(ADMIN.CONTEST.STATISTICS)}>
+                                        Quản lý cuộc thi
+                                    </Button>
+                                </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
+                                        onClick={() => setCurrentAction(ADMIN.CONTEST.STATISTICS)}>
+                                        {ADMIN.CONTEST.STATISTICS}
+                                    </Button>
+                                    <Button className="w-100"
+                                        onClick={() => navigate('/contest')}>
+                                        Tất cả cuộc thi
+                                    </Button>
+                                    <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.PARTICIPANT)}>
-                                        Lượt dự thi
+                                        {ADMIN.CONTEST.PARTICIPANT}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.LEADERBOARD)}>
-                                        Bảng xếp hạng
+                                        {ADMIN.CONTEST.LEADERBOARD}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.TRAFFIC)}>
-                                        Lưu lượng truy cập
+                                        {ADMIN.CONTEST.TRAFFIC}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.ARCHIVE)}>
-                                        Lưu trữ
+                                        {ADMIN.CONTEST.ARCHIVE}
                                     </Button>
                                 </Accordion.Body>
                             </Accordion.Item>
 
                             <Accordion.Item eventKey="2">
-                                <Accordion.Header>Quản lý tài nguyên</Accordion.Header>
+                                <Accordion.Header>
+                                    <Button className="w-100 button-title"
+                                        onClick={() => setCurrentAction(ADMIN.RESOURCES.STATISTICS)}>
+                                        Tài nguyên
+                                    </Button>
+                                </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
-                                        onClick={() => setCurrentAction(ADMIN.RESOURCE.SAMPLE_QUESTION)}>
-                                        Câu hỏi mẫu
+                                        onClick={() => setCurrentAction(ADMIN.RESOURCES.STATISTICS)}>
+                                        {ADMIN.RESOURCES.STATISTICS}
                                     </Button>
                                     <Button className="w-100"
-                                        onClick={() => setCurrentAction(ADMIN.RESOURCE.IMAGE)}>
-                                        Hình ảnh
+                                        onClick={() => setCurrentAction(ADMIN.RESOURCES.SAMPLE_QUESTION)}>
+                                        {ADMIN.RESOURCES.SAMPLE_QUESTION}
                                     </Button>
                                     <Button className="w-100"
-                                        onClick={() => setCurrentAction(ADMIN.RESOURCE.VIDEO)}>
-                                        Video
+                                        onClick={() => setCurrentAction(ADMIN.RESOURCES.IMAGE)}>
+                                        {ADMIN.RESOURCES.IMAGE}
                                     </Button>
                                     <Button className="w-100"
-                                        onClick={() => setCurrentAction(ADMIN.RESOURCE.MUSIC)}>
-                                        Âm thanh
+                                        onClick={() => setCurrentAction(ADMIN.RESOURCES.VIDEO)}>
+                                        {ADMIN.RESOURCES.VIDEO}
+                                    </Button>
+                                    <Button className="w-100"
+                                        onClick={() => setCurrentAction(ADMIN.RESOURCES.MUSIC)}>
+                                        {ADMIN.RESOURCES.MUSIC}
                                     </Button>
                                 </Accordion.Body>
                             </Accordion.Item>
 
                             <Accordion.Item eventKey="3">
-                                <Accordion.Header>Cài đặt</Accordion.Header>
+                                <Accordion.Header>
+                                    <Button className="w-100 button-title"
+                                        onClick={() => setCurrentAction(ADMIN.SETTINGS.ACCOUNT)}>
+                                        Cài đặt
+                                    </Button>
+                                </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.SETTINGS.ACCOUNT)}>
-                                        Tài khoản
+                                        {ADMIN.SETTINGS.ACCOUNT}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.SETTINGS.THEME)}>
-                                        Theme
+                                        {ADMIN.SETTINGS.THEME}
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.SETTINGS.NOTIFICATION)}>
-                                        Thông báo
+                                        {ADMIN.SETTINGS.NOTIFICATION}
                                     </Button>
                                 </Accordion.Body>
                             </Accordion.Item>
@@ -122,11 +156,12 @@ export default function AppSidebar({ setCurrentAction }) {
                     </div>
 
                     <div className="w-100">
-                        <Button variant="primary"
+                        <Button variant="secondary"
                             onClick={() => HideSidebar()}
                             className="btn-lg btn-block w-100"
                             style={{ borderRadius: '0px' }}>
-                            Thu gọn
+                            <i className="fa fa-angle-double-left"></i>
+                            <span className="ms-3">Thu gọn</span>
                         </Button>
                     </div>
                 </CSidebar>
