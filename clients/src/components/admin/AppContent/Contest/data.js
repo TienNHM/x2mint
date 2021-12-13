@@ -1,5 +1,8 @@
-import { COLOR } from "utils/colors"
-import { splitTime } from "utils/timeUtils"
+import React from 'react'
+import { Badge } from 'react-bootstrap'
+import { COLOR } from 'utils/colors'
+import { STATISTICS } from 'utils/constants'
+import { splitTime } from 'utils/timeUtils'
 
 export function StatisticTakeTest(takeTests) {
     let labels = []
@@ -63,4 +66,74 @@ export function StatisticSubmitTime(takeTests) {
     return {
         datasets: datasets
     }
+}
+
+export const COLUMNS = [
+    {
+        label: STATISTICS.TAKE_TEST.STT,
+        field: STATISTICS.TAKE_TEST.STT,
+        sort: 'asc',
+        width: 100
+    },
+    {
+        label: STATISTICS.TAKE_TEST.EXAMINEE,
+        field: STATISTICS.TAKE_TEST.EXAMINEE,
+        width: 300
+    },
+    {
+        label: STATISTICS.TAKE_TEST.SUBMIT_TIME,
+        field: STATISTICS.TAKE_TEST.SUBMIT_TIME,
+        sort: 'asc',
+        width: 200
+    },
+    {
+        label: STATISTICS.TAKE_TEST.POINTS,
+        field: STATISTICS.TAKE_TEST.POINTS,
+        sort: 'asc',
+        width: 200
+    },
+    {
+        label: STATISTICS.TAKE_TEST.STATUS,
+        field: STATISTICS.TAKE_TEST.STATUS,
+        sort: 'asc',
+        width: 100
+    }
+]
+
+export function ExportDataTakeTest(data) {
+    const rows = data.map((value, index) => {
+        console.log(value)
+
+        const user = (
+            <div className="row">
+                <div className="col-1">
+                    <img src={process.env.PUBLIC_URL + '/assets/male-user.png'} width="32px" alt='M' />
+                </div>
+                <div className="col-11 text-start ps-3 pe-3">
+                    <div className="fw-bolder">{value.user.full_name}</div>
+                    <div>
+                        <Badge pill bg="info">@{value.user.username}</Badge>
+                    </div>
+                </div>
+            </div>
+        )
+
+        const item = {
+            [STATISTICS.TAKE_TEST.STT]: index + 1,
+            [STATISTICS.TAKE_TEST.EXAMINEE]: user,
+            [STATISTICS.TAKE_TEST.EXAMINEE_FULLNAME]: value.user.full_name,
+            [STATISTICS.TAKE_TEST.EXAMINEE_USERNAME]: value.user.username,
+            [STATISTICS.TAKE_TEST.SUBMIT_TIME]: value.submitTime,
+            [STATISTICS.TAKE_TEST.POINTS]: value.points,
+            [STATISTICS.TAKE_TEST.STATUS]: ''
+        }
+        return item
+    })
+    const result = {
+        columns: [...COLUMNS],
+        rows: rows
+    }
+
+    console.log('*Result*', result)
+    return result
 }

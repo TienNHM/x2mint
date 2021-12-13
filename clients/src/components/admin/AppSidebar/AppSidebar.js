@@ -7,7 +7,7 @@ import './AppSidebar.scss'
 import { ADMIN } from 'utils/constants'
 import { useNavigate } from 'react-router'
 
-export default function AppSidebar({currentAction, setCurrentAction }) {
+export default function AppSidebar({ currentAction, setCurrentAction }) {
     const navigate = useNavigate()
 
     const HideSidebar = () => {
@@ -31,7 +31,7 @@ export default function AppSidebar({currentAction, setCurrentAction }) {
                     <div className="sidebar-title">
                         <Button className="w-100 button-title"
                             onClick={() => setCurrentAction(ADMIN.DASHBOARD)}>
-                            <span style={{fontSize: '1.5rem'}}>Dashboard</span>
+                            <span style={{ fontSize: '1.5rem' }}>Dashboard</span>
                         </Button>
                     </div>
 

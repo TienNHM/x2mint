@@ -60,3 +60,17 @@ export const ADMIN = {
         NOTIFICATION: 'Thông báo'
     }
 }
+
+export const STATISTICS = {
+    TAKE_TEST: {
+        STT: 'STT',
+        TEST_NAME: 'Tên bài thi',
+        TEST_URL: 'Link bài thi',
+        EXAMINEE: 'Thí sinh',
+        EXAMINEE_FULLNAME: 'Họ tên thí sinh',
+        EXAMINEE_USERNAME: 'Username',
+        POINTS: 'Điểm',
+        SUBMIT_TIME: 'Thời gian nộp bài',
+        STATUS: 'Trạng thái'
+    }
+}

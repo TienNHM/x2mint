@@ -4,14 +4,17 @@ import { Line, Bar } from 'react-chartjs-2'
 import { useAxios } from 'actions/useAxios'
 import { Card } from 'react-bootstrap'
 import Cookies from 'js-cookie'
-import { COOKIES } from 'utils/constants'
+import { COOKIES, STATISTICS } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
-import { StatisticSubmitTime, StatisticTakeTest } from '../data'
+import { ExportDataTakeTest, StatisticSubmitTime, StatisticTakeTest } from '../data'
 import './ContestParticipants.scss'
+import { MDBDataTableV5 } from 'mdbreact'
+import { ExportToExcel } from 'utils/ExportToExcel'
 
 export default function ContestParticipants() {
     const [takeTestStatistics, setTakeTestStatistics] = useState(null)
     const [statisticsSubmitTime, setStatisticsSubmitTime] = useState(null)
+    const [tableData, setTableData] = useState(null)
 
     const {
         response,
@@ -35,6 +38,8 @@ export default function ContestParticipants() {
             const submitTimeStatisticsData = StatisticSubmitTime(response.data.takeTests)
             setStatisticsSubmitTime(submitTimeStatisticsData)
             console.log('signupStatisticsData', submitTimeStatisticsData)
+
+            setTableData(ExportDataTakeTest(response.data.takeTests))
         }
     }, [response])
 
@@ -92,26 +97,53 @@ export default function ContestParticipants() {
 
             {!loading &&
                 <>
-                    <div className="section-header m-3 h4 d-flex">
-                        Biểu đồ thống kê
+                    <div id="charts">
+                        <div className="section-header m-3 h4 d-flex">
+                            Biểu đồ thống kê
+                        </div>
+
+                        <div className="chart-data d-flex justify-content-around m-4 align-item-end">
+                            <div className="char-bar">
+                                <Bar
+                                    data={takeTestStatistics}
+                                    options={options}
+                                    height="400"
+                                    width="500"
+                                />
+                            </div>
+
+                            <div className="chart-line">
+                                <Line
+                                    data={statisticsSubmitTime}
+                                    options={submitTimeLineChart}
+                                    height="400"
+                                    width="500"
+                                />
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="chart-data d-flex justify-content-around m-4 align-item-end">
-                        <div className="char-bar">
-                            <Bar
-                                data={takeTestStatistics}
-                                options={options}
-                                height="400"
-                                width="500"
+                    <div id="table-data">
+                        <div className="section-header m-3 h4 d-flex">
+                            Danh sách
+                        </div>
+
+                        <div>
+                            <ExportToExcel
+                                apiData={tableData.rows}
+                                fileName={Date.now().toString()}
+                                fieldsToBeRemoved={[STATISTICS.TAKE_TEST.EXAMINEE]}
                             />
                         </div>
 
-                        <div className="chart-line">
-                            <Line
-                                data={statisticsSubmitTime}
-                                options={submitTimeLineChart}
-                                height="400"
-                                width="500"
+                        <div className="p-3">
+                            <MDBDataTableV5
+                                hover striped bordered
+                                entriesOptions={[10, 25, 50, 100]}
+                                entries={10}
+                                pagesAmount={4}
+                                data={tableData}
+                                materialSearch
                             />
                         </div>
                     </div>
