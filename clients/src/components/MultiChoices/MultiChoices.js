@@ -45,6 +45,8 @@ function MultiChoices() {
                 ..._takeTest,
                 _id: data.takeTestId
             })
+
+            console.log('000000')
         }
 
         if (testResponse) {
@@ -128,7 +130,7 @@ function MultiChoices() {
     return (
         <div className="app-container">
             {isSubmitted &&
-                <Navigate to={`/takeTest/${takeTest.id}`} />
+                <Navigate to={`/takeTest/${takeTest._id}`} />
             }
 
             {testIsLoading &&

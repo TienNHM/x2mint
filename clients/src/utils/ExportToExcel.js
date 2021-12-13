@@ -20,8 +20,6 @@ export const ExportToExcel = ({ apiData, fileName, fieldsToBeRemoved=[] }) => {
         })
     })
 
-    console.log(data)
-
     const exportToCSV = (datasource, fileName) => {
         const ws = XLSX.utils.json_to_sheet(datasource)
         const wb = { Sheets: { data: ws }, SheetNames: ['data'] }

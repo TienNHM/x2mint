@@ -1,5 +1,5 @@
 import React from 'react'
-import { Badge } from 'react-bootstrap'
+import { Badge, Image } from 'react-bootstrap'
 import { COLOR } from 'utils/colors'
 import { STATISTICS } from 'utils/constants'
 import { splitTime } from 'utils/timeUtils'
@@ -61,8 +61,6 @@ export function StatisticSubmitTime(takeTests) {
         datasets[0].data.push({ x: date, y: count })
     })
 
-    console.log('datasets', datasets)
-
     return {
         datasets: datasets
     }
@@ -102,12 +100,16 @@ export const COLUMNS = [
 
 export function ExportDataTakeTest(data) {
     const rows = data.map((value, index) => {
+        const avatar = value.user.avatar ?
+            value.user.avatar :
+            process.env.PUBLIC_URL + '/assets/male-user.png'
+
         const user = (
             <div className="row">
-                <div className="col-1">
-                    <img src={process.env.PUBLIC_URL + '/assets/male-user.png'} width="32px" alt='M' />
+                <div className="col-2 ps-3">
+                    <Image roundedCircle src={avatar} width="48px" height="48px" alt='M' />
                 </div>
-                <div className="col-11 text-start ps-3 pe-3">
+                <div className="col-10 text-start pe-3">
                     <div className="fw-bolder">{value.user.full_name}</div>
                     <div>
                         <Badge pill bg="info">@{value.user.username}</Badge>
@@ -116,14 +118,16 @@ export function ExportDataTakeTest(data) {
             </div>
         )
 
+        const submitTime = splitTime(value.submitTime)
+
         const item = {
             [STATISTICS.TAKE_TEST.STT]: index + 1,
             [STATISTICS.TAKE_TEST.EXAMINEE]: user,
             [STATISTICS.TAKE_TEST.EXAMINEE_FULLNAME]: value.user.full_name,
             [STATISTICS.TAKE_TEST.EXAMINEE_USERNAME]: value.user.username,
-            [STATISTICS.TAKE_TEST.SUBMIT_TIME]: value.submitTime,
+            [STATISTICS.TAKE_TEST.SUBMIT_TIME]: submitTime.time + ' ngày ' + submitTime.date,
             [STATISTICS.TAKE_TEST.POINTS]: value.points,
-            [STATISTICS.TAKE_TEST.STATUS]: ''
+            [STATISTICS.TAKE_TEST.STATUS]: value._status
         }
         return item
     })
