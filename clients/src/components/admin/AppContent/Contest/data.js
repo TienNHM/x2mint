@@ -102,8 +102,6 @@ export const COLUMNS = [
 
 export function ExportDataTakeTest(data) {
     const rows = data.map((value, index) => {
-        console.log(value)
-
         const user = (
             <div className="row">
                 <div className="col-1">

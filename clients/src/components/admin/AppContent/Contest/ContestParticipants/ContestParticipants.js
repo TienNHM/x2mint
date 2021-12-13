@@ -10,6 +10,7 @@ import { ExportDataTakeTest, StatisticSubmitTime, StatisticTakeTest } from '../d
 import './ContestParticipants.scss'
 import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
+import { cloneDeep } from 'lodash'
 
 export default function ContestParticipants() {
     const [takeTestStatistics, setTakeTestStatistics] = useState(null)
@@ -130,7 +131,7 @@ export default function ContestParticipants() {
 
                         <div>
                             <ExportToExcel
-                                apiData={tableData.rows}
+                                apiData={cloneDeep(tableData.rows)}
                                 fileName={Date.now().toString()}
                                 fieldsToBeRemoved={[STATISTICS.TAKE_TEST.EXAMINEE]}
                             />

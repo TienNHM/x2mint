@@ -12,16 +12,18 @@ export const ExportToExcel = ({ apiData, fileName, fieldsToBeRemoved=[] }) => {
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheetcharset=UTF-8'
     const fileExtension = '.xlsx'
 
-    apiData.forEach(value => {
+    const data = [...apiData]
+
+    data.forEach(value => {
         fieldsToBeRemoved.map(field => {
             delete value[field]
         })
     })
 
-    console.log(apiData)
+    console.log(data)
 
-    const exportToCSV = (apiData, fileName) => {
-        const ws = XLSX.utils.json_to_sheet(apiData)
+    const exportToCSV = (datasource, fileName) => {
+        const ws = XLSX.utils.json_to_sheet(datasource)
         const wb = { Sheets: { data: ws }, SheetNames: ['data'] }
         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
         const data = new Blob([excelBuffer], { type: fileType })
@@ -31,7 +33,7 @@ export const ExportToExcel = ({ apiData, fileName, fieldsToBeRemoved=[] }) => {
     return (
         <Button
             variant="success"
-            onClick={() => exportToCSV(apiData, fileName)}
+            onClick={() => exportToCSV(data, fileName)}
             className="fw-bolder"
         >
             <i className="fas fa-save"></i>
