@@ -96,6 +96,7 @@ export default function ContestStatistics() {
             {!loading &&
                 <>
                     <div className="section-header m-3 h4 d-flex">
+                        <i className="fa fa-map-signs me-3"></i>
                         Tổng quan
                     </div>
 
@@ -111,7 +112,7 @@ export default function ContestStatistics() {
                                     <span className="h1 number">
                                         {data.contests.length}
                                     </span>
-                                    <img src="https://img.icons8.com/fluency/48/000000/user-group-man-woman.png" />
+                                    <img src="https://img.icons8.com/fluency/48/000000/categorize.png" />
                                 </Card.Title>
                                 <Card.Text>
                                     Tổng số cuộc thi hiện có. <i>(Bao gồm cả các cuộc thi đã được lưu trữ).</i>
@@ -130,7 +131,7 @@ export default function ContestStatistics() {
                                     <span className="h1 number">
                                         {data.tests.length}
                                     </span>
-                                    <img src="https://img.icons8.com/fluency/48/000000/categorize.png" />
+                                    <img src="https://img.icons8.com/external-flat-geotatah/48/000000/external-battle-gamification-flat-flat-geotatah.png" />
                                 </Card.Title>
                                 <Card.Text>
                                     Tổng số bài kiểm tra hiện có trên hệ thống.
@@ -149,7 +150,7 @@ export default function ContestStatistics() {
                                     <span className="h1 number">
                                         {data.takeTests.length}
                                     </span>
-                                    <img src="https://img.icons8.com/fluency/48/000000/where-to-quest.png" />
+                                    <img src="https://img.icons8.com/fluency/48/000000/test-passed.png" />
                                 </Card.Title>
                                 <Card.Text>
                                     Tổng số lượt thí sinh tham gia làm bài kiểm tra trên hệ thống.
@@ -168,7 +169,7 @@ export default function ContestStatistics() {
                                     <span className="h1 number">
                                         {data.questions.length}
                                     </span>
-                                    <img src="https://img.icons8.com/fluency/48/000000/test-passed.png" />
+                                    <img src="https://img.icons8.com/fluency/48/000000/where-to-quest.png" />
                                 </Card.Title>
                                 <Card.Text>
                                     Tổng số câu hỏi đã được tạo trên hệ thống.
@@ -178,6 +179,7 @@ export default function ContestStatistics() {
                     </div>
 
                     <div className="section-header m-3 h4 d-flex">
+                        <i className="fa fa-line-chart me-3"></i>
                         Biểu đồ thống kê
                     </div>
 

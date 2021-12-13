@@ -69,6 +69,7 @@ export default function Dashboard() {
             {!loading &&
                 <>
                     <div className="section-header m-3 h4 d-flex">
+                        <i className="fa fa-map-signs me-3"></i>
                         Tổng quan
                     </div>
 
@@ -151,6 +152,7 @@ export default function Dashboard() {
                     </div>
 
                     <div className="section-header m-3 h4 d-flex">
+                        <i className="fa fa-line-chart me-3"></i>
                         Biểu đồ thống kê
                     </div>
 

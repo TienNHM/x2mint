@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import Chart from 'chart.js/auto'
-import { Line, Bar } from 'react-chartjs-2'
+import { Line, Bar, Pie, Doughnut } from 'react-chartjs-2'
 import { useAxios } from 'actions/useAxios'
 import { Card } from 'react-bootstrap'
 import Cookies from 'js-cookie'
-import { COOKIES } from 'utils/constants'
+import { COOKIES, STATISTICS } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
-import { StatisticSubmitTime, StatisticTakeTest } from '../data'
+import { ExportDataTakeTest, StatisticSubmitTime, StatisticTakeTest, StatisticTakeTestStatus } from '../data'
 import './ContestParticipants.scss'
+import { MDBDataTableV5 } from 'mdbreact'
+import { ExportToExcel } from 'utils/ExportToExcel'
+import { cloneDeep } from 'lodash'
+import { COLOR } from 'utils/colors'
 
 export default function ContestParticipants() {
     const [takeTestStatistics, setTakeTestStatistics] = useState(null)
     const [statisticsSubmitTime, setStatisticsSubmitTime] = useState(null)
+    const [tableData, setTableData] = useState(null)
+    const [takeTestStatus, setTakeTestStatus] = useState(null)
 
     const {
         response,
@@ -26,15 +32,15 @@ export default function ContestParticipants() {
 
     useEffect(() => {
         if (response) {
-            console.log('response', response.data)
-
             const takeTestStatisticsData = StatisticTakeTest(response.data.takeTests)
             setTakeTestStatistics(takeTestStatisticsData)
-            console.log('takeTestStatistics', takeTestStatisticsData)
 
             const submitTimeStatisticsData = StatisticSubmitTime(response.data.takeTests)
             setStatisticsSubmitTime(submitTimeStatisticsData)
-            console.log('signupStatisticsData', submitTimeStatisticsData)
+
+            setTableData(ExportDataTakeTest(response.data.takeTests))
+
+            setTakeTestStatus(StatisticTakeTestStatus(response.data.takeTests))
         }
     }, [response])
 
@@ -74,6 +80,20 @@ export default function ContestParticipants() {
         }
     }
 
+    const takeTestStatusDoughnutChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Tỉ lệ phân bổ giữa các bài thi Passed / Failed / Not submitted (%)'
+            }
+        }
+    }
+
     return (
         <div className="contest-participants">
             {loading &&
@@ -92,26 +112,66 @@ export default function ContestParticipants() {
 
             {!loading &&
                 <>
-                    <div className="section-header m-3 h4 d-flex">
-                        Biểu đồ thống kê
+                    <div id="charts">
+                        <div className="section-header m-3 h4 d-flex">
+                            <i className="fa fa-line-chart me-3"></i>
+                            Biểu đồ thống kê
+                        </div>
+
+                        <div className="row chart-data justify-content-around m-4 align-item-end">
+                            <div className="col-4 char-bar p-2">
+                                <Bar
+                                    data={takeTestStatistics}
+                                    options={options}
+                                    height="400"
+                                    width="500"
+                                />
+                            </div>
+
+                            <div className="col-4 chart-line p-2">
+                                <Line
+                                    data={statisticsSubmitTime}
+                                    options={submitTimeLineChart}
+                                    height="400"
+                                    width="500"
+                                />
+                            </div>
+
+                            <div className="col-4 chart-pie p-2">
+                                <Doughnut
+                                    options={takeTestStatusDoughnutChartOptions}
+                                    data={takeTestStatus}
+                                    height="400"
+                                    width="400" />
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="chart-data d-flex justify-content-around m-4 align-item-end">
-                        <div className="char-bar">
-                            <Bar
-                                data={takeTestStatistics}
-                                options={options}
-                                height="400"
-                                width="500"
+                    <div id="table-data">
+                        <div className="section-header m-3 h4 d-flex">
+                            <i className="fa fa-list me-3"></i>
+                            Danh sách
+                        </div>
+
+                        <div>
+                            <ExportToExcel
+                                apiData={cloneDeep(tableData.rows)}
+                                fileName={Date.now().toString()}
+                                fieldsToBeRemoved={[
+                                    STATISTICS.TAKE_TEST.EXAMINEE,
+                                    STATISTICS.TAKE_TEST.IS_PASSED
+                                ]}
                             />
                         </div>
 
-                        <div className="chart-line">
-                            <Line
-                                data={statisticsSubmitTime}
-                                options={submitTimeLineChart}
-                                height="400"
-                                width="500"
+                        <div className="p-3">
+                            <MDBDataTableV5
+                                hover striped bordered
+                                entriesOptions={[10, 25, 50, 100]}
+                                entries={10}
+                                pagesAmount={4}
+                                data={tableData}
+                                materialSearch
                             />
                         </div>
                     </div>

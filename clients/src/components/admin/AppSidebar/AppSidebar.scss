@@ -37,12 +37,19 @@
             }
 
             .accordion-item {
+                .accordion-button {
+                    padding: 0.75rem 0.75rem !important;
+                }
+
                 .accordion-header {
                     .accordion-button {
                         font-weight: bolder;
                         font-size: 1.1rem;
                         color: $theme-color;
                         text-transform: uppercase;
+                        button {
+                            text-align: start !important;
+                        }
                     }
                 }
 
@@ -56,6 +63,8 @@
                             border: none !important;
                             font-size: 1.1rem;
                             border-radius: 0 !important;
+                            text-align: left !important;
+                            padding-left: 2rem !important;
                         }
 
                         button:hover, button:focus, button:active {

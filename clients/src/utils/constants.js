@@ -29,7 +29,10 @@ export const STATUS = {
     DEACTIVE: 'deactive',
     DELETED: 'deleted',
     OK: 'ok',
-    ARCHIVED: 'archived'
+    ARCHIVED: 'archived',
+    NOT_SUBMITTED: 'not submitted',
+    PASSED: 'passed',
+    FAILED: 'failed'
 }
 
 export const ADMIN = {
@@ -58,5 +61,35 @@ export const ADMIN = {
         ACCOUNT: 'Tài khoản',
         THEME: 'Theme',
         NOTIFICATION: 'Thông báo'
+    }
+}
+
+export const STATISTICS = {
+    ACCOUNT: {
+        STT: 'STT',
+        USERNAME: 'Username',
+        FULLNAME: 'Họ tên',
+        EMAIL: 'Email',
+        ROLE: 'Loại tài khoản',
+        ADDRESS: 'Địa chỉ',
+        DOB: 'Ngày sinh',
+        SCHOOL: 'Trường',
+        PHONE: 'SĐT',
+        AVATAR: 'Ảnh đại diện',
+        STATUS: 'Trạng thái',
+        _AVATAR: 'Ảnh',
+        _STATUS: 'Status'
+    },
+    TAKE_TEST: {
+        STT: 'STT',
+        TEST_NAME: 'Tên bài thi',
+        TEST_URL: 'Link bài thi',
+        EXAMINEE: 'Thí sinh',
+        EXAMINEE_FULLNAME: 'Họ tên thí sinh',
+        EXAMINEE_USERNAME: 'Username',
+        POINTS: 'Điểm',
+        SUBMIT_TIME: 'Thời gian nộp bài',
+        STATUS: 'Trạng thái',
+        IS_PASSED: 'Pass/Fail'
     }
 }

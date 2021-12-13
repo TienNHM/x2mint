@@ -66,10 +66,11 @@ function MultiChoices() {
                 })
 
                 const newTakeTest = {
-                    _status: STATUS.OK,
+                    _status: STATUS.NOT_SUBMITTED,
                     questionsOrder: t.questionsOrder,
                     chooseAnswers: chooseAnswers,
-                    test: t.id
+                    test: t.id,
+                    user: user.id
                 }
 
                 callCreateTakeTest(newTakeTest)
@@ -99,7 +100,9 @@ function MultiChoices() {
 
     const updateTakeTestInfo = async (question, chooseAnswer) => {
         //Nếu ko phải creator thì update lại takeTest
-        const newTakeTest = { ...takeTest }
+        const newTakeTest = {
+            ...takeTest
+        }
         const choose = {
             question: question._id,
             answers: [...chooseAnswer]
@@ -125,7 +128,7 @@ function MultiChoices() {
     return (
         <div className="app-container">
             {isSubmitted &&
-                <Navigate to={`/takeTest/${takeTest.id}`} />
+                <Navigate to={`/takeTest/${takeTest._id}`} />
             }
 
             {testIsLoading &&

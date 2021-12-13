@@ -1,0 +1,24 @@
+@import '_setting.scss';
+
+.account-management {
+    table {
+        .dropdown-toggle {
+            width: 80px;
+            border-radius: 30px;
+            text-transform: capitalize;
+        }
+
+        .dropdown-item {
+            text-transform: capitalize;
+            text-align: center;
+        }
+
+        .badge {
+            width: 64px;
+        }
+
+        .badge:hover {
+            cursor: pointer;
+        }
+    }
+}

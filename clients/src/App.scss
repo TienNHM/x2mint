@@ -13,9 +13,10 @@ button {
 }
 
 .app {
-  &__body{
-    margin-top:80px;
+  &__body {
+    margin-top: 80px;
   }
+
   background-color: $app-bg-color;
   align-items: center;
   text-align: center;
@@ -37,4 +38,9 @@ button {
     line-height: 1.6rem !important;
   }
 
+  table {
+    td {
+      vertical-align: middle;
+    }
+  }
 }
