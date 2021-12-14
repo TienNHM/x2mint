@@ -47,7 +47,9 @@ export function StatisticAccountOverview(users) {
     return res
 }
 
-export const COLUMNS = [
+//#region User info
+
+export const USER_INFO_COLUMNS = [
     {
         label: STATISTICS.ACCOUNT.STT,
         field: STATISTICS.ACCOUNT.STT,
@@ -161,9 +163,124 @@ export function ExportDataUser(data, onClickUserStatus) {
         return item
     })
     const result = {
-        columns: [...COLUMNS],
+        columns: [...USER_INFO_COLUMNS],
         rows: rows
     }
 
     return result
 }
+
+//#endregion
+
+//#region User permissions
+export const USER_PERMISSIONS_COLUMNS = [
+    {
+        label: STATISTICS.ACCOUNT.STT,
+        field: STATISTICS.ACCOUNT.STT,
+        sort: 'asc',
+        width: 100
+    },
+    {
+        label: STATISTICS.ACCOUNT.USERNAME,
+        field: STATISTICS.ACCOUNT.USERNAME,
+        sort: 'asc',
+        width: 100
+    },
+    {
+        label: STATISTICS.ACCOUNT.EMAIL,
+        field: STATISTICS.ACCOUNT.EMAIL,
+        sort: 'asc',
+        width: 200
+    },
+    {
+        label: STATISTICS.ACCOUNT.PHONE,
+        field: STATISTICS.ACCOUNT.PHONE,
+        sort: 'asc',
+        width: 100
+    },
+    {
+        label: STATISTICS.ACCOUNT._AVATAR,
+        field: STATISTICS.ACCOUNT._AVATAR,
+        sort: 'disabled',
+        width: 200
+    },
+    {
+        label: STATISTICS.ACCOUNT._ROLE,
+        field: STATISTICS.ACCOUNT._ROLE,
+        sort: 'disabled',
+        width: 200
+    },
+    {
+        label: STATISTICS.ACCOUNT._STATUS,
+        field: STATISTICS.ACCOUNT._STATUS,
+        sort: 'asc',
+        width: 200
+    }
+]
+
+export function GetUserPermissionsComponent(index, user, onClickUserPermissions) {
+    let variant = 'secondary'
+
+    if (user.role === ROLE.USER) {
+        variant = 'primary'
+    }
+    else if (user.role === ROLE.CREATOR) {
+        variant = 'warning'
+    }
+    else if (user.role === ROLE.ADMIN) {
+        variant = 'danger'
+    }
+
+    const role = (
+        <DropdownButton id="dropdown-basic-button"
+            title={user.role}
+            variant={variant} size="sm">
+            <div className="text-center fw-bolder">Quyền tài khoản</div>
+            <Dropdown.Divider/>
+            <Dropdown.Item
+                onClick={() => onClickUserPermissions(index, user, ROLE.USER)}>
+                <Badge pill bg="primary">{ROLE.USER}</Badge>
+            </Dropdown.Item>
+            <Dropdown.Item
+                onClick={() => onClickUserPermissions(index, user, ROLE.CREATOR)}>
+                <Badge pill bg="warning">{ROLE.CREATOR}</Badge>
+            </Dropdown.Item>
+            <Dropdown.Item
+                onClick={() => onClickUserPermissions(index, user, ROLE.ADMIN)}>
+                <Badge pill bg="danger">{ROLE.ADMIN}</Badge>
+            </Dropdown.Item>
+        </DropdownButton>
+    )
+
+    return role
+}
+
+export function ExportDataUserPermissions(data, onClickUserPermissions, onClickUserStatus) {
+    const rows = data.map((value, index) => {
+        const avatar = value.avatar ?
+            <Image roundedCircle src={value.avatar} width="32px" height="32px" alt="avatar" /> :
+            <Image roundedCircle src={process.env.PUBLIC_URL + '/assets/male-user.png'} width="32px" height="32px" alt="avatar" />
+
+        const item = {
+            [STATISTICS.ACCOUNT.STT]: index + 1,
+            [STATISTICS.ACCOUNT.USERNAME]: value.username,
+            [STATISTICS.ACCOUNT.EMAIL]: value.email,
+            [STATISTICS.ACCOUNT.PHONE]: value.phone,
+            [STATISTICS.ACCOUNT.AVATAR]: value.avatar,
+            [STATISTICS.ACCOUNT.ROLE]: value.role,
+            [STATISTICS.ACCOUNT.STATUS]: value._status,
+            [STATISTICS.ACCOUNT._AVATAR]: avatar,
+            [STATISTICS.ACCOUNT._ROLE]: GetUserPermissionsComponent(index, value, onClickUserPermissions),
+            [STATISTICS.ACCOUNT._STATUS]: GetUserStatusComponent(index, value, onClickUserStatus)
+        }
+        return item
+    })
+    const result = {
+        columns: [...USER_PERMISSIONS_COLUMNS],
+        rows: rows
+    }
+
+    return result
+}
+
+//#endregion

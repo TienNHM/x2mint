@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ADMIN } from 'utils/constants'
+import AccountGrantPermissions from './Account/AccountGrantPermissions/AccountGrantPermissions'
 import AccountManagement from './Account/AccountManagement/AccountManagement'
 import AccountStatistics from './Account/AccountStatistics/AccountStatistics'
 import ContestParticipants from './Contest/ContestParticipants/ContestParticipants'
@@ -15,6 +16,9 @@ export default function AppContent({ currentAction }) {
         }
         else if (currentAction === ADMIN.ACCOUNT.MANAGE) {
             setComponent(<AccountManagement />)
+        }
+        else if (currentAction === ADMIN.ACCOUNT.GRANT_PERMISSIONS) {
+            setComponent(<AccountGrantPermissions />)
         }
         else if (currentAction === ADMIN.CONTEST.STATISTICS) {
             setComponent(<ContestStatistics />)

@@ -78,6 +78,7 @@ export const STATISTICS = {
         AVATAR: 'Ảnh đại diện',
         STATUS: 'Trạng thái',
         _AVATAR: 'Ảnh',
+        _ROLE: 'Quyền',
         _STATUS: 'Status'
     },
     TAKE_TEST: {
