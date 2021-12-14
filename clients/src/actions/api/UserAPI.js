@@ -21,7 +21,7 @@ export const getAllUsers = async () => {
 
 export const getUserInfo = async (userId) => {
     try {
-        const url = `${process.env.REACT_APP_API_ROOT}/users/info/${userId}`
+        const url = `${process.env.REACT_APP_API_ROOT}/users/${userId}/info`
         const request = await axios.get(url, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
