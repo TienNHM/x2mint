@@ -13,7 +13,7 @@ import { useAxios } from 'actions/useAxios'
 import { createTest, deleteTest } from 'actions/api/TestAPI'
 import { blankTest } from 'actions/initialData'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
-import { deleteContest as archiveContest, updateContest, updateTestsInContest } from 'actions/api/ContestAPI'
+import { archiveContest, updateContest, updateTestsInContest } from 'actions/api/ContestAPI'
 import { MODAL_ACTION, COOKIES, ROLE, STATUS } from 'utils/constants'
 import './ContestInfo.scss'
 

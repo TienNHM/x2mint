@@ -102,44 +102,48 @@ export const COLUMNS = [
     }
 ]
 
+export function GetUserStatusComponent(index, user, onClickUserStatus) {
+    let variant = 'secondary'
+
+    if (user._status === STATUS.OK) {
+        variant = 'primary'
+    }
+    else if (user._status === STATUS.DEACTIVE) {
+        variant = 'warning'
+    }
+    else if (user._status=== STATUS.DELETED) {
+        variant = 'danger'
+    }
+
+    const status = (
+        <DropdownButton id="dropdown-basic-button"
+            title={user._status}
+            variant={variant} size="sm">
+            <div className="text-center fw-bolder">Trạng thái tài khoản</div>
+            <Dropdown.Divider/>
+            <Dropdown.Item
+                onClick={() => onClickUserStatus(index, user, STATUS.OK)}>
+                <Badge pill bg="primary">{STATUS.OK}</Badge>
+            </Dropdown.Item>
+            <Dropdown.Item
+                onClick={() => onClickUserStatus(index, user, STATUS.DEACTIVE)}>
+                <Badge pill bg="warning">{STATUS.DEACTIVE}</Badge>
+            </Dropdown.Item>
+            <Dropdown.Item
+                onClick={() => onClickUserStatus(index, user, STATUS.DELETED)}>
+                <Badge pill bg="danger">{STATUS.DELETED}</Badge>
+            </Dropdown.Item>
+        </DropdownButton>
+    )
+
+    return status
+}
+
 export function ExportDataUser(data, onClickUserStatus) {
     const rows = data.map((value, index) => {
         const avatar = value.avatar ?
             <Image roundedCircle src={value.avatar} width="32px" height="32px" alt="avatar" /> :
             <Image roundedCircle src={process.env.PUBLIC_URL + '/assets/male-user.png'} width="32px" height="32px" alt="avatar" />
-
-        //#region Status
-        let variant = 'secondary'
-
-        if (value._status === STATUS.OK) {
-            variant = 'primary'
-        }
-        else if (value._status === STATUS.DEACTIVE) {
-            variant = 'warning'
-        }
-        else if (value._status === STATUS.DELETED) {
-            variant = 'danger'
-        }
-
-        const status = (
-            <DropdownButton id="dropdown-basic-button"
-                title={value._status}
-                variant={variant} size="sm">
-                <Dropdown.Item
-                    onClick={() => onClickUserStatus(value, STATUS.OK)}>
-                    <Badge pill bg="primary">{STATUS.OK}</Badge>
-                </Dropdown.Item>
-                <Dropdown.Item
-                    onClick={() => onClickUserStatus(value, STATUS.DEACTIVE)}>
-                    <Badge pill bg="warning">{STATUS.DEACTIVE}</Badge>
-                </Dropdown.Item>
-                <Dropdown.Item
-                    onClick={() => onClickUserStatus(value, STATUS.DELETED)}>
-                    <Badge pill bg="danger">{STATUS.DELETED}</Badge>
-                </Dropdown.Item>
-            </DropdownButton>
-        )
-        //#endregion
 
         const item = {
             [STATISTICS.ACCOUNT.STT]: index + 1,
@@ -152,7 +156,7 @@ export function ExportDataUser(data, onClickUserStatus) {
             [STATISTICS.ACCOUNT.ADDRESS]: value.address,
             [STATISTICS.ACCOUNT.AVATAR]: value.avatar,
             [STATISTICS.ACCOUNT.STATUS]: value._status,
-            [STATISTICS.ACCOUNT._STATUS]: status
+            [STATISTICS.ACCOUNT._STATUS]: GetUserStatusComponent(index, value, onClickUserStatus)
         }
         return item
     })
