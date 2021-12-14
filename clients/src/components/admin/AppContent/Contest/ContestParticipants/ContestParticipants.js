@@ -11,7 +11,7 @@ import './ContestParticipants.scss'
 import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import { cloneDeep } from 'lodash'
-import { COLOR } from 'utils/colors'
+import { getCurrentDatetime } from 'utils/timeUtils'
 
 export default function ContestParticipants() {
     const [takeTestStatistics, setTakeTestStatistics] = useState(null)
@@ -156,7 +156,7 @@ export default function ContestParticipants() {
                         <div>
                             <ExportToExcel
                                 apiData={cloneDeep(tableData.rows)}
-                                fileName={Date.now().toString()}
+                                fileName={'Danh sách các lượt thi - ' + getCurrentDatetime()}
                                 fieldsToBeRemoved={[
                                     STATISTICS.TAKE_TEST.EXAMINEE,
                                     STATISTICS.TAKE_TEST.IS_PASSED

@@ -11,6 +11,7 @@ import { ExportToExcel } from 'utils/ExportToExcel'
 import { cloneDeep } from 'lodash'
 import { ExportDataUser } from '../data'
 import { updateUserInfo } from 'actions/api/UserAPI'
+import { getCurrentDatetime } from 'utils/timeUtils'
 
 export default function AccountManagement() {
     const [tableData, setTableData] = useState(null)
@@ -85,7 +86,7 @@ export default function AccountManagement() {
                         <div>
                             <ExportToExcel
                                 apiData={cloneDeep(tableData.rows)}
-                                fileName={Date.now().toString()}
+                                fileName={'Danh sách người dùng - ' + getCurrentDatetime()}
                                 fieldsToBeRemoved={[
                                     STATISTICS.ACCOUNT._AVATAR,
                                     STATISTICS.ACCOUNT._STATUS
