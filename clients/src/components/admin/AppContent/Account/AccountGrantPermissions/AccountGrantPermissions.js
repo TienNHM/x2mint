@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './AccountManagement.scss'
+import './AccountGrantPermissions.scss'
 import 'react-toastify/dist/ReactToastify.css'
 import { toast, ToastContainer } from 'react-toastify'
 import { useAxios } from 'actions/useAxios'
@@ -9,11 +9,11 @@ import { HashLoader } from 'react-spinners'
 import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import { cloneDeep } from 'lodash'
-import { ExportDataUser } from '../data'
+import { ExportDataUserPermissions } from '../data'
 import { updateUserInfo } from 'actions/api/UserAPI'
 import { getCurrentDatetime } from 'utils/timeUtils'
 
-export default function AccountManagement() {
+export default function AccountGrantPermissions() {
     const [tableData, setTableData] = useState(null)
     const [users, setUsers] = useState(null)
 
@@ -27,6 +27,23 @@ export default function AccountManagement() {
             Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
         }
     })
+
+    const onClickUserPermissions = async (index, user, newRole) => {
+        const _user = {
+            ...user,
+            _id: user.id,
+            role: newRole
+        }
+
+        await updateUserInfo(_user)
+
+        // Update lại table
+        const newUsers = [...users]
+        newUsers[index] = _user
+        setUsers(newUsers)
+
+        toast.success('🎉 Update thành công!')
+    }
 
     const onClickUserStatus = async (index, user, newStatus) => {
         const _user = {
@@ -48,19 +65,28 @@ export default function AccountManagement() {
     useEffect(() => {
         if (response) {
             setUsers(response.data.users)
-            setTableData(ExportDataUser(response.data.users, onClickUserStatus))
+            const data = ExportDataUserPermissions(
+                response.data.users,
+                onClickUserPermissions,
+                onClickUserStatus
+            )
+            setTableData(data)
         }
     }, [response])
 
     useEffect(() => {
         if (users) {
-            const data = ExportDataUser(users, onClickUserStatus)
+            const data = ExportDataUserPermissions(
+                users,
+                onClickUserPermissions,
+                onClickUserStatus
+            )
             setTableData(data)
         }
     }, [users])
 
     return (
-        <div className="account-management">
+        <div className="account-permissions">
             {loading &&
                 <div
                     className='sweet-loading d-flex justify-content-center align-items-center'
@@ -86,7 +112,7 @@ export default function AccountManagement() {
                         <div>
                             <ExportToExcel
                                 apiData={cloneDeep(tableData.rows)}
-                                fileName={'Danh sách người dùng - ' + getCurrentDatetime()}
+                                fileName={'Danh sách phân quyền người dùng - ' + getCurrentDatetime()}
                                 fieldsToBeRemoved={[
                                     STATISTICS.ACCOUNT._AVATAR,
                                     STATISTICS.ACCOUNT._STATUS

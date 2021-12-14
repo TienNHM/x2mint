@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './AccountManagement.scss'
+import './ContestArchived.scss'
 import 'react-toastify/dist/ReactToastify.css'
 import { toast, ToastContainer } from 'react-toastify'
 import { useAxios } from 'actions/useAxios'
@@ -9,13 +9,13 @@ import { HashLoader } from 'react-spinners'
 import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import { cloneDeep } from 'lodash'
-import { ExportDataUser } from '../data'
-import { updateUserInfo } from 'actions/api/UserAPI'
+import { ExportDataArchiveContest } from '../data'
 import { getCurrentDatetime } from 'utils/timeUtils'
+import { updateContest } from 'actions/api/ContestAPI'
 
-export default function AccountManagement() {
+export default function ContestArchived() {
     const [tableData, setTableData] = useState(null)
-    const [users, setUsers] = useState(null)
+    const [contests, setContests] = useState(null)
 
     const {
         response,
@@ -28,39 +28,39 @@ export default function AccountManagement() {
         }
     })
 
-    const onClickUserStatus = async (index, user, newStatus) => {
-        const _user = {
-            ...user,
-            _id: user.id,
+    const onClickContestStatus = async (index, contest, newStatus) => {
+        const _contest = {
+            ...contest,
+            // _id: contest.id,
             _status: newStatus
         }
 
-        await updateUserInfo(_user)
+        await updateContest(_contest)
 
         // Update lại table
-        const newUsers = [...users]
-        newUsers[index] = _user
-        setUsers(newUsers)
+        const newContests = [...contests]
+        newContests[index] = _contest
+        setContests(newContests)
 
         toast.success('🎉 Update thành công!')
     }
 
     useEffect(() => {
         if (response) {
-            setUsers(response.data.users)
-            setTableData(ExportDataUser(response.data.users, onClickUserStatus))
+            setContests(response.data.contests)
+            setTableData(ExportDataArchiveContest(response.data.contests, onClickContestStatus))
         }
     }, [response])
 
     useEffect(() => {
-        if (users) {
-            const data = ExportDataUser(users, onClickUserStatus)
+        if (contests) {
+            const data = ExportDataArchiveContest(contests, onClickContestStatus)
             setTableData(data)
         }
-    }, [users])
+    }, [contests])
 
     return (
-        <div className="account-management">
+        <div className="contest-archive">
             {loading &&
                 <div
                     className='sweet-loading d-flex justify-content-center align-items-center'
@@ -86,10 +86,11 @@ export default function AccountManagement() {
                         <div>
                             <ExportToExcel
                                 apiData={cloneDeep(tableData.rows)}
-                                fileName={'Danh sách người dùng - ' + getCurrentDatetime()}
+                                fileName={'Danh sách cuộc thi - ' + getCurrentDatetime()}
                                 fieldsToBeRemoved={[
-                                    STATISTICS.ACCOUNT._AVATAR,
-                                    STATISTICS.ACCOUNT._STATUS
+                                    STATISTICS.CONTEST._CREATOR,
+                                    STATISTICS.CONTEST._URL,
+                                    STATISTICS.CONTEST._STATUS
                                 ]}
                             />
                         </div>

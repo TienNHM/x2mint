@@ -47,7 +47,7 @@ export const ADMIN = {
         STATISTICS: 'Thống kê cuộc thi',
         PARTICIPANT: 'Lượt dự thi',
         LEADERBOARD: 'Bảng xếp hạng',
-        TRAFFIC: 'Lưu lượng truy cập',
+        TRAFFIC: 'Lượng truy cập',
         ARCHIVE: 'Lưu trữ'
     },
     RESOURCES: {
@@ -78,6 +78,7 @@ export const STATISTICS = {
         AVATAR: 'Ảnh đại diện',
         STATUS: 'Trạng thái',
         _AVATAR: 'Ảnh',
+        _ROLE: 'Quyền',
         _STATUS: 'Status'
     },
     TAKE_TEST: {
@@ -91,5 +92,17 @@ export const STATISTICS = {
         SUBMIT_TIME: 'Thời gian nộp bài',
         STATUS: 'Trạng thái',
         IS_PASSED: 'Pass/Fail'
+    },
+    CONTEST: {
+        STT: 'STT',
+        NAME: 'Tên cuộc thi',
+        START_TIME: 'Thời gian bắt đầu',
+        END_TIME: 'Thời gian kết thúc',
+        CREATOR: 'Người tạo cuộc thi',
+        URL: 'Link cuộc thi',
+        STATUS: 'Trạng thái',
+        _CREATOR: 'Người tạo',
+        _URL: 'Link',
+        _STATUS: 'Status'
     }
 }

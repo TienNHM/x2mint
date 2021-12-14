@@ -90,7 +90,7 @@ export const updateTestsInContest = async (contestId, testsList) => {
     }
 }
 
-export const deleteContest = async (contest) => {
+export const archiveContest = async (contest) => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/contests/${contest.id}/archive`
         const request = await axios.put(url, contest, {

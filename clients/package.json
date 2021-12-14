@@ -48,6 +48,7 @@
     "react-smooth-dnd": "^0.11.1",
     "react-spinners": "^0.11.0",
     "react-tiny-fab": "^4.0.4",
+    "react-toastify": "^8.1.0",
     "react-transition-group": "^4.4.2",
     "simplebar-react": "^2.3.6",
     "unsplash-js": "^7.0.15",
@@ -60,7 +61,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "eslint": "eslint src"
+    "eslint": "eslint src",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

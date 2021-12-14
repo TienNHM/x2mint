@@ -1,6 +1,6 @@
 @import '_setting.scss';
 
-.account-register {
+.account-permissions {
     &::-webkit-scrollbar {
         -webkit-appearance: none;
     }
@@ -21,28 +21,5 @@
         font-weight: bold;
         border-left: $gap solid orange;
         padding: $gap/2;
-    }
-
-    .overview {
-
-        >* {
-            margin: $gap;
-        }
-
-        .card {
-            .card-header {
-                font-weight: bolder;
-            }
-
-            .card-body {
-                .card-title {
-                    .number {
-                        text-transform: uppercase;
-                        font-weight: bolder;
-                        color: $light-theme-color;
-                    }
-                }
-            }
-        }
     }
 }

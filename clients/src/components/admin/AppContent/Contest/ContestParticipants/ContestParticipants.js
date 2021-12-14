@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Chart from 'chart.js/auto'
-import { Line, Bar, Pie, Doughnut } from 'react-chartjs-2'
+import { Line, Bar, Doughnut } from 'react-chartjs-2'
 import { useAxios } from 'actions/useAxios'
-import { Card } from 'react-bootstrap'
 import Cookies from 'js-cookie'
 import { COOKIES, STATISTICS } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
@@ -11,7 +10,7 @@ import './ContestParticipants.scss'
 import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import { cloneDeep } from 'lodash'
-import { COLOR } from 'utils/colors'
+import { getCurrentDatetime } from 'utils/timeUtils'
 
 export default function ContestParticipants() {
     const [takeTestStatistics, setTakeTestStatistics] = useState(null)
@@ -156,7 +155,7 @@ export default function ContestParticipants() {
                         <div>
                             <ExportToExcel
                                 apiData={cloneDeep(tableData.rows)}
-                                fileName={Date.now().toString()}
+                                fileName={'Danh sách các lượt thi - ' + getCurrentDatetime()}
                                 fieldsToBeRemoved={[
                                     STATISTICS.TAKE_TEST.EXAMINEE,
                                     STATISTICS.TAKE_TEST.IS_PASSED

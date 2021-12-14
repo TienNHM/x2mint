@@ -104,6 +104,7 @@ export default function AppSidebar({ currentAction, setCurrentAction }) {
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.TRAFFIC)}>
                                         <i className="fa fa-bar-chart me-3"></i>
                                         {ADMIN.CONTEST.TRAFFIC}
+                                        <i className="fa fa-exclamation-triangle ms-3"></i>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.ARCHIVE)}>
@@ -119,6 +120,7 @@ export default function AppSidebar({ currentAction, setCurrentAction }) {
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.STATISTICS)}>
                                         <i className="fas fa-seedling me-3"></i>
                                         Tài nguyên
+                                        <i className="fa fa-exclamation-triangle ms-3"></i>
                                     </Button>
                                 </Accordion.Header>
                                 <Accordion.Body>
@@ -168,6 +170,7 @@ export default function AppSidebar({ currentAction, setCurrentAction }) {
                                         onClick={() => setCurrentAction(ADMIN.SETTINGS.THEME)}>
                                         <i className="fas fa-palette me-3"></i>
                                         {ADMIN.SETTINGS.THEME}
+                                        <i className="fa fa-exclamation-triangle ms-3"></i>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.SETTINGS.NOTIFICATION)}>
