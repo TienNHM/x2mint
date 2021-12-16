@@ -7,37 +7,30 @@ import ContestArchive from './Contest/ContestArchive/ContestArchived'
 import ContestParticipants from './Contest/ContestParticipants/ContestParticipants'
 import ContestStatistics from './Contest/ContestStatistics/ContestStatistics'
 import Dashboard from './Dashboard/Dashboard'
+import SettingsAccount from './Settings/SettingsAccount/SettingsAccount'
 
 export default function AppContent({ currentAction }) {
     const [component, setComponent] = useState(null)
 
     useEffect(() => {
-        if (currentAction === ADMIN.ACCOUNT.STATISTICS) {
-            setComponent(<AccountStatistics />)
+        const components = {
+            [ADMIN.ACCOUNT.STATISTICS]: <AccountStatistics />,
+            [ADMIN.ACCOUNT.MANAGE]: <AccountManagement />,
+            [ADMIN.ACCOUNT.GRANT_PERMISSIONS]: <AccountGrantPermissions />,
+            [ADMIN.CONTEST.STATISTICS]: <ContestStatistics />,
+            [ADMIN.CONTEST.PARTICIPANT]: <ContestParticipants />,
+            [ADMIN.CONTEST.ARCHIVE]: <ContestArchive />,
+            [ADMIN.SETTINGS.ACCOUNT]: <SettingsAccount />,
+            [ADMIN.DASHBOARD]: <Dashboard />
         }
-        else if (currentAction === ADMIN.ACCOUNT.MANAGE) {
-            setComponent(<AccountManagement />)
-        }
-        else if (currentAction === ADMIN.ACCOUNT.GRANT_PERMISSIONS) {
-            setComponent(<AccountGrantPermissions />)
-        }
-        else if (currentAction === ADMIN.CONTEST.STATISTICS) {
-            setComponent(<ContestStatistics />)
-        }
-        else if (currentAction === ADMIN.CONTEST.PARTICIPANT) {
-            setComponent(<ContestParticipants />)
-        }
-        else if (currentAction === ADMIN.CONTEST.ARCHIVE) {
-            setComponent(<ContestArchive />)
-        }
-        else {
-            setComponent(<Dashboard />)
-        }
+
+        setComponent(components[currentAction])
+
     }, [currentAction])
 
     return (
         <div>
-            {component}
+            {component ? component : <Dashboard />}
         </div>
     )
 }
