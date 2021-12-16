@@ -208,7 +208,7 @@ export default function Contest() {
 
                 <div className="heading-contest h4 col-8 col-sm-6">Các cuộc thi</div>
 
-                <div className="create-contest col-2 col-sm-3 d-flex justify-content-end">
+                <div className="create-contest col-2 d-flex justify-content-end">
                     {user.role !== ROLE.USER &&
                         <Button variant="success" size="sm"
                             onClick={() => setIsShowConfirmModal(true)}>

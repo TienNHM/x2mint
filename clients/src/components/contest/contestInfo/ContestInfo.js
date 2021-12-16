@@ -242,13 +242,15 @@ export default function ContestInfo() {
                 }
 
                 {!contestIsLoading &&
-                    <div className="container-section">
-                        <div className="contest-show-info">
+                    <div className="container-section row">
+                        <div className="contest-show-info col-xl-3 col-lg-4 col-md-5 col-sm-12">
                             <Card className="text-center">
-                                <Image fluid={true} variant="top"
-                                    src={embededMedia}
-                                    className="p-3 contest-image"
-                                />
+                                <div className="d-flex justify-content-center">
+                                    <Image fluid={true} variant="top"
+                                        src={embededMedia}
+                                        className="p-3 contest-image"
+                                    />
+                                </div>
                                 <Card.Body>
                                     <Card.Title>{title}</Card.Title>
 
@@ -258,7 +260,9 @@ export default function ContestInfo() {
                                         </Badge>
                                     }
 
-                                    <Card.Text className="m-2">{description}</Card.Text>
+                                    <Card.Text className="m-2 d-flex align-items-center justify-content-center">
+                                        {description}
+                                    </Card.Text>
 
                                     <ListGroup className="list-group-flush">
                                         <ListGroupItem>
@@ -346,7 +350,7 @@ export default function ContestInfo() {
                             </Card>
                         </div>
 
-                        <div className="list-tests">
+                        <div className="list-tests col-xl-9 col-lg-8 col-md-7 col-sm-12">
                             <Card border="secondary">
                                 <Card.Header className="row h5">
                                     <div className="">
@@ -362,69 +366,79 @@ export default function ContestInfo() {
                                     {contest.tests.map((test, index) =>
                                         <Card.Body key={index} className="row">
                                             <div className="card-test-preview">
-                                                <div className="card-test-index col-md-1 col-sm-12">
+                                                <div className="card-test-index col-12 col-lg-1">
                                                     <div className="test-index d-flex justify-content-center align-middle">{index + 1}</div>
                                                 </div>
 
-                                                <div className="card-test-info col-md-10 col-sm-12 pt-3 pb-3">
+                                                <div className="card-test-info col-12 col-lg-10 pt-3 pb-3">
                                                     <div className="card-test-title h5">{test.name}</div>
-                                                    <div className="card-test-description m-3">{test.description}</div>
+
+                                                    <div className="card-test-description m-3">
+                                                        {test.description}
+                                                    </div>
 
                                                     <hr style={{ width: '50%', height: '1px', margin: '12px auto' }} />
 
                                                     <div className="detail row">
-                                                        <div className="start-time col-md-4 col-12">
+                                                        <div className="start-time col-md-4 col-sm-12 p-3">
                                                             <div className="fw-bolder">Thời gian bắt đầu: </div>
                                                             <div>{test.startTime}</div>
                                                         </div>
 
-                                                        <div className="duration col-md-4 col-12">
+                                                        <div className="duration col-md-4 col-sm-12 p-3">
                                                             <div className="fw-bolder">Thời lượng làm bài: </div>
                                                             <div>{displayTimeDelta(test.startTime, test.endTime)}</div>
                                                         </div>
-                                                        <div className="card-test-quantity col-md-4 col-12">
+
+                                                        <div className="card-test-quantity col-md-4 col-sm-12 p-3">
                                                             <div className="fw-bolder">Số câu hỏi: </div>
                                                             <div>{test.questions.length}</div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div className="card-test-actions col-md-1 col-sm-12  pt-3 pb-3">
-                                                    <Button variant="info" size="sm"
-                                                        onClick={() => handleShareContent(`/test/${test._id}`, test.name, test.description)}
-                                                        className="fw-bolder text-light"
-                                                    >
-                                                        <i className="fa fa-share"></i>
-                                                    </Button>
+                                                <div className="card-test-actions col-12 col-lg-1 pt-3 pb-3">
+                                                    <div className="row">
+                                                        <Button variant="info" size="sm"
+                                                            onClick={() => handleShareContent(`/test/${test._id}`, test.name, test.description)}
+                                                            className="fw-bolder text-light col"
+                                                        >
+                                                            <i className="fa fa-share"></i>
+                                                        </Button>
 
-                                                    {user.role !== ROLE.USER &&
-                                                        <>
-                                                            <Button variant="warning" size="sm"
-                                                                onClick={() => handleStatisticsTest(test)} >
-                                                                <i className="fa fa-bar-chart"></i>
-                                                            </Button>
-                                                            <Button variant="primary" size="sm"
-                                                                onClick={() => navigate(`/test/${test._id}`)}>
-                                                                <i className="fa fa-edit"></i>
-                                                            </Button>
-                                                            <Button variant="danger" size="sm"
-                                                                onClick={() => handleDeleteTest(test)} >
-                                                                <i className="fa fa-remove"></i>
-                                                            </Button>
-                                                        </>
-                                                    }
+                                                        {user.role !== ROLE.USER &&
+                                                            <>
+                                                                <Button variant="warning" size="sm"
+                                                                    className="col"
+                                                                    onClick={() => handleStatisticsTest(test)} >
+                                                                    <i className="fa fa-bar-chart"></i>
+                                                                </Button>
+                                                                <Button variant="primary" size="sm"
+                                                                    className="col"
+                                                                    onClick={() => navigate(`/test/${test._id}`)}>
+                                                                    <i className="fa fa-edit"></i>
+                                                                </Button>
+                                                                <Button variant="danger" size="sm"
+                                                                    className="col"
+                                                                    onClick={() => handleDeleteTest(test)} >
+                                                                    <i className="fa fa-remove"></i>
+                                                                </Button>
+                                                            </>
+                                                        }
 
-                                                    {user.role === ROLE.USER &&
-                                                        <>
-                                                            <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
-                                                                disabled={Date.parse(test.endTime) - Date.now() <= 0}
-                                                                onClick={() => navigate(`/test/${test._id}`)}
-                                                                size="sm"
-                                                            >
-                                                                <i className="fas fa-pen"></i>
-                                                            </Button>
-                                                        </>
-                                                    }
+                                                        {user.role === ROLE.USER &&
+                                                            <>
+                                                                <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
+                                                                    disabled={Date.parse(test.endTime) - Date.now() <= 0}
+                                                                    onClick={() => navigate(`/test/${test._id}`)}
+                                                                    size="sm"
+                                                                    className="col"
+                                                                >
+                                                                    <i className="fas fa-pen"></i>
+                                                                </Button>
+                                                            </>
+                                                        }
+                                                    </div>
                                                 </div>
                                             </div>
                                         </Card.Body>
