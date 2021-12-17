@@ -1,1 +1,24 @@
 @import '_setting.scss';
+
+.settings-account {
+    .basic-info {
+        button {
+            font-weight: bold;
+            width: 100px;
+        }
+    }
+    .detail-info-section {
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            // margin-right: $gap !important;
+            width: 98%;
+        }
+    
+        @media screen and (max-width: 768px){
+            padding: 0px !important;
+        }
+    }
+}

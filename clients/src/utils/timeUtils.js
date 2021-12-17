@@ -36,6 +36,11 @@ export const splitTime = (time) => {
     }
 }
 
+export const displayTime = (time) => {
+    const datetime = splitTime(time)
+    return datetime.time + ' ngày ' + datetime.date
+}
+
 export const getCurrentDatetime = () => {
     var currentdate = new Date()
     var datetime = currentdate.getDate() + '-'

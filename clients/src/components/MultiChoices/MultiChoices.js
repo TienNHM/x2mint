@@ -149,43 +149,51 @@ function MultiChoices() {
             }
 
             {!testIsLoading &&
-                <>
+                <div className="row">
                     {!isUser ?
                         (
-                            <PanelPreview
-                                test={test}
-                                setTest={setTest}
-                                questions={questions}
-                                setQuestions={setQuestions}
-                                selectedQuestion={selectedQuestion}
-                                setSelectedQuestion={setSelectedQuestion}
-                            />
+                            <div className="col-lg-2 col-12">
+                                <PanelPreview
+                                    test={test}
+                                    setTest={setTest}
+                                    questions={questions}
+                                    setQuestions={setQuestions}
+                                    selectedQuestion={selectedQuestion}
+                                    setSelectedQuestion={setSelectedQuestion}
+                                />
+                            </div>
                         ) : (
-                            <PanelQuestionPicker
-                                test={test}
-                                selectedQuestion={selectedQuestion}
-                                setSelectedQuestion={setSelectedQuestion}
-                                takeTest={takeTest}
-                                setIsSubmitted={setIsSubmitted}
-                            />
+                            <div className="col-lg-2 col-12">
+                                <PanelQuestionPicker
+                                    test={test}
+                                    selectedQuestion={selectedQuestion}
+                                    setSelectedQuestion={setSelectedQuestion}
+                                    takeTest={takeTest}
+                                    setIsSubmitted={setIsSubmitted}
+                                />
+                            </div>
                         )
                     }
 
-                    <Question
-                        question={selectedQuestion}
-                        setQuestion={updateSelectedQuestion}
-                        isCreator={!isUser}
-                        takeTest={takeTest}
-                        updateTakeTest={updateTakeTestInfo}
-                    />
+                    <div className="col-lg-8 col-12">
+                        <Question
+                            question={selectedQuestion}
+                            setQuestion={updateSelectedQuestion}
+                            isCreator={!isUser}
+                            takeTest={takeTest}
+                            updateTakeTest={updateTakeTestInfo}
+                        />
+                    </div>
 
-                    <PanelSettings
-                        test={test}
-                        setTest={setTest}
-                        isCreator={!isUser}
-                        setSelectedQuestion={updateSelectedQuestion}
-                    />
-                </>
+                    <div className="col-lg-2 col-12" id="panel-settings">
+                        <PanelSettings
+                            test={test}
+                            setTest={setTest}
+                            isCreator={!isUser}
+                            setSelectedQuestion={updateSelectedQuestion}
+                        />
+                    </div>
+                </div>
             }
         </div>
     )

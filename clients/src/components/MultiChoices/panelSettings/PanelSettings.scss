@@ -2,136 +2,155 @@
 
 $question-attribute-setting-height: 80px;
 
-.panel-right {
-    width: 23vw;
-    padding: 10px;
-    background-color: $bg-color;
-    font-size: 0px;
-
-    .panel-right-title {
-        background-color: $theme-color;
-        font-weight: bold;
-        font-size: 16px;
-        text-transform: uppercase;
-        color: white;
-        padding: $gap/2;
-    }
-
-    .attributes {
-        height: 78vh;
-
-        input,
-        textarea {
-            outline: none !important;
-            box-shadow: none !important;
-            margin: 0 !important;
-            text-align: center !important;
+.panel-settings {
+    .panel-right {
+        padding: 10px;
+        background-color: $bg-color;
+        font-size: 0px;
+    
+        .row > * {
+            padding-left: 0 !important;
         }
-
-        >* {
-            border: 2px solid $border-color;
-            margin-top: $gap;
-            margin-bottom: $gap;
+    
+        .panel-right-title {
+            background-color: $theme-color;
             font-weight: bold;
             font-size: 16px;
-            padding: $gap/2 $gap $gap $gap;
-            border-radius: $gap;
+            text-transform: uppercase;
+            color: white;
+            padding: $gap/2;
         }
-
-        .attribute-title {
-            .title {
-                .attribute-title-input {
-                    width: 100%;
-                    background-color: rgba(255, 255, 255, 0.877);
+    
+        .attributes {
+            height: 75.5vh;
+    
+            input,
+            textarea {
+                outline: none !important;
+                box-shadow: none !important;
+                margin: 0 !important;
+                text-align: center !important;
+            }
+    
+            >* {
+                border: 2px solid $border-color;
+                margin-top: $gap;
+                margin-bottom: $gap;
+                font-weight: bold;
+                font-size: 16px;
+                padding: $gap/2 $gap $gap $gap;
+                border-radius: $gap;
+            }
+    
+            .attribute-title {
+                .title {
+                    .attribute-title-input {
+                        width: 100%;
+                        background-color: rgba(255, 255, 255, 0.877);
+                    }
+                }
+    
+                textarea {
+                    resize: none;
                 }
             }
-
-            textarea {
-                resize: none;
+    
+            .time-picker {
+                .start-time {
+                    display: flex;
+                }
+            }
+    
+            .question-type {
+    
+                >* {
+                    width: 100%;
+                    margin-top: $gap/2;
+                    margin-bottom: $gap/2;
+                }
+            }
+    
+            .question-time-limit {
+                >* {
+                    width: 100%;
+                    margin-top: $gap/2;
+                    margin-bottom: $gap/2;
+                }
+            }
+    
+            .question-points {
+                >* {
+                    width: 100%;
+                    margin-top: $gap/2;
+                    margin-bottom: $gap/2;
+                }
+            }
+    
+            .question-music {
+    
+                >* {
+                    width: 100%;
+                    margin-top: $gap/2;
+                    margin-bottom: $gap/2;
+                }
+            }
+    
+            .question-answer-option {
+    
+                >* {
+                    width: 100%;
+                    margin-top: $gap/2;
+                    margin-bottom: $gap/2;
+                }
             }
         }
-
-        .time-picker {
-            .start-time {
-                display: flex;
-            }
-        }
-
-        .question-type {
-
-            >* {
-                width: 100%;
-                margin-top: $gap/2;
-                margin-bottom: $gap/2;
-            }
-        }
-
-        .question-time-limit {
-            >* {
-                width: 100%;
-                margin-top: $gap/2;
-                margin-bottom: $gap/2;
-            }
-        }
-
-        .question-points {
-            >* {
-                width: 100%;
-                margin-top: $gap/2;
-                margin-bottom: $gap/2;
-            }
-        }
-
-        .question-music {
-
-            >* {
-                width: 100%;
-                margin-top: $gap/2;
-                margin-bottom: $gap/2;
-            }
-        }
-
-        .question-answer-option {
-
-            >* {
-                width: 100%;
-                margin-top: $gap/2;
-                margin-bottom: $gap/2;
-            }
-        }
-    }
-
-    .section-title {
-        text-align: center;
-        font-weight: bold;
-        font-size: 16px;
-        margin: $gap/2 0;
-    }
-
-    .quick-actions {
-        height: $quick-action-height;
-        display: flex;
-        margin-top: $gap;
-
-        >* {
-            width: 50%;
-            margin: 0 3px;
+    
+        .section-title {
+            text-align: center;
             font-weight: bold;
-            color: white;
+            font-size: 16px;
+            margin: $gap/2 0;
+        }
+    
+        .quick-actions {
+            height: $quick-action-height;
+            display: flex;
+            margin-top: $gap;
+    
+            >* {
+                width: 50%;
+                margin: 0 3px;
+                font-weight: bold;
+                color: white;
+            }
+        }
+    
+        .form-control:disabled,
+        .form-control[readonly] {
+            background-color: transparent !important;
+            border: none;
+            color: $theme-color;
+            font-weight: bolder;
+            font-size: 1rem;
+        }
+    
+        .max-points:disabled,
+        .max-points[readonly] {
+            font-size: 2.5rem;
         }
     }
 
-    .form-control:disabled,
-    .form-control[readonly] {
-        background-color: transparent !important;
-        border: none;
-        color: $theme-color;
-        font-weight: bolder;
-        font-size: 1rem;
+    .floating-buttons {
+        visibility: hidden;
     }
-
-    .max-points:disabled,
-    .max-points[readonly] {
-        font-size: 2.5rem;
+    
+    @media screen and (max-width: 992px){
+        .panel-right {
+            display: none;
+        }
+        
+        .floating-buttons {
+            visibility: visible;
+        }
     }
 }

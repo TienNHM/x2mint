@@ -1,6 +1,6 @@
 @import '_setting.scss';
 
-.account-register {
+.dashboard {
     &::-webkit-scrollbar {
         -webkit-appearance: none;
     }
@@ -24,14 +24,10 @@
     }
 
     .overview {
-
-        >* {
-            margin: $gap;
-        }
-
         .card {
             .card-header {
                 font-weight: bolder;
+                background-color: transparent !important;
             }
 
             .card-body {

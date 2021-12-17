@@ -98,4 +98,9 @@ $btn-check-size: 2rem;
     .answer-D {
         background-color: #ffda79;
     }
+
+    @media screen and (max-width: 576px){
+        grid-template-columns: 100%;
+        margin-bottom: $question-picker-height + 0.5vh;
+    }
 }

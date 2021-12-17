@@ -117,8 +117,8 @@ export default function ContestParticipants() {
                             Biểu đồ thống kê
                         </div>
 
-                        <div className="row chart-data justify-content-around m-4 align-item-end">
-                            <div className="col-4 char-bar p-2">
+                        <div className="row ps-3 pe-3 chart-data justify-content-around align-item-end">
+                            <div className="char-bar col-sm-12 col-md-6 col-lg-4 p-3 d-flex align-items-end">
                                 <Bar
                                     data={takeTestStatistics}
                                     options={options}
@@ -127,7 +127,7 @@ export default function ContestParticipants() {
                                 />
                             </div>
 
-                            <div className="col-4 chart-line p-2">
+                            <div className="chart-line col-sm-12 col-md-6 col-lg-4 p-3 d-flex align-items-end">
                                 <Line
                                     data={statisticsSubmitTime}
                                     options={submitTimeLineChart}
@@ -136,7 +136,7 @@ export default function ContestParticipants() {
                                 />
                             </div>
 
-                            <div className="col-4 chart-pie p-2">
+                            <div className="chart-pie col-sm-12 col-md-6 col-lg-4 p-3 d-flex align-items-end">
                                 <Doughnut
                                     options={takeTestStatusDoughnutChartOptions}
                                     data={takeTestStatus}
@@ -170,7 +170,7 @@ export default function ContestParticipants() {
                                 entries={10}
                                 pagesAmount={4}
                                 data={tableData}
-                                materialSearch
+                                materialSearch scrollX
                             />
                         </div>
                     </div>

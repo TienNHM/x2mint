@@ -4,7 +4,11 @@ $question-preview-background: #F3F0D7;
 
 .panel-left {
     background-color: $bg-color;
-    width: $panel-left-width;
+
+    .row > * {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 
     .questions-preview-title {
         text-transform: uppercase;

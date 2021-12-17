@@ -22,4 +22,11 @@
         border-left: $gap solid orange;
         padding: $gap/2;
     }
+
+    .dropdown {
+        .dropdown-toggle {
+            width: 80px;
+            border-radius: $gap;
+        }
+    }
 }

@@ -2,5 +2,34 @@
 
 .app-container {
     display: flex;
-    margin-top: $navbar-height;
+    margin-top: 1.1*$navbar-height;
+    width: 100vw;
+
+    .row {
+        width: 100%;
+        margin: 0 !important;
+
+        > * {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    }
+    
+    .rtf--mb {
+        height: 40px !important;
+        width: 40px !important;
+    }
+    
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
+
+    &::-webkit-scrollbar:vertical {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: lighten($color: $theme-color, $amount: 5);
+        border-radius: $gap;
+    }
 }

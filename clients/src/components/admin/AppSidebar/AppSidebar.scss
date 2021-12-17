@@ -3,7 +3,7 @@
 .sidebar-settings {
     background-color: lighten($color: rgba(208, 240, 224, 0.514), $amount: 5);
 
-    .sidebar {
+    .sidebar-main {
         width: 100%;
         height: calc(100vh - #{$navbar-height});
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -44,9 +44,10 @@
                 .accordion-header {
                     .accordion-button {
                         font-weight: bolder;
-                        font-size: 1.1rem;
+                        font-size: 1rem;
                         color: $theme-color;
                         text-transform: uppercase;
+
                         button {
                             text-align: start !important;
                         }
@@ -67,9 +68,10 @@
                             padding-left: 2rem !important;
                         }
 
-                        button:hover, button:focus, button:active {
+                        button:hover,
+                        button:focus,
+                        button:active {
                             background-color: $light-theme-color;
-                            // color: #6adf5f;
                         }
                     }
                 }
@@ -81,5 +83,11 @@
         left: 0 !important;
         bottom: 50% !important;
         margin: 0 !important;
+    }
+
+    @media screen and (max-width: 992px) {
+        .sidebar-section {
+            display: none;
+        }
     }
 }

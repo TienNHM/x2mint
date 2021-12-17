@@ -3,7 +3,7 @@ import './SettingsAccount.scss'
 import { Form, Image, Button, Row, Col, Badge } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import ModalUpdateUserInfo from './ModalUpdateUserInfo'
-import { COOKIES, MODAL_ACTION } from 'utils/constants'
+import { COOKIES, MODAL_ACTION, STATUS } from 'utils/constants'
 import { updateUserInfo } from 'actions/api/UserAPI'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
@@ -86,9 +86,9 @@ export default function SettingsAccount() {
             {!loading &&
                 <>
                     <Form>
-                        <Row className="p-4">
+                        <Row className="p-3">
                             <Col lg={3} md={12} xs={12}
-                                className="d-flex justify-content-center align-content-center"
+                                className="mb-4 d-flex justify-content-center align-content-center"
                             >
                                 <div className="basic-info">
                                     <Image roundedCircle
@@ -114,40 +114,45 @@ export default function SettingsAccount() {
                                 </div>
                             </Col>
 
-                            <Col className="ps-4 pe-4 text-start" lg={9} md={12} xs={12}>
+                            <Col className="detail-info-section ps-4 pe-4 text-start" lg={9} md={12} xs={12}>
                                 <Row sm={12}>
-                                    <Form.Group as={Col} className="mb-3" controlId="email">
+                                    <Form.Group as={Col} xs={12} md={6} className="mb-3" controlId="email">
                                         <Form.Label>Email</Form.Label>
-                                        <Form.Control size="sm" disabled type="email" value={userData.email} />
+                                        <Form.Control disabled type="email" value={userData.email} />
                                     </Form.Group>
 
-                                    <Form.Group as={Col} className="mb-3" controlId="password">
+                                    <Form.Group as={Col} xs={12} md={6} className="mb-3" controlId="password">
                                         <Form.Label>Số điện thoại</Form.Label>
-                                        <Form.Control size="sm" disabled type="text" value={userData.phone} />
+                                        <Form.Control disabled type="text" value={userData.phone} />
                                     </Form.Group>
                                 </Row>
 
                                 <Row sm={12}>
-                                    <Form.Group as={Col} className="mb-3" controlId="address">
+                                    <Form.Group as={Col} xs={12} md={6} className="mb-3" controlId="address">
                                         <Form.Label>Địa chỉ</Form.Label>
-                                        <Form.Control size="sm" disabled type="text" value={userData.address} />
+                                        <Form.Control disabled type="text" value={userData.address} />
                                     </Form.Group>
 
-                                    <Form.Group as={Col} className="mb-3" controlId="school">
+                                    <Form.Group as={Col} xs={12} md={6} className="mb-3" controlId="school">
                                         <Form.Label>Trường</Form.Label>
-                                        <Form.Control size="sm" disabled type="text" value={userData.school} />
+                                        <Form.Control disabled type="text" value={userData.school} />
                                     </Form.Group>
                                 </Row>
 
                                 <Row sm={12}>
-                                    <Form.Group as={Col} className="mb-3" controlId="dob">
+                                    <Form.Group as={Col} xs={12} md={6} className="mb-3" controlId="dob">
                                         <Form.Label>Ngày sinh</Form.Label>
-                                        <Form.Control size="sm" disabled type="text" value={userData.dob} />
+                                        <Form.Control disabled type="text" value={userData.dob} />
                                     </Form.Group>
 
-                                    <Form.Group as={Col} className="mb-3" controlId="status">
+                                    <Form.Group as={Col} xs={12} md={6} className="mb-3" controlId="status">
                                         <Form.Label>Trạng thái</Form.Label>
-                                        <Form.Control size="sm" disabled type="text" value={userData._status} />
+                                        <Form.Control disabled type="text" value={userData._status}
+                                            className={userData._status === STATUS.OK ?
+                                                'bg-success text-light text-uppercase' :
+                                                'bg-warning text-light text-uppercase'
+                                            }
+                                        />
                                     </Form.Group>
                                 </Row>
                             </Col>

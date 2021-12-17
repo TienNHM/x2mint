@@ -5,6 +5,7 @@ import { MODAL_ACTION } from 'utils/constants'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { submit } from 'actions/api/TakeTestAPI'
 import './PanelQuestionPicker.scss'
+import { Fab } from 'react-tiny-fab'
 
 export default function PanelQuestionPicker(props) {
     const { test, selectedQuestion, setSelectedQuestion, takeTest, setIsSubmitted } = props
@@ -55,11 +56,19 @@ export default function PanelQuestionPicker(props) {
 
     //#endregion
 
+    const mainButtonStyles = {
+        bottom: '0px',
+        right: '0px',
+        backgroundColor: '#1dc476'
+    }
+
     return (
         <div className="take-test">
             <div className="question-picker">
-                <div className="section-title">Danh sách câu hỏi</div>
-                <hr style={{ margin: '8px' }} />
+                <div className="title">
+                    <div className="section-title">Danh sách câu hỏi</div>
+                    <hr style={{ margin: '8px' }} />
+                </div>
                 <div className="btn-question">
                     {test.questions.map((q, index) =>
                         <Button key={index}
@@ -72,35 +81,44 @@ export default function PanelQuestionPicker(props) {
                     )}
                 </div>
             </div>
-            <div className="examinee-actions">
-                <div className="time-remain">
-                    <div className="section-title">Thời gian còn lại</div>
-                    <div className="time-remain-show d-flex align-items-center">
-                        <Countdown date={Date.parse(test.endTime)} renderer={renderer} ref={timeRemainRef}>
-                            <Completionist />
-                        </Countdown>
-                    </div>
-                </div>
-                <div className="submit-test">
-                    <Button
-                        variant="primary"
-                        onClick={() => setIsShowConfirm(true)}
-                        className="w-100"
-                        ref={btnSubmitRef}
-                    >
-                        Nộp bài
-                    </Button>
+
+            <div className="time-remain">
+                <div className="time-remain-title">Thời gian còn lại</div>
+                <div className="time-remain-show d-flex align-items-center">
+                    <Countdown date={Date.parse(test.endTime)} renderer={renderer} ref={timeRemainRef}>
+                        <Completionist />
+                    </Countdown>
                 </div>
             </div>
 
+            <div className="submit-test">
+                <Button
+                    variant="primary"
+                    onClick={() => setIsShowConfirm(true)}
+                    className="w-100"
+                    ref={btnSubmitRef}
+                >
+                    Nộp bài
+                </Button>
+            </div>
 
-            <div className="submit-area">
+            <div className="submit-area d-flex justify-content-end" id="open-settings">
                 <ConfirmModal
                     title="Xác nhận"
                     content={contentToShow}
                     isShow={isShowConfirm}
                     onAction={handleConfirmSubmit}
                 />
+            </div>
+
+            <div className="floating-buttons" id="floating-buttons">
+                <Fab
+                    mainButtonStyles={mainButtonStyles}
+                    style={{ bottom: '-10px', right: '90px' }}
+                    icon={<i className="fa fa-check-square"></i>}
+                    alwaysShowTitle={true}
+                    onClick={() => setIsShowConfirm(true)}
+                ></Fab>
             </div>
         </div>
     )

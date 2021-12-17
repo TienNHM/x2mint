@@ -60,29 +60,29 @@ export const USER_INFO_COLUMNS = [
         label: STATISTICS.ACCOUNT.USERNAME,
         field: STATISTICS.ACCOUNT.USERNAME,
         sort: 'asc',
-        width: 100
+        width: 150
     },
     {
         label: STATISTICS.ACCOUNT.FULLNAME,
         field: STATISTICS.ACCOUNT.FULLNAME,
-        width: 300
+        width: 320
     },
     {
         label: STATISTICS.ACCOUNT.DOB,
         field: STATISTICS.ACCOUNT.DOB,
-        width: 100
+        width: 120
     },
     {
         label: STATISTICS.ACCOUNT.EMAIL,
         field: STATISTICS.ACCOUNT.EMAIL,
         sort: 'asc',
-        width: 200
+        width: 250
     },
     {
         label: STATISTICS.ACCOUNT.PHONE,
         field: STATISTICS.ACCOUNT.PHONE,
         sort: 'asc',
-        width: 100
+        width: 150
     },
     {
         label: STATISTICS.ACCOUNT.ADDRESS,
@@ -94,13 +94,13 @@ export const USER_INFO_COLUMNS = [
         label: STATISTICS.ACCOUNT._AVATAR,
         field: STATISTICS.ACCOUNT._AVATAR,
         sort: 'disabled',
-        width: 200
+        width: 80
     },
     {
         label: STATISTICS.ACCOUNT._STATUS,
         field: STATISTICS.ACCOUNT._STATUS,
         sort: 'asc',
-        width: 200
+        width: 150
     }
 ]
 
@@ -184,37 +184,37 @@ export const USER_PERMISSIONS_COLUMNS = [
         label: STATISTICS.ACCOUNT.USERNAME,
         field: STATISTICS.ACCOUNT.USERNAME,
         sort: 'asc',
-        width: 100
+        width: 150
     },
     {
         label: STATISTICS.ACCOUNT.EMAIL,
         field: STATISTICS.ACCOUNT.EMAIL,
         sort: 'asc',
-        width: 200
+        width: 250
     },
     {
         label: STATISTICS.ACCOUNT.PHONE,
         field: STATISTICS.ACCOUNT.PHONE,
         sort: 'asc',
-        width: 100
+        width: 150
     },
     {
         label: STATISTICS.ACCOUNT._AVATAR,
         field: STATISTICS.ACCOUNT._AVATAR,
         sort: 'disabled',
-        width: 200
+        width: 80
     },
     {
         label: STATISTICS.ACCOUNT._ROLE,
         field: STATISTICS.ACCOUNT._ROLE,
         sort: 'disabled',
-        width: 200
+        width: 150
     },
     {
         label: STATISTICS.ACCOUNT._STATUS,
         field: STATISTICS.ACCOUNT._STATUS,
         sort: 'asc',
-        width: 200
+        width: 150
     }
 ]
 

@@ -1,6 +1,5 @@
 @import '_setting.scss';
 
-$panel-contest-info-width: 300px;
 $contest-title-height: 45px;
 $title-list-tests-height: 60px;
 $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-height} - #{$title-list-tests-height} - 30px);
@@ -8,17 +7,23 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
 .contest-information {
     margin-top: $navbar-height;
     height: calc(100vh - #{$navbar-height});
+    width: 100vw;
+
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
     
     .contest-title {
         display: flex;
         flex-direction: row;
         height: $contest-title-height;
+        margin: $gap 0;
 
         .heading {
             text-transform: uppercase;
             color: $theme-color;
             width: 100%;
-            margin-top: $gap;
         }
     }
 
@@ -30,17 +35,21 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
         display: flex;
         flex-direction: row;
 
+        > * {
+            margin-bottom: $gap;
+        }
+
         .contest-show-info {
-            width: $panel-contest-info-width;
 
             img {
-                max-height: 38vh;
+                height: 38vh;
+                width: fit-content;
             }
 
             .card {
-                margin: $gap;
                 border-radius: $gap/2;
-                height: calc(100vh - #{$navbar-height} - #{$contest-title-height} - 2.5*#{$gap});
+                border: 1px solid gray;
+                max-height: calc(100vh - #{$navbar-height} - #{$contest-title-height} - 2.5*#{$gap});
 
                 .card-img-top {
                     margin: $gap;
@@ -55,8 +64,11 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
                     padding: 0 $gap $gap $gap;
                     .card-text {
                         margin-bottom: 0.4rem;
-                        max-height: 12vh;
+                        height: 12vh;
                         overflow-y: auto;
+                        border: 1px dashed  gray;
+                        border-radius: $gap;
+                        background-color: lighten($light-theme-color, 15);
                     }
 
                     .list-group-flush {
@@ -66,6 +78,7 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
 
                             input {
                                 background-color: transparent !important;
+                                text-align: center;
 
                                 &:focus {
                                     box-shadow: none !important;
@@ -78,9 +91,7 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
         }
 
         .list-tests {
-            width: 78vw;
             min-width: 420px;
-            margin: $gap $gap $gap 0;
             border-radius: $gap/2;
 
             .create-test {
@@ -135,24 +146,25 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
                     flex-wrap: wrap;
                     border: 1px solid $theme-color;
                     border-radius: $gap/2;
-                    margin: 0 $gap;
                     padding-left: 0 !important;
+                    padding-right: 0 !important;
 
                     .card-test-index {
-                        background-color: #7af3d5;
+                        background-color: lighten($light-theme-color, 5);
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        min-height: 40px;
 
                         .test-index {
                             font-weight: bolder;
                             font-size: 2.5rem;
-                            color: rgb(228, 100, 50);
+                            color: $theme-color;
                         }
                     }
 
                     .card-test-info {
-                        padding: $gap 0 $gap 0 !important;
+                        padding: $gap !important;
 
                         .card-test-description {
                             font-style: italic;
@@ -163,11 +175,11 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
+                        padding: $gap !important;
 
                         button {
                             margin: $gap/4;
                             font-weight: bold;
-                            //min-width: 90px;
                             color: white;
                         }
                     }

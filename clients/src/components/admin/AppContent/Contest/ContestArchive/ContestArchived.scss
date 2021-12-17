@@ -27,6 +27,8 @@
         .dropdown-toggle {
             text-transform: capitalize;
             font-weight: bold;
+            width: 90px;
+            border-radius: $gap;
         }
     }
 }

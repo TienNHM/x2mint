@@ -8,6 +8,8 @@ import './PanelSettings.scss'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { updateTest } from 'actions/api/TestAPI'
+import { Fab } from 'react-tiny-fab'
+import ModalTestInfo from './ModalTestInfo'
 
 function PanelSettings(props) {
     const { test, setTest } = props
@@ -49,6 +51,9 @@ function PanelSettings(props) {
     // Confirm Modal
     const [isShowConfirm, setIsShowConfirm] = useState(false)
     const [content, setContent] = useState('')
+
+    // Test Info Modal
+    const [isShowTestInfo, setIsShowTestInfo] = useState(false)
     //#endregion
 
     const handleSaveClick = async () => {
@@ -98,138 +103,180 @@ function PanelSettings(props) {
         }
     }
 
+    const btnExitStyles = {
+        bottom: '0px',
+        right: '0px',
+        backgroundColor: '#ed325a'
+    }
+
+    const btnInfoStyles = {
+        bottom: '0px',
+        right: '0px',
+        backgroundColor: '#edc132'
+    }
+
     return (
-        <div className="panel-right">
-            <div className="panel-right-title">Thông tin chi tiết</div>
+        <div className="panel-settings">
+            <div className="panel-right">
+                <div className="panel-right-title">Thông tin chi tiết</div>
 
-            <div className="attributes">
-                <div className="attribute-title">
-                    <div>Tên bài test</div>
-                    <div className="title">
-                        <Form.Control
-                            size="sm"
-                            type="text"
-                            ref={inputTestTitleRef}
-                            placeholder="Tên bài test..."
-                            className="attribute-title-input"
-                            value={testTitle}
-                            onChange={e => setTestTitle(e.target.value)}
-                            readOnly={isUser}
-                        />
+                <div className="attributes">
+                    <div className="attribute-title">
+                        <div>Tên bài test</div>
+                        <div className="title">
+                            <Form.Control
+                                size="sm"
+                                type="text"
+                                ref={inputTestTitleRef}
+                                placeholder="Tên bài test..."
+                                className="attribute-title-input"
+                                value={testTitle}
+                                onChange={e => setTestTitle(e.target.value)}
+                                readOnly={isUser}
+                            />
+                        </div>
                     </div>
+
+                    <div className="attribute-title">
+                        <div>Mô tả</div>
+                        <div className="title">
+                            <Form.Control
+                                size="sm"
+                                as="textarea"
+                                rows={4}
+                                ref={inputTestDescriptionRef}
+                                placeholder="Mô tả..."
+                                className="attribute-title-input"
+                                value={testDescription}
+                                onChange={e => setTestDescription(e.target.value)}
+                                readOnly={isUser}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="attribute-title">
+                        <div>Điểm tối đa</div>
+                        <div className="title">
+                            <Form.Control
+                                size="sm"
+                                type="text"
+                                ref={inputMaxPointsRef}
+                                placeholder="0"
+                                className="attribute-title-input max-points"
+                                value={testMaxPoints}
+                                onChange={e => setTestMaxPoints(e.target.value)}
+                                readOnly={isUser}
+                            />
+                        </div>
+                    </div>
+
+                    {!isUser &&
+                        <>
+                            <div className="attribute-title">
+                                <div>Link</div>
+                                <div className="title">
+                                    <Form.Control
+                                        size="sm"
+                                        type="text"
+                                        ref={inputLinkRef}
+                                        placeholder="Link URL..."
+                                        className="attribute-title-input"
+                                        value={testLink}
+                                        onChange={e => setTestLink(e.target.value)}
+                                        readOnly={isUser}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="time-picker">
+                                <div>Thời gian bắt đầu</div>
+                                <div className="start-time">
+                                    <Form.Control
+                                        size="sm"
+                                        type="date"
+                                        ref={startDateRef}
+                                        value={startDate}
+                                        onChange={e => setStartDate(e.target.value)}
+                                        readOnly={isUser}
+                                    />
+                                    <Form.Control
+                                        size="sm"
+                                        type="time"
+                                        ref={startTimeRef}
+                                        value={startTime}
+                                        onChange={e => setStartTime(e.target.value)}
+                                        readOnly={isUser}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="time-picker">
+                                <div>Thời gian kết thúc</div>
+                                <div className="start-time">
+                                    <Form.Control
+                                        size="sm"
+                                        type="date"
+                                        ref={endDateRef}
+                                        value={endDate}
+                                        onChange={e => setEndDate(e.target.value)}
+                                        readOnly={isUser}
+                                    />
+                                    <Form.Control
+                                        size="sm"
+                                        type="time"
+                                        ref={endTimeRef}
+                                        value={endTime}
+                                        onChange={e => setEndTime(e.target.value)}
+                                        readOnly={isUser}
+                                    />
+                                </div>
+                            </div>
+                        </>
+                    }
                 </div>
 
-                <div className="attribute-title">
-                    <div>Mô tả</div>
-                    <div className="title">
-                        <Form.Control
-                            size="sm"
-                            as="textarea"
-                            rows={4}
-                            ref={inputTestDescriptionRef}
-                            placeholder="Mô tả..."
-                            className="attribute-title-input"
-                            value={testDescription}
-                            onChange={e => setTestDescription(e.target.value)}
-                            readOnly={isUser}
-                        />
-                    </div>
+                <div className="quick-actions d-flex justify-content-center">
+                    {!isUser &&
+                        <Button variant="warning" className="w-100" onClick={handleSaveClick}>Lưu</Button>
+                    }
+                    <Button variant="danger" className="w-100" onClick={handleExit}>Thoát</Button>
                 </div>
 
-                <div className="attribute-title">
-                    <div>Điểm tối đa</div>
-                    <div className="title">
-                        <Form.Control
-                            size="sm"
-                            type="text"
-                            ref={inputMaxPointsRef}
-                            placeholder="0"
-                            className="attribute-title-input max-points"
-                            value={testMaxPoints}
-                            onChange={e => setTestMaxPoints(e.target.value)}
-                            readOnly={isUser}
-                        />
-                    </div>
+                <div className="confirm-submit">
+                    <ConfirmModal
+                        title="Xác nhận"
+                        content={content}
+                        isShow={isShowConfirm}
+                        onAction={handleConfirmModal}
+                    />
                 </div>
-
-                {!isUser &&
-                    <>
-                        <div className="attribute-title">
-                            <div>Link</div>
-                            <div className="title">
-                                <Form.Control
-                                    size="sm"
-                                    type="text"
-                                    ref={inputLinkRef}
-                                    placeholder="Link URL..."
-                                    className="attribute-title-input"
-                                    value={testLink}
-                                    onChange={e => setTestLink(e.target.value)}
-                                    readOnly={isUser}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="time-picker">
-                            <div>Thời gian bắt đầu</div>
-                            <div className="start-time">
-                                <Form.Control
-                                    size="sm"
-                                    type="date"
-                                    ref={startDateRef}
-                                    value={startDate}
-                                    onChange={e => setStartDate(e.target.value)}
-                                    readOnly={isUser}
-                                />
-                                <Form.Control
-                                    size="sm"
-                                    type="time"
-                                    ref={startTimeRef}
-                                    value={startTime}
-                                    onChange={e => setStartTime(e.target.value)}
-                                    readOnly={isUser}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="time-picker">
-                            <div>Thời gian kết thúc</div>
-                            <div className="start-time">
-                                <Form.Control
-                                    size="sm"
-                                    type="date"
-                                    ref={endDateRef}
-                                    value={endDate}
-                                    onChange={e => setEndDate(e.target.value)}
-                                    readOnly={isUser}
-                                />
-                                <Form.Control
-                                    size="sm"
-                                    type="time"
-                                    ref={endTimeRef}
-                                    value={endTime}
-                                    onChange={e => setEndTime(e.target.value)}
-                                    readOnly={isUser}
-                                />
-                            </div>
-                        </div>
-                    </>
-                }
             </div>
 
-            <div className="quick-actions justify-content-center">
-                {!isUser &&
-                    <Button variant="warning" className="w-100" onClick={handleSaveClick}>Lưu</Button>
-                }
-                <Button variant="danger" className="w-100" onClick={handleExit}>Thoát</Button>
-            </div>
+            <div className="">
+                <div className="floating-buttons d-flex justify-content-end" id="floating-buttons">
+                    <Fab
+                        mainButtonStyles={btnInfoStyles}
+                        // actionButtonStyles={actionButtonStyles}
+                        style={{ bottom: '-10px', right: '-10px' }}
+                        icon={<i className="fa fa-reorder"></i>}
+                        alwaysShowTitle={true}
+                        onClick={() => setIsShowTestInfo(true)}
+                    ></Fab>
 
-            <div className="confirm-submit">
-                <ConfirmModal
-                    title="Xác nhận"
-                    content={content}
-                    isShow={isShowConfirm}
-                    onAction={handleConfirmModal}
+                    <Fab
+                        mainButtonStyles={btnExitStyles}
+                        // actionButtonStyles={actionButtonStyles}
+                        style={{ bottom: '-10px', right: '40px' }}
+                        icon={<i className="fa fa-window-close"></i>}
+                        alwaysShowTitle={true}
+                        onClick={handleExit}
+                    ></Fab>
+                </div>
+
+                <ModalTestInfo
+                    isShow={isShowTestInfo}
+                    onAction={() => setIsShowTestInfo(false)}
+                    test={test}
                 />
             </div>
         </div>

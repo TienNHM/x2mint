@@ -127,7 +127,7 @@ export default function AccountGrantPermissions() {
                                 entries={10}
                                 pagesAmount={4}
                                 data={tableData}
-                                materialSearch
+                                materialSearch scrollX
                             />
                         </div>
                     </div>
