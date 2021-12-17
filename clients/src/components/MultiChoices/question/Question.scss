@@ -48,10 +48,10 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
     .question-user {
         height: 14vh;
-        width: 100%;
+        width: 96%;
+        margin: 1% 2%;
         background-color: $question-content-background;
         box-shadow: $box-shadow;
-        margin: $gap $gap * 2 0 $gap*2;
         border-radius: $gap;
         border: 2px solid $border-color;
         line-height: 1.2rem;
@@ -100,6 +100,8 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     @media screen and (max-width: 992px) {
         .question-user {
             height: 10vh;
+            width: 98vw;
+            margin: 1vw;
         }
 
         .embeded {

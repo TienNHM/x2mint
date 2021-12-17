@@ -2,11 +2,12 @@
 
 .app-container {
     display: flex;
-    margin-top: $navbar-height;
+    margin-top: 1.1*$navbar-height;
     width: 100vw;
 
     .row {
-        width: 100%;
+        // width: 100%;
+        margin: 0 !important;
 
         > * {
             padding-left: 0 !important;
