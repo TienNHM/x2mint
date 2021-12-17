@@ -65,8 +65,10 @@ export default function PanelQuestionPicker(props) {
     return (
         <div className="take-test">
             <div className="question-picker">
-                <div className="section-title">Danh sách câu hỏi</div>
-                <hr style={{ margin: '8px' }} />
+                <div className="title">
+                    <div className="section-title">Danh sách câu hỏi</div>
+                    <hr style={{ margin: '8px' }} />
+                </div>
                 <div className="btn-question">
                     {test.questions.map((q, index) =>
                         <Button key={index}
@@ -79,25 +81,25 @@ export default function PanelQuestionPicker(props) {
                     )}
                 </div>
             </div>
-            <div className="examinee-actions">
-                <div className="time-remain">
-                    <div className="section-title">Thời gian còn lại</div>
-                    <div className="time-remain-show d-flex align-items-center">
-                        <Countdown date={Date.parse(test.endTime)} renderer={renderer} ref={timeRemainRef}>
-                            <Completionist />
-                        </Countdown>
-                    </div>
+
+            <div className="time-remain">
+                <div className="time-remain-title">Thời gian còn lại</div>
+                <div className="time-remain-show d-flex align-items-center">
+                    <Countdown date={Date.parse(test.endTime)} renderer={renderer} ref={timeRemainRef}>
+                        <Completionist />
+                    </Countdown>
                 </div>
-                <div className="submit-test">
-                    <Button
-                        variant="primary"
-                        onClick={() => setIsShowConfirm(true)}
-                        className="w-100"
-                        ref={btnSubmitRef}
-                    >
-                        Nộp bài
-                    </Button>
-                </div>
+            </div>
+
+            <div className="submit-test">
+                <Button
+                    variant="primary"
+                    onClick={() => setIsShowConfirm(true)}
+                    className="w-100"
+                    ref={btnSubmitRef}
+                >
+                    Nộp bài
+                </Button>
             </div>
 
             <div className="submit-area d-flex justify-content-end" id="open-settings">

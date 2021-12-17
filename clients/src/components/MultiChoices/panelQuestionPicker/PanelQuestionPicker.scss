@@ -1,11 +1,11 @@
 @import '_setting.scss';
 
 .take-test {
-    padding: 10px;
+    padding: $gap;
     background-color: $bg-color;
     font-size: 0px;
 
-    .row > * {
+    .row>* {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
@@ -16,17 +16,13 @@
         font-size: 16px;
         margin: $gap/2 0;
     }
-    
+
     .question-picker {
         background-color: rgba(217, 233, 207, 0.548);
         border-radius: $gap;
         height: 70vh;
         padding: $gap/2;
         border: 2px solid $theme-color;
-
-        @media screen and (max-width: 992px){
-            height: fit-content;
-        }
 
         &::-webkit-scrollbar {
             -webkit-appearance: none;
@@ -61,54 +57,114 @@
 
             button {
                 margin: $gap/2;
-                width: 40px;
+                min-width: 40px;
                 border: 1px solid $theme-color;
             }
         }
     }
 
-    .examinee-actions {
+    .time-remain {
+        border: 2px solid $theme-color;
+        border-radius: $gap;
+        margin: $gap 0;
 
-        .time-remain {
-            border: 2px solid $theme-color;
-            border-radius: $gap;
-            margin: $gap 0;
-
-            .time-remain-show {
-                height: 55px;
-
-                .time-countdown {
-                    background-color: transparent !important;
-                    border-color: transparent !important;
-                    outline: none !important;
-                    font-size: 30px;
-                }
-
-                .timeout {
-                    font-size: 20px;
-                }
-
-                >* {
-                    color: red;
-                    font-weight: bold;
-                    text-align: center;
-                    margin-bottom: $gap;
-                }
-            }
+        .time-remain-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            margin: $gap/2 0;
         }
 
-        .submit-test {
-            button {
-                text-transform: uppercase;
-                font-weight: bold;
+        .time-remain-show {
+            height: 55px;
+
+            .time-countdown {
+                background-color: transparent !important;
+                border-color: transparent !important;
+                outline: none !important;
+                font-size: 30px;
             }
+
+            .timeout {
+                font-size: 20px;
+            }
+
+            >* {
+                color: red;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: $gap;
+            }
+        }
+    }
+
+    .submit-test {
+        button {
+            text-transform: uppercase;
+            font-weight: bold;
         }
     }
 
     .floating-buttons {
         visibility: hidden;
-        
-        @media screen and (max-width: 992px){
+    }
+
+    @media screen and (max-width: 992px) {
+        padding: 0px;
+
+        .question-picker {
+            left: 0px;
+            bottom: 0px;
+            z-index: 1000;
+            position: fixed;
+            height: 9vh;
+            width: 100%;
+            border-radius: 0px;
+
+            .title {
+                display: none;
+            }
+
+            .btn-question {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                height: 100%;
+
+                &::-webkit-scrollbar:horizontal {
+                    height: $gap/2;
+                }
+            }
+        }
+
+        .time-remain {
+            margin: 0;
+            padding: $gap/2;
+            border: none;
+            border-radius: 0px;
+            background-color: rgba(223, 39, 39, 0.26);
+
+            .time-remain-title {
+                display: none;
+            }
+
+            .time-remain-show {
+                height: fit-content;
+
+                .time-countdown {
+                    font-size: 20px;
+                    margin: 0px;
+                }
+            }
+        }
+
+        .submit-test {
+            display: none;
+        }
+
+        .floating-buttons {
             visibility: visible;
         }
     }
