@@ -1,10 +1,14 @@
 @import '_setting.scss';
 
 .take-test {
-    width: 23vw;
     padding: 10px;
     background-color: $bg-color;
     font-size: 0px;
+
+    .row > * {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 
     .section-title {
         text-align: center;
@@ -19,6 +23,10 @@
         height: 70vh;
         padding: $gap/2;
         border: 2px solid $theme-color;
+
+        @media screen and (max-width: 992px){
+            height: fit-content;
+        }
 
         &::-webkit-scrollbar {
             -webkit-appearance: none;
@@ -94,6 +102,14 @@
                 text-transform: uppercase;
                 font-weight: bold;
             }
+        }
+    }
+
+    .floating-buttons {
+        visibility: hidden;
+        
+        @media screen and (max-width: 992px){
+            visibility: visible;
         }
     }
 }

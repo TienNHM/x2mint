@@ -14,16 +14,6 @@ export default function AppSidebar({ currentAction, setCurrentAction }) {
         document.querySelector('#settings').hidden = true
     }
 
-    // const mainButtonStyles = {
-    //     bottom: '0px',
-    //     left: '0px',
-    //     backgroundColor: '#6adf5f',
-    //     borderTopLeftRadius: '0px',
-    //     borderTopRightRadius: '10px',
-    //     borderBottomLeftRadius: '0px',
-    //     borderBottomRightRadius: '10px'
-    // }
-
     return (
         <div className="sidebar-settings">
             <div className="sidebar" id="settings">
@@ -195,15 +185,6 @@ export default function AppSidebar({ currentAction, setCurrentAction }) {
 
 
             </div>
-            {/* <Fab hidden
-                id="open-settings"
-                mainButtonStyles={mainButtonStyles}
-                // actionButtonStyles={actionButtonStyles}
-                style={{ bottom: '24px', left: '24px' }}
-                icon={<i className="fa fa fa-plus-circle"></i>}
-                alwaysShowTitle={true}
-                onClick={() => OpenSidebar()}
-            ></Fab> */}
         </div>
     )
 }

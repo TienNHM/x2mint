@@ -3,4 +3,14 @@
 .app-container {
     display: flex;
     margin-top: $navbar-height;
+    width: 100vw;
+
+    .row {
+        width: 100%;
+
+        > * {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    }
 }

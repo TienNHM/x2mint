@@ -5,6 +5,7 @@ import { MODAL_ACTION } from 'utils/constants'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { submit } from 'actions/api/TakeTestAPI'
 import './PanelQuestionPicker.scss'
+import { Fab } from 'react-tiny-fab'
 
 export default function PanelQuestionPicker(props) {
     const { test, selectedQuestion, setSelectedQuestion, takeTest, setIsSubmitted } = props
@@ -55,6 +56,12 @@ export default function PanelQuestionPicker(props) {
 
     //#endregion
 
+    const mainButtonStyles = {
+        bottom: '0px',
+        right: '0px',
+        backgroundColor: '#1dc476'
+    }
+
     return (
         <div className="take-test">
             <div className="question-picker">
@@ -93,14 +100,24 @@ export default function PanelQuestionPicker(props) {
                 </div>
             </div>
 
-
-            <div className="submit-area">
+            <div className="submit-area d-flex justify-content-end" id="open-settings">
                 <ConfirmModal
                     title="Xác nhận"
                     content={contentToShow}
                     isShow={isShowConfirm}
                     onAction={handleConfirmSubmit}
                 />
+            </div>
+
+            <div className="floating-buttons">
+                <Fab
+                    mainButtonStyles={mainButtonStyles}
+                    // actionButtonStyles={actionButtonStyles}
+                    style={{ bottom: '265px', right: '0px' }}
+                    icon={<i className="fa fa-check-square"></i>}
+                    alwaysShowTitle={true}
+                    onClick={() => setIsShowConfirm(true)}
+                ></Fab>
             </div>
         </div>
     )

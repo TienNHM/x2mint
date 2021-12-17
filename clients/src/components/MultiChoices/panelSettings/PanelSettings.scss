@@ -3,10 +3,13 @@
 $question-attribute-setting-height: 80px;
 
 .panel-right {
-    width: 23vw;
     padding: 10px;
     background-color: $bg-color;
     font-size: 0px;
+
+    .row > * {
+        padding-left: 0 !important;
+    }
 
     .panel-right-title {
         background-color: $theme-color;
@@ -19,6 +22,10 @@ $question-attribute-setting-height: 80px;
 
     .attributes {
         height: 78vh;
+
+        @media screen and (max-width: 992px){
+            height: fit-content;
+        }
 
         input,
         textarea {
@@ -118,6 +125,14 @@ $question-attribute-setting-height: 80px;
             margin: 0 3px;
             font-weight: bold;
             color: white;
+        }
+    }
+
+    .floating-buttons {
+        visibility: hidden;
+        
+        @media screen and (max-width: 992px){
+            visibility: visible;
         }
     }
 

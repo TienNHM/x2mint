@@ -8,6 +8,7 @@ import './PanelSettings.scss'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { updateTest } from 'actions/api/TestAPI'
+import { Fab } from 'react-tiny-fab'
 
 function PanelSettings(props) {
     const { test, setTest } = props
@@ -96,6 +97,22 @@ function PanelSettings(props) {
         if (action === MODAL_ACTION.CONFIRM) {
             return navigate(-1)
         }
+    }
+
+    const btnExitStyles = {
+        bottom: '0px',
+        right: '0px',
+        backgroundColor: '#ed325a'
+    }
+
+    const btnInfoStyles = {
+        bottom: '0px',
+        right: '0px',
+        backgroundColor: '#edc132'
+    }
+
+    const OpenInfoPanel = () => {
+
     }
 
     return (
@@ -217,7 +234,7 @@ function PanelSettings(props) {
                 }
             </div>
 
-            <div className="quick-actions justify-content-center">
+            <div className="quick-actions d-flex justify-content-center">
                 {!isUser &&
                     <Button variant="warning" className="w-100" onClick={handleSaveClick}>Lưu</Button>
                 }
@@ -231,6 +248,26 @@ function PanelSettings(props) {
                     isShow={isShowConfirm}
                     onAction={handleConfirmModal}
                 />
+            </div>
+
+            <div className="floating-buttons d-flex justify-content-end" id="floating-buttons">
+                <Fab
+                    mainButtonStyles={btnInfoStyles}
+                    // actionButtonStyles={actionButtonStyles}
+                    style={{ bottom: '330px', right: '0px' }}
+                    icon={<i className="fa fa-reorder"></i>}
+                    alwaysShowTitle={true}
+                    onClick={() => OpenInfoPanel()}
+                ></Fab>
+
+                <Fab
+                    mainButtonStyles={btnExitStyles}
+                    // actionButtonStyles={actionButtonStyles}
+                    style={{ bottom: '200px', right: '0px' }}
+                    icon={<i className="fa fa-window-close"></i>}
+                    alwaysShowTitle={true}
+                    onClick={handleExit}
+                ></Fab>
             </div>
         </div>
     )
