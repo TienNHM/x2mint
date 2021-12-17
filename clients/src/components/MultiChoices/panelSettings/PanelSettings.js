@@ -257,7 +257,7 @@ function PanelSettings(props) {
                     <Fab
                         mainButtonStyles={btnInfoStyles}
                         // actionButtonStyles={actionButtonStyles}
-                        style={{ bottom: '330px', right: '0px' }}
+                        style={{ bottom: '-10px', right: '-10px' }}
                         icon={<i className="fa fa-reorder"></i>}
                         alwaysShowTitle={true}
                         onClick={() => setIsShowTestInfo(true)}
@@ -266,7 +266,7 @@ function PanelSettings(props) {
                     <Fab
                         mainButtonStyles={btnExitStyles}
                         // actionButtonStyles={actionButtonStyles}
-                        style={{ bottom: '200px', right: '0px' }}
+                        style={{ bottom: '-10px', right: '40px' }}
                         icon={<i className="fa fa-window-close"></i>}
                         alwaysShowTitle={true}
                         onClick={handleExit}

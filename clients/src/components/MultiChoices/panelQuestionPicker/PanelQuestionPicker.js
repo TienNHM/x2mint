@@ -111,11 +111,10 @@ export default function PanelQuestionPicker(props) {
                 />
             </div>
 
-            <div className="floating-buttons">
+            <div className="floating-buttons" id="floating-buttons">
                 <Fab
                     mainButtonStyles={mainButtonStyles}
-                    // actionButtonStyles={actionButtonStyles}
-                    style={{ bottom: '265px', right: '0px' }}
+                    style={{ bottom: '-10px', right: '90px' }}
                     icon={<i className="fa fa-check-square"></i>}
                     alwaysShowTitle={true}
                     onClick={() => setIsShowConfirm(true)}

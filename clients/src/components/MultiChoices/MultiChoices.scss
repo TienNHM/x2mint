@@ -6,7 +6,7 @@
     width: 100vw;
 
     .row {
-        // width: 100%;
+        width: 100%;
         margin: 0 !important;
 
         > * {
@@ -14,7 +14,11 @@
             padding-right: 0 !important;
         }
     }
-
+    
+    .rtf--mb {
+        height: 40px !important;
+        width: 40px !important;
+    }
     
     &::-webkit-scrollbar {
         -webkit-appearance: none;

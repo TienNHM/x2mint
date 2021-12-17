@@ -119,6 +119,7 @@
             position: fixed;
             height: $question-picker-height;
             width: 100%;
+            padding-right: 160px;
             border-radius: 0px;
 
             .title {
@@ -132,6 +133,7 @@
                 overflow-x: auto !important;
                 overflow-y: hidden !important;
                 height: 100%;
+                z-index: 1000;
 
                 &::-webkit-scrollbar:horizontal {
                     height: $gap/2;
@@ -151,7 +153,8 @@
             }
 
             .time-remain-show {
-                height: fit-content;
+                height: 32px;
+                justify-content: center;
 
                 .time-countdown {
                     font-size: 20px;

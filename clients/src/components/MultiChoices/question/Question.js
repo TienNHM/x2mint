@@ -300,7 +300,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                         </div>
                     ) : (
                         <div className="add-question row">
-                            {renderAddAnswer()}
+                            {!isUser && renderAddAnswer()}
                         </div>
                     )
                     }
