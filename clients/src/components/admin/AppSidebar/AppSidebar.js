@@ -7,16 +7,20 @@ import './AppSidebar.scss'
 import { ADMIN } from 'utils/constants'
 import { useNavigate } from 'react-router'
 
-export default function AppSidebar({ currentAction, setCurrentAction }) {
+export default function AppSidebar({ setCurrentAction }) {
     const navigate = useNavigate()
 
     const HideSidebar = () => {
         document.querySelector('#settings').hidden = true
+
+        document
+            .querySelector('#main-container')
+            .className = 'main-container col-12 d-flex flex-column'
     }
 
     return (
         <div className="sidebar-settings">
-            <div className="sidebar" id="settings">
+            <div className="sidebar-main" id="settings">
                 <CSidebar>
                     <div className="sidebar-title">
                         <Button className="w-100 button-title"

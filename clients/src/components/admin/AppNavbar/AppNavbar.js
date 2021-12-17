@@ -3,8 +3,13 @@ import { Navbar, Container, Button } from 'react-bootstrap'
 import './AppNavbar.scss'
 
 export default function AppNavbar() {
+
     const OpenSidebar = () => {
         document.querySelector('#settings').hidden = false
+
+        document
+            .querySelector('#main-container')
+            .className = 'main-container col-9 d-flex flex-column'
     }
 
     const handleSettingsTheme = () => {

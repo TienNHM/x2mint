@@ -3,7 +3,7 @@
 .sidebar-settings {
     background-color: lighten($color: rgba(208, 240, 224, 0.514), $amount: 5);
 
-    .sidebar {
+    .sidebar-main {
         width: 100%;
         height: calc(100vh - #{$navbar-height});
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -44,7 +44,7 @@
                 .accordion-header {
                     .accordion-button {
                         font-weight: bolder;
-                        font-size: 1.1rem;
+                        font-size: 1rem;
                         color: $theme-color;
                         text-transform: uppercase;
                         button {

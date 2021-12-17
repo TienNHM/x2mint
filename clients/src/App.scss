@@ -43,4 +43,32 @@ button {
       vertical-align: middle;
     }
   }
+
+  .tooltip-component {
+    position: relative;
+    display: inline-block;
+
+    .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: $light-theme-color;
+      color: rgb(2, 128, 54);
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      top: 100%;
+      left: 50%;
+      margin-left: -60px;
+    }
+
+    &:hover {
+      .tooltiptext {
+        visibility: visible;
+      }
+    }
+  }
 }

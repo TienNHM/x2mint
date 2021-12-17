@@ -2,14 +2,8 @@
 
 .dashboard {
     margin-top: $navbar-height;
-    height: calc(100vh - #{$navbar-height});
 
-    .sidebar {
-        max-width: 250px;
-        width: 240px;
-    }
     .main-container {
-        width: 100%;
 
         .header {
             background-color: lighten($light-theme-color, 10);

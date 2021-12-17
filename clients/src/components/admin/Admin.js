@@ -8,11 +8,15 @@ export default function Admin() {
     const [currentAction, setCurrentAction] = useState('Dashboard')
 
     return (
-        <div className="dashboard d-flex">
-            <AppSidebar className="sidebar"
-                setCurrentAction={setCurrentAction}
-            />
-            <div className="main-container d-flex flex-column">
+        <div className="dashboard d-flex row">
+            <div className="sidebar-menu col-2">
+                <AppSidebar
+                    setCurrentAction={setCurrentAction}
+                />
+            </div>
+
+            <div className="main-container col-10 d-flex flex-column"
+                id="main-container">
                 <AppNavbar />
 
                 <div className="header h2 d-flex align-items-center current-action">
@@ -20,7 +24,7 @@ export default function Admin() {
                 </div>
 
                 <div className="body flex-grow-1 px-3">
-                    <AppContent currentAction={currentAction}/>
+                    <AppContent currentAction={currentAction} />
                 </div>
 
                 <div className="footer bg-light">
