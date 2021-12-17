@@ -89,82 +89,106 @@ export default function AccountStatistics() {
                         Tổng quan
                     </div>
 
-                    <div className="overview d-flex align-items-center justify-content-center">
-                        <Card
-                            bg="success" text="light"
-                            style={{ width: '18rem', height: '11rem' }}
-                            className="mb-2 shadow-lg"
-                        >
-                            <Card.Header>Số người dùng</Card.Header>
-                            <Card.Body>
-                                <Card.Title className="d-flex justify-content-around">
-                                    <span className="h1 number">
-                                        {data.length}
-                                    </span>
-                                    <img src="https://img.icons8.com/fluency/48/000000/user-group-man-woman.png" />
-                                </Card.Title>
-                                <Card.Text>
-                                    Tổng số người dùng trên hệ thống.
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                    <div className="overview row ps-3 pe-3 d-flex align-items-center justify-content-center">
+                        <div className="col-sm-6 col-md-3 mt-2 mb-2">
+                            <Card
+                                bg="success" text="light"
+                                className="m-1 shadow-lg"
+                            >
+                                <Card.Header>
+                                    <div className="tooltip-component">
+                                        Số người dùng
+                                        <i className="fa fa-info-circle ms-2"></i>
+                                        <span className="tooltiptext">
+                                            Tổng số người dùng trên hệ thống hiện tại.
+                                        </span>
+                                    </div>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Card.Title className="d-flex justify-content-around">
+                                        <span className="h1 number">
+                                            {data.length}
+                                        </span>
+                                        <img src="https://img.icons8.com/fluency/48/000000/user-group-man-woman.png" />
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </div>
 
-                        <Card
-                            bg="info" text="light"
-                            style={{ width: '18rem', height: '11rem' }}
-                            className="mb-2 shadow-lg"
-                        >
-                            <Card.Header>Examinee</Card.Header>
-                            <Card.Body>
-                                <Card.Title className="d-flex justify-content-around">
-                                    <span className="h1 number">
-                                        {overview[ROLE.USER]}
-                                    </span>
-                                    <img src="https://img.icons8.com/color/48/000000/student-male.png"/>
-                                </Card.Title>
-                                <Card.Text>
-                                    Tổng số Examinees trong hệ thống.
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <div className="col-sm-6 col-md-3 mt-2 mb-2">
+                            <Card
+                                bg="info" text="light"
+                                className="m-1 shadow-lg"
+                            >
+                                <Card.Header>
+                                    <div className="tooltip-component">
+                                        Số thí sinh
+                                        <i className="fa fa-info-circle ms-2"></i>
+                                        <span className="tooltiptext">
+                                            Tổng số thí sinh trên hệ thống hiện tại.
+                                        </span>
+                                    </div>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Card.Title className="d-flex justify-content-around">
+                                        <span className="h1 number">
+                                            {overview[ROLE.USER]}
+                                        </span>
+                                        <img src="https://img.icons8.com/color/48/000000/student-male.png" />
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </div>
 
-                        <Card
-                            bg="primary" text="light"
-                            style={{ width: '18rem', height: '11rem' }}
-                            className="mb-2 shadow-lg"
-                        >
-                            <Card.Header>Creators</Card.Header>
-                            <Card.Body>
-                                <Card.Title className="d-flex justify-content-around">
-                                    <span className="h1 number">
-                                        {overview[ROLE.CREATOR]}
-                                    </span>
-                                    <img src="https://img.icons8.com/color/48/000000/female-teacher.png"/>
-                                </Card.Title>
-                                <Card.Text>
-                                    Tổng số Creators hiện có trên hệ thống.
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <div className="col-sm-6 col-md-3 mt-2 mb-2">
+                            <Card
+                                bg="primary" text="light"
+                                className="m-1 shadow-lg"
+                            >
+                                <Card.Header>
+                                    <div className="tooltip-component">
+                                        Số Creators
+                                        <i className="fa fa-info-circle ms-2"></i>
+                                        <span className="tooltiptext">
+                                            Tổng số Creators hiện có trên hệ thống.
+                                        </span>
+                                    </div>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Card.Title className="d-flex justify-content-around">
+                                        <span className="h1 number">
+                                            {overview[ROLE.CREATOR]}
+                                        </span>
+                                        <img src="https://img.icons8.com/color/48/000000/female-teacher.png" />
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </div>
 
-                        <Card
-                            bg="danger" text="light"
-                            style={{ width: '18rem', height: '11rem' }}
-                            className="mb-2 shadow-lg"
-                        >
-                            <Card.Header>Admins</Card.Header>
-                            <Card.Body>
-                                <Card.Title className="d-flex justify-content-around">
-                                    <span className="h1 number">
-                                        {overview[ROLE.ADMIN]}
-                                    </span>
-                                    <img src="https://img.icons8.com/fluent/48/000000/microsoft-admin.png"/>
-                                </Card.Title>
-                                <Card.Text>
-                                    Tổng số Admins trên hệ thống.
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <div className="col-sm-6 col-md-3 mt-2 mb-2">
+                            <Card
+                                bg="danger" text="light"
+                                className="m-1 shadow-lg"
+                            >
+                                <Card.Header>
+                                    <div className="tooltip-component">
+                                        Số Admins
+                                        <i className="fa fa-info-circle ms-2"></i>
+                                        <span className="tooltiptext">
+                                            Tổng số Admins trên hệ thống hiện tại.
+                                        </span>
+                                    </div>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Card.Title className="d-flex justify-content-around">
+                                        <span className="h1 number">
+                                            {overview[ROLE.ADMIN]}
+                                        </span>
+                                        <img src="https://img.icons8.com/fluent/48/000000/microsoft-admin.png" />
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </div>
                     </div>
 
                     <div className="section-header m-3 h4 d-flex">
@@ -172,8 +196,8 @@ export default function AccountStatistics() {
                         Biểu đồ thống kê
                     </div>
 
-                    <div className="chart-data d-flex justify-content-around m-4 align-item-end">
-                        <div className="chart-line">
+                    <div className="chart-data row ps-3 pe-3 d-flex justify-content-around m-4">
+                        <div className="chart-line col-sm-12 col-md-6 p-3 d-flex align-items-end">
                             <Line
                                 data={signupStatistics}
                                 options={signupLineChartOptions}
@@ -182,7 +206,7 @@ export default function AccountStatistics() {
                             />
                         </div>
 
-                        <div className="chart-pie">
+                        <div className="chart-pie col-sm-12 col-md-6 p-3 d-flex align-items-end">
                             <Pie
                                 options={usertypePieChartOptions}
                                 data={{

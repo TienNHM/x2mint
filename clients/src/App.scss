@@ -50,9 +50,11 @@ button {
 
     .tooltiptext {
       visibility: hidden;
-      width: 120px;
-      background-color: $light-theme-color;
-      color: rgb(2, 128, 54);
+      width: 20vw;
+      background-color: lighten(orange, 15);
+      color: white;
+      border-left: $gap/2 solid rgb(253, 129, 28);
+
       text-align: center;
       border-radius: 6px;
       padding: 5px 0;
@@ -62,7 +64,7 @@ button {
       z-index: 1;
       top: 100%;
       left: 50%;
-      margin-left: -60px;
+      margin-left: 0px;
     }
 
     &:hover {

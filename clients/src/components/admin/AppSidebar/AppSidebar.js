@@ -25,7 +25,7 @@ export default function AppSidebar({ setCurrentAction }) {
                     <div className="sidebar-title">
                         <Button className="w-100 button-title"
                             onClick={() => setCurrentAction(ADMIN.DASHBOARD)}>
-                            <span style={{ fontSize: '1.5rem' }}>
+                            <span className="sidebar-section" style={{ fontSize: '1.5rem' }}>
                                 Dashboard
                             </span>
                         </Button>
@@ -37,30 +37,63 @@ export default function AppSidebar({ setCurrentAction }) {
                                 <Accordion.Header>
                                     <Button className="w-100 button-title"
                                         onClick={() => setCurrentAction(ADMIN.ACCOUNT.STATISTICS)}>
-                                        <i className="fas fa-users me-3"></i>
-                                        Người dùng
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-users me-3"></i>
+                                            <span className="tooltiptext">
+                                                Người dùng
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">Người dùng</span>
                                     </Button>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.ACCOUNT.STATISTICS)}>
-                                        <i className="fas fa-chart-line me-3"></i>
-                                        {ADMIN.ACCOUNT.STATISTICS}
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-chart-line me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.ACCOUNT.STATISTICS}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.ACCOUNT.STATISTICS}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.ACCOUNT.MANAGE)}>
-                                        <i className="far fa-address-card me-3"></i>
-                                        {ADMIN.ACCOUNT.MANAGE}
+                                        <div className="tooltip-component">
+                                            <i className="far fa-address-card me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.ACCOUNT.MANAGE}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.ACCOUNT.MANAGE}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.ACCOUNT.GRANT_PERMISSIONS)}>
-                                        <i className="fas fa-award me-3"></i>
-                                        {ADMIN.ACCOUNT.GRANT_PERMISSIONS}
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-award me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.ACCOUNT.GRANT_PERMISSIONS}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.ACCOUNT.GRANT_PERMISSIONS}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.ACCOUNT.REPORT)}>
-                                        <i className="fas fa-exclamation-triangle me-3"></i>
-                                        {ADMIN.ACCOUNT.REPORT}
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-exclamation-triangle me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.ACCOUNT.REPORT}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.ACCOUNT.REPORT}
+                                        </span>
                                     </Button>
                                 </Accordion.Body>
                             </Accordion.Item>
@@ -69,41 +102,89 @@ export default function AppSidebar({ setCurrentAction }) {
                                 <Accordion.Header>
                                     <Button className="w-100 button-title"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.STATISTICS)}>
-                                        <i className="fas fa-chalkboard-teacher me-3"></i>
-                                        Quản lý cuộc thi
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-chalkboard-teacher me-3"></i>
+                                            <span className="tooltiptext">
+                                                Quản lý cuộc thi
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            Quản lý cuộc thi
+                                        </span>
                                     </Button>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.STATISTICS)}>
-                                        <i className="fas fa-chart-line me-3"></i>
-                                        {ADMIN.CONTEST.STATISTICS}
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-chart-line me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.CONTEST.STATISTICS}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.CONTEST.STATISTICS}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => navigate('/contest')}>
-                                        <i className="fas fa-book-open me-3"></i>
-                                        Tất cả cuộc thi
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-book-open me-3"></i>
+                                            <span className="tooltiptext">
+                                                Tất cả cuộc thi
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            Tất cả cuộc thi
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.PARTICIPANT)}>
-                                        <i className="fas fa-user-alt me-3"></i>
-                                        {ADMIN.CONTEST.PARTICIPANT}
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-user-alt me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.CONTEST.PARTICIPANT}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.CONTEST.PARTICIPANT}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.LEADERBOARD)}>
-                                        <i className="fas fa-trophy me-3"></i>
-                                        {ADMIN.CONTEST.LEADERBOARD}
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-trophy me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.CONTEST.LEADERBOARD}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.CONTEST.LEADERBOARD}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.TRAFFIC)}>
-                                        <i className="fa fa-bar-chart me-3"></i>
-                                        {ADMIN.CONTEST.TRAFFIC}
-                                        <i className="fa fa-exclamation-triangle ms-3"></i>
+                                        <div className="tooltip-component">
+                                            <i className="fa fa-bar-chart me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.CONTEST.TRAFFIC}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.CONTEST.TRAFFIC}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.CONTEST.ARCHIVE)}>
-                                        <i className="fas fa-archive me-3"></i>
-                                        {ADMIN.CONTEST.ARCHIVE}
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-archive me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.CONTEST.ARCHIVE}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.CONTEST.ARCHIVE}
+                                        </span>
                                     </Button>
                                 </Accordion.Body>
                             </Accordion.Item>
@@ -112,36 +193,77 @@ export default function AppSidebar({ setCurrentAction }) {
                                 <Accordion.Header>
                                     <Button className="w-100 button-title"
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.STATISTICS)}>
-                                        <i className="fas fa-seedling me-3"></i>
-                                        Tài nguyên
-                                        <i className="fa fa-exclamation-triangle ms-3"></i>
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-seedling me-3"></i>
+                                            <span className="tooltiptext">
+                                                Tài nguyên
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            Tài nguyên
+                                        </span>
                                     </Button>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.STATISTICS)}>
-                                        <i className="fas fa-chart-line me-3"></i>
-                                        {ADMIN.RESOURCES.STATISTICS}
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-chart-line me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.RESOURCES.STATISTICS}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.RESOURCES.STATISTICS}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.SAMPLE_QUESTION)}>
-                                        <i className="fa fa-question-circle me-3"></i>
-                                        {ADMIN.RESOURCES.SAMPLE_QUESTION}
+                                        <div className="tooltip-component">
+                                            <i className="fa fa-question-circle me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.RESOURCES.SAMPLE_QUESTION}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.RESOURCES.SAMPLE_QUESTION}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.IMAGE)}>
-                                        <i className="fas fa-images me-3"></i>
-                                        {ADMIN.RESOURCES.IMAGE}
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-images me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.RESOURCES.IMAGE}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.RESOURCES.IMAGE}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.VIDEO)}>
-                                        <i className="fas fa-play me-3"></i>
-                                        {ADMIN.RESOURCES.VIDEO}
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-play me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.RESOURCES.VIDEO}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.RESOURCES.VIDEO}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.RESOURCES.MUSIC)}>
-                                        <i className="fas fa-music me-3"></i>
-                                        {ADMIN.RESOURCES.MUSIC}
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-music me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.RESOURCES.MUSIC}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.RESOURCES.MUSIC}
+                                        </span>
                                     </Button>
                                 </Accordion.Body>
                             </Accordion.Item>
@@ -150,26 +272,53 @@ export default function AppSidebar({ setCurrentAction }) {
                                 <Accordion.Header>
                                     <Button className="w-100 button-title"
                                         onClick={() => setCurrentAction(ADMIN.SETTINGS.ACCOUNT)}>
-                                        <i className="fas fa-cog me-3"></i>
-                                        Cài đặt
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-cog me-3"></i>
+                                            <span className="tooltiptext">
+                                                Cài đặt
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            Cài đặt
+                                        </span>
                                     </Button>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.SETTINGS.ACCOUNT)}>
-                                        <i className="fas fa-user-circle me-3"></i>
-                                        {ADMIN.SETTINGS.ACCOUNT}
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-user-circle me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.SETTINGS.ACCOUNT}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.SETTINGS.ACCOUNT}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.SETTINGS.THEME)}>
-                                        <i className="fas fa-palette me-3"></i>
-                                        {ADMIN.SETTINGS.THEME}
-                                        <i className="fa fa-exclamation-triangle ms-3"></i>
+                                        <div className="tooltip-component">
+                                            <i className="fas fa-palette me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.SETTINGS.THEME}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.SETTINGS.THEME}
+                                        </span>
                                     </Button>
                                     <Button className="w-100"
                                         onClick={() => setCurrentAction(ADMIN.SETTINGS.NOTIFICATION)}>
-                                        <i className="fas fas fa-bell me-3"></i>
-                                        {ADMIN.SETTINGS.NOTIFICATION}
+                                        <div className="tooltip-component">
+                                            <i className="fas fas fa-bell me-3"></i>
+                                            <span className="tooltiptext">
+                                                {ADMIN.SETTINGS.NOTIFICATION}
+                                            </span>
+                                        </div>
+                                        <span className="sidebar-section">
+                                            {ADMIN.SETTINGS.NOTIFICATION}
+                                        </span>
                                     </Button>
                                 </Accordion.Body>
                             </Accordion.Item>
@@ -182,7 +331,7 @@ export default function AppSidebar({ setCurrentAction }) {
                             className="btn-lg btn-block w-100"
                             style={{ borderRadius: '0px' }}>
                             <i className="fa fa-angle-double-left"></i>
-                            <span className="ms-3">Thu gọn</span>
+                            <span className="ms-3 sidebar-section">Thu gọn</span>
                         </Button>
                     </div>
                 </CSidebar>
