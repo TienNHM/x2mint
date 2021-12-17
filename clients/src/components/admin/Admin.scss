@@ -3,6 +3,10 @@
 .dashboard {
     margin-top: $navbar-height;
 
+    .row {
+        margin: 0px !important;
+    }
+
     .main-container {
 
         .header {
