@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap'
-import './ContestStatistics.scss'
 import Chart from 'chart.js/auto'
 import { Line, Bar } from 'react-chartjs-2'
 import { useAxios } from 'actions/useAxios'
@@ -100,82 +99,106 @@ export default function ContestStatistics() {
                         Tổng quan
                     </div>
 
-                    <div className="overview d-flex align-items-center justify-content-center">
-                        <Card
-                            bg="success" text="light"
-                            style={{ width: '18rem', height: '11rem' }}
-                            className="mb-2 shadow-lg"
-                        >
-                            <Card.Header>Số cuộc thi</Card.Header>
-                            <Card.Body>
-                                <Card.Title className="d-flex justify-content-around">
-                                    <span className="h1 number">
-                                        {data.contests.length}
-                                    </span>
-                                    <img src="https://img.icons8.com/fluency/48/000000/categorize.png" />
-                                </Card.Title>
-                                <Card.Text>
-                                    Tổng số cuộc thi hiện có. <i>(Bao gồm cả các cuộc thi đã được lưu trữ).</i>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                    <div className="overview row ps-3 pe-3 d-flex align-items-center justify-content-center">
+                        <div className="col-sm-6 col-md-3 mt-2 mb-2">
+                            <Card
+                                bg="success" text="light"
+                                className="m-1 shadow-lg"
+                            >
+                                <Card.Header>
+                                    <div className="tooltip-component">
+                                        Số cuộc thi
+                                        <i className="fa fa-info-circle ms-2"></i>
+                                        <span className="tooltiptext">
+                                            Tổng số cuộc thi hiện có. <i>(Bao gồm cả các cuộc thi đã được lưu trữ).</i>
+                                        </span>
+                                    </div>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Card.Title className="d-flex justify-content-around">
+                                        <span className="h1 number">
+                                            {data.contests.length}
+                                        </span>
+                                        <img src="https://img.icons8.com/fluency/48/000000/categorize.png" />
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </div>
 
-                        <Card
-                            bg="info" text="light"
-                            style={{ width: '18rem', height: '11rem' }}
-                            className="mb-2 shadow-lg"
-                        >
-                            <Card.Header>Số bài kiểm tra</Card.Header>
-                            <Card.Body>
-                                <Card.Title className="d-flex justify-content-around">
-                                    <span className="h1 number">
-                                        {data.tests.length}
-                                    </span>
-                                    <img src="https://img.icons8.com/external-flat-geotatah/48/000000/external-battle-gamification-flat-flat-geotatah.png" />
-                                </Card.Title>
-                                <Card.Text>
-                                    Tổng số bài kiểm tra hiện có trên hệ thống.
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <div className="col-sm-6 col-md-3 mt-2 mb-2">
+                            <Card
+                                bg="info" text="light"
+                                className="m-1 shadow-lg"
+                            >
+                                <Card.Header>
+                                    <div className="tooltip-component">
+                                        Số bài test
+                                        <i className="fa fa-info-circle ms-2"></i>
+                                        <span className="tooltiptext">
+                                            Tổng số bài kiểm tra hiện có trên hệ thống.
+                                        </span>
+                                    </div>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Card.Title className="d-flex justify-content-around">
+                                        <span className="h1 number">
+                                            {data.tests.length}
+                                        </span>
+                                        <img src="https://img.icons8.com/external-flat-geotatah/48/000000/external-battle-gamification-flat-flat-geotatah.png" />
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </div>
 
-                        <Card
-                            bg="primary" text="light"
-                            style={{ width: '18rem', height: '11rem' }}
-                            className="mb-2 shadow-lg"
-                        >
-                            <Card.Header>Số lượt thi</Card.Header>
-                            <Card.Body>
-                                <Card.Title className="d-flex justify-content-around">
-                                    <span className="h1 number">
-                                        {data.takeTests.length}
-                                    </span>
-                                    <img src="https://img.icons8.com/fluency/48/000000/test-passed.png" />
-                                </Card.Title>
-                                <Card.Text>
-                                    Tổng số lượt thí sinh tham gia làm bài kiểm tra trên hệ thống.
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <div className="col-sm-6 col-md-3 mt-2 mb-2">
+                            <Card
+                                bg="primary" text="light"
+                                className="m-1 shadow-lg"
+                            >
+                                <Card.Header>
+                                    <div className="tooltip-component">
+                                        Số lượt thi
+                                        <i className="fa fa-info-circle ms-2"></i>
+                                        <span className="tooltiptext">
+                                            Tổng số lượt thí sinh tham gia làm bài kiểm tra trên hệ thống.
+                                        </span>
+                                    </div>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Card.Title className="d-flex justify-content-around">
+                                        <span className="h1 number">
+                                            {data.takeTests.length}
+                                        </span>
+                                        <img src="https://img.icons8.com/fluency/48/000000/test-passed.png" />
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </div>
 
-                        <Card
-                            bg="danger" text="light"
-                            style={{ width: '18rem', height: '11rem' }}
-                            className="mb-2 shadow-lg"
-                        >
-                            <Card.Header>Số câu hỏi</Card.Header>
-                            <Card.Body>
-                                <Card.Title className="d-flex justify-content-around">
-                                    <span className="h1 number">
-                                        {data.questions.length}
-                                    </span>
-                                    <img src="https://img.icons8.com/fluency/48/000000/where-to-quest.png" />
-                                </Card.Title>
-                                <Card.Text>
-                                    Tổng số câu hỏi đã được tạo trên hệ thống.
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <div className="col-sm-6 col-md-3 mt-2 mb-2">
+                            <Card
+                                bg="danger" text="light"
+                                className="m-1 shadow-lg"
+                            >
+                                <Card.Header>
+                                    <div className="tooltip-component">
+                                        Số câu hỏi
+                                        <i className="fa fa-info-circle ms-2"></i>
+                                        <span className="tooltiptext">
+                                            Tổng số câu hỏi đã được tạo trên hệ thống.
+                                        </span>
+                                    </div>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Card.Title className="d-flex justify-content-around">
+                                        <span className="h1 number">
+                                            {data.questions.length}
+                                        </span>
+                                        <img src="https://img.icons8.com/fluency/48/000000/where-to-quest.png" />
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </div>
                     </div>
 
                     <div className="section-header m-3 h4 d-flex">
@@ -183,8 +206,8 @@ export default function ContestStatistics() {
                         Biểu đồ thống kê
                     </div>
 
-                    <div className="chart-data d-flex justify-content-around m-4 align-item-end">
-                        <div className="char-bar">
+                    <div className="chart-data row ps-3 pe-3 d-flex justify-content-around m-4 align-item-end">
+                        <div className="char-bar col-sm-12 col-md-6 p-3 d-flex align-items-end">
                             <Bar
                                 data={takeTestStatistics}
                                 options={options}
@@ -193,7 +216,7 @@ export default function ContestStatistics() {
                             />
                         </div>
 
-                        <div className="chart-line">
+                        <div className="chart-line col-sm-12 col-md-6 p-3 d-flex align-items-end">
                             <Line
                                 data={statisticsSubmitTime}
                                 options={submitTimeLineChart}

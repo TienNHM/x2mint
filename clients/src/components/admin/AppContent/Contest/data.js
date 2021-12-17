@@ -121,7 +121,7 @@ export const TAKETEST_COLUMNS = [
         label: STATISTICS.TAKE_TEST.POINTS,
         field: STATISTICS.TAKE_TEST.POINTS,
         sort: 'asc',
-        width: 200
+        width: 100
     },
     {
         label: STATISTICS.TAKE_TEST.IS_PASSED,
@@ -209,19 +209,19 @@ export const ARCHIVE_CONTEST_COLUMNS = [
         label: STATISTICS.CONTEST._CREATOR,
         field: STATISTICS.CONTEST._CREATOR,
         sort: 'asc',
-        width: 200
+        width: 300
     },
     {
         label: STATISTICS.CONTEST._URL,
         field: STATISTICS.CONTEST._URL,
         sort: 'disabled',
-        width: 200
+        width: 80
     },
     {
         label: STATISTICS.CONTEST._STATUS,
         field: STATISTICS.CONTEST._STATUS,
         sort: 'asc',
-        width: 200
+        width: 100
     }
 ]
 
@@ -268,7 +268,7 @@ export function ExportDataArchiveContest(data, onClickContestStatus) {
                 <div className="col-2 ps-3">
                     <Image roundedCircle src={avatar} width="48px" height="48px" alt='M' />
                 </div>
-                <div className="col-10 text-start pe-3">
+                <div className="col-10 text-start ps-3 pe-3">
                     <div className="fw-bolder">{value.creatorId.full_name}</div>
                     <div>
                         <Badge pill bg="info">@{value.creatorId.username}</Badge>

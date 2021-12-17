@@ -9,13 +9,13 @@ export default function Admin() {
 
     return (
         <div className="dashboard d-flex row">
-            <div className="sidebar-menu col-2">
+            <div className="col-2 sidebar-menu">
                 <AppSidebar
                     setCurrentAction={setCurrentAction}
                 />
             </div>
 
-            <div className="main-container col-10 d-flex flex-column"
+            <div className="col-10 main-container d-flex flex-column"
                 id="main-container">
                 <AppNavbar />
 
@@ -23,7 +23,7 @@ export default function Admin() {
                     {currentAction}
                 </div>
 
-                <div className="body flex-grow-1 px-3">
+                <div className="body flex-grow-1">
                     <AppContent currentAction={currentAction} />
                 </div>
 
