@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
 import { COOKIES } from 'utils/constants'
 import { store } from 'react-notifications-component'
-import { ROLE } from 'utils/constants'
+import { ROLE, COOKIES } from 'utils/constants'
 
 const notify = {
     insert: 'top',
