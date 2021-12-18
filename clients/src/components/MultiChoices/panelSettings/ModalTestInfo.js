@@ -1,16 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
+import { MODAL_ACTION } from 'utils/constants'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
 
-export default function ModalTestInfo({ isShow, onAction, test }) {
+export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
     const start = splitTime(test.startTime)
     const end = splitTime(test.endTime)
+
+    const [testName, setTestName] = useState(test.name)
+    const [maxPoints, setMaxPoints] = useState(test.maxPoints)
+    const [link, setLink] = useState(test.url)
+    const [description, setDescription] = useState(test.description)
+    const [startDate, setStartDate] = useState(start.date)
+    const [startTime, setStartTime] = useState(start.time)
+    const [endDate, setEndDate] = useState(end.date)
+    const [endTime, setEndTime] = useState(end.time)
+
+    const handleAction = (action) => {
+        const newTest = {
+            name: testName,
+            maxPoints: maxPoints,
+            url: link,
+            description: description,
+            startTime: startDate + 'T' + startTime + ':00.000Z',
+            endTime: endDate + 'T' + endTime + ':00.000Z'
+        }
+
+        onAction(action, newTest)
+    }
 
     return (
         <Modal
             size="lg"
             show={isShow}
-            onHide={onAction}
+            onHide={() => handleAction(MODAL_ACTION.CLOSE)}
             backdrop='static'
             keyboard={false}>
 
@@ -27,8 +50,9 @@ export default function ModalTestInfo({ isShow, onAction, test }) {
                                 size="sm"
                                 type="text"
                                 className="test-title text-center"
-                                value={test.name}
-                                readOnly
+                                value={testName}
+                                onChange={(e) => setTestName(e.target.value)}
+                                readOnly={isUser}
                             />
                         </div>
 
@@ -38,70 +62,91 @@ export default function ModalTestInfo({ isShow, onAction, test }) {
                                 size="sm"
                                 type="text"
                                 className="test-title text-center"
-                                value={test.maxPoints}
-                                readOnly
+                                value={maxPoints}
+                                onChange={(e) => setMaxPoints(e.target.value)}
+                                readOnly={isUser}
                             />
                         </div>
 
                         <div className="test-title-section mt-2">
-                            <div className="label">Thời gian</div>
+                            <div className="label">Link</div>
                             <Form.Control
                                 size="sm"
                                 type="text"
                                 className="test-title text-center"
-                                value={displayTimeDelta(test.startTime, test.endTime)}
-                                readOnly
+                                value={link}
+                                onChange={(e) => setLink(e.target.value)}
+                                readOnly={isUser}
                             />
                         </div>
+
+                        {isUser &&
+                            <div className="test-title-section mt-2">
+                                <div className="label">Thời gian</div>
+                                <Form.Control
+                                    size="sm"
+                                    type="text"
+                                    className="test-title text-center"
+                                    value={displayTimeDelta(test.startTime, test.endTime)}
+                                    readOnly
+                                />
+                            </div>
+                        }
 
                         <div className="test-description-section mt-2">
                             <div className="label">Mô tả</div>
                             <Form.Control
                                 size="sm"
                                 as="textarea"
+                                row="5"
                                 className="test-description"
-                                value={test.description}
-                                readOnly
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                readOnly={isUser}
                             />
                         </div>
 
                         <div className="datetime-picker row mt-2">
                             <div className="start-time col">
                                 <div className="label">Thời gian bắt đầu</div>
-                                <div className="datetime row">
+                                <div className="datetime row" style={{ marginRight: '0px' }}>
                                     <Form.Control
-                                        className="col text-center"
+                                        className="col-sm-6 col-12 text-center"
                                         size="sm"
-                                        type="text"
-                                        value={start.date}
-                                        readOnly
+                                        type="date"
+                                        value={startDate}
+                                        onChange={(e) => setStartDate(e.target.value)}
+                                        readOnly={isUser}
                                     />
                                     <Form.Control
-                                        className="col text-center"
+                                        className="col-sm-6 col-12 text-center"
                                         size="sm"
-                                        type="text"
-                                        value={start.time}
-                                        readOnly
+                                        type="time"
+                                        value={startTime}
+                                        onChange={(e) => setStartTime(e.target.value)}
+                                        readOnly={isUser}
                                     />
                                 </div>
                             </div>
 
                             <div className="end-time col">
                                 <div className="label">Thời gian kết thúc</div>
-                                <div className="datetime row">
+                                <div className="datetime row" style={{ marginRight: '0px' }}>
                                     <Form.Control
-                                        className="col text-center"
+                                        className="col-sm-6 col-12 text-center"
                                         size="sm"
-                                        type="text"
-                                        value={end.date}
-                                        readOnly
+                                        type="date"
+                                        value={endDate}
+                                        onChange={(e) => setEndDate(e.target.value)}
+                                        readOnly={isUser}
                                     />
                                     <Form.Control
-                                        className="col text-center"
+                                        className="col-sm-6 col-12 text-center"
                                         size="sm"
-                                        type="text"
-                                        value={end.time}
-                                        readOnly
+                                        type="time"
+                                        value={endTime}
+                                        onChange={(e) => setEndTime(e.target.value)}
+                                        readOnly={isUser}
                                     />
                                 </div>
                             </div>
@@ -112,9 +157,16 @@ export default function ModalTestInfo({ isShow, onAction, test }) {
 
             <Modal.Footer>
                 <Button variant="secondary"
-                    onClick={onAction}>
+                    onClick={() => handleAction(MODAL_ACTION.CLOSE)}>
                     Đóng
                 </Button>
+
+                {!isUser &&
+                    <Button variant="primary"
+                        onClick={() => handleAction(MODAL_ACTION.CONFIRM)}>
+                        Lưu
+                    </Button>
+                }
             </Modal.Footer>
         </Modal>
     )
