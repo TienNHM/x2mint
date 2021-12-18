@@ -86,15 +86,6 @@ export default function ContestInfo() {
         }
     }, [contest])
 
-    useEffect(() => {
-        if (selectedTest) {
-            const newContest = { ...contest }
-            const index = newContest.tests.findIndex(t => t.id === selectedTest.id)
-            newContest.tests[index] = selectedTest
-            updateContest(newContest)
-        }
-    }, [selectedTest])
-
     const onAction = async (
         isUpdate, action, title, description,
         url, embededMedia, startTime, endTime
@@ -144,7 +135,7 @@ export default function ContestInfo() {
 
     const handleDeleteTest = (test) => {
         setSelectedTest({ ...test })
-        setConfirmModalContent(`Bạn có muốn xóa bài test này khỏi cuộc thi ${title} không?`)
+        setConfirmModalContent(`Bạn có muốn xóa bài test ${test.name} khỏi cuộc thi ${title} không?`)
         setCurrentAction(CURRENT_ACTION.DELETE_TEST)
         setIsShowConfirmModal(true)
     }
@@ -169,16 +160,14 @@ export default function ContestInfo() {
         if (currentAction === CURRENT_ACTION.DELETE_TEST) {
             if (selectedTest && action === MODAL_ACTION.CONFIRM) {
                 const newContest = { ...contest }
-                const index = newContest.tests.findIndex(c => c.id === selectedTest.id)
+                const index = newContest.tests.findIndex(c => c._id === selectedTest._id)
                 newContest.tests.splice(index, 1)
 
                 // Xóa selected test trong CSDL
-                const data = await deleteTest(selectedTest._id)
-                console.log(data)
+                await deleteTest(selectedTest._id)
 
                 // Cập nhật lại contest
-                const tmp = await updateContest(newContest)
-                console.log(tmp)
+                await updateContest(newContest)
             }
         }
         else if (currentAction === CURRENT_ACTION.CREATE_TEST) {
