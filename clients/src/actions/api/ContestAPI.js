@@ -19,7 +19,7 @@ export const getAllContests = async () => {
     }
 }
 
-export const useGetAllContestsByCreatorId = async () => {
+export const getAllContestsByCreatorId = async () => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/contests/creator/${Cookies.get(COOKIES.USER_ID)}`
         const request = await axios.get(url, {
