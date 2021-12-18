@@ -48,10 +48,8 @@ function MultiChoices() {
         }
 
         if (testResponse) {
-            console.log('response', testResponse)
             const t = testResponse.data
             setTest(t)
-            console.log('test', t)
 
             const q = mapOrder(t.questions, t.questionsOrder, 'id')
             setQuestions(q)

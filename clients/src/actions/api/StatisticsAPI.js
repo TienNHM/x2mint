@@ -2,7 +2,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { COOKIES } from 'utils/constants'
 
-export const getOverview = async (userId) => {
+export const getOverview = async () => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/statistics`
         const request = await axios.get(url, {

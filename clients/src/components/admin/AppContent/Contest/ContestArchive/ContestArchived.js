@@ -31,7 +31,6 @@ export default function ContestArchived() {
     const onClickContestStatus = async (index, contest, newStatus) => {
         const _contest = {
             ...contest,
-            // _id: contest.id,
             _status: newStatus
         }
 

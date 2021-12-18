@@ -61,7 +61,8 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
         return (
             <div className="empty-answer d-flex align-items-center justify-content-center">
                 <div className="decor d-flex align-items-center justify-content-center">
-                    <Button variant="primary" size="lg"
+                    <Button variant="success" size="lg" className="w-100 h-100"
+                        style={{ borderRadius: '10px' }}
                         onClick={() => handleOnAddAnswer()}>
                         Thêm đáp án
                     </Button>
@@ -106,7 +107,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     }
 
     const handleOnAnswerClick = async (answerName, checkStatus) => {
-        // TODO update correctAnswers of question when choose answer
+        // update correctAnswers of question when choose answer
         const newValue = [...chooseAnswers]
         const index = newValue.indexOf(answerName)
         let choose = []
@@ -150,8 +151,6 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
         }
         else {
             updateTakeTest(question, choose)
-
-            //TODO update choose answer
         }
     }
 
@@ -226,7 +225,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
                         {!isUser && (
                             <div className="question">
-                                <div className="question-content  align-items-center">
+                                <div className="question-content align-items-center">
                                     <Form.Control
                                         size="sm" as="textarea"
                                         rows={rows}
@@ -280,7 +279,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
                     {question.answers.length > 0 ? (
                         <div className="row">
-                            <div className="question-answers">
+                            <div className="question-answers" style={{ marginTop: '10px' }} >
                                 {question.answers.map((a, index) =>
                                     <Answer
                                         key={index}

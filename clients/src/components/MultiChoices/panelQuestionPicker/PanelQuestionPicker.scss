@@ -37,6 +37,10 @@
             border-radius: $gap;
         }
 
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
         .btn-question {
             overflow-y: auto;
             height: 90%;
@@ -53,6 +57,10 @@
             &::-webkit-scrollbar-thumb {
                 background-color: lighten($color: $theme-color, $amount: 5);
                 border-radius: $gap;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: #f1f1f1;
             }
 
             button {

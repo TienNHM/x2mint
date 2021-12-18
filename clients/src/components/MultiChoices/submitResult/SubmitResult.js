@@ -16,8 +16,7 @@ export default function SubmitResult() {
 
     const {
         response,
-        loading,
-        error
+        loading
     } = useAxios({
         method: 'GET',
         url: `/takeTest/${takeTestId}`,

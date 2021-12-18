@@ -9,6 +9,7 @@ import { blankQuestion } from 'actions/initialData'
 import './PanelPreview.scss'
 import { createQuestion, deleteQuestion } from 'actions/api/QuestionAPI'
 import { updateTest } from 'actions/api/TestAPI'
+import { Fab } from 'react-tiny-fab'
 
 function PanelPreview(props) {
     const {
@@ -23,7 +24,7 @@ function PanelPreview(props) {
      * Xử lý sự kiện kéo thả
      * @param {*} dropResult kết quả kéo thả
      */
-    const onQuestionDrop = (dropResult) => {
+    const onQuestionDrop = async (dropResult) => {
         // Tạo bản sao
         let newQuestions = cloneDeep(questions)
         // Sắp xếp thứ tự các questions lại theo dropResult
@@ -34,8 +35,7 @@ function PanelPreview(props) {
         newTest.questionsOrder = newQuestions.map(q => q.id)
         newTest.questions = newQuestions
 
-        const data = updateTest(newTest)
-        console.log(data)
+        await updateTest(newTest)
         setQuestions(newQuestions)
         setTest(newTest)
     }
@@ -44,7 +44,6 @@ function PanelPreview(props) {
         // Tạo mới 1 question
         const quiz = cloneDeep(blankQuestion)
         const newQuiz = await createQuestion(quiz, test.id)
-        console.log(newQuiz)
 
         // Cập nhật lại bài test kèm theo question mới
         setTest(newQuiz.test)
@@ -54,19 +53,6 @@ function PanelPreview(props) {
         setSelectedQuestion(newQuiz.test.questions[index - 1])
 
         setQuestions(newQuiz.test.questions)
-
-        // Thêm quiz vào danh sách các câu hỏi
-        // let questionsList = [...questions]
-        // questionsList.push(newQuiz.question)
-        // const questionsOrder = test.questions.map(q => q._id)
-        // questionsOrder.push(newQuiz.question.id)
-        // questionsList.questionsOrder = questionsOrder
-        // setQuestions(questionsList)
-
-        // const newTest = { ...test }
-        // newTest.questions = questionsList
-        // newTest.questionsOrder = newTest.questions.map(q => q.id)
-        // setTest(newTest)
     }
 
     const handleOnDeleteQuestion = () => {
@@ -77,7 +63,6 @@ function PanelPreview(props) {
         if (action === MODAL_ACTION.CONFIRM) {
             // TODO delete question
             const data = await deleteQuestion(selectedQuestion._id)
-            console.log(data)
 
             const newQuestions = [...questions]
             const index = newQuestions.indexOf(selectedQuestion)
@@ -93,57 +78,101 @@ function PanelPreview(props) {
         console.log(selectedQuestion)
     }, [selectedQuestion])
 
-    return (
-        <div className="panel-left">
-            <div className="questions-preview-title">Questions</div>
-            <div className="questions-preview">
-                {!isEmpty(test) &&
-                    <Container
-                        groupName="questions-preview-panel"
-                        orientation="vertical" // default
-                        onDrop={onQuestionDrop}
-                        getChildPayload={index => questions[index]}
-                        dragClass="card-ghost"
-                        dropClass="card-ghost-drop"
-                        dropPlaceholder={{
-                            animationDuration: 150,
-                            showOnTop: true,
-                            className: 'question-drop-preview'
-                        }}
-                        dropPlaceholderAnimationDuration={200}
-                    >
-                        {questions.map((q, index) => (
-                            <Draggable key={index}>
-                                <div className="question-item-preview">
-                                    <div className="question-number">{index + 1}</div>
-                                    <div
-                                        className={
-                                            q._id === selectedQuestion._id ? 'rv-content q-selected' : 'rv-content'
-                                        }
-                                        onClick={() => setSelectedQuestion({ ...q })}
-                                    >
-                                        {q.content.split(' ').slice(0, 12).join(' ')}
-                                    </div>
-                                </div>
-                            </Draggable>
-                        ))}
-                    </Container>
-                }
+    const renderPreviewQuestion = (q, index) => {
+        const isSelectedClassName = q._id === selectedQuestion._id ?
+            'rv-content q-selected' :
+            'rv-content'
 
-                {isEmpty(test) &&
-                    <div className="not-found align-items-center">
-                        Vui lòng thêm câu hỏi mới!
+        return (
+            <div className="question-item-preview"
+                onClick={() => setSelectedQuestion({ ...q })}>
+                <div className="question-number">{index + 1}</div>
+                <div className={isSelectedClassName}>
+                    <div className="display-text">
+                        {q.content.split(' ').slice(0, 12).join(' ')}
                     </div>
-                }
+                </div>
             </div>
+        )
+    }
 
-            <div className="question-actions">
-                <Button
-                    variant="primary"
-                    onClick={handleOnAddQuestion}>
-                    Thêm
-                </Button>{' '}
-                <Button variant="danger" onClick={handleOnDeleteQuestion}>Xóa</Button>{' '}
+    const btnAddQuestionStyles = {
+        bottom: '0px',
+        right: '0px',
+        backgroundColor: '#1dc476'
+    }
+
+    const btnRemoveQuestionStyles = {
+        bottom: '0px',
+        right: '0px',
+        backgroundColor: '#8993a3'
+    }
+
+    return (
+        <div className="panel-preview">
+            <div className="panel-left">
+                <div className="questions-preview-title">Questions</div>
+                <div className="questions-preview">
+                    {!isEmpty(test) &&
+                        <Container
+                            groupName="questions-preview-panel"
+                            orientation={window.screen.availWidth <= 992 ? 'horizontal' : 'vertical'}
+                            onDrop={onQuestionDrop}
+                            getChildPayload={index => questions[index]}
+                            dragClass="card-ghost"
+                            dropClass="card-ghost-drop"
+                            dropPlaceholder={{
+                                animationDuration: 150,
+                                showOnTop: true,
+                                className: 'question-drop-preview'
+                            }}
+                            dropPlaceholderAnimationDuration={200}
+                        >
+                            {questions.map((q, index) => (
+                                <Draggable key={index}>
+                                    {renderPreviewQuestion(q, index)}
+                                </Draggable>
+                            ))}
+                        </Container>
+                    }
+
+                    {isEmpty(test) &&
+                        <div className="not-found align-items-center">
+                            Vui lòng thêm câu hỏi mới!
+                        </div>
+                    }
+                </div>
+
+                <div className="question-actions">
+                    <Button
+                        variant="primary"
+                        onClick={handleOnAddQuestion}>
+                        Thêm
+                    </Button>
+
+                    <Button
+                        variant="danger"
+                        onClick={handleOnDeleteQuestion}>
+                        Xóa
+                    </Button>
+                </div>
+
+                <div className="floating-buttons">
+                    <Fab
+                        mainButtonStyles={btnAddQuestionStyles}
+                        style={{ bottom: '-10px', right: '140px' }}
+                        icon={<i className="fa fa-plus"></i>}
+                        alwaysShowTitle={true}
+                        onClick={handleOnAddQuestion}
+                    ></Fab>
+                    <Fab
+                        mainButtonStyles={btnRemoveQuestionStyles}
+                        style={{ bottom: '-10px', right: '90px' }}
+                        icon={<i className="fa fa-minus"></i>}
+                        alwaysShowTitle={true}
+                        onClick={handleOnDeleteQuestion}
+                    ></Fab>
+                </div>
             </div>
 
             <ConfirmModal

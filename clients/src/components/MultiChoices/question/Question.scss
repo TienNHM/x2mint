@@ -5,6 +5,8 @@ $question-content-background: white;
 $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
 .panel-center {
+    padding: $gap;
+    
     >* {
         font-weight: bold;
     }
@@ -14,7 +16,7 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
         background-color: $question-content-background;
         box-shadow: $box-shadow;
         z-index: 1;
-        margin: $gap $gap * 2 0 $gap*2;
+        padding: $gap $gap * 2 0 $gap*2;
         border-radius: $gap;
         border: 2px solid $border-color;
         line-height: 1.2rem;
@@ -97,7 +99,8 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     }
 
     @media screen and (max-width: 992px) {
-
+        width: 100vw;
+        
         .question-user {
             height: 10vh;
         }

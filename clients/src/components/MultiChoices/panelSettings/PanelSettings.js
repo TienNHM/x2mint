@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useAlert } from 'react-alert'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
@@ -102,6 +102,46 @@ function PanelSettings(props) {
             return navigate(-1)
         }
     }
+
+    const handleOnUpdateTestInfo = async (action, _test) => {
+        if (action === MODAL_ACTION.CONFIRM) {
+            console.log('test', test)
+            const newTest = {
+                ...test,
+                name: _test.name,
+                maxPoints: _test.maxPoints,
+                url: _test.url,
+                description: _test.description,
+                startTime: _test.startTime,
+                endTime: _test.endTime
+            }
+
+            // Lưu vào CSDL
+            const data = await updateTest(newTest)
+            console.log(data)
+
+            // Update lại test
+            setTest(newTest)
+            alert.success('Đã lưu lại những thay đổi của bạn!')
+        }
+        setIsShowTestInfo(false)
+    }
+
+    useEffect(() => {
+        if (test) {
+            setTestTitle(test.name)
+            setTestDescription(test.description)
+            setTestMaxPoints(test.maxPoints)
+            setTestLink(test.url)
+
+            const start_time = splitTime(test.startTime)
+            const end_time = splitTime(test.endTime)
+            setStartDate(start_time.date)
+            setStartTime(start_time.time)
+            setEndDate(end_time.date)
+            setEndTime(end_time.time)
+        }
+    }, [test])
 
     const btnExitStyles = {
         bottom: '0px',
@@ -237,9 +277,16 @@ function PanelSettings(props) {
 
                 <div className="quick-actions d-flex justify-content-center">
                     {!isUser &&
-                        <Button variant="warning" className="w-100" onClick={handleSaveClick}>Lưu</Button>
+                        <Button variant="warning" className="w-100"
+                            onClick={handleSaveClick}>
+                            Lưu
+                        </Button>
                     }
-                    <Button variant="danger" className="w-100" onClick={handleExit}>Thoát</Button>
+
+                    <Button variant="danger" className="w-100"
+                        onClick={handleExit}>
+                        Thoát
+                    </Button>
                 </div>
 
                 <div className="confirm-submit">
@@ -256,7 +303,6 @@ function PanelSettings(props) {
                 <div className="floating-buttons d-flex justify-content-end" id="floating-buttons">
                     <Fab
                         mainButtonStyles={btnInfoStyles}
-                        // actionButtonStyles={actionButtonStyles}
                         style={{ bottom: '-10px', right: '-10px' }}
                         icon={<i className="fa fa-reorder"></i>}
                         alwaysShowTitle={true}
@@ -265,7 +311,6 @@ function PanelSettings(props) {
 
                     <Fab
                         mainButtonStyles={btnExitStyles}
-                        // actionButtonStyles={actionButtonStyles}
                         style={{ bottom: '-10px', right: '40px' }}
                         icon={<i className="fa fa-window-close"></i>}
                         alwaysShowTitle={true}
@@ -275,8 +320,9 @@ function PanelSettings(props) {
 
                 <ModalTestInfo
                     isShow={isShowTestInfo}
-                    onAction={() => setIsShowTestInfo(false)}
+                    onAction={handleOnUpdateTestInfo}
                     test={test}
+                    isUser={isUser}
                 />
             </div>
         </div>

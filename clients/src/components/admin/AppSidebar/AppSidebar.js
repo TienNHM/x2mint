@@ -34,17 +34,15 @@ export default function AppSidebar({ setCurrentAction }) {
                     <div className="settings">
                         <Accordion className="mt-2 mb-2" flush>
                             <Accordion.Item eventKey="0">
-                                <Accordion.Header>
-                                    <Button className="w-100 button-title"
-                                        onClick={() => setCurrentAction(ADMIN.ACCOUNT.STATISTICS)}>
-                                        <div className="tooltip-component">
-                                            <i className="fas fa-users me-3"></i>
-                                            <span className="tooltiptext">
-                                                Người dùng
-                                            </span>
-                                        </div>
-                                        <span className="sidebar-section">Người dùng</span>
-                                    </Button>
+                                <Accordion.Header className="w-100 button-title"
+                                    onClick={() => setCurrentAction(ADMIN.ACCOUNT.STATISTICS)}>
+                                    <div className="tooltip-component">
+                                        <i className="fas fa-users me-3"></i>
+                                        <span className="tooltiptext">
+                                            Người dùng
+                                        </span>
+                                    </div>
+                                    <span className="sidebar-section">Người dùng</span>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
@@ -99,19 +97,17 @@ export default function AppSidebar({ setCurrentAction }) {
                             </Accordion.Item>
 
                             <Accordion.Item eventKey="1">
-                                <Accordion.Header>
-                                    <Button className="w-100 button-title"
-                                        onClick={() => setCurrentAction(ADMIN.CONTEST.STATISTICS)}>
-                                        <div className="tooltip-component">
-                                            <i className="fas fa-chalkboard-teacher me-3"></i>
-                                            <span className="tooltiptext">
-                                                Quản lý cuộc thi
-                                            </span>
-                                        </div>
-                                        <span className="sidebar-section">
+                                <Accordion.Header className="w-100 button-title"
+                                    onClick={() => setCurrentAction(ADMIN.CONTEST.STATISTICS)}>
+                                    <div className="tooltip-component">
+                                        <i className="fas fa-chalkboard-teacher me-3"></i>
+                                        <span className="tooltiptext">
                                             Quản lý cuộc thi
                                         </span>
-                                    </Button>
+                                    </div>
+                                    <span className="sidebar-section">
+                                        Quản lý cuộc thi
+                                    </span>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
@@ -190,19 +186,18 @@ export default function AppSidebar({ setCurrentAction }) {
                             </Accordion.Item>
 
                             <Accordion.Item eventKey="2">
-                                <Accordion.Header>
-                                    <Button className="w-100 button-title"
-                                        onClick={() => setCurrentAction(ADMIN.RESOURCES.STATISTICS)}>
-                                        <div className="tooltip-component">
-                                            <i className="fas fa-seedling me-3"></i>
-                                            <span className="tooltiptext">
-                                                Tài nguyên
-                                            </span>
-                                        </div>
-                                        <span className="sidebar-section">
+                                <Accordion.Header className="w-100 button-title"
+                                    onClick={() => setCurrentAction(ADMIN.RESOURCES.STATISTICS)}>
+                                    <div className="tooltip-component">
+                                        <i className="fas fa-seedling me-3"></i>
+                                        <span className="tooltiptext">
                                             Tài nguyên
                                         </span>
-                                    </Button>
+                                    </div>
+                                    <span className="sidebar-section">
+                                        Tài nguyên
+                                    </span>
+
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"
@@ -269,19 +264,17 @@ export default function AppSidebar({ setCurrentAction }) {
                             </Accordion.Item>
 
                             <Accordion.Item eventKey="3">
-                                <Accordion.Header>
-                                    <Button className="w-100 button-title"
-                                        onClick={() => setCurrentAction(ADMIN.SETTINGS.ACCOUNT)}>
-                                        <div className="tooltip-component">
-                                            <i className="fas fa-cog me-3"></i>
-                                            <span className="tooltiptext">
-                                                Cài đặt
-                                            </span>
-                                        </div>
-                                        <span className="sidebar-section">
+                                <Accordion.Header className="w-100 button-title"
+                                    onClick={() => setCurrentAction(ADMIN.SETTINGS.ACCOUNT)}>
+                                    <div className="tooltip-component">
+                                        <i className="fas fa-cog me-3"></i>
+                                        <span className="tooltiptext">
                                             Cài đặt
                                         </span>
-                                    </Button>
+                                    </div>
+                                    <span className="sidebar-section">
+                                        Cài đặt
+                                    </span>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <Button className="w-100"

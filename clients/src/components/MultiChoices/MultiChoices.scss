@@ -3,11 +3,10 @@
 .app-container {
     display: flex;
     margin-top: 1.1*$navbar-height;
-    width: 100vw;
 
     .row {
         width: 100%;
-        margin: 0 !important;
+        margin: 0px !important;
 
         > * {
             padding-left: 0 !important;
@@ -31,5 +30,9 @@
     &::-webkit-scrollbar-thumb {
         background-color: lighten($color: $theme-color, $amount: 5);
         border-radius: $gap;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
     }
 }

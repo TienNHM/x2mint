@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, Container, Button } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import './AppNavbar.scss'
 
 export default function AppNavbar() {
