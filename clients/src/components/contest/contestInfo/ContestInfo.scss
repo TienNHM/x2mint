@@ -136,6 +136,10 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
                     border-radius: $gap;
                 }
 
+                &::-webkit-scrollbar-track {
+                    background: #f1f1f1;
+                }
+
                 .card-body {
                     padding: $gap 1rem;
                 }

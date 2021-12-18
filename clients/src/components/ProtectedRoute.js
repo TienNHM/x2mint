@@ -6,7 +6,7 @@ import { loadUser } from 'redux/authSlice'
 const ProtectedRoute = () => {
     const dispatch = useDispatch()
     const { isAuthenticated } = useSelector((state) => state.auth)
-    const [ setIsTryLogin] = useState(false)
+    const [isTryLogin, setIsTryLogin] = useState(false)
     //loadUser
     useEffect(() => {
         if (isAuthenticated) {

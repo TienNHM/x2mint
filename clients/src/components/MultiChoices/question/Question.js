@@ -61,7 +61,8 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
         return (
             <div className="empty-answer d-flex align-items-center justify-content-center">
                 <div className="decor d-flex align-items-center justify-content-center">
-                    <Button variant="primary" size="lg"
+                    <Button variant="success" size="lg" className="w-100 h-100"
+                        style={{ borderRadius: '10px' }}
                         onClick={() => handleOnAddAnswer()}>
                         Thêm đáp án
                     </Button>
