@@ -1,138 +1,192 @@
-import React, { useRef, useState } from 'react'
-import { Button, Modal, Form, Overlay, Popover } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import Chart from 'chart.js/auto'
+import { Line, Bar, Doughnut } from 'react-chartjs-2'
+import { useAxios } from 'actions/useAxios'
+import Cookies from 'js-cookie'
+import { COOKIES, STATISTICS } from 'utils/constants'
+import { HashLoader } from 'react-spinners'
+import {
+    ExportDataTakeTest,
+    StatisticSubmitTime,
+    StatisticTakeTest,
+    StatisticTakeTestStatus
+} from 'components/admin/AppContent/Contest/data'
+import './StatisticTest.scss'
 import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
-import { MODAL_ACTION } from 'utils/constants'
-import exportData from './data.js'
-import './StatisticTest.scss'
+import { cloneDeep } from 'lodash'
+import { getCurrentDatetime } from 'utils/timeUtils'
+import { useNavigate, useParams } from 'react-router'
 
-export default function StatisticTest({ isShow, onAction, test }) {
-    const [show, setShow] = useState(false)
-    const [isShowSubmitPage, setIsShowSubmitPage] = useState(false)
-    const target = useRef(null)
+export default function StatisticTest() {
+    const navigate = useNavigate()
+    let { testId } = useParams()
 
-    if (test === null) return null
+    const [takeTestStatistics, setTakeTestStatistics] = useState(null)
+    const [statisticsSubmitTime, setStatisticsSubmitTime] = useState(null)
+    const [tableData, setTableData] = useState(null)
+    const [takeTestStatus, setTakeTestStatus] = useState(null)
 
-    const startTime = test.startTime.split(' ')
-    const endTime = test.endTime.split(' ')
+    const {
+        response,
+        loading
+    } = useAxios({
+        method: 'GET',
+        url: `takeTest/test/${testId}`,
+        headers: {
+            Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
+        }
+    })
 
-    //TODO Statistic
-    // const data = exportData(test, setIsShowSubmitPage) //TODO export data
+    useEffect(() => {
+        if (response) {
+            const takeTests = response.takeTests
 
-    const handleAction = (action) => {
-        if (action === MODAL_ACTION.CLOSE) {
-            setIsShowSubmitPage(false)
+            const takeTestStatisticsData = StatisticTakeTest(cloneDeep(takeTests))
+            setTakeTestStatistics(takeTestStatisticsData)
+
+            const submitTimeStatisticsData = StatisticSubmitTime(cloneDeep(takeTests))
+            setStatisticsSubmitTime(submitTimeStatisticsData)
+
+            setTableData(ExportDataTakeTest(cloneDeep(takeTests)))
+
+            setTakeTestStatus(StatisticTakeTestStatus(cloneDeep(takeTests)))
+        }
+    }, [response])
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Thống kê điểm số các bài thi'
+            }
+        }
+    }
+
+    const submitTimeLineChart = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Thống kê lượt nộp bài theo thời gian'
+            },
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    }
+
+    const takeTestStatusDoughnutChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Tỉ lệ phân bổ giữa các bài thi Passed / Failed / Not submitted (%)'
+            }
         }
     }
 
     return (
-        <>
-            <Modal
-                size="lg"
-                fullscreen={true}
-                show={isShow}
-                onHide={() => onAction(MODAL_ACTION.CLOSE)}
-                backdrop='static'
-                keyboard={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>
-                        <span className="fw-bolder">{test.name}</span>
-                        <Button variant="information"
-                            style={{ marginLeft: '5px', boxShadow: 'none', 'color': '#71bef1' }}
-                            ref={target}
-                            size="sm"
-                            onClick={() => setShow(!show)}>
-                            <i className="fa fa-info-circle"></i>
-                        </Button>
-                        <Overlay
-                            show={show}
-                            target={target}
-                            placement="bottom"
-                            container={target}
-                            containerPadding={20}
-                        >
-                            <Popover id="popover-contained">
-                                <Popover.Header as="h3">Thông tin về bài test</Popover.Header>
-                                <Popover.Body>
-                                    <strong>{test.description}</strong>
-                                </Popover.Body>
-                            </Popover>
-                        </Overlay>
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="test-info">
-                        <div className="duration d-flex align-items-end">
-                            <div>
-                                <div className="label">Thời gian bắt đầu</div>
-                                <div className="row">
-                                    <Form.Control
-                                        size="sm"
-                                        type="date"
-                                        value={startTime[0]}
-                                        readOnly={true}
-                                        style={{ width: '140px', margin: '5px', textAlign: 'center' }}
-                                    />
-                                    <Form.Control
-                                        size="sm"
-                                        type="time"
-                                        value={startTime[1]}
-                                        readOnly={true}
-                                        style={{ width: '140px', margin: '5px', textAlign: 'center' }}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <div className="label">Thời gian kết thúc</div>
-                                <div className="row">
-                                    <Form.Control
-                                        size="sm"
-                                        type="date"
-                                        value={endTime[0]}
-                                        readOnly={true}
-                                        style={{ width: '140px', margin: '5px', textAlign: 'center' }}
-                                    />
-                                    <Form.Control
-                                        size="sm"
-                                        type="time"
-                                        value={endTime[1]}
-                                        readOnly={true}
-                                        style={{ width: '140px', margin: '5px', textAlign: 'center' }}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <ExportToExcel
-                                    //TODO: Custom export
-                                    // apiData={data.rows}
-                                    fileName={'data'}
+        <div className="contest-participants">
+            {loading &&
+                <div
+                    className='sweet-loading d-flex justify-content-center align-items-center'
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'absolute',
+                        top: 0,
+                        left: 100
+                    }}>
+                    <HashLoader color={'#7ED321'} loading={loading} />
+                </div>
+            }
+
+            {!loading &&
+                <>
+                    <div id="charts">
+                        <div className="section-header m-3 h4 d-flex">
+                            <i className="fa fa-line-chart me-3"></i>
+                            Biểu đồ thống kê
+                        </div>
+
+                        <div className="row ps-3 pe-3 chart-data justify-content-around align-item-end">
+                            <div className="char-bar col-sm-12 col-md-6 col-lg-4 p-3 d-flex align-items-end">
+                                <Bar
+                                    data={takeTestStatistics}
+                                    options={options}
+                                    height="400"
+                                    width="500"
                                 />
                             </div>
+
+                            <div className="chart-line col-sm-12 col-md-6 col-lg-4 p-3 d-flex align-items-end">
+                                <Line
+                                    data={statisticsSubmitTime}
+                                    options={submitTimeLineChart}
+                                    height="400"
+                                    width="500"
+                                />
+                            </div>
+
+                            <div className="chart-pie col-sm-12 col-md-6 col-lg-4 p-3 d-flex align-items-end">
+                                <Doughnut
+                                    options={takeTestStatusDoughnutChartOptions}
+                                    data={takeTestStatus}
+                                    height="400"
+                                    width="400" />
+                            </div>
                         </div>
-                        <div className="data-table">
+                    </div>
+
+                    <div id="table-data">
+                        <div className="section-header m-3 h4 d-flex">
+                            <i className="fa fa-list me-3"></i>
+                            Danh sách
+                        </div>
+
+                        <div>
+                            <ExportToExcel
+                                apiData={cloneDeep(tableData.rows)}
+                                fileName={'Danh sách các lượt thi - ' + getCurrentDatetime()}
+                                fieldsToBeRemoved={[
+                                    STATISTICS.TAKE_TEST.EXAMINEE,
+                                    STATISTICS.TAKE_TEST.IS_PASSED
+                                ]}
+                            />
+                        </div>
+
+                        <div className="p-3">
                             <MDBDataTableV5
                                 hover striped bordered
                                 entriesOptions={[10, 25, 50, 100]}
                                 entries={10}
                                 pagesAmount={4}
-                                // data={data}
-                                materialSearch
-                                fullPagination
+                                data={tableData}
+                                materialSearch scrollX
                             />
                         </div>
                     </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => onAction(MODAL_ACTION.CLOSE)}>
-                        Đóng
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
-            {/* <SubmitResult
-                isShow={isShowSubmitPage}
-                onAction={handleAction}
-            /> */}
-        </>
+                </>
+            }
+        </div>
     )
 }

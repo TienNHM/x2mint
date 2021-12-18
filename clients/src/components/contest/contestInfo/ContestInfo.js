@@ -46,7 +46,6 @@ export default function ContestInfo() {
     const [contest, setContest] = useState(null)
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
-    const [isShowStatisticTest, setIsShowStatisticTest] = useState(false)
     const [isShowShareModal, setIsShowShareModal] = useState(false)
     const [shareContent, setShareContent] = useState({})
     const [confirmModalContent, setConfirmModalContent] = useState('')
@@ -128,11 +127,6 @@ export default function ContestInfo() {
         setIsShowConfirmModal(true)
     }
 
-    const handleStatisticsTest = (test) => {
-        setSelectedTest(test)
-        setIsShowStatisticTest(true)
-    }
-
     const handleDeleteTest = (test) => {
         setSelectedTest({ ...test })
         setConfirmModalContent(`Bạn có muốn xóa bài test ${test.name} khỏi cuộc thi ${title} không?`)
@@ -153,7 +147,6 @@ export default function ContestInfo() {
         setShareContent(obj)
         setIsShowShareModal(true)
     }
-
     //#endregion
 
     const onTestAction = async (action) => {
@@ -206,10 +199,6 @@ export default function ContestInfo() {
             setContest(newContest)
         }
         setIsShowConfirmModal(false)
-    }
-
-    const onShowStatistics = (action) => {
-        setIsShowStatisticTest(false)
     }
 
     const renderContestInfo = () => {
@@ -375,7 +364,7 @@ export default function ContestInfo() {
                                 <>
                                     <Button variant="warning" size="sm"
                                         className="col"
-                                        onClick={() => handleStatisticsTest(test)} >
+                                        onClick={() => navigate(`/statistics/take-test/${test._id}`)} >
                                         <i className="fa fa-bar-chart"></i>
                                     </Button>
                                     <Button variant="primary" size="sm"
@@ -474,12 +463,6 @@ export default function ContestInfo() {
                 content={confirmModalContent}
                 isShow={isShowConfirmModal}
                 onAction={onTestAction}
-            />
-
-            <StatisticTest
-                isShow={isShowStatisticTest}
-                onAction={onShowStatistics}
-                test={selectedTest}
             />
 
             <Share
