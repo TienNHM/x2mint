@@ -296,6 +296,11 @@ export default function ContestInfo() {
                                     <i className="fa fa-folder-open"></i>
                                 </Button>
                             }
+
+                            <Button variant="warning" className="m-2 fw-bolder text-light" size="sm"
+                                onClick={() => navigate(`/statistics/contest/${contest.id}/taketests`)}>
+                                <i className="fa fa-bar-chart"></i>
+                            </Button>
                         </div>
                     }
 

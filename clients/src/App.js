@@ -24,6 +24,7 @@ import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import './App.scss'
 import StatisticTest from 'components/contest/statistics/StatisticTest'
+import StatisticContest from 'components/contest/statistics/StatisticContest'
 
 const options = {
     // you can also just use 'bottom center'
@@ -123,6 +124,10 @@ function App() {
                                     <Route
                                         path="/statistics/take-test/:testId"
                                         element={<StatisticTest />}
+                                    />
+                                    <Route
+                                        path="/statistics/contest/:contestId/taketests"
+                                        element={<StatisticContest />}
                                     />
                                 </Route>
                             </Routes>

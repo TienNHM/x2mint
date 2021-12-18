@@ -84,7 +84,8 @@ export const STATISTICS = {
     TAKE_TEST: {
         STT: 'STT',
         TEST_NAME: 'Tên bài thi',
-        TEST_URL: 'Link bài thi',
+        TEST_URL: 'Link bài test',
+        _TEST_URL: 'Link bài thi',
         EXAMINEE: 'Thí sinh',
         EXAMINEE_FULLNAME: 'Họ tên thí sinh',
         EXAMINEE_USERNAME: 'Username',
