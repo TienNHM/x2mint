@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Button, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
+import { Image, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
 import { COLOR } from 'utils/colors'
 import { ROLE, STATISTICS, STATUS } from 'utils/constants'
 import { splitTime } from 'utils/timeUtils'

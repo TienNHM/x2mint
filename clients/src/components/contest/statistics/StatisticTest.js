@@ -16,10 +16,9 @@ import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import { cloneDeep } from 'lodash'
 import { getCurrentDatetime } from 'utils/timeUtils'
-import { useNavigate, useParams } from 'react-router'
+import { useParams } from 'react-router'
 
 export default function StatisticTest() {
-    const navigate = useNavigate()
     let { testId } = useParams()
 
     const [takeTestStatistics, setTakeTestStatistics] = useState(null)

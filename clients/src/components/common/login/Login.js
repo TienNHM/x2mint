@@ -65,7 +65,7 @@ const Login = () => {
             )}
 
             <AlertMessage info={alert} />
-            <h1 h1 className="form__title">
+            <h1 className="form__title">
                 Đăng nhập
             </h1>
             <Form className="form__body" onSubmit={login}>

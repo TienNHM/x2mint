@@ -7,7 +7,6 @@ import { Button, Card, ListGroup, ListGroupItem, Form, Image } from 'react-boots
 import Badge from 'react-bootstrap/Badge'
 import ModalCreateContest from 'components/contest/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
-import StatisticTest from 'components/contest/statistics/StatisticTest'
 import Share from 'components/common/share/Share'
 import { useAxios } from 'actions/useAxios'
 import { createTest, deleteTest } from 'actions/api/TestAPI'
@@ -65,7 +64,6 @@ export default function ContestInfo() {
 
     useEffect(() => {
         if (contestResponse) {
-            console.log('response', contestResponse)
             setContest(contestResponse.data)
         }
     }, [contestResponse])

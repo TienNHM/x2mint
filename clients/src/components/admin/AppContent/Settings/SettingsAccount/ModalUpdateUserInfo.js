@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Modal, Image, Form, Row, Col } from 'react-bootstrap'
 import { MODAL_ACTION } from 'utils/constants'
 
