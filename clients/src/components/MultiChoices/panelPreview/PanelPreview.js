@@ -156,29 +156,29 @@ function PanelPreview(props) {
                         Xóa
                     </Button>
                 </div>
+
+                <div className="floating-buttons">
+                    <Fab
+                        mainButtonStyles={btnAddQuestionStyles}
+                        style={{ bottom: '-10px', right: '140px' }}
+                        icon={<i className="fa fa-plus"></i>}
+                        alwaysShowTitle={true}
+                        onClick={handleOnAddQuestion}
+                    ></Fab>
+                    <Fab
+                        mainButtonStyles={btnRemoveQuestionStyles}
+                        style={{ bottom: '-10px', right: '90px' }}
+                        icon={<i className="fa fa-minus"></i>}
+                        alwaysShowTitle={true}
+                        onClick={handleOnDeleteQuestion}
+                    ></Fab>
+                </div>
             </div>
 
             <ConfirmModal
                 content='Bạn có thực sự muốn xóa câu hỏi này không?'
                 isShow={isShow}
                 onAction={onActionDeleteQuestion} />
-
-            <div className="floating-buttons">
-                <Fab
-                    mainButtonStyles={btnAddQuestionStyles}
-                    style={{ bottom: '-10px', right: '140px' }}
-                    icon={<i className="fa fa-plus"></i>}
-                    alwaysShowTitle={true}
-                    onClick={handleOnAddQuestion}
-                ></Fab>
-                <Fab
-                    mainButtonStyles={btnRemoveQuestionStyles}
-                    style={{ bottom: '-10px', right: '90px' }}
-                    icon={<i className="fa fa-minus"></i>}
-                    alwaysShowTitle={true}
-                    onClick={handleOnDeleteQuestion}
-                ></Fab>
-            </div>
         </div>
     )
 }

@@ -24,7 +24,7 @@ $question-preview-background: #F3F0D7;
         }
 
         .questions-preview {
-            height: 80vh;
+            height: 79vh;
             overflow-x: hidden;
             overflow-y: auto;
 
@@ -120,6 +120,10 @@ $question-preview-background: #F3F0D7;
                 font-weight: bold;
             }
         }
+
+        .floating-buttons {
+            visibility: hidden;
+        }
     }
 
     @media screen and (max-width: 992px) {
@@ -172,6 +176,10 @@ $question-preview-background: #F3F0D7;
             .question-actions {
                 display: none;
                 flex-direction: column;
+            }
+
+            .floating-buttons {
+                visibility: visible;
             }
         }
     }
