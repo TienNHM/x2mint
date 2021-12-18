@@ -6,7 +6,6 @@ import Cookies from 'js-cookie'
 import { COOKIES, STATISTICS } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
 import {
-    ExportDataTakeTest,
     StatisticSubmitTime,
     StatisticTakeTest,
     StatisticTakeTestStatus
@@ -16,11 +15,11 @@ import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import { cloneDeep } from 'lodash'
 import { getCurrentDatetime } from 'utils/timeUtils'
-import { useNavigate, useParams } from 'react-router'
+import { useParams } from 'react-router'
+import { StatisticTakeTestsInContest } from 'components/statistics/ContestStatistics'
 
-export default function StatisticTest() {
-    const navigate = useNavigate()
-    let { testId } = useParams()
+export default function StatisticContest() {
+    let { contestId } = useParams()
 
     const [takeTestStatistics, setTakeTestStatistics] = useState(null)
     const [statisticsSubmitTime, setStatisticsSubmitTime] = useState(null)
@@ -32,7 +31,7 @@ export default function StatisticTest() {
         loading
     } = useAxios({
         method: 'GET',
-        url: `takeTest/test/${testId}`,
+        url: `contests/${contestId}/taketests`,
         headers: {
             Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
         }
@@ -42,14 +41,18 @@ export default function StatisticTest() {
         if (response) {
             const takeTests = response.takeTests
 
+            // Thống kê điểm số các bài thi
             const takeTestStatisticsData = StatisticTakeTest(cloneDeep(takeTests))
             setTakeTestStatistics(takeTestStatisticsData)
 
+            // Thống kê lượt nộp bài theo thời gian
             const submitTimeStatisticsData = StatisticSubmitTime(cloneDeep(takeTests))
             setStatisticsSubmitTime(submitTimeStatisticsData)
 
-            setTableData(ExportDataTakeTest(cloneDeep(takeTests)))
+            // Bảng
+            setTableData(StatisticTakeTestsInContest(cloneDeep(takeTests)))
 
+            // Tỉ lệ phân bổ giữa các bài thi Passed / Failed / Not submitted (%)
             setTakeTestStatus(StatisticTakeTestStatus(cloneDeep(takeTests)))
         }
     }, [response])
@@ -169,7 +172,8 @@ export default function StatisticTest() {
                                 fileName={'Danh sách các lượt thi - ' + getCurrentDatetime()}
                                 fieldsToBeRemoved={[
                                     STATISTICS.TAKE_TEST.EXAMINEE,
-                                    STATISTICS.TAKE_TEST.IS_PASSED
+                                    STATISTICS.TAKE_TEST.IS_PASSED,
+                                    STATISTICS.TAKE_TEST._TEST_URL
                                 ]}
                             />
                         </div>

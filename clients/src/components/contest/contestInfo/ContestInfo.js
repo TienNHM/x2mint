@@ -46,7 +46,6 @@ export default function ContestInfo() {
     const [contest, setContest] = useState(null)
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
-    const [isShowStatisticTest, setIsShowStatisticTest] = useState(false)
     const [isShowShareModal, setIsShowShareModal] = useState(false)
     const [shareContent, setShareContent] = useState({})
     const [confirmModalContent, setConfirmModalContent] = useState('')
@@ -85,15 +84,6 @@ export default function ContestInfo() {
             setEndTime(end_time.time)
         }
     }, [contest])
-
-    useEffect(() => {
-        if (selectedTest) {
-            const newContest = { ...contest }
-            const index = newContest.tests.findIndex(t => t.id === selectedTest.id)
-            newContest.tests[index] = selectedTest
-            updateContest(newContest)
-        }
-    }, [selectedTest])
 
     const onAction = async (
         isUpdate, action, title, description,
@@ -137,14 +127,9 @@ export default function ContestInfo() {
         setIsShowConfirmModal(true)
     }
 
-    const handleStatisticsTest = (test) => {
-        setSelectedTest(test)
-        setIsShowStatisticTest(true)
-    }
-
     const handleDeleteTest = (test) => {
         setSelectedTest({ ...test })
-        setConfirmModalContent(`Bạn có muốn xóa bài test này khỏi cuộc thi ${title} không?`)
+        setConfirmModalContent(`Bạn có muốn xóa bài test ${test.name} khỏi cuộc thi ${title} không?`)
         setCurrentAction(CURRENT_ACTION.DELETE_TEST)
         setIsShowConfirmModal(true)
     }
@@ -162,23 +147,20 @@ export default function ContestInfo() {
         setShareContent(obj)
         setIsShowShareModal(true)
     }
-
     //#endregion
 
     const onTestAction = async (action) => {
         if (currentAction === CURRENT_ACTION.DELETE_TEST) {
             if (selectedTest && action === MODAL_ACTION.CONFIRM) {
                 const newContest = { ...contest }
-                const index = newContest.tests.findIndex(c => c.id === selectedTest.id)
+                const index = newContest.tests.findIndex(c => c._id === selectedTest._id)
                 newContest.tests.splice(index, 1)
 
                 // Xóa selected test trong CSDL
-                const data = await deleteTest(selectedTest._id)
-                console.log(data)
+                await deleteTest(selectedTest._id)
 
                 // Cập nhật lại contest
-                const tmp = await updateContest(newContest)
-                console.log(tmp)
+                await updateContest(newContest)
             }
         }
         else if (currentAction === CURRENT_ACTION.CREATE_TEST) {
@@ -217,10 +199,6 @@ export default function ContestInfo() {
             setContest(newContest)
         }
         setIsShowConfirmModal(false)
-    }
-
-    const onShowStatistics = (action) => {
-        setIsShowStatisticTest(false)
     }
 
     const renderContestInfo = () => {
@@ -318,6 +296,11 @@ export default function ContestInfo() {
                                     <i className="fa fa-folder-open"></i>
                                 </Button>
                             }
+
+                            <Button variant="warning" className="m-2 fw-bolder text-light" size="sm"
+                                onClick={() => navigate(`/statistics/contest/${contest.id}/taketests`)}>
+                                <i className="fa fa-bar-chart"></i>
+                            </Button>
                         </div>
                     }
 
@@ -386,7 +369,7 @@ export default function ContestInfo() {
                                 <>
                                     <Button variant="warning" size="sm"
                                         className="col"
-                                        onClick={() => handleStatisticsTest(test)} >
+                                        onClick={() => navigate(`/statistics/take-test/${test._id}`)} >
                                         <i className="fa fa-bar-chart"></i>
                                     </Button>
                                     <Button variant="primary" size="sm"
@@ -485,12 +468,6 @@ export default function ContestInfo() {
                 content={confirmModalContent}
                 isShow={isShowConfirmModal}
                 onAction={onTestAction}
-            />
-
-            <StatisticTest
-                isShow={isShowStatisticTest}
-                onAction={onShowStatistics}
-                test={selectedTest}
             />
 
             <Share
