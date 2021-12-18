@@ -2,8 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
+import { COOKIES } from 'utils/constants'
 import { store } from 'react-notifications-component'
-import { ROLE_USER, COOKIES } from 'utils/constants'
+import { ROLE_USER } from 'utils/constants'
 
 const notify = {
     insert: 'top',
