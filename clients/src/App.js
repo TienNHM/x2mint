@@ -4,7 +4,7 @@ import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 import { useDispatch, useSelector } from 'react-redux'
 import { SyncLoader } from 'react-spinners'
-import Navbar from 'components/common/navbar/Navbar'
+import MyAppNavbar from 'components/common/appNavbar/AppNavbar'
 import Contest from 'components/contest/Contest'
 import SubmitResult from 'components/MultiChoices/submitResult/SubmitResult'
 import Homepage from 'components/common/home/Homepage'
@@ -69,7 +69,7 @@ function App() {
                         </div>
                     ) : (
                         <div className="bootstrap-container">
-                            <Navbar />
+                            <MyAppNavbar />
 
                             <Routes>
                                 <Route exact path="/" element={<Homepage />} />
