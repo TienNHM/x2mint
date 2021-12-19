@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { logOut } from 'redux/authSlice'
 import { ROLE } from 'utils/constants'
 import { Container, Nav, Navbar } from 'react-bootstrap'
+import { NavHashLink } from 'react-router-hash-link'
 
 export default function MyAppNavbar() {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
@@ -48,13 +49,8 @@ export default function MyAppNavbar() {
                             </NavLink>
                         )}
 
-                        <NavLink to="/about">
-                            X2M!NT
-                        </NavLink>
-
-                        <NavLink to="/contact">
-                            Liên hệ
-                        </NavLink>
+                        <NavHashLink to="/#about">X2M!NT</NavHashLink>
+                        <NavHashLink to="/#contact">Liên hệ</NavHashLink>
 
                         {!isAuthenticated && (
                             <div className="nav__btn">
