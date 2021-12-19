@@ -4,73 +4,77 @@ input,
 textarea,
 button,
 body {
-  font-family: $body-font;
-  line-height: 1.3em;
+    font-family: $body-font;
+    line-height: 1.3em;
 }
 
 button {
-  box-shadow: $box-shadow;
+    box-shadow: $box-shadow;
 }
 
 .app {
-  &__body {
-    margin-top: 80px;
-  }
+    &__body {
+        margin-top: 80px;
+    }
 
-  background-color: $app-bg-color;
-  align-items: center;
-  text-align: center;
-
-  // Loại bỏ những settings mặt định cho ô input và button
-  .bootstrap-container {
-    margin: 0;
-    padding: 0;
-  }
-
-  .textarea-enter {
-    display: table-cell !important;
-    vertical-align: middle !important;
+    background-color: $app-bg-color;
+    align-items: center;
     text-align: center;
-    background-color: transparent !important;
-    border: none;
-    overflow-y: hidden;
-    resize: none;
-    line-height: 1.6rem !important;
-  }
 
-  table {
-    td {
-      vertical-align: middle;
-    }
-  }
-
-  .tooltip-component {
-    position: relative;
-    display: inline-block;
-
-    .tooltiptext {
-      visibility: hidden;
-      width: 20vw;
-      background-color: lighten(orange, 15);
-      color: white;
-      border-left: $gap/2 solid rgb(253, 129, 28);
-
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-
-      /* Position the tooltip */
-      position: absolute;
-      z-index: 1;
-      top: 100%;
-      left: 50%;
-      margin-left: 0px;
+    // Loại bỏ những settings mặt định cho ô input và button
+    .bootstrap-container {
+        margin: 0;
+        padding: 0;
     }
 
-    &:hover {
-      .tooltiptext {
-        visibility: visible;
-      }
+    .textarea-enter {
+        display: table-cell !important;
+        vertical-align: middle !important;
+        text-align: center;
+        background-color: transparent !important;
+        border: none;
+        overflow-y: hidden;
+        resize: none;
+        line-height: 1.6rem !important;
     }
-  }
+
+    table {
+        td {
+            vertical-align: middle;
+        }
+    }
+
+    .tooltip-component {
+        position: relative;
+        display: inline-block;
+
+        .tooltiptext {
+            visibility: hidden;
+            width: 20vw;
+            background-color: lighten(orange, 15);
+            color: white;
+            border-left: $gap/2 solid rgb(253, 129, 28);
+
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            top: 100%;
+            left: 50%;
+            margin-left: 0px;
+        }
+
+        &:hover {
+            .tooltiptext {
+                visibility: visible;
+            }
+        }
+    }
+
+    .row {
+        margin: 0px !important;
+    }
 }

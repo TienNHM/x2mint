@@ -2,12 +2,14 @@
 
 .dashboard {
     margin-top: $navbar-height;
+    overflow-x: hidden;
 
     .row {
         margin: 0px !important;
     }
 
     .main-container {
+        padding: 0px !important;
 
         .header {
             background-color: lighten($light-theme-color, 10);
