@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './AccountGrantPermissions.scss'
 import 'react-toastify/dist/ReactToastify.css'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
 import { COOKIES, STATISTICS } from 'utils/constants'
@@ -133,17 +133,6 @@ export default function AccountGrantPermissions() {
                     </div>
                 </>
             }
-            <ToastContainer
-                position="top-right"
-                autoClose={1500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
         </div>
     )
 }

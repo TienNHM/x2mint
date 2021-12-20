@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
-import { transitions, positions, Provider as AlertProvider } from 'react-alert'
-import AlertTemplate from 'react-alert-template-basic'
 import { useDispatch, useSelector } from 'react-redux'
 import { SyncLoader } from 'react-spinners'
 import MyAppNavbar from 'components/common/appNavbar/AppNavbar'
@@ -23,17 +21,7 @@ import 'react-notifications-component/dist/theme.css'
 import './App.scss'
 import StatisticTest from 'components/contest/statistics/StatisticTest'
 import StatisticContest from 'components/contest/statistics/StatisticContest'
-
-const options = {
-    // you can also just use 'bottom center'
-    position: positions.TOP_CENTER,
-    timeout: 2000,
-    offset: '30px',
-    transition: transitions.FADE,
-    containerStyle: {
-        zIndex: 100
-    }
-}
+import { ToastContainer } from 'react-toastify'
 
 const loadingCss = {
     width: '100%',
@@ -55,82 +43,93 @@ function App() {
     return (
         <BrowserRouter>
             <ReactNotification />
-            <AlertProvider template={AlertTemplate} {...options}>
-                <div className="app">
-                    {authLoading ? (
-                        <div style={loadingCss} className='d-flex align-items-center justify-content-center'>
-                            <SyncLoader
-                                color={'#7ED321'}
-                                loading={authLoading}
-                                speedMultiplier={2}
-                            />
-                        </div>
-                    ) : (
-                        <div className="bootstrap-container">
-                            <MyAppNavbar />
 
-                            <Routes>
-                                <Route exact path="/" element={<Homepage />} />
-                                <Route path="/login" element={<Login />} />
-                                <Route path="/profile" element={<Profile />} />
-                                <Route path="/register" element={<Register />} />
-                                <Route path="/404" element={<Page404 />} />
-                                <Route path="/500" element={<Page500 />} />
+            <div className="app">
+                {authLoading ? (
+                    <div style={loadingCss} className='d-flex align-items-center justify-content-center'>
+                        <SyncLoader
+                            color={'#7ED321'}
+                            loading={authLoading}
+                            speedMultiplier={2}
+                        />
+                    </div>
+                ) : (
+                    <div className="bootstrap-container">
+                        <MyAppNavbar />
 
-                                <Route path="/dashboard" element={<ProtectedRoute />}>
-                                    <Route
-                                        path="/dashboard"
-                                        element={<Admin />}
-                                    />
-                                </Route>
+                        <Routes>
+                            <Route exact path="/" element={<Homepage />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/profile" element={<Profile />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/404" element={<Page404 />} />
+                            <Route path="/500" element={<Page500 />} />
 
-                                <Route path="/contests-mangement" element={<ProtectedRoute />}>
-                                    <Route
-                                        path="/contests-mangement"
-                                        element={<Contest isCreator={true} />}
-                                    />
-                                </Route>
+                            <Route path="/dashboard" element={<ProtectedRoute />}>
+                                <Route
+                                    path="/dashboard"
+                                    element={<Admin />}
+                                />
+                            </Route>
 
-                                <Route path="/contest" element={<ProtectedRoute />}>
-                                    <Route
-                                        path="/contest" exact
-                                        element={<Contest isCreator={false} />}
-                                    />
-                                    <Route
-                                        path="/contest/:contestId"
-                                        element={<ContestInfo />}
-                                    />
-                                </Route>
+                            <Route path="/contests-mangement" element={<ProtectedRoute />}>
+                                <Route
+                                    path="/contests-mangement"
+                                    element={<Contest isCreator={true} />}
+                                />
+                            </Route>
 
-                                <Route path="/test/:testId" element={<ProtectedRoute />}>
-                                    <Route
-                                        path="/test/:testId"
-                                        element={<MultiChoices />}
-                                    />
-                                </Route>
+                            <Route path="/contest" element={<ProtectedRoute />}>
+                                <Route
+                                    path="/contest" exact
+                                    element={<Contest isCreator={false} />}
+                                />
+                                <Route
+                                    path="/contest/:contestId"
+                                    element={<ContestInfo />}
+                                />
+                            </Route>
 
-                                <Route path="/takeTest" element={<ProtectedRoute />}>
-                                    <Route
-                                        path="/takeTest/:takeTestId"
-                                        element={<SubmitResult />}
-                                    />
-                                </Route>
+                            <Route path="/test/:testId" element={<ProtectedRoute />}>
+                                <Route
+                                    path="/test/:testId"
+                                    element={<MultiChoices />}
+                                />
+                            </Route>
 
-                                <Route path="/statistics" element={<ProtectedRoute />}>
-                                    <Route
-                                        path="/statistics/take-test/:testId"
-                                        element={<StatisticTest />}
-                                    />
-                                    <Route
-                                        path="/statistics/contest/:contestId/taketests"
-                                        element={<StatisticContest />}
-                                    />
-                                </Route>
-                            </Routes>
-                        </div>
-                    )}
-                </div>
-            </AlertProvider>
+                            <Route path="/takeTest" element={<ProtectedRoute />}>
+                                <Route
+                                    path="/takeTest/:takeTestId"
+                                    element={<SubmitResult />}
+                                />
+                            </Route>
+
+                            <Route path="/statistics" element={<ProtectedRoute />}>
+                                <Route
+                                    path="/statistics/take-test/:testId"
+                                    element={<StatisticTest />}
+                                />
+                                <Route
+                                    path="/statistics/contest/:contestId/taketests"
+                                    element={<StatisticContest />}
+                                />
+                            </Route>
+                        </Routes>
+                    </div>
+                )}
+            </div>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </BrowserRouter>
     )
 }
