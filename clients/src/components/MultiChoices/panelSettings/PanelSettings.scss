@@ -22,7 +22,7 @@ $question-attribute-setting-height: 80px;
         }
     
         .attributes {
-            height: 75.5vh;
+            height: 77vh;
     
             input,
             textarea {
@@ -56,8 +56,12 @@ $question-attribute-setting-height: 80px;
             }
     
             .time-picker {
-                .start-time {
+                .time-area {
                     display: flex;
+                    flex-direction: column;
+                    > * {
+                        margin-top: $gap/2 !important;
+                    }
                 }
             }
     
