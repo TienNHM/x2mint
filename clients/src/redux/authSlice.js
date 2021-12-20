@@ -8,10 +8,10 @@ import { ROLE, COOKIES } from 'utils/constants'
 const notify = {
     insert: 'top',
     container: 'top-center',
-    animationIn: ['animated fadeIn'],
+    animationIn: ['animated tada'],
     animationOut: ['animated fadeOut'],
     dismiss: {
-        duration: 5000,
+        duration: 1000,
         onScreen: true
     }
 }
@@ -19,7 +19,7 @@ const notify = {
 
 //Register
 export const register = createAsyncThunk(
-    'auth/logins',
+    'auth/register',
     async (params, { rejectWithValue }) => {
         const userForm = params
         let res = null
@@ -36,11 +36,11 @@ export const register = createAsyncThunk(
                 })
             console.log(res)
 
-            if (res.data.success===true) {
+            if (!res.data.accessToken && res.data.success===true) {
                 store.addNotification({
                     ...notify,
-                    title: 'ĐĂNG KÝ THÀNH CÔNG !!',
-                    message: 'Chào mừng bạn đến với X2M!NT',
+                    title: 'ĐĂNG KÝ HOÀN TẤT',
+                    message: 'Kiểm tra email để xác thực tài khoản !!',
                     type: 'success'
                 })
             } else {
@@ -59,14 +59,6 @@ export const register = createAsyncThunk(
                         title: 'EMAIL ĐÃ TỒN TẠI',
                         message: 'Đăng nhập nào !!',
                         type: 'warning'
-                    })
-                    break
-                case 'password':
-                    store.addNotification({
-                        ...notify,
-                        title: 'SAI MẬT KHẨU !!',
-                        message: 'Nhập lại mật khẩu !!',
-                        type: 'danger'
                     })
                     break
                 default:
@@ -151,13 +143,11 @@ export const loginUser = createAsyncThunk(
                 res.data.accessToken,
                 { expires: COOKIES.MAX_DAYS_EXPIRE }
             )
-
             Cookies.set(
                 COOKIES.USER_ID,
                 res.data.user.id,
                 { expires: COOKIES.MAX_DAYS_EXPIRE }
             )
-
             return {
                 user: res.data.user,
                 isAuthenticated: true
@@ -169,7 +159,6 @@ export const loginUser = createAsyncThunk(
         }
     }
 )
-
 //Auto login when token still valid
 export const loadUser = createAsyncThunk(
     'user/getUser',

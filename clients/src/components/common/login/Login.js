@@ -7,6 +7,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import { loginUser } from 'redux/authSlice'
 import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
+import { isEmpty } from 'utils/Validation'
+import { store } from 'react-notifications-component'
+
+const notify = {
+    insert: 'top',
+    container: 'top-center',
+    animationIn: ['animated fadeIn'],
+    animationOut: ['animated fadeOut'],
+    dismiss: {
+        duration: 5000,
+        onScreen: true
+    }
+}
+
 
 const Login = () => {
     //Route
@@ -29,6 +43,16 @@ const Login = () => {
 
     const login = async (event) => {
         event.preventDefault()
+        if (isEmpty(username) || isEmpty(password))
+        {
+            store.addNotification({
+                ...notify,
+                title: 'THÔNG TIN CÒN THIẾU',
+                message: 'Vui lòng điền đủ thông tin nhé !!',
+                type: 'warning'
+            })
+            return null
+        }
         try {
             dispatch(loginUser(loginForm))
         } catch (error) {
