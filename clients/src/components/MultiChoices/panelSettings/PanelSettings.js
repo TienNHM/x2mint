@@ -160,7 +160,7 @@ function PanelSettings(props) {
             <div className="panel-right">
                 <div className="panel-right-title">Thông tin chi tiết</div>
 
-                <div className="attributes">
+                <div className="attributes app-vertical-scrollbar">
                     <div className="attribute-title">
                         <div>Tên bài test</div>
                         <div className="title">
@@ -230,7 +230,7 @@ function PanelSettings(props) {
 
                             <div className="time-picker">
                                 <div>Thời gian bắt đầu</div>
-                                <div className="start-time">
+                                <div className="time-area">
                                     <Form.Control
                                         size="sm"
                                         type="date"
@@ -252,7 +252,7 @@ function PanelSettings(props) {
 
                             <div className="time-picker">
                                 <div>Thời gian kết thúc</div>
-                                <div className="start-time">
+                                <div className="time-area">
                                     <Form.Control
                                         size="sm"
                                         type="date"

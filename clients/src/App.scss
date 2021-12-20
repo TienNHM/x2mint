@@ -1,76 +1,130 @@
 @import '_setting.scss';
 
-input,
-textarea,
-button,
-body {
-  font-family: $body-font;
-  line-height: 1.3em;
-}
-
-button {
-  box-shadow: $box-shadow;
-}
-
 .app {
-  &__body {
-    margin-top: 80px;
-  }
+    &__body {
+        margin-top: 80px;
+    }
 
-  background-color: $app-bg-color;
-  align-items: center;
-  text-align: center;
+    table {
+        td {
+            vertical-align: middle;
+        }
+    }
 
-  // Loại bỏ những settings mặt định cho ô input và button
-  .bootstrap-container {
-    margin: 0;
-    padding: 0;
-  }
+    input,
+    textarea,
+    button,
+    body {
+        font-family: $body-font;
+        line-height: 1.3em;
+    }
 
-  .textarea-enter {
-    display: table-cell !important;
-    vertical-align: middle !important;
+    button {
+        box-shadow: $box-shadow;
+    }
+    
+    background-color: $app-bg-color;
+    align-items: center;
     text-align: center;
-    background-color: transparent !important;
-    border: none;
-    overflow-y: hidden;
-    resize: none;
-    line-height: 1.6rem !important;
-  }
 
-  table {
-    td {
-      vertical-align: middle;
-    }
-  }
-
-  .tooltip-component {
-    position: relative;
-    display: inline-block;
-
-    .tooltiptext {
-      visibility: hidden;
-      width: 20vw;
-      background-color: lighten(orange, 15);
-      color: white;
-      border-left: $gap/2 solid rgb(253, 129, 28);
-
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-
-      /* Position the tooltip */
-      position: absolute;
-      z-index: 1;
-      top: 100%;
-      left: 50%;
-      margin-left: 0px;
+    // Loại bỏ những settings mặt định cho ô input và button
+    .bootstrap-container {
+        margin: 0;
+        padding: 0;
     }
 
-    &:hover {
-      .tooltiptext {
-        visibility: visible;
-      }
+    .textarea-enter {
+        display: table-cell !important;
+        vertical-align: middle !important;
+        text-align: center;
+        background-color: transparent !important;
+        border: none;
+        overflow-y: hidden;
+        resize: none;
+        line-height: 1.6rem !important;
     }
-  }
+
+    .tooltip-component {
+        position: relative;
+        display: inline-block;
+
+        .tooltiptext {
+            visibility: hidden;
+            width: 20vw;
+            background-color: lighten(orange, 15);
+            color: white;
+            border-left: $gap/2 solid rgb(253, 129, 28);
+
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            top: 100%;
+            left: 50%;
+            margin-left: 0px;
+        }
+
+        &:hover {
+            .tooltiptext {
+                visibility: visible;
+            }
+        }
+    }
+
+    .row {
+        margin: 0px !important;
+    }
+
+    .app-vertical-scrollbar {
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            -webkit-appearance: none;
+        }
+
+        &::-webkit-scrollbar:vertical {
+            width: 20px;
+            padding-left: $gap;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: lighten($color: lightgray, $amount: 5);
+            border-radius: $gap;
+            border: 7px solid $bg-color;
+
+            &:hover {
+                background-color: lighten($color: $theme-color, $amount: 5);
+            }
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+    }
+
+    .app-horizontal-scrollbar {
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        &::-webkit-scrollbar {
+            -webkit-appearance: none;
+        }
+
+        &::-webkit-scrollbar:horizontal {
+            height: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: lighten($color: $theme-color, $amount: 5);
+            border-radius: $gap;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+    }
 }

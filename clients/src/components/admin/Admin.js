@@ -9,13 +9,13 @@ export default function Admin() {
 
     return (
         <div className="dashboard d-flex row">
-            <div className="col-2 sidebar-menu">
+            <div className="col-sm-2 sidebar-menu">
                 <AppSidebar
                     setCurrentAction={setCurrentAction}
                 />
             </div>
 
-            <div className="col-10 main-container d-flex flex-column"
+            <div className="col-sm-10 main-container d-flex flex-column"
                 id="main-container">
                 <AppNavbar />
 
@@ -23,9 +23,7 @@ export default function Admin() {
                     {currentAction}
                 </div>
 
-                <div className="body flex-grow-1">
-                    <AppContent currentAction={currentAction} />
-                </div>
+                <AppContent currentAction={currentAction} />
 
                 <div className="footer bg-light">
                     Copyright &copy; X2M!INT

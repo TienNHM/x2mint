@@ -4,12 +4,10 @@ import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 import { useDispatch, useSelector } from 'react-redux'
 import { SyncLoader } from 'react-spinners'
-import Navbar from 'components/common/navbar/Navbar'
+import MyAppNavbar from 'components/common/appNavbar/AppNavbar'
 import Contest from 'components/contest/Contest'
 import SubmitResult from 'components/MultiChoices/submitResult/SubmitResult'
 import Homepage from 'components/common/home/Homepage'
-import About from 'components/common/home/About'
-import Contact from 'components/common/home/Contact'
 import Login from 'components/common/login/Login'
 import Register from 'components/common/register/Register'
 import Profile from 'components/common/profile/Profile'
@@ -69,15 +67,13 @@ function App() {
                         </div>
                     ) : (
                         <div className="bootstrap-container">
-                            <Navbar />
+                            <MyAppNavbar />
 
                             <Routes>
                                 <Route exact path="/" element={<Homepage />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/profile" element={<Profile />} />
                                 <Route path="/register" element={<Register />} />
-                                <Route path="/about" element={<About />} />
-                                <Route path="/contact" element={<Contact />} />
                                 <Route path="/404" element={<Page404 />} />
                                 <Route path="/500" element={<Page500 />} />
 
