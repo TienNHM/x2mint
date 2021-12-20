@@ -1,27 +1,12 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Cookies from 'js-cookie'
 import { register } from 'redux/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { loadUser } from 'redux/authSlice'
-import { COOKIES } from 'utils/constants'
 import './Register.scss'
 import { isEmpty, isEmail, isLength, isMatch } from 'utils/Validation'
-import { store } from 'react-notifications-component'
 import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
-
-const notify = {
-    insert: 'top',
-    container: 'top-center',
-    animationIn: ['animated fadeIn'],
-    animationOut: ['animated fadeOut'],
-    dismiss: {
-        duration: 5000,
-        onScreen: true
-    }
-}
-
+import { toast } from 'react-toastify'
 
 const Register = () => {
     const navigate = useNavigate()
@@ -43,42 +28,22 @@ const Register = () => {
         event.preventDefault()
         if (isEmpty(email)|| isEmpty(username) || isEmpty(password)|| isEmpty(reEnterPassword))
         {
-            store.addNotification({
-                ...notify,
-                title: 'THÔNG TIN CÒN THIẾU',
-                message: 'Vui lòng điền đủ thông tin nhé !!',
-                type: 'warning'
-            })
+            toast.warning('📝 Vui lòng điền đủ thông tin nhé !')
             return null
         }
         if (!isEmail(email))
         {
-            store.addNotification({
-                ...notify,
-                title: 'EMAIL KHÔNG ĐÚNG',
-                message: 'Vui lòng điền lại thông tin nhé !!',
-                type: 'warning'
-            })
+            toast.warning('📧 Sai email, vui lòng nhập lại!')
             return null
         }
         if (isLength(password))
         {
-            store.addNotification({
-                ...notify,
-                title: 'MẬT KHẨU YẾU',
-                message: 'Hãy chọn mật khẩu khác !!',
-                type: 'warning'
-            })
+            toast.warning('🔑 Mật khẩu yếu, hãy chọn mật khẩu khác!')
             return null
         }
         if (!isMatch(password, reEnterPassword))
         {
-            store.addNotification({
-                ...notify,
-                title: 'MẬT KHẨU KHÔNG KHỚP',
-                message: 'Hãy nhập lại mật khẩu khác !!',
-                type: 'warning'
-            })
+            toast.error('🔑 Sai mật khẩu, vui lòng nhập lại!')
             return null
         }
         try {
@@ -87,38 +52,6 @@ const Register = () => {
             console.log(error)
         }
     }
-    // // const data = JSON.parse(register(user));
-    // const data = await register(user)
-
-    // console.log(data)
-    // if (data)
-    //     if (data.success) {
-    //         // Set cookies
-    //         Cookies.set(
-    //             COOKIES.ACCESS_TOKEN,
-    //             data.accessToken,
-    //             { expires: COOKIES.MAX_DAYS_EXPIRE }
-    //         )
-
-    //         Cookies.set(
-    //             COOKIES.USER_ID,
-    //             data.user._id,
-    //             { expires: COOKIES.MAX_DAYS_EXPIRE }
-    //         )
-    // console.log(data)
-    // if (data)
-    //     if (data.success) {
-    //         // Set cookies
-    //         Cookies.set(ACCESS_TOKEN, data.accessToken, { expires: MAX_DAYS_EXPIRE })
-    //         Cookies.set(USER_ID, data.user._id, { expires: MAX_DAYS_EXPIRE })
-
-    //         // Get User Info
-    //         await dispatch(loadUser(data.accessToken))
-    //         navigate('/', { replace: true })
-    //     } else {
-    //         setError(data.message)
-    //     }
-    // else setError('Some error happened!')
 
 
     return isAuthenticated ? (

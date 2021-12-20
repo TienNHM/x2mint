@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './Login.scss'
 import { Form } from 'react-bootstrap'
-import { AlertMessage } from 'utils/AlertMessage'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { loginUser } from 'redux/authSlice'
@@ -21,7 +20,6 @@ const Login = () => {
         password: ''
     })
 
-    const [alert, setAlert] = useState(null)
     const { username, password } = loginForm
 
     const onChangeLogin = (event) =>
@@ -64,7 +62,6 @@ const Login = () => {
                 </div>
             )}
 
-            <AlertMessage info={alert} />
             <h1 className="form__title">
                 Đăng nhập
             </h1>

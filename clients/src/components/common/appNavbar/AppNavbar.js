@@ -67,7 +67,7 @@ export default function MyAppNavbar() {
                         )}
 
                         {isAuthenticated && (
-                            <div className="nav__btn">
+                            <>
                                 <NavLink to="/profile"
                                     className="nav__btn__login nav__link active-link">
                                     Trang cá nhân
@@ -84,7 +84,7 @@ export default function MyAppNavbar() {
                                         Đăng xuất
                                     </button>
                                 </NavLink>
-                            </div>
+                            </>
                         )}
                     </Nav>
                 </Navbar.Collapse>

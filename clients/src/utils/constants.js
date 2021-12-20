@@ -17,8 +17,6 @@ export const ROLE = {
     USER: 'user'
 }
 
-export const ACCESS_TOKEN = 'accessToken'
-
 export const COOKIES = {
     ACCESS_TOKEN: 'accessToken',
     USER_ID: 'uid',

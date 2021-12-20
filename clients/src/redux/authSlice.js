@@ -2,20 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
-import { store } from 'react-notifications-component'
 import { ROLE, COOKIES } from 'utils/constants'
-
-const notify = {
-    insert: 'top',
-    container: 'top-center',
-    animationIn: ['animated fadeIn'],
-    animationOut: ['animated fadeOut'],
-    dismiss: {
-        duration: 5000,
-        onScreen: true
-    }
-}
-
+import { toast } from 'react-toastify'
 
 //Register
 export const register = createAsyncThunk(
@@ -26,8 +14,10 @@ export const register = createAsyncThunk(
         try {
             await axios
                 .post(`${process.env.REACT_APP_API_ROOT}/auths/register`,
-                    { ...userForm,
-                        role: ROLE.USER })
+                    {
+                        ...userForm,
+                        role: ROLE.USER
+                    })
                 .then((response) => {
                     res = response
                 })
@@ -36,38 +26,18 @@ export const register = createAsyncThunk(
                 })
             console.log(res)
 
-            if (res.data.success===true) {
-                store.addNotification({
-                    ...notify,
-                    title: 'ĐĂNG KÝ THÀNH CÔNG !!',
-                    message: 'Chào mừng bạn đến với X2M!NT',
-                    type: 'success'
-                })
+            if (res.data.success === true) {
+                toast.success('🎉 Đăng ký tài khoản thành công. Chào mừng bạn đến với X2M!NT')
             } else {
                 switch (res.data.message) {
                 case 'username':
-                    store.addNotification({
-                        ...notify,
-                        title: 'USERNAME ĐÃ TỒN TẠI',
-                        message: 'Đăng nhập nào !!',
-                        type: 'warning'
-                    })
+                    toast.error('❌ Username đã tồn tại. Vui lòng chọn đăng nhập!')
                     break
                 case 'email':
-                    store.addNotification({
-                        ...notify,
-                        title: 'EMAIL ĐÃ TỒN TẠI',
-                        message: 'Đăng nhập nào !!',
-                        type: 'warning'
-                    })
+                    toast.error('❌ Email đã tồn tại. Vui lòng chọn đăng nhập!')
                     break
                 case 'password':
-                    store.addNotification({
-                        ...notify,
-                        title: 'SAI MẬT KHẨU !!',
-                        message: 'Nhập lại mật khẩu !!',
-                        type: 'danger'
-                    })
+                    toast.error('💢 Sai mật khẩu, vui lòng nhập lại!')
                     break
                 default:
                 }
@@ -83,8 +53,7 @@ export const register = createAsyncThunk(
                 isAuthenticated: true
             }
         } catch (error) {
-            // console.log(error.response.status);
-            console.log(error.response)
+
             return rejectWithValue(error.response.data.message)
         }
     }
@@ -106,38 +75,18 @@ export const loginUser = createAsyncThunk(
                     console.log(err)
                 })
             console.log(res)
-            if (res.data.success===true) {
-                store.addNotification({
-                    ...notify,
-                    title: 'ĐĂNG NHẬP THÀNH CÔNG !!',
-                    message: 'Chào mừng bạn trở lại X2M!NT',
-                    type: 'success'
-                })
+            if (res.data.success === true) {
+                toast.success('🌟 Đăng nhập thành công! Chào mừng bạn trở lại X2M!NT')
             } else {
                 switch (res.data.message) {
                 case 'missing':
-                    store.addNotification({
-                        ...notify,
-                        title: 'USERNAME HOẶC MẬT KHẨU CÒN THIẾU',
-                        message: 'Bạn vui lòng điền đủ thông tin nhé !!',
-                        type: 'warning'
-                    })
+                    toast.warning('❌ Thiếu username hoặc mật khẩu. Vui lòng nhập lại!')
                     break
                 case 'incorrect':
-                    store.addNotification({
-                        ...notify,
-                        title: 'TÀI KHOẢN KHÔNG TỒN TẠI',
-                        message: 'Tạo tài khoản mới nào !!',
-                        type: 'warning'
-                    })
+                    toast.error('💢 Tài khoản không tồn tại!')
                     break
                 case 'password':
-                    store.addNotification({
-                        ...notify,
-                        title: 'SAI MẬT KHẨU !!',
-                        message: 'Nhập lại mật khẩu !!',
-                        type: 'danger'
-                    })
+                    toast.error('💢 Sai mật khẩu, vui lòng nhập lại!')
                     break
                 default:
                 }
@@ -163,8 +112,7 @@ export const loginUser = createAsyncThunk(
                 isAuthenticated: true
             }
         } catch (error) {
-            // console.log(error.response.status);
-            console.log(error.response)
+
             return rejectWithValue(error.response.data.message)
         }
     }
