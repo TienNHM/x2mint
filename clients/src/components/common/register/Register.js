@@ -94,21 +94,6 @@ const Register = () => {
     // if (data)
     //     if (data.success) {
     //         // Set cookies
-    //         Cookies.set(
-    //             COOKIES.ACCESS_TOKEN,
-    //             data.accessToken,
-    //             { expires: COOKIES.MAX_DAYS_EXPIRE }
-    //         )
-
-    //         Cookies.set(
-    //             COOKIES.USER_ID,
-    //             data.user._id,
-    //             { expires: COOKIES.MAX_DAYS_EXPIRE }
-    //         )
-    // console.log(data)
-    // if (data)
-    //     if (data.success) {
-    //         // Set cookies
     //         Cookies.set(ACCESS_TOKEN, data.accessToken, { expires: MAX_DAYS_EXPIRE })
     //         Cookies.set(USER_ID, data.user._id, { expires: MAX_DAYS_EXPIRE })
 
@@ -119,7 +104,6 @@ const Register = () => {
     //         setError(data.message)
     //     }
     // else setError('Some error happened!')
-
 
     return isAuthenticated ? (
         <Navigate to="/login" />
