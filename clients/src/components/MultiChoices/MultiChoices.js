@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { mapOrder } from 'utils/sorts'
 import PanelPreview from 'components/MultiChoices/panelPreview/PanelPreview'
 import Question from 'components/MultiChoices/question/Question'
@@ -13,6 +13,8 @@ import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
 import { createTakeTest, updateTakeTest } from 'actions/api/TakeTestAPI'
+import { Button, FormControl, Image, InputGroup } from 'react-bootstrap'
+import { toast } from 'react-toastify'
 
 function MultiChoices() {
     let { testId } = useParams()
@@ -30,6 +32,9 @@ function MultiChoices() {
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE.USER
     const [isSubmitted, setIsSubmitted] = useState(false)
+    const [isEntered, setIsEntered] = useState(false)
+
+    const pinRef = useRef('')
 
     const [test, setTest] = useState(null)
     const [questions, setQuestions] = useState(null)
@@ -123,78 +128,120 @@ function MultiChoices() {
         })
     }
 
-    return (
-        <div className="app-container">
-            {isSubmitted &&
-                <Navigate to={`/takeTest/${takeTest._id}`} />
-            }
+    const enterTest = () => {
+        console.log(test)
+        if (pinRef.current.value === test.pin) {
+            toast.success('🎉 Nhập mã PIN thành công, chúc bạn thi tốt')
+            setIsEntered(true)
+        }
+        else {
+            toast.error('❌ Sai mã PIN, vui lòng nhập lại!')
+            pinRef.current.value = ''
+            pinRef.current.focus() 
+        }
+    }
 
-            {testIsLoading &&
-                <div
-                    className='sweet-loading d-flex justify-content-center align-items-center'
-                    style={
-                        {
-                            width: '100%',
-                            height: '100%',
-                            position: 'absolute',
-                            top: 0,
-                            left: 0
+    if (isEntered) {
+        return (
+            <div className="app-container">
+                {isSubmitted &&
+                    <Navigate to={`/takeTest/${takeTest._id}`} />
+                }
+
+                {testIsLoading &&
+                    <div
+                        className='sweet-loading d-flex justify-content-center align-items-center'
+                        style={
+                            {
+                                width: '100%',
+                                height: '100%',
+                                position: 'absolute',
+                                top: 0,
+                                left: 0
+                            }
                         }
-                    }
-                >
-                    <HashLoader color={'#7ED321'} loading={testIsLoading} />
-                </div>
-            }
+                    >
+                        <HashLoader color={'#7ED321'} loading={testIsLoading} />
+                    </div>
+                }
 
-            {!testIsLoading &&
+                {!testIsLoading &&
+                    <div className="row">
+                        {!isUser ?
+                            (
+                                <div className="col-lg-2 col-12">
+                                    <PanelPreview
+                                        test={test}
+                                        setTest={setTest}
+                                        questions={questions}
+                                        setQuestions={setQuestions}
+                                        selectedQuestion={selectedQuestion}
+                                        setSelectedQuestion={setSelectedQuestion}
+                                    />
+                                </div>
+                            ) : (
+                                <div className="col-lg-2 col-12">
+                                    <PanelQuestionPicker
+                                        test={test}
+                                        selectedQuestion={selectedQuestion}
+                                        setSelectedQuestion={setSelectedQuestion}
+                                        takeTest={takeTest}
+                                        setIsSubmitted={setIsSubmitted}
+                                    />
+                                </div>
+                            )
+                        }
+
+                        <div className="col-lg-8 col-12">
+                            <Question
+                                question={selectedQuestion}
+                                setQuestion={updateSelectedQuestion}
+                                isCreator={!isUser}
+                                takeTest={takeTest}
+                                updateTakeTest={updateTakeTestInfo}
+                            />
+                        </div>
+
+                        <div className="col-lg-2 col-12" id="panel-settings">
+                            <PanelSettings
+                                test={test}
+                                setTest={setTest}
+                                isCreator={!isUser}
+                                setSelectedQuestion={updateSelectedQuestion}
+                            />
+                        </div>
+                    </div>
+                }
+            </div>
+        )
+    }
+    else {
+        return (
+            <div className="d-flex flex-column justify-content-center align-items-center">
+                <div style={{ paddingTop: '10vh' }}>
+                    <Image src={process.env.PUBLIC_URL + '/assets/enter-otp.svg'}
+                        style={{ height: '60vh' }}></Image>
+                </div>
                 <div className="row">
-                    {!isUser ?
-                        (
-                            <div className="col-lg-2 col-12">
-                                <PanelPreview
-                                    test={test}
-                                    setTest={setTest}
-                                    questions={questions}
-                                    setQuestions={setQuestions}
-                                    selectedQuestion={selectedQuestion}
-                                    setSelectedQuestion={setSelectedQuestion}
-                                />
-                            </div>
-                        ) : (
-                            <div className="col-lg-2 col-12">
-                                <PanelQuestionPicker
-                                    test={test}
-                                    selectedQuestion={selectedQuestion}
-                                    setSelectedQuestion={setSelectedQuestion}
-                                    takeTest={takeTest}
-                                    setIsSubmitted={setIsSubmitted}
-                                />
-                            </div>
-                        )
-                    }
+                    <div className="col">
+                        <div className="fw-bolder text-success text-uppercase">
+                            Nhập mã PIN
+                        </div>
 
-                    <div className="col-lg-8 col-12">
-                        <Question
-                            question={selectedQuestion}
-                            setQuestion={updateSelectedQuestion}
-                            isCreator={!isUser}
-                            takeTest={takeTest}
-                            updateTakeTest={updateTakeTestInfo}
+                        <FormControl
+                            aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default"
+                            ref={pinRef}
                         />
-                    </div>
 
-                    <div className="col-lg-2 col-12" id="panel-settings">
-                        <PanelSettings
-                            test={test}
-                            setTest={setTest}
-                            isCreator={!isUser}
-                            setSelectedQuestion={updateSelectedQuestion}
-                        />
+                        <Button variant="success" onClick={() => enterTest()}>
+                            Xác nhận
+                        </Button>
                     </div>
                 </div>
-            }
-        </div>
-    )
+            </div>
+        )
+    }
 }
 
 export default MultiChoices
