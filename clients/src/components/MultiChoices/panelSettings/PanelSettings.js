@@ -188,7 +188,7 @@ function PanelSettings(props) {
                             <Form.Control
                                 size="sm"
                                 as="textarea"
-                                rows={4}
+                                rows={8}
                                 ref={inputTestDescriptionRef}
                                 placeholder="Mô tả..."
                                 className="attribute-title-input"
