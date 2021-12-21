@@ -199,4 +199,10 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
             }
         }
     }
+
+    @media screen and (max-width: 1220px) {
+        .btn-label {
+            display: none;
+        }
+    }
 }

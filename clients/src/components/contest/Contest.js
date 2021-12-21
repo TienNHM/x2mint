@@ -39,8 +39,8 @@ export default function Contest() {
     //#endregion
 
     //#region States
-    const [data, setData] = useState(null)
-    const [contests, setContests] = useState(null)
+    const [data, setData] = useState(null) // DS tất cả contests
+    const [contests, setContests] = useState(null) // Contests hiện ra kết quả tìm kiếm
     const [isShow, setIsShow] = useState(false)
     const [isShowShareModal, setIsShowShareModal] = useState(false)
     const [shareContent, setShareContent] = useState({})

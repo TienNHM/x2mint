@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 import { useNavigate, useParams } from 'react-router'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
-import { Button, Card, ListGroup, ListGroupItem, Form, Image } from 'react-bootstrap'
+import { Button, Card, ListGroup, ListGroupItem, Form, Image, FormControl } from 'react-bootstrap'
 import Badge from 'react-bootstrap/Badge'
 import ModalCreateContest from 'components/contest/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
@@ -15,6 +15,7 @@ import { displayTime, displayTimeDelta, splitTime } from 'utils/timeUtils'
 import { archiveContest, updateContest, updateTestsInContest } from 'actions/api/ContestAPI'
 import { MODAL_ACTION, COOKIES, ROLE, STATUS } from 'utils/constants'
 import './ContestInfo.scss'
+import { cloneDeep } from 'lodash'
 
 export default function ContestInfo() {
     const navigate = useNavigate()
@@ -42,13 +43,15 @@ export default function ContestInfo() {
     const user = useSelector((state) => state.auth.user)
 
     //#region States
-    const [contest, setContest] = useState(null)
+    const [data, setData] = useState(null) // Tests hiện ra kết quả tìm kiếm
+    const [contest, setContest] = useState(null) // Data từ API
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
     const [isShowShareModal, setIsShowShareModal] = useState(false)
     const [shareContent, setShareContent] = useState({})
     const [confirmModalContent, setConfirmModalContent] = useState('')
     const [currentAction, setCurrentAction] = useState('')
+    const [searchQuery, setSearchQuery] = useState('')
     const [selectedTest, setSelectedTest] = useState(null) //TODO chuyển selectedTest sang lưu trữ selectedTest.id
 
     // Test information
@@ -64,7 +67,8 @@ export default function ContestInfo() {
 
     useEffect(() => {
         if (contestResponse) {
-            setContest(contestResponse.data)
+            setContest(cloneDeep(contestResponse.data))
+            setData(cloneDeep(contestResponse.data.tests))
         }
     }, [contestResponse])
 
@@ -145,6 +149,28 @@ export default function ContestInfo() {
         setShareContent(obj)
         setIsShowShareModal(true)
     }
+
+    const handleSearch = () => {
+        const query = searchQuery.trim().toLowerCase()
+        if (contest.tests) {
+            const result = []
+            for (const c of contest.tests) {
+                if (c.name.toLowerCase().includes(query)) {
+                    result.push(c)
+                }
+            }
+            setData(result)
+        }
+    }
+
+    useEffect(() => {
+        if (searchQuery.trim().length > 0) {
+            handleSearch()
+        }
+        else {
+            setData(cloneDeep(contest.tests))
+        }
+    }, [searchQuery])
     //#endregion
 
     const onTestAction = async (action) => {
@@ -427,23 +453,33 @@ export default function ContestInfo() {
                         </div>
 
                         <div className="list-tests col-xl-9 col-lg-8 col-md-7 col-sm-12">
-                            <Card border="secondary">
-                                <Card.Header className="row h5">
-                                    <div className="">
-                                        <div className="fw-bolder text-uppercase">Danh sách bài kiểm tra</div>
-                                        <div className="text-primary h6">
-                                            Số lượng: {contest ? contest.tests.length : 0}
-                                        </div>
+                            <Card border="success">
+                                <Card.Header className="row search-section d-flex justify-content-between">
+                                    <div className="col-11">
+                                        <FormControl
+                                            type="search"
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            style={{ boxShadow: 'none' }}>
+                                        </FormControl>
+                                    </div>
+
+                                    <div className="col-1 p-1 d-flex justify-content-center">
+                                        <Button size="sm" variant="primary"
+                                            onClick={() => handleSearch()}>
+                                            <i className="fa fa-search"></i>
+                                            <span className="btn-label ms-2 fw-bolder">Tìm</span>
+                                        </Button>
                                     </div>
                                 </Card.Header>
                                 <hr />
 
                                 <div className="show-all-tests">
-                                    {contest.tests.map((test, index) =>
+                                    {data.map((test, index) =>
                                         <div key={index}>{renderTest(test, index)}</div>
                                     )}
 
-                                    {contest.tests.length == 0 &&
+                                    {data.length == 0 &&
                                         <Card.Body className="row no-test">
                                             Chưa có bài test nào!
                                         </Card.Body>
