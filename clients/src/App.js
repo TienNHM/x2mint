@@ -26,6 +26,8 @@ import 'react-notifications-component/dist/theme.css'
 import ActivationEmail from 'components/common/register/ActivationEmail'
 import ForgotPassword from 'components/common/login/ForgotPassword'
 import ResetPassword from 'components/common/login/ResetPassword'
+import { BeatLoader, HashLoader, SyncLoader } from 'react-spinners'
+import 'react-notifications-component/dist/theme.css'
 
 const options = {
     // you can also just use 'bottom center'

@@ -15,10 +15,14 @@ const notify = {
     }
 }
 
+import {
+    MAX_DAYS_EXPIRE,
+    ACCESS_TOKEN, USER_ID
+} from 'utils/constants'
 
 //Register
 export const register = createAsyncThunk(
-    'auth/register',
+    'auth/logins',
     async (params, { rejectWithValue }) => {
         const userForm = params
         let res = null
@@ -35,11 +39,11 @@ export const register = createAsyncThunk(
                 })
             console.log(res)
 
-            if (!res.data.accessToken && res.data.success===true) {
+            if (res.data.success===true) {
                 store.addNotification({
                     ...notify,
-                    title: 'ĐĂNG KÝ HOÀN TẤT',
-                    message: 'Kiểm tra email để xác thực tài khoản !!',
+                    title: 'ĐĂNG KÝ THÀNH CÔNG !!',
+                    message: 'Chào mừng bạn đến với X2M!NT',
                     type: 'success'
                 })
             } else {
@@ -60,13 +64,24 @@ export const register = createAsyncThunk(
                         type: 'warning'
                     })
                     break
+                case 'password':
+                    store.addNotification({
+                        ...notify,
+                        title: 'SAI MẬT KHẨU !!',
+                        message: 'Nhập lại mật khẩu !!',
+                        type: 'danger'
+                    })
+                    break
                 default:
                 }
             }
+
             setAuthToken(res.data.accessToken)
+
             // Set cookies
-            Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
-            Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
+            Cookies.set(ACCESS_TOKEN, res.data.accessToken, { expires: MAX_DAYS_EXPIRE })
+            Cookies.set(USER_ID, res.data.user.id, { expires: MAX_DAYS_EXPIRE })
+
             return {
                 user: res.data.user,
                 isAuthenticated: true
