@@ -89,7 +89,7 @@ const Login = () => {
             )}
 
             <AlertMessage info={alert} />
-            <h1 h1 className="form__title">
+            <h1 className="form__title">
                 Đăng nhập
             </h1>
             <Form className="form__body" onSubmit={login}>
@@ -120,7 +120,8 @@ const Login = () => {
                             {' '}
                             Đăng nhập
                         </button>
-                        <button className="forget__button">Quên mật khẩu</button>
+                        <button className="forget__button"
+                            onClick={() => navigate('/forgotPassword', { replace: true })}>Quên mật khẩu</button>
                     </div>
                     <button
                         className="button__login-gg"

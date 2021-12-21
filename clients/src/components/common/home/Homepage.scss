@@ -173,6 +173,10 @@ h1 {
   box-sizing: border-box;
 }
 
+.col{
+  margin:auto
+}
+
 .profile {
   display: flex;
   justify-content: center;
@@ -181,19 +185,38 @@ h1 {
   box-sizing: border-box;
 }
 .footer {
-  border-radius: 10px;
   border-top: 1px solid var(--mint);
   text-align: justify;
-  height: 300px;
+  height: fit-content;
   width: 100%;
 
   &__logo {
-    margin: 20px 270px;
+    margin: auto;
     display: inline;
     img {
       max-width: 100px;
       margin: 10px;
     }
+  }
+  h1{
+    font-family: var(--logo-font);
+    font-size: 150%;
+    text-align: center;
+    font-weight: 600;
+  }
+  h5{
+    text-align: center;
+    
+  }
+  h4{
+    margin-top: 10px;
+    text-align: center;
+  }
+  .gv{
+    font-family: var(--logo-font);
+    color: var(--mint);
+    font-size: 80%;
+    font-weight: 500;
   }
 }
 .vl {

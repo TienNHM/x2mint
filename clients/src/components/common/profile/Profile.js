@@ -4,10 +4,10 @@ import './Profile.scss'
 
 function Profile() {
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col11">
-                    <section className="profile" id="contact">
+        <>
+            <div className="container profile">
+                <div className="row row-cols-auto">
+                    <div className="col">
                         <div className="card-info ">
                             <div className="card__img">
                                 <img id="avatar" src="./img/hoang.jpg" alt="" />
@@ -27,24 +27,11 @@ function Profile() {
                             </div>
                             <button className="btn__contact__me">Contact me</button>
                         </div>
-                    </section>
-                </div>
-                <div className="col12">
-                2 of 2
+                    </div>
+                    <div className="col">Column</div>
                 </div>
             </div>
-            <div className="row">
-                <div className="col21">
-                1 of 3
-                </div>
-                <div className="col22">
-                2 of 3
-                </div>
-                <div className="col23">
-                3 of 3
-                </div>
-            </div>
-        </div>
+        </>
     )
 }
 export default Profile

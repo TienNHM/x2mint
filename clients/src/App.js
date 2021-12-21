@@ -23,6 +23,9 @@ import Page404 from 'pages/Page404'
 import Page500 from 'pages/Page500'
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import ActivationEmail from 'components/common/register/ActivationEmail'
+import ForgotPassword from 'components/common/login/ForgotPassword'
+import ResetPassword from 'components/common/login/ResetPassword'
 
 const options = {
     // you can also just use 'bottom center'
@@ -71,8 +74,11 @@ function App() {
                             <Routes>
                                 <Route exact path="/" element={<Homepage />} />
                                 <Route path="/login" element={<Login />} />
-                                <Route path="/profile" element={<Profile />} />
+                                <Route path="/forgotPassword" element={<ForgotPassword/>} />
+                                <Route path="/resetPassword" element={<ResetPassword/>} />
+                                <Route path="/profile" element={<Profile/>} />
                                 <Route path="/register" element={<Register />} />
+                                <Route path="/activation/:activation_token" element={<ActivationEmail />} />
                                 <Route path="/about" element={<About />} />
                                 <Route path="/contact" element={<Contact />} />
                                 <Route path="/404" element={<Page404 />} />

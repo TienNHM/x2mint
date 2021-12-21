@@ -4,7 +4,6 @@ import Cookies from 'js-cookie'
 import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
 import { store } from 'react-notifications-component'
 import { ROLE, COOKIES } from 'utils/constants'
-
 const notify = {
     insert: 'top',
     container: 'top-center',
@@ -64,12 +63,10 @@ export const register = createAsyncThunk(
                 default:
                 }
             }
-
             setAuthToken(res.data.accessToken)
             // Set cookies
             Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
             Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
-
             return {
                 user: res.data.user,
                 isAuthenticated: true

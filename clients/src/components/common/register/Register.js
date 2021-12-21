@@ -136,38 +136,46 @@ const Register = () => {
             <section className="signup__body" onSubmit={handleSubmit} method="POST">
                 <div className="signup__area">
                     <div className="input">
-                        <input
-                            type="text"
-                            name="username"
-                            value={user.username}
-                            onChange={handleChange}
-                            placeholder="Username"
-                            require
-                        ></input>
-                        <input
-                            type="text"
-                            name="email"
-                            value={user.email}
-                            onChange={handleChange}
-                            placeholder="Email"
-                            require
-                        ></input>
-                        <input
-                            type="password"
-                            name="password"
-                            value={user.password}
-                            onChange={handleChange}
-                            placeholder="Mật khẩu"
-                            require
-                        ></input>
-                        <input
-                            type="password"
-                            name="reEnterPassword"
-                            value={user.reEnterPassword}
-                            onChange={handleChange}
-                            placeholder="Xác nhận lại mật khẩu"
-                            require
-                        ></input>
+                        <div className="input_item" >
+                            <input
+                                type="text"
+                                name="username"
+                                value={user.username}
+                                onChange={handleChange}
+                                placeholder="Username"
+                                require
+                            ></input>
+                        </div>
+                        <div className="input_item">
+                            <input
+                                type="text"
+                                name="email"
+                                value={user.email}
+                                onChange={handleChange}
+                                placeholder="Email"
+                                require
+                            ></input>
+                        </div>
+                        <div className="input_item">
+                            <input
+                                type="password"
+                                name="password"
+                                value={user.password}
+                                onChange={handleChange}
+                                placeholder="Mật khẩu"
+                                require
+                            ></input>
+                        </div>
+                        <div className="input_item">
+                            <input
+                                type="password"
+                                name="reEnterPassword"
+                                value={user.reEnterPassword}
+                                onChange={handleChange}
+                                placeholder="Xác nhận lại mật khẩu"
+                                require
+                            ></input>
+                        </div>
                         <p
                             style={{
                                 color: 'red',

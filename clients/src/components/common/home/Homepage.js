@@ -2,6 +2,7 @@ import React from 'react'
 import './Homepage.scss'
 import About from 'components/common/home/About'
 import Contact from 'components/common/home/Contact'
+import Footer from 'components/common/home/Footer'
 
 function Homepage() {
     return (
@@ -27,6 +28,7 @@ function Homepage() {
             <About />
 
             <Contact />
+            <Footer />
         </>
     )
 }
