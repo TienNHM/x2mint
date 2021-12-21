@@ -21,6 +21,7 @@ export const blankTakeTest = {
 export const blankTest = {
     name: '',
     status: '',
+    pin: '',
     // startTime: '',
     // endTime: '',
     questions: [],

@@ -3,10 +3,6 @@ import * as FileSaver from 'file-saver'
 import * as XLSX from 'xlsx'
 import { Button } from 'react-bootstrap'
 
-// export const RemoveFields = (data, field) => {
-//     return data.map(({ field, ...keepAttrs }) => keepAttrs)
-// }
-
 export const ExportToExcel = ({ apiData, fileName, fieldsToBeRemoved=[] }) => {
     const fileType =
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheetcharset=UTF-8'

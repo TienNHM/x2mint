@@ -53,7 +53,7 @@ export default function MyAppNavbar() {
                         <NavHashLink to="/#contact">Liên hệ</NavHashLink>
 
                         {!isAuthenticated && (
-                            <div className="nav__btn">
+                            <>
                                 <NavLink to="/login"
                                     className="nav__btn__login active-link">
                                     Đăng nhập
@@ -63,7 +63,7 @@ export default function MyAppNavbar() {
                                     className="nav__btn__signup active-link">
                                     Đăng ký
                                 </NavLink>
-                            </div>
+                            </>
                         )}
 
                         {isAuthenticated && (

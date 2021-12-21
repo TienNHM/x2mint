@@ -5,7 +5,7 @@ $question-content-background: white;
 $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
 .panel-center {
-    padding: $gap;
+    padding: 0 $gap;
     
     >* {
         font-weight: bold;
@@ -64,7 +64,7 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
     .embeded {
         margin: $gap;
-        height: 46vh;
+        height: 45vh;
         color: $app-bg-color;
         font-size: 1px;
 

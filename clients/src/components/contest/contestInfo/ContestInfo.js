@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 import { useNavigate, useParams } from 'react-router'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
-import { Button, Card, ListGroup, ListGroupItem, Form, Image } from 'react-bootstrap'
+import { Button, Card, ListGroup, ListGroupItem, Form, Image, FormControl } from 'react-bootstrap'
 import Badge from 'react-bootstrap/Badge'
 import ModalCreateContest from 'components/contest/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
@@ -15,6 +15,8 @@ import { displayTime, displayTimeDelta, splitTime } from 'utils/timeUtils'
 import { archiveContest, updateContest, updateTestsInContest } from 'actions/api/ContestAPI'
 import { MODAL_ACTION, COOKIES, ROLE, STATUS } from 'utils/constants'
 import './ContestInfo.scss'
+import { cloneDeep } from 'lodash'
+import { toast } from 'react-toastify'
 
 export default function ContestInfo() {
     const navigate = useNavigate()
@@ -42,13 +44,15 @@ export default function ContestInfo() {
     const user = useSelector((state) => state.auth.user)
 
     //#region States
-    const [contest, setContest] = useState(null)
+    const [data, setData] = useState(null) // Tests hiện ra kết quả tìm kiếm
+    const [contest, setContest] = useState(null) // Data từ API
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
     const [isShowShareModal, setIsShowShareModal] = useState(false)
     const [shareContent, setShareContent] = useState({})
     const [confirmModalContent, setConfirmModalContent] = useState('')
     const [currentAction, setCurrentAction] = useState('')
+    const [searchQuery, setSearchQuery] = useState('')
     const [selectedTest, setSelectedTest] = useState(null) //TODO chuyển selectedTest sang lưu trữ selectedTest.id
 
     // Test information
@@ -64,7 +68,8 @@ export default function ContestInfo() {
 
     useEffect(() => {
         if (contestResponse) {
-            setContest(contestResponse.data)
+            setContest(cloneDeep(contestResponse.data))
+            setData(cloneDeep(contestResponse.data.tests))
         }
     }, [contestResponse])
 
@@ -97,12 +102,14 @@ export default function ContestInfo() {
                 startTime: startTime,
                 endTime: endTime
             }
-            const data = await updateContest(newContest)
-            console.log(data)
+            await updateContest(newContest)
+
             setContest(data.contest)
+
+            toast.success('🎉 Đã lưu thành công!')
         }
         else if (action === MODAL_ACTION.CLOSE) {
-            //
+            toast.warning(`💢 Đã hủy chỉnh sửa đối với cuộc thi ${contest.name}!`)
         }
         setIsShowCreateContest(false)
     }
@@ -145,6 +152,29 @@ export default function ContestInfo() {
         setShareContent(obj)
         setIsShowShareModal(true)
     }
+
+    const handleSearch = () => {
+        const query = searchQuery.trim().toLowerCase()
+        if (contest) {
+            const result = []
+            for (const c of contest.tests) {
+                if (c.name.toLowerCase().includes(query)) {
+                    result.push(c)
+                }
+            }
+            setData(result)
+        }
+    }
+
+    useEffect(() => {
+        if (searchQuery.trim().length > 0) {
+            handleSearch()
+        }
+        else {
+            if (contest)
+                setData(cloneDeep(contest.tests))
+        }
+    }, [searchQuery])
     //#endregion
 
     const onTestAction = async (action) => {
@@ -158,7 +188,11 @@ export default function ContestInfo() {
                 await deleteTest(selectedTest._id)
 
                 // Cập nhật lại contest
-                await updateContest(newContest)
+                const re = await updateContest(newContest)
+                setContest(cloneDeep(re.contest))
+                setData(cloneDeep(re.contest.tests))
+
+                toast.success(`🎉 Đã xóa bài test ${selectedTest.name} ra khỏi cuộc thi ${contest.name} thành công!`)
             }
         }
         else if (currentAction === CURRENT_ACTION.CREATE_TEST) {
@@ -176,25 +210,36 @@ export default function ContestInfo() {
                 // Cập nhật lại contest hiện tại
                 const listTestId = contest.tests.map(t => t._id)
                 listTestId.push(newTestRes.test.id)
-                console.log(listTestId)
+
                 const contestRes = await updateTestsInContest(contest.id, listTestId)
-                console.log('contestRes', contestRes)
+
                 setContest(contestRes.contest)
                 navigate(`/test/${newTestRes.test.id}`)
+
+                toast.success('🎉 Đã bài bài test thành công, vui lòng bổ sung đầy đủ thông tin!')
             }
         }
         else if (currentAction === CURRENT_ACTION.ARCHIVE_CONTEST) {
-            const data = await archiveContest(contest)
-            console.log(data.contest)
-            setContest({
-                ...data.contest
-            })
+            if (action === MODAL_ACTION.CONFIRM) {
+                const data = await archiveContest(contest)
+
+                setContest({
+                    ...data.contest
+                })
+
+                toast.success('🎉 Đã lưu trữ cuộc thi thành công!')
+            }
+            else {
+                toast.warning('💢 Đã hủy bỏ thay đổi!')
+            }
         }
         else if (currentAction === CURRENT_ACTION.REOPEN_CONTEST) {
             const newContest = { ...contest, _status: STATUS.OK }
-            const data = await updateContest(newContest)
-            console.log(data)
+            await updateContest(newContest)
+
             setContest(newContest)
+
+            toast.success(`🎉 Cuộc thi ${contest.name} đã được mở công khai!`)
         }
         setIsShowConfirmModal(false)
     }
@@ -204,7 +249,10 @@ export default function ContestInfo() {
             <Card className="text-center">
                 <div className="d-flex justify-content-center">
                     <Image fluid={true} variant="top"
-                        src={embededMedia}
+                        src={embededMedia ?
+                            embededMedia :
+                            process.env.PUBLIC_URL + '/assets/placeholder.png'
+                        }
                         className="p-3 contest-image"
                     />
                 </div>
@@ -213,13 +261,12 @@ export default function ContestInfo() {
                         {title}
                     </Card.Title>
 
-                    {contest._status === STATUS.ARCHIVED &&
-                        <Badge pill bg="warning" text="dark">
-                            {contest._status}
-                        </Badge>
-                    }
+                    <Badge pill bg="warning" text="dark"
+                        hidden={contest._status !== STATUS.ARCHIVED}>
+                        {contest._status}
+                    </Badge>
 
-                    <Card.Text className="m-2 p-1 d-flex align-items-center justify-content-center">
+                    <Card.Text className="mx-2 mt-2 p-1 d-flex align-items-center justify-content-center">
                         {description}
                     </Card.Text>
 
@@ -427,25 +474,34 @@ export default function ContestInfo() {
                         </div>
 
                         <div className="list-tests col-xl-9 col-lg-8 col-md-7 col-sm-12">
-                            <Card border="secondary">
-                                <Card.Header className="row h5">
-                                    <div className="">
-                                        <div className="fw-bolder text-uppercase">Danh sách bài kiểm tra</div>
-                                        <div className="text-primary h6">
-                                            Số lượng: {contest ? contest.tests.length : 0}
-                                        </div>
+                            <Card>
+                                <Card.Header className="row search-section d-flex justify-content-between">
+                                    <div className="col-11">
+                                        <FormControl
+                                            type="search"
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            style={{ boxShadow: 'none' }}>
+                                        </FormControl>
+                                    </div>
+
+                                    <div className="col-1 p-1 d-flex justify-content-center">
+                                        <Button size="sm" variant="primary"
+                                            onClick={() => handleSearch()}>
+                                            <i className="fa fa-search"></i>
+                                            <span className="btn-label ms-2 fw-bolder">Tìm</span>
+                                        </Button>
                                     </div>
                                 </Card.Header>
-                                <hr />
 
                                 <div className="show-all-tests">
-                                    {contest.tests.map((test, index) =>
+                                    {data.map((test, index) =>
                                         <div key={index}>{renderTest(test, index)}</div>
                                     )}
 
-                                    {contest.tests.length == 0 &&
-                                        <Card.Body className="row no-test">
-                                            Chưa có bài test nào!
+                                    {data.length == 0 &&
+                                        <Card.Body className="row d-flex justify-content-center align-items-center">
+                                            <Image src={process.env.PUBLIC_URL + '/assets/nothing.svg'} style={{ width: '70%' }} />
                                         </Card.Body>
                                     }
                                 </div>

@@ -48,7 +48,7 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
 
             .card {
                 border-radius: $gap/2;
-                border: 1px solid gray;
+                border: none;
                 max-height: calc(100vh - #{$navbar-height} - #{$contest-title-height} - 2.5*#{$gap});
 
                 .card-img-top {
@@ -73,7 +73,7 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
 
                     .list-group-flush {
                         .list-group-item {
-                            padding: $gap 0 !important;
+                            padding: 0 !important;
                             border: none !important;
 
                             input {
@@ -103,6 +103,7 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
 
             .card {
                 width: 100%;
+                border: none !important;
 
                 .card-header {
                     border: none;
@@ -197,6 +198,12 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
                     justify-content: center;
                 }
             }
+        }
+    }
+
+    @media screen and (max-width: 1220px) {
+        .btn-label {
+            display: none;
         }
     }
 }

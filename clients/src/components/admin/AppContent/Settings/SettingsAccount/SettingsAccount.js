@@ -8,6 +8,7 @@ import { updateUserInfo } from 'actions/api/UserAPI'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
 import { HashLoader } from 'react-spinners'
+import { toast } from 'react-toastify'
 
 export default function SettingsAccount() {
     const user = useSelector((state) => state.auth.user)
@@ -47,8 +48,20 @@ export default function SettingsAccount() {
     const handleAction = async (action, newUser) => {
         if (action === MODAL_ACTION.CLOSE) {
             setIsShow(false)
+            toast.warning('💢 Đã hủy các thay đổi!')
         }
         else if (action === MODAL_ACTION.CONFIRM) {
+            //#region Validate
+            if (!newUser.full_name || newUser.full_name === '') {
+                toast.error('💢 Vui lòng nhập đầy đủ họ tên!')
+                return
+            }
+            if (!newUser.email || newUser.email === '') {
+                toast.error('💢 Vui lòng nhập email')
+                return
+            }
+            //#endregion
+
             const data = await updateUserInfo(newUser)
             console.log(data)
             setUserData({
@@ -64,6 +77,8 @@ export default function SettingsAccount() {
                 _id: data.user.id
             })
             setIsShow(false)
+
+            toast.success('🎉 Đã cập nhật thông tin thành công!')
         }
     }
 
@@ -103,10 +118,10 @@ export default function SettingsAccount() {
                                     </div>
 
                                     <div>
-                                        <Button size="sm" variant="primary" className="ms-2 me-2">
+                                        <Button size="sm" variant="primary" className="m-1">
                                             Đổi mật khẩu
                                         </Button>
-                                        <Button size="sm" variant="success" className="ms-2 me-2"
+                                        <Button size="sm" variant="success" className="m-1"
                                             onClick={() => setIsShow(true)}>
                                             Cập nhật
                                         </Button>

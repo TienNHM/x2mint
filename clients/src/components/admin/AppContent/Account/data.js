@@ -190,7 +190,7 @@ export const USER_PERMISSIONS_COLUMNS = [
         label: STATISTICS.ACCOUNT.EMAIL,
         field: STATISTICS.ACCOUNT.EMAIL,
         sort: 'asc',
-        width: 250
+        width: 300
     },
     {
         label: STATISTICS.ACCOUNT.PHONE,
@@ -202,13 +202,13 @@ export const USER_PERMISSIONS_COLUMNS = [
         label: STATISTICS.ACCOUNT._AVATAR,
         field: STATISTICS.ACCOUNT._AVATAR,
         sort: 'disabled',
-        width: 80
+        width: 100
     },
     {
         label: STATISTICS.ACCOUNT._ROLE,
         field: STATISTICS.ACCOUNT._ROLE,
         sort: 'disabled',
-        width: 150
+        width: 160
     },
     {
         label: STATISTICS.ACCOUNT._STATUS,

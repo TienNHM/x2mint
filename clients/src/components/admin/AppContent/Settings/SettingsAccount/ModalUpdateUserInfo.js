@@ -6,7 +6,6 @@ export default function ModalUpdateUserInfo(props) {
     const { user, isShow, onAction } = props
     const [data, setData] = useState({
         full_name: user.full_name,
-        username: user.username,
         email: user.email,
         phone: user.phone,
         dob: user.dob,
@@ -18,7 +17,6 @@ export default function ModalUpdateUserInfo(props) {
         const newUser = {
             ...user,
             full_name: data.full_name,
-            username: data.username,
             email: data.email,
             phone: data.phone,
             dob: data.dob,
@@ -32,13 +30,6 @@ export default function ModalUpdateUserInfo(props) {
         setData({
             ...data,
             full_name: event.target.value
-        })
-    }
-
-    const handleUsernameChange = (event) => {
-        setData({
-            ...data,
-            username: event.target.value
         })
     }
 
@@ -100,14 +91,6 @@ export default function ModalUpdateUserInfo(props) {
                             <Form.Control size="sm" type="email"
                                 value={data.full_name}
                                 onChange={(event) => handleFullNameChange(event)}
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} className="mb-3" controlId="password">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control size="sm" type="text"
-                                value={data.username}
-                                onChange={(event) => handleUsernameChange(event)}
                             />
                         </Form.Group>
                     </Row>

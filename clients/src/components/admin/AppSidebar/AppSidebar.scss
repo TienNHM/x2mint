@@ -1,6 +1,7 @@
 @import '_setting.scss';
 
 .sidebar-settings {
+    margin-top: $navbar-height;
     background-color: lighten($color: rgba(208, 240, 224, 0.514), $amount: 5);
 
     .sidebar-main {
@@ -16,9 +17,10 @@
             background-color: transparent !important;
             text-transform: uppercase !important;
             color: $theme-color !important;
-            font-weight: bolder !important;
+            font-weight: 700 !important;
             border: 0 !important;
             border-radius: 0 !important;
+            letter-spacing: 1px !important;
         }
 
         .settings {

@@ -4,7 +4,7 @@ $question-attribute-setting-height: 80px;
 
 .panel-settings {
     .panel-right {
-        padding: 10px;
+        padding: $gap $gap/2;
         background-color: $bg-color;
         font-size: 0px;
     

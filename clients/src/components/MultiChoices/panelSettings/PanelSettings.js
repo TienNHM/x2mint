@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { useAlert } from 'react-alert'
+import 'react-toastify/dist/ReactToastify.css'
+import { toast } from 'react-toastify'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { splitTime } from 'utils/timeUtils'
 import { MODAL_ACTION, ROLE } from 'utils/constants'
@@ -10,6 +11,7 @@ import { useNavigate } from 'react-router'
 import { updateTest } from 'actions/api/TestAPI'
 import { Fab } from 'react-tiny-fab'
 import ModalTestInfo from './ModalTestInfo'
+import { cloneDeep } from 'lodash'
 
 function PanelSettings(props) {
     const { test, setTest } = props
@@ -17,7 +19,6 @@ function PanelSettings(props) {
     const isUser = user.role === ROLE.USER
 
     const navigate = useNavigate()
-    const alert = useAlert()
 
     //#region States
     // Test title
@@ -35,6 +36,10 @@ function PanelSettings(props) {
     // Điểm tối đa
     const inputMaxPointsRef = useRef(null)
     const [testMaxPoints, setTestMaxPoints] = useState(test.maxPoints ? test.maxPoints : 0)
+
+    // Mã PIN
+    const inputPinRef = useRef(null)
+    const [testPIN, setTestPIN] = useState(test.pin ? test.pin : '')
 
     // Duration
     const start_time = splitTime(test.startTime)
@@ -63,8 +68,8 @@ function PanelSettings(props) {
             alert.error('Vui lòng nhập tên cho bài test!')
         }
         else {
-            const startTime = startDateRef.current.value + ' ' + startTimeRef.current.value
-            const endTime = endDateRef.current.value + ' ' + endTimeRef.current.value
+            const startTime = startDateRef.current.value + 'T' + startTimeRef.current.value + ':00.000Z'
+            const endTime = endDateRef.current.value + 'T' + endTimeRef.current.value + ':00.000Z'
             if (Date.parse(endTime) > Date.parse(startTime)) {
                 const newTest = {
                     ...test,
@@ -73,20 +78,20 @@ function PanelSettings(props) {
                     endTime: endTime,
                     description: testDescription,
                     maxPoints: testMaxPoints,
+                    pin: testPIN,
                     url: testLink
                 }
 
                 // Lưu vào CSDL
-                const data = await updateTest(newTest)
-                console.log(data)
+                await updateTest(newTest)
 
                 // Update lại test
-                setTest(newTest)
-                alert.success('Đã lưu lại những thay đổi của bạn!')
+                setTest(cloneDeep(newTest))
+                toast.success('🎉 Đã lưu lại những thay đổi của bạn!')
             }
             else {
                 startDateRef.current.focus()
-                alert.error('Thời gian không hợp lệ!')
+                toast.error('💢 Thời gian không hợp lệ! Vui lòng nhập lại!')
             }
         }
     }
@@ -129,10 +134,12 @@ function PanelSettings(props) {
 
     useEffect(() => {
         if (test) {
+            console.log(test)
             setTestTitle(test.name)
             setTestDescription(test.description)
             setTestMaxPoints(test.maxPoints)
             setTestLink(test.url)
+            setTestPIN(test.pin)
 
             const start_time = splitTime(test.startTime)
             const end_time = splitTime(test.endTime)
@@ -183,7 +190,7 @@ function PanelSettings(props) {
                             <Form.Control
                                 size="sm"
                                 as="textarea"
-                                rows={4}
+                                rows={8}
                                 ref={inputTestDescriptionRef}
                                 placeholder="Mô tả..."
                                 className="attribute-title-input"
@@ -199,12 +206,28 @@ function PanelSettings(props) {
                         <div className="title">
                             <Form.Control
                                 size="sm"
-                                type="text"
+                                type="number"
                                 ref={inputMaxPointsRef}
                                 placeholder="0"
                                 className="attribute-title-input max-points"
                                 value={testMaxPoints}
                                 onChange={e => setTestMaxPoints(e.target.value)}
+                                readOnly={isUser}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="attribute-title">
+                        <div>Mã PIN</div>
+                        <div className="title">
+                            <Form.Control
+                                size="sm"
+                                type="text"
+                                ref={inputPinRef}
+                                placeholder="0"
+                                className="attribute-title-input max-points"
+                                value={testPIN}
+                                onChange={e => setTestPIN(e.target.value)}
                                 readOnly={isUser}
                             />
                         </div>

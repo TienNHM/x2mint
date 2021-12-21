@@ -87,14 +87,14 @@
         }
 
         &::-webkit-scrollbar:vertical {
-            width: 20px;
+            width: 14px;
             padding-left: $gap;
         }
 
         &::-webkit-scrollbar-thumb {
             background-color: lighten($color: lightgray, $amount: 5);
             border-radius: $gap;
-            border: 7px solid $bg-color;
+            border: 4px solid $bg-color;
 
             &:hover {
                 background-color: lighten($color: $theme-color, $amount: 5);
