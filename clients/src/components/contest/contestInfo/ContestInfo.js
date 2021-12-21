@@ -185,7 +185,9 @@ export default function ContestInfo() {
                 await deleteTest(selectedTest._id)
 
                 // Cập nhật lại contest
-                await updateContest(newContest)
+                const re = await updateContest(newContest)
+                setContest(cloneDeep(re.contest))
+                setData(cloneDeep(re.contest.tests))
             }
         }
         else if (currentAction === CURRENT_ACTION.CREATE_TEST) {

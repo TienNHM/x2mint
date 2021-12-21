@@ -141,7 +141,7 @@ function MultiChoices() {
         }
     }
 
-    if (isEntered) {
+    if (isEntered || !isUser) {
         return (
             <div className="app-container">
                 {isSubmitted &&
