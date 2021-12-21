@@ -152,7 +152,7 @@ export default function ContestInfo() {
 
     const handleSearch = () => {
         const query = searchQuery.trim().toLowerCase()
-        if (contest.tests) {
+        if (contest) {
             const result = []
             for (const c of contest.tests) {
                 if (c.name.toLowerCase().includes(query)) {
@@ -168,7 +168,8 @@ export default function ContestInfo() {
             handleSearch()
         }
         else {
-            setData(cloneDeep(contest.tests))
+            if (contest)
+                setData(cloneDeep(contest.tests))
         }
     }, [searchQuery])
     //#endregion
@@ -453,7 +454,7 @@ export default function ContestInfo() {
                         </div>
 
                         <div className="list-tests col-xl-9 col-lg-8 col-md-7 col-sm-12">
-                            <Card border="success">
+                            <Card>
                                 <Card.Header className="row search-section d-flex justify-content-between">
                                     <div className="col-11">
                                         <FormControl
@@ -472,7 +473,6 @@ export default function ContestInfo() {
                                         </Button>
                                     </div>
                                 </Card.Header>
-                                <hr />
 
                                 <div className="show-all-tests">
                                     {data.map((test, index) =>
@@ -480,8 +480,8 @@ export default function ContestInfo() {
                                     )}
 
                                     {data.length == 0 &&
-                                        <Card.Body className="row no-test">
-                                            Chưa có bài test nào!
+                                        <Card.Body className="row d-flex justify-content-center align-items-center">
+                                            <Image src={process.env.PUBLIC_URL + '/assets/nothing.svg'} style={{ width: '70%' }} />
                                         </Card.Body>
                                     }
                                 </div>

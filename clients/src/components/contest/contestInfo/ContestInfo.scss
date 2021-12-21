@@ -48,7 +48,7 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
 
             .card {
                 border-radius: $gap/2;
-                border: 1px solid gray;
+                border: none;
                 max-height: calc(100vh - #{$navbar-height} - #{$contest-title-height} - 2.5*#{$gap});
 
                 .card-img-top {
@@ -103,6 +103,7 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
 
             .card {
                 width: 100%;
+                border: none !important;
 
                 .card-header {
                     border: none;
