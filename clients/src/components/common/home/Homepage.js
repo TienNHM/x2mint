@@ -1,6 +1,10 @@
 import React from 'react'
 import { Image } from 'react-bootstrap'
 import './Homepage.scss'
+import About from 'components/common/home/About'
+import Contact from 'components/common/home/Contact'
+import Footer from 'components/common/home/Footer'
+
 
 function Homepage() {
     const renderHomepage = () => {
@@ -141,6 +145,9 @@ function Homepage() {
 
             {renderAbout()}
 
+            <Contact />
+            <Footer />
+        </>
             {renderContact()}
         </div>
     )

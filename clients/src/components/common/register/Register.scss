@@ -79,15 +79,17 @@ div .signup__area{
         padding: 5px;
     }
 }
-.input{
-    margin-bottom: 0;
+.input_item{
+    margin: 10px !important;
     justify-content: center;
     display: block;
     align-items: center;
 }
 input {
+    justify-content: center;
+    align-items: center;
     padding: 10px 20px;
-    margin: 5px !important;
+    margin-top: 5px;
     display: block;
     border-radius: 50px;
     width: 300px;

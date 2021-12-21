@@ -27,6 +27,13 @@ function Profile() {
                             </div>
                             <button className="btn__contact__me">Contact me</button>
                         </div>
+<<<<<<< HEAD
+                    </div>
+                    <div className="col">Column</div>
+                </div>
+            </div>
+        </>
+=======
                     </section>
                 </div>
                 <div className="col12">
@@ -45,6 +52,7 @@ function Profile() {
                 </div>
             </div>
         </div>
+>>>>>>> be86e54 (.)
     )
 }
 export default Profile

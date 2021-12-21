@@ -96,6 +96,7 @@
         ::placeholder {
             border: 1px solid var(--mint);
         }
+
     }
 
     .button {
@@ -135,7 +136,6 @@
 
     .login__forget {
         display: inline;
-
         .nav__btn__signup {
             padding: 5px 30px;
         }
@@ -156,5 +156,74 @@
 
     .register {
         display: inline-flex;
+    }
+    .forgotPassword{
+        align-items: center;
+    }    
+}
+
+.forgot{
+    margin: 10% auto 0;
+    font-family: var(--body-font);
+    border: 1.5px solid var(--mint);
+    height: 400px;
+    width: 50%;
+    height: fit-content;
+    border-radius: 30px;
+
+    .email__reset{
+        align-items: center;
+        input {
+            margin:5% auto;
+            padding: 2% 4%;
+            width: 60%;
+            }
+    }
+    .btn__resetPassword{
+        font-family: var(--logo-font);
+        font-size: 1.15rem;
+        font-weight: 700;
+        background-color: var(--mint);
+        border: 1px solid var(--mint);
+        border-radius: 50px;
+        color:var(--white);
+        padding:1% 4%;
+        margin-bottom: 7%;
+        &:hover{
+            background-color: var(--light-mint);
+            color: var(--mint);
+        }
+    }
+}
+
+.reset{
+    margin: 12% auto;
+    font-family: var(--body-font);
+    border: 1.5px solid var(--mint);
+    width: 50%;
+    height: fit-content;
+    border-radius: 30px;
+    .password__reset{
+        align-items: center;
+        input {
+            margin:2% auto;
+            padding: 1% 4%;
+            width: 75%;
+            }
+    }
+    .btn__resetPassword{
+        font-family: var(--logo-font);
+        font-size: 1.15rem;
+        font-weight: 700;
+        background-color: var(--mint);
+        border: 1px solid var(--mint);
+        border-radius: 50px;
+        color:var(--white);
+        padding:1% 4%;
+        margin-bottom: 7%;
+        &:hover{
+            background-color: var(--light-mint);
+            color: var(--mint);
+        }
     }
 }

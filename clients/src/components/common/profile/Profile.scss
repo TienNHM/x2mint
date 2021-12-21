@@ -1,1 +1,13 @@
 @import '_setting.scss';
+
+
+
+
+.container {
+    margin: 80px auto 0 !important;
+    font-family: var(--body-font);
+    border: 1.5px solid var(--mint);
+    height: fit-content;
+    width: 100% !important;
+    border-radius: 30px;
+}

@@ -18,6 +18,22 @@ import Page404 from 'pages/Page404'
 import Page500 from 'pages/Page500'
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import ActivationEmail from 'components/common/register/ActivationEmail'
+import ForgotPassword from 'components/common/login/ForgotPassword'
+import ResetPassword from 'components/common/login/ResetPassword'
+import { BeatLoader, HashLoader, SyncLoader } from 'react-spinners'
+import 'react-notifications-component/dist/theme.css'
+
+const options = {
+    // you can also just use 'bottom center'
+    position: positions.TOP_CENTER,
+    timeout: 2000,
+    offset: '30px',
+    transition: transitions.FADE,
+    containerStyle: {
+        zIndex: 100
+    }
+}
 import './App.scss'
 import StatisticTest from 'components/contest/statistics/StatisticTest'
 import StatisticContest from 'components/contest/statistics/StatisticContest'
@@ -43,7 +59,6 @@ function App() {
     return (
         <BrowserRouter>
             <ReactNotification />
-
             <div className="app">
                 {authLoading ? (
                     <div style={loadingCss} className='d-flex align-items-center justify-content-center'>
@@ -64,7 +79,9 @@ function App() {
                             <Route path="/register" element={<Register />} />
                             <Route path="/404" element={<Page404 />} />
                             <Route path="/500" element={<Page500 />} />
-
+                            <Route path="/forgotPassword" element={<ForgotPassword/>} />
+                            <Route path="/activation/:activation_token" element={<ActivationEmail />} />
+                            <Route path="/resetPassword" element={<ResetPassword/>} />
                             <Route path="/dashboard" element={<ProtectedRoute />}>
                                 <Route
                                     path="/dashboard"

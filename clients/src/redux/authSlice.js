@@ -3,7 +3,9 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
 import { ROLE, COOKIES } from 'utils/constants'
+
 import { toast } from 'react-toastify'
+
 
 //Register
 export const register = createAsyncThunk(
@@ -100,13 +102,11 @@ export const loginUser = createAsyncThunk(
                 res.data.accessToken,
                 { expires: COOKIES.MAX_DAYS_EXPIRE }
             )
-
             Cookies.set(
                 COOKIES.USER_ID,
                 res.data.user.id,
                 { expires: COOKIES.MAX_DAYS_EXPIRE }
             )
-
             return {
                 user: res.data.user,
                 isAuthenticated: true
@@ -117,7 +117,6 @@ export const loginUser = createAsyncThunk(
         }
     }
 )
-
 //Auto login when token still valid
 export const loadUser = createAsyncThunk(
     'user/getUser',
