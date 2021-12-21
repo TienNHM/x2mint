@@ -1,7 +1,6 @@
 @import '_setting.scss';
 
 .dashboard {
-    margin-top: $navbar-height;
     overflow-x: hidden;
 
     .row {
@@ -10,6 +9,7 @@
 
     .main-container {
         padding: 0px !important;
+        margin-top: $navbar-height;
 
         .header {
             background-color: lighten($light-theme-color, 10);

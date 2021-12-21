@@ -73,7 +73,7 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
 
                     .list-group-flush {
                         .list-group-item {
-                            padding: $gap 0 !important;
+                            padding: 0 !important;
                             border: none !important;
 
                             input {

@@ -16,6 +16,7 @@ import { archiveContest, updateContest, updateTestsInContest } from 'actions/api
 import { MODAL_ACTION, COOKIES, ROLE, STATUS } from 'utils/constants'
 import './ContestInfo.scss'
 import { cloneDeep } from 'lodash'
+import { toast } from 'react-toastify'
 
 export default function ContestInfo() {
     const navigate = useNavigate()
@@ -101,12 +102,14 @@ export default function ContestInfo() {
                 startTime: startTime,
                 endTime: endTime
             }
-            const data = await updateContest(newContest)
-            console.log(data)
+            await updateContest(newContest)
+
             setContest(data.contest)
+
+            toast.success('🎉 Đã lưu thành công!')
         }
         else if (action === MODAL_ACTION.CLOSE) {
-            //
+            toast.warning(`💢 Đã hủy chỉnh sửa đối với cuộc thi ${contest.name}!`)
         }
         setIsShowCreateContest(false)
     }
@@ -188,6 +191,8 @@ export default function ContestInfo() {
                 const re = await updateContest(newContest)
                 setContest(cloneDeep(re.contest))
                 setData(cloneDeep(re.contest.tests))
+
+                toast.success(`🎉 Đã xóa bài test ${selectedTest.name} ra khỏi cuộc thi ${contest.name} thành công!`)
             }
         }
         else if (currentAction === CURRENT_ACTION.CREATE_TEST) {
@@ -205,25 +210,36 @@ export default function ContestInfo() {
                 // Cập nhật lại contest hiện tại
                 const listTestId = contest.tests.map(t => t._id)
                 listTestId.push(newTestRes.test.id)
-                console.log(listTestId)
+
                 const contestRes = await updateTestsInContest(contest.id, listTestId)
-                console.log('contestRes', contestRes)
+
                 setContest(contestRes.contest)
                 navigate(`/test/${newTestRes.test.id}`)
+
+                toast.success('🎉 Đã bài bài test thành công, vui lòng bổ sung đầy đủ thông tin!')
             }
         }
         else if (currentAction === CURRENT_ACTION.ARCHIVE_CONTEST) {
-            const data = await archiveContest(contest)
-            console.log(data.contest)
-            setContest({
-                ...data.contest
-            })
+            if (action === MODAL_ACTION.CONFIRM) {
+                const data = await archiveContest(contest)
+
+                setContest({
+                    ...data.contest
+                })
+
+                toast.success('🎉 Đã lưu trữ cuộc thi thành công!')
+            }
+            else {
+                toast.warning('💢 Đã hủy bỏ thay đổi!')
+            }
         }
         else if (currentAction === CURRENT_ACTION.REOPEN_CONTEST) {
             const newContest = { ...contest, _status: STATUS.OK }
-            const data = await updateContest(newContest)
-            console.log(data)
+            await updateContest(newContest)
+
             setContest(newContest)
+
+            toast.success(`🎉 Cuộc thi ${contest.name} đã được mở công khai!`)
         }
         setIsShowConfirmModal(false)
     }
@@ -233,7 +249,10 @@ export default function ContestInfo() {
             <Card className="text-center">
                 <div className="d-flex justify-content-center">
                     <Image fluid={true} variant="top"
-                        src={embededMedia}
+                        src={embededMedia ?
+                            embededMedia :
+                            process.env.PUBLIC_URL + '/assets/placeholder.png'
+                        }
                         className="p-3 contest-image"
                     />
                 </div>
@@ -242,13 +261,12 @@ export default function ContestInfo() {
                         {title}
                     </Card.Title>
 
-                    {contest._status === STATUS.ARCHIVED &&
-                        <Badge pill bg="warning" text="dark">
-                            {contest._status}
-                        </Badge>
-                    }
+                    <Badge pill bg="warning" text="dark"
+                        hidden={contest._status !== STATUS.ARCHIVED}>
+                        {contest._status}
+                    </Badge>
 
-                    <Card.Text className="m-2 p-1 d-flex align-items-center justify-content-center">
+                    <Card.Text className="mx-2 mt-2 p-1 d-flex align-items-center justify-content-center">
                         {description}
                     </Card.Text>
 

@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import './Contest.scss'
 import { cloneDeep } from 'lodash'
+import { toast } from 'react-toastify'
 
 export default function Contest() {
     const user = useSelector((state) => state.auth.user)
@@ -62,6 +63,29 @@ export default function Contest() {
         url = '', embededMedia = '', startTime = '', endTime = ''
     ) => {
         if (action === MODAL_ACTION.CONFIRM) {
+            //#region Validate
+            if (!title || title === '') {
+                toast.error('💢 Vui lòng nhập tên cuộc thi!')
+                return
+            }
+            if (!description || description === '') {
+                toast.error('💢 Vui lòng nhập mô tả cuộc thi!')
+                return
+            }
+            if (!startTime || new Date(startTime) < Date.now()) {
+                toast.error('💢Thời gian bắt đầu cuộc thi không hợp lệ. Vui lòng chọn lại!')
+                return
+            }
+            if (!endTime || new Date(endTime) < Date.now()) {
+                toast.error('💢Thời gian kết thúc cuộc thi không hợp lệ. Vui lòng chọn lại!')
+                return
+            }
+            if (new Date(endTime) <= new Date(startTime)) {
+                toast.error('💢 Thời gian không hợp lệ. Thời gian kết thúc phải diễn ra sau thời gian bắt đầu!')
+                return
+            }
+            //#endregion
+
             let data = null
             if (isUpdate) {
                 const newContest = {
@@ -84,7 +108,7 @@ export default function Contest() {
 
                 // Update lại Database
                 data = await updateContest(newContest)
-                console.log(data)
+                toast.success('🎉 Đã lưu thành công!')
             }
             else {
                 const newContest = {
@@ -98,7 +122,7 @@ export default function Contest() {
                     creatorId: user.id
                 }
                 data = await createContest(newContest)
-                console.log(data)
+                toast.success('🎉 Đã tạo cuộc thi thành công, vui lòng bổ sung thông tin đầy đủ cho cuộc thi!')
                 setSelectedContest(null)
                 setIsShow(false)
                 navigate(`/contest/${data.contest.id}`)
@@ -106,6 +130,7 @@ export default function Contest() {
         }
         else if (action === MODAL_ACTION.CLOSE) {
             setIsShow(false)
+            toast.warning('💢 Đã hủy bỏ thao tác trên!')
         }
         else if (action === MODAL_ACTION.RETRY) {
             // Do nothing
@@ -270,6 +295,12 @@ export default function Contest() {
                             (c, index) =>
                                 <div key={index}>{RenderContest(c, index)}</div>
                         )}
+
+                        {contests.length === 0 &&
+                            <Card.Body className="row d-flex justify-content-center align-items-center">
+                                <Image src={process.env.PUBLIC_URL + '/assets/nothing.svg'} style={{ width: '70%' }} />
+                            </Card.Body>
+                        }
                     </>
                 )}
             </div>

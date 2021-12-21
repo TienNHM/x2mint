@@ -19,8 +19,8 @@ export default function AppSidebar({ setCurrentAction }) {
     }
 
     return (
-        <div className="sidebar-settings">
-            <div className="sidebar-main" id="settings">
+        <div className="sidebar-settings" id="settings">
+            <div className="sidebar-main">
                 <CSidebar>
                     <div className="sidebar-title">
                         <Button className="w-100 button-title"

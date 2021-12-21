@@ -49,8 +49,8 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
         }
         else {
             const embededMedia = link
-            const start_time = startDate.trim() + 'T' + startTime.trim() + 'Z'
-            const end_time = endDate.trim() + 'T' + endTime.trim() + 'Z'
+            const start_time = startDate.trim() + 'T' + startTime.trim() + ':00.000Z'
+            const end_time = endDate.trim() + 'T' + endTime.trim() + ':00.000Z'
             const str = startDate.trim() + startTime.trim() + endDate.trim() + endTime.trim()
             if (str.length === 0) {
                 toast.error('💢 Vui lòng nhập đầy đủ thông tin về cuộc thi')

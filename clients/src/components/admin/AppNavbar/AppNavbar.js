@@ -9,7 +9,7 @@ export default function AppNavbar() {
 
         document
             .querySelector('#main-container')
-            .className = 'main-container col-9 d-flex flex-column'
+            .className = 'main-container col-10 d-flex flex-column'
     }
 
     const handleSettingsTheme = () => {
