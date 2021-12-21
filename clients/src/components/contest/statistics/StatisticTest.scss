@@ -1,45 +1,54 @@
 @import '_setting.scss';
 
-.test-info {
-    display: flex;
-    flex-direction: column;
+.contest-participants {
+    margin-top: $navbar-height;
+    
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
 
-    .label {
+    &::-webkit-scrollbar:vertical {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: lighten($color: $theme-color, $amount: 5);
+        border-radius: $gap;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .section-header {
+        background-color: lighten($color: lightsalmon, $amount: 10);
+        color: rgb(224, 71, 10);
+        text-transform: uppercase;
         font-weight: bold;
-        margin: 3px 0;
-        text-align: center;
+        border-left: $gap solid orange;
+        padding: $gap/2;
     }
 
-    .duration {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin: 0 3*$gap;
-    }
+    .overview {
 
-    input,
-    textarea {
-        background-color: transparent !important;
-
-        &:focus {
-            outline: none !important;
-            box-shadow: none !important;
-        }
-    }
-
-    .mdb-datatable .row {
-        margin: $gap;
-    }
-
-    .data-table {
-        button {
-            box-shadow: none !important;
-            outline: none !important;
-            color: gray;
+        >* {
+            margin: $gap;
         }
 
-        button:hover {
-            color: lightseagreen;
+        .card {
+            .card-header {
+                font-weight: bolder;
+            }
+
+            .card-body {
+                .card-title {
+                    .number {
+                        text-transform: uppercase;
+                        font-weight: bolder;
+                        color: $light-theme-color;
+                    }
+                }
+            }
         }
     }
 }

@@ -21,7 +21,7 @@ export const getAllUsers = async () => {
 
 export const getUserInfo = async (userId) => {
     try {
-        const url = `${process.env.REACT_APP_API_ROOT}/users/info/${userId}`
+        const url = `${process.env.REACT_APP_API_ROOT}/users/${userId}/info`
         const request = await axios.get(url, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
@@ -38,7 +38,7 @@ export const getUserInfo = async (userId) => {
 
 export const updateUserInfo = async (user) => {
     try {
-        const url = `${process.env.REACT_APP_API_ROOT}/users/info/${user.id}`
+        const url = `${process.env.REACT_APP_API_ROOT}/users/${user._id}/update`
         const request = await axios.put(url, user, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`

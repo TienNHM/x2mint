@@ -19,7 +19,7 @@ export const getAllContests = async () => {
     }
 }
 
-export const useGetAllContestsByCreatorId = async () => {
+export const getAllContestsByCreatorId = async () => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/contests/creator/${Cookies.get(COOKIES.USER_ID)}`
         const request = await axios.get(url, {
@@ -90,9 +90,9 @@ export const updateTestsInContest = async (contestId, testsList) => {
     }
 }
 
-export const deleteContest = async (contest) => {
+export const archiveContest = async (contest) => {
     try {
-        const url = `${process.env.REACT_APP_API_ROOT}/contests/${contest.id}/delete`
+        const url = `${process.env.REACT_APP_API_ROOT}/contests/${contest.id}/archive`
         const request = await axios.put(url, contest, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`

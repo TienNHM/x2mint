@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { mapOrder } from 'utils/sorts'
 import PanelPreview from 'components/MultiChoices/panelPreview/PanelPreview'
 import Question from 'components/MultiChoices/question/Question'
@@ -13,6 +13,8 @@ import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
 import { createTakeTest, updateTakeTest } from 'actions/api/TakeTestAPI'
+import { Button, FormControl, Image, InputGroup } from 'react-bootstrap'
+import { toast } from 'react-toastify'
 
 function MultiChoices() {
     let { testId } = useParams()
@@ -30,6 +32,9 @@ function MultiChoices() {
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE.USER
     const [isSubmitted, setIsSubmitted] = useState(false)
+    const [isEntered, setIsEntered] = useState(false)
+
+    const pinRef = useRef('')
 
     const [test, setTest] = useState(null)
     const [questions, setQuestions] = useState(null)
@@ -48,10 +53,8 @@ function MultiChoices() {
         }
 
         if (testResponse) {
-            console.log('response', testResponse)
             const t = testResponse.data
             setTest(t)
-            console.log('test', t)
 
             const q = mapOrder(t.questions, t.questionsOrder, 'id')
             setQuestions(q)
@@ -66,10 +69,11 @@ function MultiChoices() {
                 })
 
                 const newTakeTest = {
-                    _status: STATUS.OK,
+                    _status: STATUS.NOT_SUBMITTED,
                     questionsOrder: t.questionsOrder,
                     chooseAnswers: chooseAnswers,
-                    test: t.id
+                    test: t.id,
+                    user: user.id
                 }
 
                 callCreateTakeTest(newTakeTest)
@@ -99,7 +103,9 @@ function MultiChoices() {
 
     const updateTakeTestInfo = async (question, chooseAnswer) => {
         //Nếu ko phải creator thì update lại takeTest
-        const newTakeTest = { ...takeTest }
+        const newTakeTest = {
+            ...takeTest
+        }
         const choose = {
             question: question._id,
             answers: [...chooseAnswer]
@@ -122,70 +128,120 @@ function MultiChoices() {
         })
     }
 
-    return (
-        <div className="app-container">
-            {isSubmitted &&
-                <Navigate to={`/takeTest/${takeTest.id}`} />
-            }
+    const enterTest = () => {
+        console.log(test)
+        if (pinRef.current.value === test.pin) {
+            toast.success('🎉 Nhập mã PIN thành công, chúc bạn thi tốt')
+            setIsEntered(true)
+        }
+        else {
+            toast.error('❌ Sai mã PIN, vui lòng nhập lại!')
+            pinRef.current.value = ''
+            pinRef.current.focus() 
+        }
+    }
 
-            {testIsLoading &&
-                <div
-                    className='sweet-loading d-flex justify-content-center align-items-center'
-                    style={
-                        {
-                            width: '100%',
-                            height: '100%',
-                            position: 'absolute',
-                            top: 0,
-                            left: 0
+    if (isEntered || !isUser) {
+        return (
+            <div className="app-container">
+                {isSubmitted &&
+                    <Navigate to={`/takeTest/${takeTest._id}`} />
+                }
+
+                {testIsLoading &&
+                    <div
+                        className='sweet-loading d-flex justify-content-center align-items-center'
+                        style={
+                            {
+                                width: '100%',
+                                height: '100%',
+                                position: 'absolute',
+                                top: 0,
+                                left: 0
+                            }
                         }
-                    }
-                >
-                    <HashLoader color={'#7ED321'} loading={testIsLoading} />
-                </div>
-            }
+                    >
+                        <HashLoader color={'#7ED321'} loading={testIsLoading} />
+                    </div>
+                }
 
-            {!testIsLoading &&
-                <>
-                    {!isUser ?
-                        (
-                            <PanelPreview
+                {!testIsLoading &&
+                    <div className="row">
+                        {!isUser ?
+                            (
+                                <div className="col-lg-2 col-12">
+                                    <PanelPreview
+                                        test={test}
+                                        setTest={setTest}
+                                        questions={questions}
+                                        setQuestions={setQuestions}
+                                        selectedQuestion={selectedQuestion}
+                                        setSelectedQuestion={setSelectedQuestion}
+                                    />
+                                </div>
+                            ) : (
+                                <div className="col-lg-2 col-12">
+                                    <PanelQuestionPicker
+                                        test={test}
+                                        selectedQuestion={selectedQuestion}
+                                        setSelectedQuestion={setSelectedQuestion}
+                                        takeTest={takeTest}
+                                        setIsSubmitted={setIsSubmitted}
+                                    />
+                                </div>
+                            )
+                        }
+
+                        <div className="col-lg-8 col-12">
+                            <Question
+                                question={selectedQuestion}
+                                setQuestion={updateSelectedQuestion}
+                                isCreator={!isUser}
+                                takeTest={takeTest}
+                                updateTakeTest={updateTakeTestInfo}
+                            />
+                        </div>
+
+                        <div className="col-lg-2 col-12" id="panel-settings">
+                            <PanelSettings
                                 test={test}
                                 setTest={setTest}
-                                questions={questions}
-                                setQuestions={setQuestions}
-                                selectedQuestion={selectedQuestion}
-                                setSelectedQuestion={setSelectedQuestion}
+                                isCreator={!isUser}
+                                setSelectedQuestion={updateSelectedQuestion}
                             />
-                        ) : (
-                            <PanelQuestionPicker
-                                test={test}
-                                selectedQuestion={selectedQuestion}
-                                setSelectedQuestion={setSelectedQuestion}
-                                takeTest={takeTest}
-                                setIsSubmitted={setIsSubmitted}
-                            />
-                        )
-                    }
+                        </div>
+                    </div>
+                }
+            </div>
+        )
+    }
+    else {
+        return (
+            <div className="d-flex flex-column justify-content-center align-items-center">
+                <div style={{ paddingTop: '10vh' }}>
+                    <Image src={process.env.PUBLIC_URL + '/assets/enter-otp.svg'}
+                        style={{ height: '60vh' }}></Image>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <div className="fw-bolder text-success text-uppercase">
+                            Nhập mã PIN
+                        </div>
 
-                    <Question
-                        question={selectedQuestion}
-                        setQuestion={updateSelectedQuestion}
-                        isCreator={!isUser}
-                        takeTest={takeTest}
-                        updateTakeTest={updateTakeTestInfo}
-                    />
+                        <FormControl
+                            aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default"
+                            ref={pinRef}
+                        />
 
-                    <PanelSettings
-                        test={test}
-                        setTest={setTest}
-                        isCreator={!isUser}
-                        setSelectedQuestion={updateSelectedQuestion}
-                    />
-                </>
-            }
-        </div>
-    )
+                        <Button variant="success" onClick={() => enterTest()}>
+                            Xác nhận
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 }
 
 export default MultiChoices

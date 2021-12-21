@@ -1,0 +1,112 @@
+@import '_setting.scss';
+
+/*=============== HEADER ===============*/
+/*=============== NAV ===============*/
+.navbar {
+    padding: 0px !important;;
+
+    .container {
+        .navbar-brand {
+            padding-left: 4%;
+            color: var(--mint);
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: -1px;
+            display: inline-flex;
+            align-items: center;
+            column-gap: .05rem;
+            transition: .3s;
+            font-size: 2rem;
+
+            &:hover {
+                color: var(--strong-mint);
+            }
+        }
+
+        .navbar-collapse {
+            .navbar-nav {
+                >* {
+                    padding: $gap;
+                }
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-decoration: none;
+                    font-family: var(--logo-font);
+                    color: var(--black);
+                    font-weight: var(--font-bold);
+
+                    &:hover {
+                        color: var(--mint);
+                        transform: scale(1.5rem);
+                    }
+                }
+
+                .active-link {
+                    position: relative;
+                    color: var(--black);
+                
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -.5rem;
+                        left: 0;
+                        width: 50%;
+                        height: 2px;
+                        background-color: var(--first-color);
+                    }
+                
+                    &::after :hover {
+                        color: var(--mint);
+                    }
+                }
+
+                .nav__btn {
+
+                    &__login {
+                        border-radius: 50px;
+                        width: auto;
+                        font-size: 1rem;
+                        border: 1px solid var(--mint);
+                        color: var(--mint) !important;
+                        background-color: white;
+                        font-weight: 700;
+                        padding: $gap/2;
+                        margin: $gap/2 $gap;
+
+                        &:hover {
+                            color: white !important;
+                            background-color: var(--light-mint);
+                        }
+
+                    }
+
+                    &__signup {
+                        border-radius: 50px;
+                        width: auto;
+                        font-size: 1rem;
+                        color: white;
+                        background-color: var(--mint);
+                        padding: $gap/2 $gap;
+                        margin: $gap/2 $gap;
+                        border: 0px;
+                        font-weight: 600;
+
+                        &:hover {
+                            color: var(--strong-mint);
+                            background-color: var(--light-mint);
+                        }
+                    }
+
+                }
+            }
+
+            &.collapse {
+                justify-content: center;
+            }
+        }
+    }
+}

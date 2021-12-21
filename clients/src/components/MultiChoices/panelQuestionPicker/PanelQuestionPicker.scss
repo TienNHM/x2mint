@@ -1,10 +1,14 @@
 @import '_setting.scss';
 
 .take-test {
-    width: 23vw;
-    padding: 10px;
+    padding: $gap;
     background-color: $bg-color;
     font-size: 0px;
+
+    .row>* {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 
     .section-title {
         text-align: center;
@@ -12,11 +16,11 @@
         font-size: 16px;
         margin: $gap/2 0;
     }
-    
+
     .question-picker {
         background-color: rgba(217, 233, 207, 0.548);
         border-radius: $gap;
-        height: 70vh;
+        height: 67.5vh;
         padding: $gap/2;
         border: 2px solid $theme-color;
 
@@ -31,6 +35,10 @@
         &::-webkit-scrollbar-thumb {
             background-color: lighten($color: $theme-color, $amount: 5);
             border-radius: $gap;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
         }
 
         .btn-question {
@@ -51,49 +59,124 @@
                 border-radius: $gap;
             }
 
+            &::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+
             button {
                 margin: $gap/2;
-                width: 40px;
+                min-width: 40px;
                 border: 1px solid $theme-color;
             }
         }
     }
 
-    .examinee-actions {
+    .time-remain {
+        border: 2px solid $theme-color;
+        border-radius: $gap;
+        margin: $gap 0;
+
+        .time-remain-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            margin: $gap/2 0;
+        }
+
+        .time-remain-show {
+            height: 55px;
+
+            .time-countdown {
+                background-color: transparent !important;
+                border-color: transparent !important;
+                outline: none !important;
+                font-size: 30px;
+            }
+
+            .timeout {
+                font-size: 20px;
+            }
+
+            >* {
+                color: red;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: $gap;
+            }
+        }
+    }
+
+    .submit-test {
+        button {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
+
+    .floating-buttons {
+        visibility: hidden;
+    }
+
+    @media screen and (max-width: 992px) {
+        padding: 0px;
+
+        .question-picker {
+            left: 0px;
+            bottom: 0px;
+            z-index: 1000;
+            position: fixed;
+            height: $question-picker-height;
+            width: 100%;
+            padding-right: 160px;
+            border-radius: 0px;
+
+            .title {
+                display: none;
+            }
+
+            .btn-question {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                height: 100%;
+                z-index: 1000;
+
+                &::-webkit-scrollbar:horizontal {
+                    height: $gap/2;
+                }
+            }
+        }
 
         .time-remain {
-            border: 2px solid $theme-color;
-            border-radius: $gap;
-            margin: $gap 0;
+            margin: 0;
+            padding: $gap/2;
+            border: none;
+            border-radius: 0px;
+            background-color: rgba(223, 39, 39, 0.26);
+
+            .time-remain-title {
+                display: none;
+            }
 
             .time-remain-show {
-                height: 55px;
+                height: 32px;
+                justify-content: center;
 
                 .time-countdown {
-                    background-color: transparent !important;
-                    border-color: transparent !important;
-                    outline: none !important;
-                    font-size: 30px;
-                }
-
-                .timeout {
                     font-size: 20px;
-                }
-
-                >* {
-                    color: red;
-                    font-weight: bold;
-                    text-align: center;
-                    margin-bottom: $gap;
+                    margin: 0px;
                 }
             }
         }
 
         .submit-test {
-            button {
-                text-transform: uppercase;
-                font-weight: bold;
-            }
+            display: none;
+        }
+
+        .floating-buttons {
+            visibility: visible;
         }
     }
 }

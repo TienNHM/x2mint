@@ -1,0 +1,36 @@
+@import '_setting.scss';
+
+.account-permissions {
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
+
+    &::-webkit-scrollbar:vertical {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: lighten($color: $theme-color, $amount: 5);
+        border-radius: $gap;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .section-header {
+        background-color: lighten($color: lightsalmon, $amount: 10);
+        color: rgb(224, 71, 10);
+        text-transform: uppercase;
+        font-weight: bold;
+        border-left: $gap solid orange;
+        padding: $gap/2;
+    }
+
+    .dropdown {
+        .dropdown-toggle {
+            width: 80px;
+            border-radius: $gap;
+        }
+    }
+}

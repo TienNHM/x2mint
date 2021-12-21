@@ -1,1 +1,32 @@
 @import '_setting.scss';
+
+.dashboard {
+    overflow-x: hidden;
+
+    .row {
+        margin: 0px !important;
+    }
+
+    .main-container {
+        padding: 0px !important;
+        margin-top: $navbar-height;
+
+        .header {
+            background-color: lighten($light-theme-color, 10);
+            height: 6vh;
+        }
+
+        .current-action {
+            text-transform: uppercase;
+            color: $theme-color;
+            font-weight: bolder;
+        }
+
+        .footer {
+            height: 2.5*$gap;
+            border-radius: 0px;
+            border: 0px;
+            text-align: center;
+        }
+    }
+}

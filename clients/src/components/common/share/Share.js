@@ -12,13 +12,12 @@ import {
 import './Share.scss'
 
 export function ShareFacebook({ url, title = '', hashtags = [] }) {
-    const tags = hashtags.map(tag => '#' + tag).join(' ')
+    const tags = hashtags.length > 0 ? hashtags.map(tag => '#' + tag).join(' ') : ''
     return (
         <FacebookShareButton
             url={url}
             quote={title}
             hashtag={tags}
-            className="Demo__some-network__share-button"
         >
             <img src="https://img.icons8.com/fluency/48/000000/facebook-new.png" />
         </FacebookShareButton>
@@ -30,7 +29,6 @@ export function ShareMessenger({ url }) {
         <FacebookMessengerShareButton
             url={url}
             appId={process.env.REACT_APP_FB_APP_ID}
-            className="Demo__some-network__share-button"
         >
             <img src="https://img.icons8.com/fluency/48/000000/facebook-messenger--v2.png" />
         </FacebookMessengerShareButton>
@@ -43,7 +41,6 @@ export function ShareTwitter({ url, title = '', hashtags = [] }) {
             url={url}
             title={title}
             hashtags={hashtags}
-            className="Demo__some-network__share-button"
         >
             <img src="https://img.icons8.com/fluency/48/000000/twitter.png" />
         </TwitterShareButton>
@@ -56,7 +53,6 @@ export function ShareTelegram({ url, title = '', content = '' }) {
             url={url}
             title={title}
             caption={content}
-            className="Demo__some-network__share-button"
         >
             <img src="https://img.icons8.com/fluency/48/000000/telegram-app.png" />
         </TelegramShareButton>
@@ -70,7 +66,6 @@ export function ShareLinkedin({ url, title = '', content = '', source = '' }) {
             title={title}
             summary={content}
             source={source}
-            className="Demo__some-network__share-button"
         >
             <img src="https://img.icons8.com/fluency/48/000000/linkedin.png" />
         </LinkedinShareButton>
@@ -83,9 +78,8 @@ export function ShareEmail({ url, title = '', content = '' }) {
             url={url}
             subject={title}
             body={content}
-            className="Demo__some-network__share-button"
         >
-            <img src="https://img.icons8.com/fluency/48/000000/edit-message.png" />
+            <img src="https://img.icons8.com/color/48/000000/gmail-new.png"/>
         </EmailShareButton>
     )
 }

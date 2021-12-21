@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
+import { toast } from 'react-toastify'
 import Image from 'react-bootstrap/Image'
-import { useAlert } from 'react-alert'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import { splitTime } from 'utils/timeUtils'
 import { MODAL_ACTION } from 'utils/constants'
@@ -20,8 +20,6 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     const [endTime, setEndTime] = useState('')
     const [isShowLibrary, setIsShowLibrary] = useState(false)
     //#endregion
-
-    const alert = useAlert()
 
     useEffect(() => {
         if (!contest) return
@@ -51,11 +49,11 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
         }
         else {
             const embededMedia = link
-            const start_time = startDate.trim() + 'T' + startTime.trim() + 'Z'
-            const end_time = endDate.trim() + 'T' + endTime.trim() + 'Z'
+            const start_time = startDate.trim() + 'T' + startTime.trim() + ':00.000Z'
+            const end_time = endDate.trim() + 'T' + endTime.trim() + ':00.000Z'
             const str = startDate.trim() + startTime.trim() + endDate.trim() + endTime.trim()
             if (str.length === 0) {
-                alert.error('Vui lòng nhập đầy đủ thông tin về cuộc thi')
+                toast.error('💢 Vui lòng nhập đầy đủ thông tin về cuộc thi')
                 onAction(isUpdate, MODAL_ACTION.RETRY)
             }
             else {

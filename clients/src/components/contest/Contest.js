@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card } from 'react-bootstrap'
+import { Button, Card, FormControl } from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
 import ModalCreateContest from 'components/contest/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
@@ -13,6 +13,8 @@ import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import './Contest.scss'
+import { cloneDeep } from 'lodash'
+import { toast } from 'react-toastify'
 
 export default function Contest() {
     const user = useSelector((state) => state.auth.user)
@@ -21,7 +23,7 @@ export default function Contest() {
     //#region Get contests
     let urlRequest = '/contests'
 
-    if (user.role === ROLE.USER) {
+    if (user.role === ROLE.CREATOR) {
         urlRequest = `/contests/creator/${Cookies.get(COOKIES.USER_ID)}`
     }
     else if (user.role === ROLE.ADMIN) {
@@ -38,19 +40,21 @@ export default function Contest() {
     //#endregion
 
     //#region States
-    const [contests, setContests] = useState(null)
+    const [data, setData] = useState(null) // DS tất cả contests
+    const [contests, setContests] = useState(null) // Contests hiện ra kết quả tìm kiếm
     const [isShow, setIsShow] = useState(false)
     const [isShowShareModal, setIsShowShareModal] = useState(false)
     const [shareContent, setShareContent] = useState({})
     const [selectedContest, setSelectedContest] = useState(null)
     const [isUpdate, setIsUpdate] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
+    const [searchQuery, setSearchQuery] = useState('')
     //#endregion
 
     useEffect(() => {
         if (response) {
-            setContests(response.contests)
-            console.log(response)
+            setContests(cloneDeep(response.contests))
+            setData(cloneDeep(response.contests))
         }
     }, [response])
 
@@ -59,6 +63,29 @@ export default function Contest() {
         url = '', embededMedia = '', startTime = '', endTime = ''
     ) => {
         if (action === MODAL_ACTION.CONFIRM) {
+            //#region Validate
+            if (!title || title === '') {
+                toast.error('💢 Vui lòng nhập tên cuộc thi!')
+                return
+            }
+            if (!description || description === '') {
+                toast.error('💢 Vui lòng nhập mô tả cuộc thi!')
+                return
+            }
+            if (!startTime || new Date(startTime) < Date.now()) {
+                toast.error('💢Thời gian bắt đầu cuộc thi không hợp lệ. Vui lòng chọn lại!')
+                return
+            }
+            if (!endTime || new Date(endTime) < Date.now()) {
+                toast.error('💢Thời gian kết thúc cuộc thi không hợp lệ. Vui lòng chọn lại!')
+                return
+            }
+            if (new Date(endTime) <= new Date(startTime)) {
+                toast.error('💢 Thời gian không hợp lệ. Thời gian kết thúc phải diễn ra sau thời gian bắt đầu!')
+                return
+            }
+            //#endregion
+
             let data = null
             if (isUpdate) {
                 const newContest = {
@@ -81,7 +108,7 @@ export default function Contest() {
 
                 // Update lại Database
                 data = await updateContest(newContest)
-                console.log(data)
+                toast.success('🎉 Đã lưu thành công!')
             }
             else {
                 const newContest = {
@@ -95,7 +122,7 @@ export default function Contest() {
                     creatorId: user.id
                 }
                 data = await createContest(newContest)
-                console.log(data)
+                toast.success('🎉 Đã tạo cuộc thi thành công, vui lòng bổ sung thông tin đầy đủ cho cuộc thi!')
                 setSelectedContest(null)
                 setIsShow(false)
                 navigate(`/contest/${data.contest.id}`)
@@ -103,6 +130,7 @@ export default function Contest() {
         }
         else if (action === MODAL_ACTION.CLOSE) {
             setIsShow(false)
+            toast.warning('💢 Đã hủy bỏ thao tác trên!')
         }
         else if (action === MODAL_ACTION.RETRY) {
             // Do nothing
@@ -139,6 +167,28 @@ export default function Contest() {
         setShareContent(obj)
         setIsShowShareModal(true)
     }
+
+    const handleSearch = () => {
+        const query = searchQuery.trim().toLowerCase()
+        if (data) {
+            const result = []
+            for (const c of data) {
+                if (c.name.toLowerCase().includes(query)) {
+                    result.push(c)
+                }
+            }
+            setContests(result)
+        }
+    }
+
+    useEffect(() => {
+        if (searchQuery.trim().length > 0) {
+            handleSearch()
+        }
+        else {
+            setContests(cloneDeep(data))
+        }
+    }, [searchQuery])
 
     //#endregion
 
@@ -204,18 +254,29 @@ export default function Contest() {
     return (
         <div className="contest-management">
             <div className="heading row d-flex justify-content-between">
-                <div className="create-contest col-2 col-sm-3"></div>
-
-                <div className="heading-contest h4 col-8 col-sm-6">Các cuộc thi</div>
-
-                <div className="create-contest col-2 col-sm-3 d-flex justify-content-end">
+                <div className="create-contest col-2">
                     {user.role !== ROLE.USER &&
                         <Button variant="success" size="sm"
                             onClick={() => setIsShowConfirmModal(true)}>
                             <i className="fa fa-plus"> </i>
-                            <span className="m-2">Tạo mới</span>
+                            <span className="m-2 btn-label">Tạo mới</span>
                         </Button>
                     }
+                </div>
+
+                <div className="search-contest col-8">
+                    <FormControl type="search"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}>
+                    </FormControl>
+                </div>
+
+                <div className="heading-contest col-2 d-flex justify-content-start">
+                    <Button variant="primary" size="sm"
+                        onClick={() => handleSearch()}>
+                        <i className="fa fa-search"></i>
+                        <span className="m-2 btn-label fw-bolder">Tìm</span>
+                    </Button>
                 </div>
             </div>
 
@@ -234,6 +295,12 @@ export default function Contest() {
                             (c, index) =>
                                 <div key={index}>{RenderContest(c, index)}</div>
                         )}
+
+                        {contests.length === 0 &&
+                            <Card.Body className="row d-flex justify-content-center align-items-center">
+                                <Image src={process.env.PUBLIC_URL + '/assets/nothing.svg'} style={{ width: '70%' }} />
+                            </Card.Body>
+                        }
                     </>
                 )}
             </div>

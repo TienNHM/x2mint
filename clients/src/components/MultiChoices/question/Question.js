@@ -41,7 +41,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
             <div className="d-flex align-items-center justify-content-center h-100 flex-column">
                 {isUser &&
                     <div className='sweet-loading'>
-                        <SyncLoader color={'#7ED321'} loading={true} speedMultiplier={2}/>
+                        <SyncLoader color={'#7ED321'} loading={true} speedMultiplier={2} />
                     </div>
                 }
 
@@ -61,7 +61,8 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
         return (
             <div className="empty-answer d-flex align-items-center justify-content-center">
                 <div className="decor d-flex align-items-center justify-content-center">
-                    <Button variant="primary" size="lg"
+                    <Button variant="success" size="lg" className="w-100 h-100"
+                        style={{ borderRadius: '10px' }}
                         onClick={() => handleOnAddAnswer()}>
                         Thêm đáp án
                     </Button>
@@ -106,7 +107,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     }
 
     const handleOnAnswerClick = async (answerName, checkStatus) => {
-        // TODO update correctAnswers of question when choose answer
+        // update correctAnswers of question when choose answer
         const newValue = [...chooseAnswers]
         const index = newValue.indexOf(answerName)
         let choose = []
@@ -150,8 +151,6 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
         }
         else {
             updateTakeTest(question, choose)
-
-            //TODO update choose answer
         }
     }
 
@@ -210,27 +209,37 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     }
 
     return (
-        <div className="panel-center">
+        <div className="panel-center col">
             {(!question || !question.answers) &&
                 <>{RenderEmptyQuestion()}</>
             }
 
             {question && question.answers &&
                 <>
-                    <div className="question">
-                        <div className="question-content  align-items-center">
-                            <Form.Control
-                                size="sm" as="textarea"
-                                rows={rows}
-                                placeholder="Nhập nội dung câu hỏi..."
-                                className="textarea-enter"
-                                value={content}
-                                onChange={handleTextChange}
-                                onBlur={handleTextBlur}
-                                disabled={isUser}
-                            />
-                        </div>
-                        <div className="lenght-limit">{questionLength}</div>
+                    <div className="row">
+                        {isUser && (
+                            <div className="question-user">
+                                {content}
+                            </div>
+                        )}
+
+                        {!isUser && (
+                            <div className="question">
+                                <div className="question-content align-items-center">
+                                    <Form.Control
+                                        size="sm" as="textarea"
+                                        rows={rows}
+                                        placeholder="Nhập nội dung câu hỏi..."
+                                        className="textarea-enter"
+                                        value={content}
+                                        onChange={handleTextChange}
+                                        onBlur={handleTextBlur}
+                                        disabled={isUser}
+                                    />
+                                </div>
+                                <div className="lenght-limit">{questionLength}</div>
+                            </div>
+                        )}
                     </div>
 
                     <div className="embeded row">
@@ -269,25 +278,29 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                     </div>
 
                     {question.answers.length > 0 ? (
-                        <div className="question-answers">
-                            {question.answers.map((a, index) =>
-                                <Answer
-                                    key={index}
-                                    answer={a}
-                                    setAnswer={updateAnswer}
-                                    onClick={handleOnAnswerClick}
-                                    disabled={isUser}
-                                    isChosen={
-                                        isUser ? takeTest.chooseAnswers[indexQuestion].answers.includes(a.name) :
-                                            question.correctAnswers.includes(a.name)
-                                    }
-                                />)
-                            }
+                        <div className="row">
+                            <div className="question-answers" style={{ marginTop: '10px' }} >
+                                {question.answers.map((a, index) =>
+                                    <Answer
+                                        key={index}
+                                        answer={a}
+                                        setAnswer={updateAnswer}
+                                        onClick={handleOnAnswerClick}
+                                        disabled={isUser}
+                                        isChosen={
+                                            isUser ? takeTest.chooseAnswers[indexQuestion].answers.includes(a.name) :
+                                                question.correctAnswers.includes(a.name)
+                                        }
+                                    />)
+                                }
 
-                            {question.answers.length < 4 && renderAddAnswer()}
+                                {!isUser && question.answers.length < 4 && renderAddAnswer()}
+                            </div>
                         </div>
                     ) : (
-                        <>{renderAddAnswer()}</>
+                        <div className="add-question row">
+                            {!isUser && renderAddAnswer()}
+                        </div>
                     )
                     }
 

@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, Outlet } from 'react-router-dom'
 import { loadUser } from 'redux/authSlice'
 
-const ProtectedRoute = ({ element: Element, ...rest }) => {
+const ProtectedRoute = () => {
     const dispatch = useDispatch()
-    const { authLoading, isAuthenticated } = useSelector((state) => state.auth)
+    const { isAuthenticated } = useSelector((state) => state.auth)
     const [isTryLogin, setIsTryLogin] = useState(false)
     //loadUser
     useEffect(() => {
