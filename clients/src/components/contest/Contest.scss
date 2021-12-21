@@ -28,6 +28,12 @@ $heading-height: 10vh;
                 font-weight: bold;
             }
         }
+
+        .search-contest {
+            input {
+                box-shadow: none !important;
+            }
+        }
     }
 
     .list-contests {
@@ -73,6 +79,14 @@ $heading-height: 10vh;
                 font-weight: bold;
                 color: white;
                 width: auto;
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px){
+        .heading {
+            .btn-label {
+                display: none;
             }
         }
     }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card } from 'react-bootstrap'
+import { Button, Card, FormControl } from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
 import ModalCreateContest from 'components/contest/modalCreateContest/ModalCreateContest'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
@@ -13,6 +13,7 @@ import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import './Contest.scss'
+import { cloneDeep } from 'lodash'
 
 export default function Contest() {
     const user = useSelector((state) => state.auth.user)
@@ -38,6 +39,7 @@ export default function Contest() {
     //#endregion
 
     //#region States
+    const [data, setData] = useState(null)
     const [contests, setContests] = useState(null)
     const [isShow, setIsShow] = useState(false)
     const [isShowShareModal, setIsShowShareModal] = useState(false)
@@ -45,12 +47,13 @@ export default function Contest() {
     const [selectedContest, setSelectedContest] = useState(null)
     const [isUpdate, setIsUpdate] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
+    const [searchQuery, setSearchQuery] = useState('')
     //#endregion
 
     useEffect(() => {
         if (response) {
-            setContests(response.contests)
-            console.log(response)
+            setContests(cloneDeep(response.contests))
+            setData(cloneDeep(response.contests))
         }
     }, [response])
 
@@ -140,6 +143,28 @@ export default function Contest() {
         setIsShowShareModal(true)
     }
 
+    const handleSearch = () => {
+        const query = searchQuery.trim().toLowerCase()
+        if (data) {
+            const result = []
+            for (const c of data) {
+                if (c.name.toLowerCase().includes(query)) {
+                    result.push(c)
+                }
+            }
+            setContests(result)
+        }
+    }
+
+    useEffect(() => {
+        if (searchQuery.trim().length > 0) {
+            handleSearch()
+        }
+        else {
+            setContests(cloneDeep(data))
+        }
+    }, [searchQuery])
+
     //#endregion
 
     /**
@@ -204,18 +229,29 @@ export default function Contest() {
     return (
         <div className="contest-management">
             <div className="heading row d-flex justify-content-between">
-                <div className="create-contest col-2 col-sm-3"></div>
-
-                <div className="heading-contest h4 col-8 col-sm-6">Các cuộc thi</div>
-
-                <div className="create-contest col-2 d-flex justify-content-end">
+                <div className="create-contest col-2">
                     {user.role !== ROLE.USER &&
                         <Button variant="success" size="sm"
                             onClick={() => setIsShowConfirmModal(true)}>
                             <i className="fa fa-plus"> </i>
-                            <span className="m-2">Tạo mới</span>
+                            <span className="m-2 btn-label">Tạo mới</span>
                         </Button>
                     }
+                </div>
+
+                <div className="search-contest col-8">
+                    <FormControl type="search"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}>
+                    </FormControl>
+                </div>
+
+                <div className="heading-contest col-2 d-flex justify-content-start">
+                    <Button variant="primary" size="sm"
+                        onClick={() => handleSearch()}>
+                        <i className="fa fa-search"></i>
+                        <span className="m-2 btn-label fw-bolder">Tìm</span>
+                    </Button>
                 </div>
             </div>
 
