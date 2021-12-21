@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router'
 import { updateTest } from 'actions/api/TestAPI'
 import { Fab } from 'react-tiny-fab'
 import ModalTestInfo from './ModalTestInfo'
+import { cloneDeep } from 'lodash'
 
 function PanelSettings(props) {
     const { test, setTest } = props
@@ -67,8 +68,8 @@ function PanelSettings(props) {
             alert.error('Vui lòng nhập tên cho bài test!')
         }
         else {
-            const startTime = startDateRef.current.value + ' ' + startTimeRef.current.value
-            const endTime = endDateRef.current.value + ' ' + endTimeRef.current.value
+            const startTime = startDateRef.current.value + 'T' + startTimeRef.current.value + ':00.000Z'
+            const endTime = endDateRef.current.value + 'T' + endTimeRef.current.value + ':00.000Z'
             if (Date.parse(endTime) > Date.parse(startTime)) {
                 const newTest = {
                     ...test,
@@ -85,7 +86,7 @@ function PanelSettings(props) {
                 await updateTest(newTest)
 
                 // Update lại test
-                setTest(newTest)
+                setTest(cloneDeep(newTest))
                 toast.success('🎉 Đã lưu lại những thay đổi của bạn!')
             }
             else {
@@ -133,6 +134,7 @@ function PanelSettings(props) {
 
     useEffect(() => {
         if (test) {
+            console.log(test)
             setTestTitle(test.name)
             setTestDescription(test.description)
             setTestMaxPoints(test.maxPoints)
