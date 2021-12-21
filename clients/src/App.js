@@ -79,6 +79,7 @@ function App() {
                                 <Route path="/forgotPassword" element={<ForgotPassword/>} />
                                 <Route path="/resetPassword" element={<ResetPassword/>} />
                                 <Route path="/profile" element={<Profile/>} />
+                                <Route path="/profile" element={<Profile />} />
                                 <Route path="/register" element={<Register />} />
                                 <Route path="/activation/:activation_token" element={<ActivationEmail />} />
                                 <Route path="/about" element={<About />} />
