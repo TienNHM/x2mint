@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { SyncLoader } from 'react-spinners'
 import MyAppNavbar from 'components/common/appNavbar/AppNavbar'
 import Contest from 'components/contest/Contest'
 import SubmitResult from 'components/MultiChoices/submitResult/SubmitResult'
@@ -21,19 +20,8 @@ import 'react-notifications-component/dist/theme.css'
 import ActivationEmail from 'components/common/register/ActivationEmail'
 import ForgotPassword from 'components/common/login/ForgotPassword'
 import ResetPassword from 'components/common/login/ResetPassword'
-import { BeatLoader, HashLoader, SyncLoader } from 'react-spinners'
+import { SyncLoader } from 'react-spinners'
 import 'react-notifications-component/dist/theme.css'
-
-const options = {
-    // you can also just use 'bottom center'
-    position: positions.TOP_CENTER,
-    timeout: 2000,
-    offset: '30px',
-    transition: transitions.FADE,
-    containerStyle: {
-        zIndex: 100
-    }
-}
 import './App.scss'
 import StatisticTest from 'components/contest/statistics/StatisticTest'
 import StatisticContest from 'components/contest/statistics/StatisticContest'

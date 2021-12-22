@@ -86,8 +86,6 @@ const Login = () => {
                 </div>
             )}
 
-
-            <AlertMessage info={alert} />
             <h1 className="form__title">
                 Đăng nhập
             </h1>
