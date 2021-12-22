@@ -306,20 +306,20 @@
   }
 
   .footer {
-    border-radius: 10px;
     border-top: 1px solid var(--mint);
     text-align: justify;
     height: 300px;
     width: 100%;
 
     &__logo {
-      margin: 20px 270px;
       display: inline;
 
       img {
         max-width: 100px;
-        margin: 10px;
       }
+    }
+    h1 .row{
+      color:var(--mint)
     }
   }
 
@@ -338,5 +338,4 @@
     font-size: 130%;
     font-weight: 600;
   }
-}
 

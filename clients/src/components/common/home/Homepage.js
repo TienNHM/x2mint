@@ -1,8 +1,6 @@
 import React from 'react'
 import { Image } from 'react-bootstrap'
 import './Homepage.scss'
-import About from 'components/common/home/About'
-import Contact from 'components/common/home/Contact'
 import Footer from 'components/common/home/Footer'
 
 
@@ -142,13 +140,9 @@ function Homepage() {
     return (
         <div className="home">
             {renderHomepage()}
-
             {renderAbout()}
-
-            <Contact />
-            <Footer />
-        </>
             {renderContact()}
+            <Footer />
         </div>
     )
 }

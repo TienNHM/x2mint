@@ -18,7 +18,7 @@ export default function MyAppNavbar() {
     return (
         <Navbar bg="light" expand="lg" fixed="top">
             <Container>
-                <Navbar.Brand href="/" className="">
+                <Navbar.Brand href="/">
                     <i className="ri-plant-line"></i> X2M!NT
                 </Navbar.Brand>
 

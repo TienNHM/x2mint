@@ -7,19 +7,7 @@ import { loginUser } from 'redux/authSlice'
 import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { isEmpty } from 'utils/Validation'
-import { store } from 'react-notifications-component'
-
-const notify = {
-    insert: 'top',
-    container: 'top-center',
-    animationIn: ['animated fadeIn'],
-    animationOut: ['animated fadeOut'],
-    dismiss: {
-        duration: 5000,
-        onScreen: true
-    }
-}
-
+import { toast } from 'react-toastify'
 
 const Login = () => {
     //Route
@@ -43,12 +31,7 @@ const Login = () => {
         event.preventDefault()
         if (isEmpty(username) || isEmpty(password))
         {
-            store.addNotification({
-                ...notify,
-                title: 'THÔNG TIN CÒN THIẾU',
-                message: 'Vui lòng điền đủ thông tin nhé !!',
-                type: 'warning'
-            })
+            toast.warning('❌ Thiếu username hoặc mật khẩu. Vui lòng nhập lại!')
             return null
         }
         try {
@@ -87,7 +70,7 @@ const Login = () => {
             )}
 
 
-            <AlertMessage info={alert} />
+            {/* <AlertMessage info={alert} /> */}
             <h1 className="form__title">
                 Đăng nhập
             </h1>
@@ -122,12 +105,14 @@ const Login = () => {
                         <button className="forget__button"
                             onClick={() => navigate('/forgotPassword', { replace: true })}>Quên mật khẩu</button>
                     </div>
-                    <button
-                        className="button__login-gg"
-                        onClick={() => navigate('/login-gg', { replace: true })}
-                    >
-                        <img src="assets/icons/google_32.png"></img>Đăng nhập bằng Google
-                    </button>
+                    <div>
+                        <button
+                            className="button__login-gg"
+                            onClick={() => navigate('/login-gg', { replace: true })}
+                        >
+                            <img src="assets/icons/google_32.png"></img>Đăng nhập bằng Google
+                        </button>
+                    </div>
                     <br />
                     <button
                         className="nav__btn__login"

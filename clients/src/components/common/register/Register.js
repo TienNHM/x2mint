@@ -8,18 +8,21 @@ import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { toast } from 'react-toastify'
 
+const initialState = {
+    username: '',
+    email: '',
+    password: '',
+    reEnterPassword: ''
+}
+
 const Register = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { authLoading, isAuthenticated } = useSelector((state) => state.auth.isAuthenticated)
-    const [user, setUser] = useState({
-        username: '',
-        email: '',
-        password: '',
-        reEnterPassword: ''
-    })
-    const [error, setError] = useState('')
+    const [user, setUser] = useState(initialState)
+    const [error] = useState('')
     const { username, email, password, reEnterPassword } = user
+
     const handleChange = (event) => {
         setUser({ ...user, [event.target.name]: event.target.value })
     }
@@ -49,7 +52,8 @@ const Register = () => {
         try {
             dispatch(register(user))
         } catch (error) {
-            console.log(error)
+            error.response.data.msg &&
+            setUser({ ...user, error: error.response.data.msg, success: '' })
         }
     }
 

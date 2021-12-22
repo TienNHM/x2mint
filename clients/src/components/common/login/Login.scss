@@ -19,8 +19,6 @@
             color: var(--mint) !important;
             background-color: white;
             font-weight: 700;
-            padding: $gap/2;
-            margin: $gap/2 $gap;
 
             &:hover {
                 color: white !important;
@@ -35,8 +33,6 @@
             font-size: 1rem;
             color: white;
             background-color: var(--mint);
-            padding: $gap/2 $gap;
-            margin: $gap/2 $gap;
             border: 0px;
             font-weight: 600;
 
@@ -50,7 +46,7 @@
 
     .form__title {
         text-align: center;
-        padding-top: 25px;
+        padding: 25px;
         font-family: var(--logo-font);
         color: var(--mint);
         font-weight: 700;
@@ -61,7 +57,7 @@
         justify-content: center;
         align-items: center;
         box-sizing: border-box;
-        margin: -15px 10%;
+        margin: auto;
     }
 
     .info__area {

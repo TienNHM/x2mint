@@ -9,11 +9,9 @@ function About() {
                         <img src="./assets/icons/hcmute.png"></img>
                         <img src="./assets/icons/fit.png"></img>
                     </div>
-                    <div className="col">
-                    </div>
                 </div>
                 <div className="col">
-                    <div className="row">
+                    {/* <div className="row">
                         <h4>TRƯỜNG ĐẠI HỌC SƯ PHẠM KỸ THUẬT THÀNH PHỐ HỒ CHÍ MINH</h4>
                     </div>
                     <div className="row">
@@ -24,7 +22,7 @@ function About() {
                     </div>
                     <div className="row gv">
                         <h1 >GV: NGUYỄN THANH HẢI</h1>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
