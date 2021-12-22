@@ -21,13 +21,13 @@ function ForgotPassword() {
 
     const forgotPassword = async () => {
         if (!isEmail(email))
-            return setData({...data, err: 'Invalid emails.', success: '' })
+            return setData({ ...data, err: 'Email chưa đúng !', success: '' })
         try {
             const res = await axios.post('/auths/forgotPassword', { email })
 
             return setData({ ...data, err: '', success: res.data.msg })
         } catch (err) {
-            err.response.data.msg && setData({...data, err:  err.response.data.msg, success: '' })
+            err.response.data.msg && setData({ ...data, err:  err.response.data.msg, success: '' })
         }
     }
     return (

@@ -3,7 +3,7 @@
 /*=============== HEADER ===============*/
 /*=============== NAV ===============*/
 .navbar {
-    padding: 0px !important;;
+    padding: 10px !important;
 
     .container {
         .navbar-brand {
@@ -12,9 +12,7 @@
             text-transform: uppercase;
             text-decoration: none;
             font-weight: 700;
-            letter-spacing: -1px;
-            display: inline-flex;
-            align-items: center;
+            letter-spacing: -1px;            
             column-gap: .05rem;
             transition: .3s;
             font-size: 2rem;

@@ -3,16 +3,16 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
 import { ROLE, COOKIES } from 'utils/constants'
-
 import { toast } from 'react-toastify'
 
 
 //Register
 export const register = createAsyncThunk(
-    'auth/logins',
+    'auth/register',
     async (params, { rejectWithValue }) => {
         const userForm = params
         let res = null
+
         try {
             await axios
                 .post(`${process.env.REACT_APP_API_ROOT}/auths/register`,
@@ -29,7 +29,7 @@ export const register = createAsyncThunk(
             console.log(res)
 
             if (res.data.success === true) {
-                toast.success('🎉 Đăng ký tài khoản thành công. Chào mừng bạn đến với X2M!NT')
+                toast.success('🎉 Đăng ký tài khoản thành công. Kiểm tra email để xác thực tài khoản nhé !')
             } else {
                 switch (res.data.message) {
                 case 'username':
@@ -45,19 +45,58 @@ export const register = createAsyncThunk(
                 }
             }
 
-            setAuthToken(res.data.accessToken)
-            // Set cookies
-            Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
-            Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
+            // setAuthToken(res.data.accessToken)
+            // // Set cookies
+            // Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
+            // Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
 
-            return {
-                user: res.data.user,
-                isAuthenticated: true
-            }
+            // return {
+            //     user: res.data.user,
+            //     isAuthenticated: true
+            // }
         } catch (error) {
 
             return rejectWithValue(error.response.data.message)
         }
+    }
+)
+
+export const activation = createAsyncThunk(
+    'auth/activation',
+    async (params, { rejectWithValue }) => {
+        const activation_token = params
+        let res = null
+        try {
+            await axios
+                .post(`${process.env.REACT_APP_API_ROOT}/auths/activation`, { activation_token })
+                .then((response) => {
+                    res = response
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            console.log(res)
+
+            if (res.data.success === true) {
+                toast.success('🎉 Xác thực tài khoản thành công. Xin mời Đăng nhập để tiếp tục !')
+            } else {
+                toast.error('❌ Tài khoản này đã xác thực !')
+            }
+
+            // setAuthToken(res.data.accessToken)
+            // // Set cookies
+            // Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
+            // Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
+
+            // return {
+            //     user: res.data.user,
+            //     isAuthenticated: true
+            // }
+        } catch (error) {
+
+            return rejectWithValue(error.response.data.message)
+        }
+
     }
 )
 
@@ -81,19 +120,14 @@ export const loginUser = createAsyncThunk(
                 toast.success('🌟 Đăng nhập thành công! Chào mừng bạn trở lại X2M!NT')
             } else {
                 switch (res.data.message) {
-                case 'missing':
-                    toast.warning('❌ Thiếu username hoặc mật khẩu. Vui lòng nhập lại!')
-                    break
                 case 'incorrect':
                     toast.error('💢 Tài khoản không tồn tại!')
                     break
                 case 'password':
                     toast.error('💢 Sai mật khẩu, vui lòng nhập lại!')
                     break
-                default:
                 }
             }
-
             setAuthToken(res.data.accessToken)
 
             // Set cookies
@@ -112,7 +146,32 @@ export const loginUser = createAsyncThunk(
                 isAuthenticated: true
             }
         } catch (error) {
+            return rejectWithValue(error.response.data.message)
+        }
+    }
+)
 
+//reset password
+export const resetPassword = createAsyncThunk(
+    'auth/resetPassword',
+    async (params, { rejectWithValue }) => {
+        const resetForm = params
+        console.log(resetForm)
+        let res = null
+        try {
+            await axios
+                .post(`${process.env.REACT_APP_API_ROOT}/auths/resetPassword`, resetForm)
+                .then((response) => {
+                    res = response
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            if (res.data.success === true) {
+                toast.success('🌟 Đặt lại mật khẩu thành công thành công! Đăng nhập để trở lại X2M!NT nhé !')
+            }
+
+        } catch (error) {
             return rejectWithValue(error.response.data.message)
         }
     }
