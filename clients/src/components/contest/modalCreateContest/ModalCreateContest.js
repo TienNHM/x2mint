@@ -36,9 +36,9 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
         setEndTime(end_time.time)
     }, [contest])
 
-    const openLibrary = (action, photo) => {
+    const openLibrary = (action, link) => {
         if (action === MODAL_ACTION.CONFIRM) {
-            setLink(photo.src.medium)
+            setLink(link)
         }
         setIsShowLibrary(false)
     }

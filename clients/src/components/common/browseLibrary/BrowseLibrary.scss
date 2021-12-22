@@ -3,21 +3,8 @@
 .browse-modal {
 
     .top-modal {
-        display: flex;
-        flex-direction: row;
-
-        >* {
-            width: 48%;
-            margin: 0 1%;
-        }
-
-        .search-area {
-            .search {
-
-                button {
-                    margin: $gap 0;
-                }
-            }
+        button {
+            margin: $gap 0;
         }
 
         .text-input {
