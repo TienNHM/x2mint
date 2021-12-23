@@ -20,8 +20,14 @@ import 'react-notifications-component/dist/theme.css'
 import ActivationEmail from 'components/common/register/ActivationEmail'
 import ForgotPassword from 'components/common/login/ForgotPassword'
 import ResetPassword from 'components/common/login/ResetPassword'
+<<<<<<< HEAD
 import { SyncLoader } from 'react-spinners'
 import 'react-notifications-component/dist/theme.css'
+=======
+import { BeatLoader, HashLoader } from 'react-spinners'
+import 'react-notifications-component/dist/theme.css'
+
+>>>>>>> b7c7833 (login GG)
 import './App.scss'
 import StatisticTest from 'components/contest/statistics/StatisticTest'
 import StatisticContest from 'components/contest/statistics/StatisticContest'

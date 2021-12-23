@@ -8,9 +8,12 @@ import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { isEmpty } from 'utils/Validation'
 import { toast } from 'react-toastify'
+<<<<<<< HEAD
 
 import { GoogleLogin } from 'react-google-login'
 
+=======
+>>>>>>> b7c7833 (login GG)
 
 const Login = () => {
     //Route
@@ -133,7 +136,25 @@ const Login = () => {
                             Đăng ký
                         </button>
                     </div>
+<<<<<<< HEAD
 
+=======
+                    <div>
+                        <button
+                            className="button__login-gg"
+                            onClick={() => navigate('/login-gg', { replace: true })}
+                        >
+                            <img src="assets/icons/google_32.png"></img>Đăng nhập bằng Google
+                        </button>
+                    </div>
+                    <br />
+                    <button
+                        className="nav__btn__login"
+                        onClick={() => navigate('/register', { replace: true })}
+                    >
+                        Đăng ký
+                    </button>
+>>>>>>> b7c7833 (login GG)
                 </div>
             </Form>
         </div>
