@@ -10,6 +10,7 @@ import './PanelPreview.scss'
 import { createQuestion, deleteQuestion } from 'actions/api/QuestionAPI'
 import { updateTest } from 'actions/api/TestAPI'
 import { Fab } from 'react-tiny-fab'
+import { toast } from 'react-toastify'
 
 function PanelPreview(props) {
     const {
@@ -61,8 +62,7 @@ function PanelPreview(props) {
 
     const onActionDeleteQuestion = async (action) => {
         if (action === MODAL_ACTION.CONFIRM) {
-            // TODO delete question
-            const data = await deleteQuestion(selectedQuestion._id)
+            await deleteQuestion(selectedQuestion._id)
 
             const newQuestions = [...questions]
             const index = newQuestions.indexOf(selectedQuestion)
@@ -70,6 +70,11 @@ function PanelPreview(props) {
 
             setQuestions(newQuestions)
             setSelectedQuestion(newQuestions[index > 0 ? index - 1 : 0])
+
+            toast.success('🌟 Đã xóa thành công!')
+        }
+        else {
+            toast.warning('💢 Đã hủy việc xóa câu hỏi!')
         }
         setIsShow(false)
     }

@@ -188,13 +188,12 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
     const onConfirmModalAction = async (type, photo) => {
         if (photo && type === MODAL_ACTION.CONFIRM) {
-            setEmbedMedia(photo.src.large)
+            setEmbedMedia(photo)
 
             const q = { ...question }
-            q.embededMedia = photo.src.large
+            q.embededMedia = photo
             setQuestion(q, !isUser)
-            const data = await updateQuestion(q)
-            console.log(data)
+            await updateQuestion(q)
         }
 
         setIsShowLibrary(false)
@@ -254,7 +253,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                             }
                         </div>
 
-                        <div className="question-embed col-10 d-flex align-items-end justify-content-center">
+                        <div className="question-embed mt-2 col-10 d-flex align-items-end justify-content-center">
                             {embededMedia &&
                                 <Image src={embededMedia} />
                             }

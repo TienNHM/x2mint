@@ -244,7 +244,7 @@ function PanelSettings(props) {
 
                     {!isUser &&
                         <>
-                            <div className="attribute-title">
+                            {/* <div className="attribute-title">
                                 <div>Link</div>
                                 <div className="title">
                                     <Form.Control
@@ -258,7 +258,7 @@ function PanelSettings(props) {
                                         readOnly={isUser}
                                     />
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="time-picker">
                                 <div>Thời gian bắt đầu</div>

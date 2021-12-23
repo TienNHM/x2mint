@@ -324,7 +324,7 @@ export default function ContestInfo() {
                             </Button>
 
                             <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
-                                onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}>
+                                onClick={() => handleShareContent(`/contest/${contest.id}`, title, description, ['X2MINT', 'ITUTE'])}>
                                 <i className="fa fa-share"></i>
                             </Button>
 
@@ -351,7 +351,7 @@ export default function ContestInfo() {
 
                     {user.role === ROLE.USER &&
                         <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
-                            onClick={() => handleShareContent(url, title, description, ['X2MINT', 'ITUTE'])}
+                            onClick={() => handleShareContent(`/contest/${contest.id}`, title, description, ['X2MINT', 'ITUTE'])}
                         >
                             <i className="fa fa-share"></i>
                             <span className="m-3">Chia sẻ</span>
