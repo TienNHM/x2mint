@@ -143,7 +143,7 @@ export default function ContestInfo() {
         title = '', content = '', hashtags = [], source = ''
     ) => {
         const obj = {
-            url: process.env.REACT_APP_DOMAIN + url,
+            url: process.env.REACT_APP_WEBSITE + url,
             title: title + ' ',
             content: content + ' ',
             hashtags: hashtags,

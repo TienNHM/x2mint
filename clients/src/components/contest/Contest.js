@@ -135,7 +135,7 @@ export default function Contest() {
     const handleShareContent = (
         id, title = '', content = '', hashtags = [], source = ''
     ) => {
-        const url = `${process.env.REACT_APP_DOMAIN}/contest/${id}`
+        const url = `${process.env.REACT_APP_WEBSITE}/contest/${id}`
 
         console.log(url)
         const obj = {

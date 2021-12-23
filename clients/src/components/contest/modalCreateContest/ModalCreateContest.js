@@ -150,7 +150,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                                 <div className="label">URL</div>
                                 <InputGroup size="sm">
                                     <InputGroup.Text>
-                                        {process.env.REACT_APP_DOMAIN + '/'}
+                                        {process.env.REACT_APP_WEBSITE + '/'}
                                     </InputGroup.Text>
                                     <Form.Control
                                         size="sm"
