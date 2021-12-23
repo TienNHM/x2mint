@@ -2,14 +2,10 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { COOKIES, ROLE } from 'utils/constants'
 
-export const register = async (user) => {
+export const registerAccount = async (data) => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/auths/register`
-        const request = await axios.post(url, {
-            ...user,
-            role: ROLE.USER,
-            isHidden: false
-        })
+        const request = await axios.post(url, data)
         console.log(request.data)
         return request.data
     } catch (error) {
@@ -59,7 +55,6 @@ export const auth = async (username, password) => {
             username: username,
             password: password
         }).then(response => response)
-
         return request.data
     }
     catch (err) {

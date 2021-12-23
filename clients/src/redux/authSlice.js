@@ -5,6 +5,7 @@ import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
 import { ROLE, COOKIES } from 'utils/constants'
 
 import { toast } from 'react-toastify'
+import { registerAccount } from 'actions/api/AuthAPI'
 
 
 //Register
@@ -14,48 +15,44 @@ export const register = createAsyncThunk(
         const userForm = params
         let res = null
         try {
-            await axios
-                .post(`${process.env.REACT_APP_API_ROOT}/auths/register`,
-                    {
-                        ...userForm,
-                        role: ROLE.USER
-                    })
-                .then((response) => {
-                    res = response
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+            res = await registerAccount({
+                ...userForm,
+                role: ROLE.USER
+            })
             console.log(res)
 
-            if (res.data.success === true) {
+            if (res.success === true) {
                 toast.success('🎉 Đăng ký tài khoản thành công. Chào mừng bạn đến với X2M!NT')
+                Cookies.set(COOKIES.REGISTER_STATUS, 'success', { expires: COOKIES.MAX_DAYS_EXPIRE })
             } else {
                 switch (res.data.message) {
                 case 'username':
                     toast.error('❌ Username đã tồn tại. Vui lòng chọn đăng nhập!')
+                    Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
                     break
                 case 'email':
                     toast.error('❌ Email đã tồn tại. Vui lòng chọn đăng nhập!')
+                    Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
                     break
                 case 'password':
                     toast.error('💢 Sai mật khẩu, vui lòng nhập lại!')
+                    Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
                     break
                 default:
                 }
             }
 
-            setAuthToken(res.data.accessToken)
-            // Set cookies
-            Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
-            Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
-
+            // setAuthToken(res.data.accessToken)
+            // // Set cookies
+            // Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
+            // Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
             return {
                 user: res.data.user,
                 isAuthenticated: true
             }
         } catch (error) {
 
+            console.log('error', error)
             return rejectWithValue(error.response.data.message)
         }
     }
