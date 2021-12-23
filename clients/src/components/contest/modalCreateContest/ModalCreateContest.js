@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Modal, Form } from 'react-bootstrap'
+import { Button, Modal, Form, InputGroup } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import Image from 'react-bootstrap/Image'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
@@ -69,6 +69,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
         <>
             <Modal
                 size="lg"
+                fullscreen={true}
                 show={isShow}
                 onHide={() => handleAction(MODAL_ACTION.CLOSE)}
                 backdrop='static'
@@ -78,8 +79,8 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                     <Modal.Title className="h5 fw-bolder">Tạo mới</Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>
-                    <div className="contest-info">
+                <Modal.Body className="d-flex justify-content-center align-items-center">
+                    <div className="contest-info w-100">
                         <div className="body-left">
                             <div className="contest-title-section">
                                 <div className="label">Tên</div>
@@ -95,14 +96,19 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
 
                             <div className="contest-title-section">
                                 <div className="label">URL</div>
-                                <Form.Control
-                                    size="sm"
-                                    type="text"
-                                    className="contest-title"
-                                    placeholder="Nhập URL..."
-                                    value={url}
-                                    onChange={e => setUrl(e.target.value)}
-                                />
+                                <InputGroup size="sm">
+                                    <InputGroup.Text>
+                                        {process.env.REACT_APP_DOMAIN + '/'}
+                                    </InputGroup.Text>
+                                    <Form.Control
+                                        size="sm"
+                                        type="text"
+                                        className="contest-title"
+                                        placeholder="Nhập URL..."
+                                        value={url}
+                                        onChange={e => setUrl(e.target.value)}
+                                    />
+                                </InputGroup>
                             </div>
 
                             <div className="contest-description-section">

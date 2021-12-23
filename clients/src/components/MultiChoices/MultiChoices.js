@@ -137,7 +137,7 @@ function MultiChoices() {
         else {
             toast.error('❌ Sai mã PIN, vui lòng nhập lại!')
             pinRef.current.value = ''
-            pinRef.current.focus() 
+            pinRef.current.focus()
         }
     }
 

@@ -17,6 +17,46 @@ function BrowseLibrary({ show, onAction }) {
 
     const queryRef = useRef('nature')
 
+    //#region Handle functions
+
+    //#region Upload image
+    const [imgData, setImgData] = useState(null)
+    const [imgFile, setImageFile] = useState(null)
+
+    const handleOnImageChange = e => {
+        if (e.target.files[0]) {
+            setImageFile(e.target.files[0])
+            const reader = new FileReader()
+            reader.addEventListener('load', () => {
+                setImgData(reader.result)
+            })
+            reader.readAsDataURL(e.target.files[0])
+        }
+    }
+
+    const uploadImage = async () => {
+        const url = 'https://api.cloudinary.com/v1_1/x2mint/image/upload'
+
+        const formData = new FormData()
+        formData.append('file', imgFile)
+        formData.append('upload_preset', 'x2mint_upload')
+        toast.warning('⏳ Vui lòng chờ quá trình upload ảnh hoàn tất!')
+
+        const data = await fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                return data
+            })
+
+        onAction(MODAL_ACTION.CONFIRM, data.secure_url)
+    }
+    //#endregion
+
     const search = (query, limit_num) => {
         const numPhotos = MAX.PHOTOS_PER_PAGE * limit_num
         client.photos
@@ -54,6 +94,7 @@ function BrowseLibrary({ show, onAction }) {
         setSelectedPhoto(photo)
         setSelectedIndex(index)
     }
+    //#endregion
 
     useEffect(() => {
         if (selectedPhoto) {
@@ -73,7 +114,37 @@ function BrowseLibrary({ show, onAction }) {
                 <Modal.Title className="h4 text-center w-100">Chọn ảnh</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Tabs defaultActiveKey="image-link" id="uncontrolled-tab-example" className="mb-3">
+
+                <Tabs defaultActiveKey="image-upload" id="uncontrolled-tab-example" className="mb-3">
+                    <Tab eventKey="image-upload" title="Upload ảnh">
+                        <div className="browse-modal" >
+                            <div className="top-modal">
+                                <div className="link-input-area d-flex justify-content-center">
+                                    <Form.Control
+                                        size="sm" type="file"
+                                        accept=".jpg,.jpeg,.png"
+                                        className="text-input w-75"
+                                        onChange={handleOnImageChange}
+                                    />
+                                    <Button
+                                        variant="primary" size="sm"
+                                        onClick={() => uploadImage()}
+                                    >
+                                        <i className="fa fa-upload me-2"></i>
+                                        <span className="fw-bolder">Tải lên</span>
+                                    </Button>
+                                </div>
+                                <div className="d-flex justify-content-center">
+                                    {imgData &&
+                                        <Image src={imgData} style={{ height: '60vh' }}
+                                            className="mt-3"
+                                        />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </Tab>
+
                     <Tab eventKey="image-link" title="Link ảnh">
                         <div className="browse-modal" >
                             <div className="top-modal">
@@ -96,6 +167,7 @@ function BrowseLibrary({ show, onAction }) {
                             </div>
                         </div>
                     </Tab>
+
                     <Tab eventKey="image-resources" title="Ảnh resources">
                         <div className="browse-modal" >
                             <div className="top-modal">
@@ -145,7 +217,6 @@ function BrowseLibrary({ show, onAction }) {
                         </div>
                     </Tab>
                 </Tabs>
-
 
             </Modal.Body>
             <Modal.Footer>
