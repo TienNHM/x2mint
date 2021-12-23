@@ -263,7 +263,7 @@ export default function ContestInfo() {
 
                     <Badge pill bg="warning" text="dark"
                         hidden={contest._status !== STATUS.ARCHIVED}>
-                        {contest._status}
+                        Đã lưu trữ
                     </Badge>
 
                     <Card.Text className="mx-2 mt-2 p-1 d-flex align-items-center justify-content-center">
@@ -336,7 +336,7 @@ export default function ContestInfo() {
                             }
 
                             {contest._status === STATUS.ARCHIVED &&
-                                <Button variant="warning" className="m-2 fw-bolder text-light" size="sm"
+                                <Button variant="primary" className="m-2 fw-bolder text-light" size="sm"
                                     onClick={handleReopenContest}>
                                     <i className="fa fa-folder-open"></i>
                                 </Button>
@@ -453,9 +453,9 @@ export default function ContestInfo() {
         <>
             <div className="contest-information">
                 {/* <!-- Title of Contest Info page ---> */}
-                <div className="contest-title">
+                {/* <div className="contest-title">
                     <div className="heading h2 fw-bolder">{title}</div>
-                </div>
+                </div> */}
 
                 {/* <!-- ContestInfo container --> */}
                 {contestIsLoading &&
@@ -476,7 +476,7 @@ export default function ContestInfo() {
                         <div className="list-tests col-xl-9 col-lg-8 col-md-7 col-sm-12">
                             <Card>
                                 <Card.Header className="row search-section d-flex justify-content-between">
-                                    <div className="col-11">
+                                    <div className="col-11 d-flex align-items-center justify-content-center">
                                         <FormControl
                                             type="search"
                                             value={searchQuery}
