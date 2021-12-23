@@ -206,8 +206,6 @@ function MultiChoices() {
                             <PanelSettings
                                 test={test}
                                 setTest={setTest}
-                                isCreator={!isUser}
-                                setSelectedQuestion={updateSelectedQuestion}
                             />
                         </div>
                     </div>

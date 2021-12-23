@@ -14,6 +14,7 @@ import ModalTestInfo from './ModalTestInfo'
 import { cloneDeep } from 'lodash'
 
 function PanelSettings(props) {
+    console.log(props)
     const { test, setTest } = props
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE.USER
@@ -22,15 +23,15 @@ function PanelSettings(props) {
 
     //#region States
     // Test title
-    const inputTestTitleRef = useRef(null)
-    const [testTitle, setTestTitle] = useState(test.name)
+    const inputTestTitleRef = useRef('')
+    const [testTitle, setTestTitle] = useState(test.name ? test.name : '')
 
     // Mô tả
-    const inputTestDescriptionRef = useRef(null)
-    const [testDescription, setTestDescription] = useState(test.description)
+    const inputTestDescriptionRef = useRef('')
+    const [testDescription, setTestDescription] = useState(test.description !== null ? test.description : '')
 
     // Test URL
-    const inputLinkRef = useRef(null)
+    const inputLinkRef = useRef('')
     const [testLink, setTestLink] = useState(test.url)
 
     // Điểm tối đa
@@ -38,7 +39,7 @@ function PanelSettings(props) {
     const [testMaxPoints, setTestMaxPoints] = useState(test.maxPoints ? test.maxPoints : 0)
 
     // Mã PIN
-    const inputPinRef = useRef(null)
+    const inputPinRef = useRef('')
     const [testPIN, setTestPIN] = useState(test.pin ? test.pin : '')
 
     // Duration
@@ -65,7 +66,15 @@ function PanelSettings(props) {
         const titleValue = inputTestTitleRef.current.value
         if (titleValue.trim() === '') {
             inputTestTitleRef.current.focus()
-            alert.error('Vui lòng nhập tên cho bài test!')
+            toast.error('💢 Vui lòng nhập tên cho bài test!')
+        }
+        else if (inputMaxPointsRef.current.value <= 0) {
+            inputMaxPointsRef.current.focus()
+            toast.error('💢 Điểm bài thi không hợp lệ!')
+        }
+        else if (inputPinRef.current.value.trim() === '') {
+            inputPinRef.current.focus()
+            toast.error('💢 Vui lòng nhập mã PIN cho bài thi!')
         }
         else {
             const startTime = startDateRef.current.value + 'T' + startTimeRef.current.value + ':00.000Z'
@@ -90,7 +99,7 @@ function PanelSettings(props) {
                 toast.success('🎉 Đã lưu lại những thay đổi của bạn!')
             }
             else {
-                startDateRef.current.focus()
+                endDateRef.current.focus()
                 toast.error('💢 Thời gian không hợp lệ! Vui lòng nhập lại!')
             }
         }
@@ -177,7 +186,7 @@ function PanelSettings(props) {
                                 ref={inputTestTitleRef}
                                 placeholder="Tên bài test..."
                                 className="attribute-title-input"
-                                value={testTitle}
+                                value={testTitle ? testTitle : ''}
                                 onChange={e => setTestTitle(e.target.value)}
                                 readOnly={isUser}
                             />
@@ -194,7 +203,7 @@ function PanelSettings(props) {
                                 ref={inputTestDescriptionRef}
                                 placeholder="Mô tả..."
                                 className="attribute-title-input"
-                                value={testDescription}
+                                value={testDescription ? testDescription : ''}
                                 onChange={e => setTestDescription(e.target.value)}
                                 readOnly={isUser}
                             />
