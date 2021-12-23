@@ -52,7 +52,6 @@ export default function Contest() {
     //#endregion
 
     useEffect(() => {
-        console.log(response)
         if (response) {
             setContests(cloneDeep(response.contests))
             setData(cloneDeep(response.contests))
@@ -64,29 +63,6 @@ export default function Contest() {
         url = '', embededMedia = '', startTime = '', endTime = ''
     ) => {
         if (action === MODAL_ACTION.CONFIRM) {
-            //#region Validate
-            if (!title || title === '') {
-                toast.error('💢 Vui lòng nhập tên cuộc thi!')
-                return
-            }
-            if (!description || description === '') {
-                toast.error('💢 Vui lòng nhập mô tả cuộc thi!')
-                return
-            }
-            if (!startTime || new Date(startTime) < Date.now()) {
-                toast.error('💢Thời gian bắt đầu cuộc thi không hợp lệ. Vui lòng chọn lại!')
-                return
-            }
-            if (!endTime || new Date(endTime) < Date.now()) {
-                toast.error('💢Thời gian kết thúc cuộc thi không hợp lệ. Vui lòng chọn lại!')
-                return
-            }
-            if (new Date(endTime) <= new Date(startTime)) {
-                toast.error('💢 Thời gian không hợp lệ. Thời gian kết thúc phải diễn ra sau thời gian bắt đầu!')
-                return
-            }
-            //#endregion
-
             let data = null
             if (isUpdate) {
                 const newContest = {
@@ -112,6 +88,10 @@ export default function Contest() {
                 toast.success('🎉 Đã lưu thành công!')
             }
             else {
+                if (new Date(startTime) < Date.now()) {
+                    toast.error('💢Thời gian bắt đầu cuộc thi không hợp lệ. Vui lòng chọn lại!')
+                    return
+                }
                 const newContest = {
                     tests: [],
                     name: title,
