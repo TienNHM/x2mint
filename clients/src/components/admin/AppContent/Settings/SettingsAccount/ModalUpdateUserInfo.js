@@ -1,11 +1,15 @@
+import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import React, { useState } from 'react'
 import { Button, Modal, Image, Form, Row, Col } from 'react-bootstrap'
 import { MODAL_ACTION } from 'utils/constants'
 
 export default function ModalUpdateUserInfo(props) {
     const { user, isShow, onAction } = props
+
+    const [isShowLibrary, setIsShowLibrary] = useState(false)
     const [data, setData] = useState({
         full_name: user.full_name,
+        avatar: user.avatar,
         email: user.email,
         phone: user.phone,
         dob: user.dob,
@@ -17,6 +21,7 @@ export default function ModalUpdateUserInfo(props) {
         const newUser = {
             ...user,
             full_name: data.full_name,
+            avatar: data.avatar,
             email: data.email,
             phone: data.phone,
             dob: data.dob,
@@ -24,6 +29,16 @@ export default function ModalUpdateUserInfo(props) {
             address: data.address
         }
         onAction(action, newUser)
+    }
+
+    const onActionChangeAvatar = (action, link) => {
+        if (action === MODAL_ACTION.CONFIRM) {
+            setData({
+                ...data,
+                avatar: link
+            })
+        }
+        setIsShowLibrary(false)
     }
 
     const handleFullNameChange = (event) => {
@@ -70,6 +85,7 @@ export default function ModalUpdateUserInfo(props) {
 
     return (
         <Modal
+            className="update-user-info"
             show={isShow}
             onHide={() => handleAction(MODAL_ACTION.CLOSE)}
             size="lg"
@@ -79,10 +95,17 @@ export default function ModalUpdateUserInfo(props) {
                 <Modal.Title>Cập nhật thông tin</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div className="avt d-flex align-items-center justify-content-center">
+                <div className="avt d-flex flex-column align-items-center justify-content-center">
                     <Image roundedCircle
-                        width="100px" height="100px"
-                        src={user.avatar} alt="avatar" />
+                        id="avatar"
+                        height="150px" width="150px"
+                        src={data.avatar} alt="avatar" />
+                    <Button roundedCircle size="sm"
+                        className="m-2"
+                        id="change-avatar" onClick={() => setIsShowLibrary(true)}>
+                        Đổi ảnh
+                    </Button>
+                    <BrowseLibrary show={isShowLibrary} onAction={onActionChangeAvatar} />
                 </div>
                 <div className="user-information m-3">
                     <Row sm={12}>
