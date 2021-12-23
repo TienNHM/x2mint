@@ -13,7 +13,7 @@ import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
 import { createTakeTest, updateTakeTest } from 'actions/api/TakeTestAPI'
-import { Button, FormControl, Image, InputGroup } from 'react-bootstrap'
+import { Button, FormControl, Image } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 
 function MultiChoices() {

@@ -52,6 +52,7 @@ export default function Contest() {
     //#endregion
 
     useEffect(() => {
+        console.log(response)
         if (response) {
             setContests(cloneDeep(response.contests))
             setData(cloneDeep(response.contests))

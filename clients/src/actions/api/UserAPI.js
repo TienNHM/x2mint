@@ -53,6 +53,27 @@ export const updateUserInfo = async (user) => {
     }
 }
 
+export const changePassword = async (userId, password, newPassword) => {
+    const data = {
+        password: password,
+        newPassword: newPassword
+    }
+    try {
+        const url = `${process.env.REACT_APP_API_ROOT}/users/${userId}/changePassword`
+        const request = await axios.put(url, data, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
+            }
+        }).then(response => response)
+
+        return request.data
+    }
+    catch (err) {
+        console.error(err)
+        return null
+    }
+}
+
 export const resetPassword = async (oldPassword, newPassword) => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/users/resetPassword`
