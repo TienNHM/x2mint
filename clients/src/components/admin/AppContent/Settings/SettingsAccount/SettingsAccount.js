@@ -64,6 +64,7 @@ export default function SettingsAccount() {
 
             const data = await updateUserInfo(newUser)
             console.log(data)
+
             setUserData({
                 full_name: data.user.full_name,
                 username: data.user.username,

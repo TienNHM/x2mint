@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Button, Modal, Form } from 'react-bootstrap'
+import { Button, Modal, Form, Tabs, Tab, Image } from 'react-bootstrap'
 import { createClient } from 'pexels'
-import Image from 'components/common/image/Image'
+import MyImage from 'components/common/myImage/MyImage'
 import { MODAL_ACTION, MAX } from 'utils/constants'
 import './BrowseLibrary.scss'
+import { toast } from 'react-toastify'
 
 function BrowseLibrary({ show, onAction }) {
     const client = createClient(process.env.REACT_APP_PEXELS_ID)
@@ -14,7 +15,47 @@ function BrowseLibrary({ show, onAction }) {
     const [limit, setLimit] = useState(1)
     const [isHidden, setIsHidden] = useState(true)
 
-    const queryRef = useRef('')
+    const queryRef = useRef('nature')
+
+    //#region Handle functions
+
+    //#region Upload image
+    const [imgData, setImgData] = useState(null)
+    const [imgFile, setImageFile] = useState(null)
+
+    const handleOnImageChange = e => {
+        if (e.target.files[0]) {
+            setImageFile(e.target.files[0])
+            const reader = new FileReader()
+            reader.addEventListener('load', () => {
+                setImgData(reader.result)
+            })
+            reader.readAsDataURL(e.target.files[0])
+        }
+    }
+
+    const uploadImage = async () => {
+        const url = 'https://api.cloudinary.com/v1_1/x2mint/image/upload'
+
+        const formData = new FormData()
+        formData.append('file', imgFile)
+        formData.append('upload_preset', 'x2mint_upload')
+        toast.warning('⏳ Vui lòng chờ quá trình upload ảnh hoàn tất!')
+
+        const data = await fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                return data
+            })
+
+        onAction(MODAL_ACTION.CONFIRM, data.secure_url)
+    }
+    //#endregion
 
     const search = (query, limit_num) => {
         const numPhotos = MAX.PHOTOS_PER_PAGE * limit_num
@@ -33,7 +74,7 @@ function BrowseLibrary({ show, onAction }) {
     const handleOnSearchClick = () => {
         const query = queryRef.current.value.trim()
         if (query.length <= 0) {
-            alert('Vui lòng nhập từ khóa tìm kiếm')
+            toast.warning('💢 Vui lòng nhập từ khóa tìm kiếm!')
         }
         else {
             setLimit(1)
@@ -53,6 +94,7 @@ function BrowseLibrary({ show, onAction }) {
         setSelectedPhoto(photo)
         setSelectedIndex(index)
     }
+    //#endregion
 
     useEffect(() => {
         if (selectedPhoto) {
@@ -72,73 +114,119 @@ function BrowseLibrary({ show, onAction }) {
                 <Modal.Title className="h4 text-center w-100">Chọn ảnh</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div className="browse-modal" >
-                    <div className="top-modal">
-                        <div className="search-area">
-                            <div>Tìm kiếm: </div>
-                            <div className="search d-flex justify-content-start">
-                                <Form.Control
-                                    size="sm"
-                                    type="text"
-                                    ref={queryRef}
-                                    placeholder="Nhập từ khóa tìm kiếm..."
-                                    className="text-input"
-                                    onKeyDown={event => event.key === 'Enter' && handleOnSearchClick()}
-                                />
-                                <Button
-                                    variant="primary" size="sm"
-                                    onClick={handleOnSearchClick}
-                                >
-                                    <i className="fa fa-search"></i>
-                                </Button>
-                            </div>
-                        </div>
-                        <div className="link-input-area">
-                            <div>Link ảnh: </div>
-                            <Form.Control
-                                size="sm"
-                                type="text"
-                                placeholder="Link trực tiếp đến ảnh đã chọn (JPG, JPEG, PNG, GIF, SVG...)"
-                                className="text-input"
-                                value={link}
-                                disabled={true}
-                                onChange={handleLinkChange}
-                            />
-                        </div>
-                    </div>
-                    {photos &&
-                        <div className="search-result">
-                            <div className="section-title">Kết quả tìm kiếm</div>
-                            <div className="list-result-images">
-                                {photos.map((photo, index) =>
-                                    <Image
-                                        key={index}
-                                        photo={photo}
-                                        index={index}
-                                        selectedIndex={selectedIndex}
-                                        updateSelectedPhoto={updateSelectedPhoto}
+
+                <Tabs defaultActiveKey="image-upload" id="uncontrolled-tab-example" className="mb-3">
+                    <Tab eventKey="image-upload" title="Upload ảnh">
+                        <div className="browse-modal" >
+                            <div className="top-modal">
+                                <div className="link-input-area d-flex justify-content-center">
+                                    <Form.Control
+                                        size="sm" type="file"
+                                        accept=".jpg,.jpeg,.png"
+                                        className="text-input w-75"
+                                        onChange={handleOnImageChange}
                                     />
-                                )}
-                            </div>
-                            <div className="load-more">
-                                <Button variant="primary" size="sm"
-                                    hidden={isHidden}
-                                    onClick={handleOnLoadMoreClick}>
-                                    Xem thêm...
-                                </Button>{' '}
+                                    <Button
+                                        variant="primary" size="sm"
+                                        onClick={() => uploadImage()}
+                                    >
+                                        <i className="fa fa-upload me-2"></i>
+                                        <span className="fw-bolder">Tải lên</span>
+                                    </Button>
+                                </div>
+                                <div className="d-flex justify-content-center">
+                                    {imgData &&
+                                        <Image src={imgData} style={{ height: '60vh' }}
+                                            className="mt-3"
+                                        />
+                                    }
+                                </div>
                             </div>
                         </div>
-                    }
-                </div>
+                    </Tab>
+
+                    <Tab eventKey="image-link" title="Link ảnh">
+                        <div className="browse-modal" >
+                            <div className="top-modal">
+                                <div className="link-input-area d-flex justify-content-center">
+                                    <Form.Control
+                                        size="sm" type="text"
+                                        placeholder="Link trực tiếp đến ảnh đã chọn (JPG, JPEG, PNG, GIF, SVG...)"
+                                        className="text-input w-75"
+                                        value={link}
+                                        onChange={(e) => handleLinkChange(e)}
+                                    />
+                                </div>
+                                <div className="d-flex justify-content-center">
+                                    {link.length > 0 &&
+                                        <Image src={link} style={{ height: '60vh' }}
+                                            className="mt-3"
+                                        />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </Tab>
+
+                    <Tab eventKey="image-resources" title="Ảnh resources">
+                        <div className="browse-modal" >
+                            <div className="top-modal">
+                                <div className="search-area">
+                                    <div className="search d-flex justify-content-center">
+                                        <Form.Control
+                                            size="sm"
+                                            type="text"
+                                            ref={queryRef}
+                                            placeholder="Nhập từ khóa tìm kiếm..."
+                                            className="text-input w-75"
+                                            onKeyDown={event => event.key === 'Enter' && handleOnSearchClick()}
+                                        />
+                                        <Button
+                                            variant="primary" size="sm"
+                                            onClick={handleOnSearchClick}
+                                        >
+                                            <i className="fa fa-search me-2"></i>
+                                            <span className="fw-bolder">Tìm</span>
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                            {photos &&
+                                <div className="search-result">
+                                    <div className="section-title">Kết quả tìm kiếm</div>
+                                    <div className="list-result-images">
+                                        {photos.map((photo, index) =>
+                                            <MyImage
+                                                key={index}
+                                                photo={photo}
+                                                index={index}
+                                                selectedIndex={selectedIndex}
+                                                updateSelectedPhoto={updateSelectedPhoto}
+                                            />
+                                        )}
+                                    </div>
+                                    <div className="load-more">
+                                        <Button variant="primary" size="sm"
+                                            hidden={isHidden}
+                                            onClick={handleOnLoadMoreClick}>
+                                            Xem thêm...
+                                        </Button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </Tab>
+                </Tabs>
+
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary"
-                    onClick={() => onAction(MODAL_ACTION.CLOSE, selectedPhoto)}>
+                    onClick={() => onAction(MODAL_ACTION.CLOSE, link)}>
                     Đóng
                 </Button>
 
                 <Button variant="primary"
-                    onClick={() => onAction(MODAL_ACTION.CONFIRM, selectedPhoto)}>
+                    onClick={() => onAction(MODAL_ACTION.CONFIRM, link)}>
                     OK
                 </Button>
             </Modal.Footer>

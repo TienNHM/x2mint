@@ -102,7 +102,7 @@ export default function ContestInfo() {
                 startTime: startTime,
                 endTime: endTime
             }
-            await updateContest(newContest)
+            const data = await updateContest(newContest)
 
             setContest(data.contest)
 
