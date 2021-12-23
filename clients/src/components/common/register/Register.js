@@ -60,7 +60,7 @@ const Register = () => {
     return isAuthenticated ? (
         <Navigate to="/login" />
     ) : (
-        <div className="register">
+        <div className="register container">
             {authLoading && (
                 <div
                     style={{
@@ -85,8 +85,12 @@ const Register = () => {
                 </div>
             )}
 
-            <section className="signup__body" onSubmit={handleSubmit} method="POST">
-                <div className="signup__area">
+            <section className="signup__body row" onSubmit={handleSubmit} method="POST">
+                <div className="register__right col">
+                    <h1 className="form__title">Đăng ký tài khoản</h1>
+                    <img className="auth__pic" src="assets/auth.svg"></img>
+                </div>
+                <div className="signup__area col">
                     <div className="input">
                         <div className="input_item" >
                             <input
@@ -153,10 +157,6 @@ const Register = () => {
                         Đăng nhập
                     </button>
                     {/* <button className="btn__signup-gg" onClick={register}><img src="google_32.png"></img></button> */}
-                </div>
-                <div className="register__right">
-                    <h1 className="form__title">Đăng ký tài khoản</h1>
-                    <img className="auth__pic" src="assets/auth.svg"></img>
                 </div>
             </section>
         </div>

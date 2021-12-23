@@ -5,7 +5,6 @@ import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
 import { ROLE, COOKIES } from 'utils/constants'
 import { toast } from 'react-toastify'
 
-
 //Register
 export const register = createAsyncThunk(
     'auth/register',
@@ -45,15 +44,6 @@ export const register = createAsyncThunk(
                 }
             }
 
-            // setAuthToken(res.data.accessToken)
-            // // Set cookies
-            // Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
-            // Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
-
-            // return {
-            //     user: res.data.user,
-            //     isAuthenticated: true
-            // }
         } catch (error) {
 
             return rejectWithValue(error.response.data.message)
@@ -82,16 +72,6 @@ export const activation = createAsyncThunk(
             } else {
                 toast.error('❌ Tài khoản này đã xác thực !')
             }
-
-            // setAuthToken(res.data.accessToken)
-            // // Set cookies
-            // Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
-            // Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
-
-            // return {
-            //     user: res.data.user,
-            //     isAuthenticated: true
-            // }
         } catch (error) {
 
             return rejectWithValue(error.response.data.message)
@@ -125,6 +105,61 @@ export const loginUser = createAsyncThunk(
                     break
                 case 'password':
                     toast.error('💢 Sai mật khẩu, vui lòng nhập lại!')
+                    break
+                }
+            }
+            setAuthToken(res.data.accessToken)
+
+            // Set cookies
+            Cookies.set(
+                COOKIES.ACCESS_TOKEN,
+                res.data.accessToken,
+                { expires: COOKIES.MAX_DAYS_EXPIRE }
+            )
+            Cookies.set(
+                COOKIES.USER_ID,
+                res.data.user.id,
+                { expires: COOKIES.MAX_DAYS_EXPIRE }
+            )
+            return {
+                user: res.data.user,
+                isAuthenticated: true
+            }
+        } catch (error) {
+            return rejectWithValue(error.response.data.message)
+        }
+    }
+)
+
+//Login via Google
+export const loginViaGoogle = createAsyncThunk(
+    'auth/loginViaGoogle',
+    async (params, { rejectWithValue }) => {
+        let res = null
+        try {
+            await axios
+                .post(`${process.env.REACT_APP_API_ROOT}/auths/loginViaGoogle`, { tokenId: params.tokenId })
+                .then((response) => {
+                    res = response
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            console.log(res)
+            if (res.data.success === true) {
+                if (res.data.message === 'success')
+                {
+                    toast.success('🌟 Đăng nhập thành công! Chào mừng bạn trở lại X2M!NT')
+                }
+                else
+                    toast.success('🌟 Đăng nhập và tạo tài khoản thành công! Kiểm tra Email nhé !!')
+            } else {
+                switch (res.data.message) {
+                case 'email':
+                    toast.error('💢 Email không tồn tại !')
+                    break
+                case 'password':
+                    toast.error('💢 Đăng nhập không thành công, vui lòng thử lại !')
                     break
                 }
             }

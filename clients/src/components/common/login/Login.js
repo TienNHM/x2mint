@@ -3,12 +3,12 @@ import './Login.scss'
 import { Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { loginUser } from 'redux/authSlice'
+import { loginUser, loginViaGoogle } from 'redux/authSlice'
 import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { isEmpty } from 'utils/Validation'
 import { toast } from 'react-toastify'
-
+import { GoogleLogin } from 'react-google-login'
 const Login = () => {
     //Route
     const navigate = useNavigate()
@@ -38,6 +38,15 @@ const Login = () => {
             dispatch(loginUser(loginForm))
         } catch (error) {
             console.log(error)
+        }
+    }
+    const responseGoogle = async (response) => {
+        try {
+            const tien = loginViaGoogle(response)
+            console.log(tien)
+            dispatch(tien)
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -74,52 +83,53 @@ const Login = () => {
             <h1 className="form__title">
                 Đăng nhập
             </h1>
-            <Form className="form__body" onSubmit={login}>
-                <img className="auth__pic" src="assets/auth.svg"></img>
-                <div className="info__area">
-                    <div className="input">
-                        <input
-                            type="text"
-                            name="username"
-                            value={username}
-                            onChange={onChangeLogin}
-                            placeholder="Username..."
-                        ></input>
-                        <input
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={onChangeLogin}
-                            placeholder="Mật khẩu..."
-                        ></input>
-                    </div>
-                    <div className="login__forget">
+            <Form className="form__body container" onSubmit={login}>
+                <div className="row">
+                    <img className="auth__pic col" src="assets/auth.svg"></img>
+                    <div className="info__area col">
+                        <div className="input">
+                            <input
+                                type="text"
+                                name="username"
+                                value={username}
+                                onChange={onChangeLogin}
+                                placeholder="Username..."
+                            ></input>
+                            <input
+                                type="password"
+                                name="password"
+                                value={password}
+                                onChange={onChangeLogin}
+                                placeholder="Mật khẩu..."
+                            ></input>
+                        </div>
+                        <div className="login__forget">
+                            <button
+                                className="nav__btn__signup"
+                                variant="success"
+                                type="submit"
+                            >
+                                {' '}
+                                Đăng nhập
+                            </button>
+                            <button className="forget__button"
+                                onClick={() => navigate('/forgotPassword', { replace: true })}>Quên mật khẩu</button>
+                        </div>
+                        <div className="login__gg">
+                            <GoogleLogin
+                                clientId="34715270017-731544gglt4jp5cprkjn5n4li29g12to.apps.googleusercontent.com"
+                                buttonText="Đăng nhập với Google"
+                                onSuccess={responseGoogle}
+                                cookiePolicy={'single_host_origin'}
+                            />
+                        </div>
                         <button
-                            className="nav__btn__signup"
-                            variant="success"
-                            type="submit"
+                            className="nav__btn__login"
+                            onClick={() => navigate('/register', { replace: true })}
                         >
-                            {' '}
-                            Đăng nhập
-                        </button>
-                        <button className="forget__button"
-                            onClick={() => navigate('/forgotPassword', { replace: true })}>Quên mật khẩu</button>
-                    </div>
-                    <div>
-                        <button
-                            className="button__login-gg"
-                            onClick={() => navigate('/login-gg', { replace: true })}
-                        >
-                            <img src="assets/icons/google_32.png"></img>Đăng nhập bằng Google
+                            Đăng ký
                         </button>
                     </div>
-                    <br />
-                    <button
-                        className="nav__btn__login"
-                        onClick={() => navigate('/register', { replace: true })}
-                    >
-                        Đăng ký
-                    </button>
                 </div>
             </Form>
         </div>
