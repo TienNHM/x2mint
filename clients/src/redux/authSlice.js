@@ -108,7 +108,6 @@ export const loginUser = createAsyncThunk(
                     break
                 }
             }
-
             setAuthToken(res.data.accessToken)
 
             // Set cookies
@@ -208,7 +207,7 @@ export const resetPassword = createAsyncThunk(
                 toast.success('🌟 Đặt lại mật khẩu thành công thành công! Đăng nhập để trở lại X2M!NT nhé !')
             }
         }
-        catch(err) {
+        catch (err) {
             console.log(err)
         }
     }
