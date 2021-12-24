@@ -44,11 +44,9 @@ const Login = () => {
         }
     }
     const responseGoogle = async (response) => {
-        // TODO: Đang gọi API login với google 2 lần
         try {
             console.log(dispatch(loginViaGoogle(response)))
             dispatch(loginViaGoogle(response))
-            toast.success('🌟 Tạo tài khoản thành công. Vui lòng kiểm tra mail để lấy thông tin đăng nhập!')
         } catch (err) {
             console.log(err)
         }
