@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './SettingsAccount.scss'
+import './Profile.scss'
 import { Form, Image, Button, Row, Col, Badge } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import ModalUpdateUserInfo from './ModalUpdateUserInfo'
@@ -10,13 +10,16 @@ import Cookies from 'js-cookie'
 import { HashLoader } from 'react-spinners'
 import { toast } from 'react-toastify'
 import ChangePassword from 'components/User/ChangePassword'
+import { MDBDataTableV5 } from 'mdbreact'
+import { cloneDeep } from 'lodash'
+import { ExportDataUserTakeTest } from './UserTakeTest'
 
-export default function SettingsAccount() {
+export default function Profile() {
     const user = useSelector((state) => state.auth.user)
 
     const {
-        response,
-        loading
+        response: responseUserData,
+        loading: loadingUserData
     } = useAxios({
         method: 'GET',
         url: `/users/${user.id}/info`,
@@ -25,27 +28,45 @@ export default function SettingsAccount() {
         }
     })
 
-    const [userData, setUserData] = useState(null)
+    const {
+        response: responseTakeTestData,
+        loading: loadingTakeTestData
+    } = useAxios({
+        method: 'GET',
+        url: `/takeTest/user/${user.id}`,
+        headers: {
+            Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
+        }
+    })
 
+    const [userData, setUserData] = useState(null)
     const [isShow, setIsShow] = useState(false)
     const [isShowModalChangePassword, setIsShowModalChangePassword] = useState(false)
+    const [tableData, setTableData] = useState(null)
 
     useEffect(() => {
-        if (response) {
+        if (responseUserData) {
             setUserData({
-                full_name: response.data.full_name,
-                username: response.data.username,
-                email: response.data.email,
-                phone: response.data.phone,
-                dob: response.data.dob,
-                school: response.data.school,
-                address: response.data.address,
-                avatar: response.data.avatar,
-                _status: response.data._status,
-                _id: response.data.id
+                full_name: responseUserData.data.full_name,
+                username: responseUserData.data.username,
+                email: responseUserData.data.email,
+                phone: responseUserData.data.phone,
+                dob: responseUserData.data.dob,
+                school: responseUserData.data.school,
+                address: responseUserData.data.address,
+                avatar: responseUserData.data.avatar,
+                _status: responseUserData.data._status,
+                _id: responseUserData.data.id
             })
         }
-    }, [response])
+    }, [responseUserData])
+
+    useEffect(() => {
+        if (responseTakeTestData) {
+            const takeTests = responseTakeTestData.takeTests
+            setTableData(ExportDataUserTakeTest(cloneDeep(takeTests)))
+        }
+    }, [responseTakeTestData])
 
     const handleAction = async (action, newUser) => {
         if (action === MODAL_ACTION.CLOSE) {
@@ -86,20 +107,24 @@ export default function SettingsAccount() {
     }
 
     const handleChangePassword = async (action, data) => {
-        const res = await changePassword(user.id, data.password, data.newPassword)
-        console.log(res)
-        if (res.success) {
-            toast.success('🌟 Bạn đã đổi mật khẩu thành công!')
-            setIsShowModalChangePassword(false)
+        if (action === MODAL_ACTION.CONFIRM) {
+            const res = await changePassword(user.id, data.password, data.newPassword)
+            if (res.success) {
+                toast.success('🌟 Bạn đã đổi mật khẩu thành công!')
+                setIsShowModalChangePassword(false)
+            }
+            else {
+                toast.error('💢 Vui lòng kiểm tra lại mật khẩu!')
+            }
         }
         else {
-            toast.error('💢 Vui lòng kiểm tra lại mật khẩu!')
+            setIsShowModalChangePassword(false)
         }
     }
 
     return (
         <div className="settings-account">
-            {loading &&
+            {(loadingUserData || loadingTakeTestData) &&
                 <div
                     className='sweet-loading d-flex justify-content-center align-items-center'
                     style={{
@@ -109,11 +134,11 @@ export default function SettingsAccount() {
                         top: 0,
                         left: 100
                     }}>
-                    <HashLoader color={'#7ED321'} loading={loading} />
+                    <HashLoader color={'#7ED321'} loading={loadingUserData} />
                 </div>
             }
 
-            {!loading &&
+            {!loadingUserData && !loadingTakeTestData &&
                 <>
                     <Form>
                         <Row className="p-3">
@@ -146,6 +171,11 @@ export default function SettingsAccount() {
                             </Col>
 
                             <Col className="detail-info-section ps-4 pe-4 text-start" lg={9} md={12} xs={12}>
+                                <div className="section-header m-3 h4 d-flex justify-content-center">
+                                    <i className="fa fa-map-signs me-3"></i>
+                                    Thông tin cá nhân
+                                </div>
+
                                 <Row sm={12}>
                                     <Form.Group as={Col} xs={12} md={6} className="mb-3" controlId="email">
                                         <Form.Label>Email</Form.Label>
@@ -186,6 +216,22 @@ export default function SettingsAccount() {
                                         />
                                     </Form.Group>
                                 </Row>
+
+                                <div className="section-header m-3 h4 d-flex justify-content-center">
+                                    <i className="fa fa-book me-3"></i>
+                                    Các cuộc thi đã tham gia
+                                </div>
+
+                                <div className="p-3">
+                                    <MDBDataTableV5
+                                        hover striped bordered
+                                        entriesOptions={[10, 25, 50, 100]}
+                                        entries={10}
+                                        pagesAmount={4}
+                                        data={tableData}
+                                        materialSearch scrollX
+                                    />
+                                </div>
                             </Col>
                         </Row>
                     </Form>
