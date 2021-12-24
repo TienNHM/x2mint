@@ -52,18 +52,24 @@ export default function ChangePassword({ isShow, onAction }) {
     }
 
     const handleSubmit = (action) => {
-        if (data.newPassword === data.reEnterNewPassword) {
-            if (data.newPassword.length < 6) {
-                toast.error('💢 Mật khẩu dài tối thiểu 6 kí tự!')
-                return
+        if (action === MODAL_ACTION.CONFIRM) {
+            if (data.newPassword === data.reEnterNewPassword) {
+                if (data.newPassword.length < 6) {
+                    toast.error('💢 Mật khẩu dài tối thiểu 6 kí tự!')
+                    return
+                }
+                else {
+                    onAction(action, data)
+                }
             }
             else {
-                onAction(action, data)
+                toast.error('💢 Vui lòng nhập lại mật khẩu mới!')
+                return
             }
         }
         else {
-            toast.error('💢 Vui lòng nhập lại mật khẩu mới!')
-            return
+            toast.warning('💢 Đã hủy thay đổi!')
+            onAction(action, null)
         }
     }
 

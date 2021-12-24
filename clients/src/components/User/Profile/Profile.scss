@@ -1,6 +1,18 @@
 @import '_setting.scss';
 
 .settings-account {
+    margin-top: $navbar-height;
+
+    
+    .section-header {
+        background-color: lighten($color: lightsalmon, $amount: 10);
+        color: rgb(224, 71, 10);
+        text-transform: uppercase;
+        font-weight: bold;
+        border-left: $gap solid orange;
+        padding: $gap/2;
+    }
+    
     .basic-info {
         button {
             font-weight: bold;

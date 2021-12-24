@@ -7,7 +7,7 @@ import ContestArchive from './Contest/ContestArchive/ContestArchived'
 import ContestParticipants from './Contest/ContestParticipants/ContestParticipants'
 import ContestStatistics from './Contest/ContestStatistics/ContestStatistics'
 import Dashboard from './Dashboard/Dashboard'
-import SettingsAccount from './Settings/SettingsAccount/SettingsAccount'
+import Profile from 'components/User/Profile/Profile'
 
 export default function AppContent({ currentAction }) {
     const [component, setComponent] = useState(null)
@@ -20,7 +20,7 @@ export default function AppContent({ currentAction }) {
             [ADMIN.CONTEST.STATISTICS]: <ContestStatistics />,
             [ADMIN.CONTEST.PARTICIPANT]: <ContestParticipants />,
             [ADMIN.CONTEST.ARCHIVE]: <ContestArchive />,
-            [ADMIN.SETTINGS.ACCOUNT]: <SettingsAccount />,
+            [ADMIN.SETTINGS.ACCOUNT]: <Profile />,
             [ADMIN.DASHBOARD]: <Dashboard />
         }
 

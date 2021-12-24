@@ -7,7 +7,6 @@ import SubmitResult from 'components/MultiChoices/submitResult/SubmitResult'
 import Homepage from 'components/common/home/Homepage'
 import Login from 'components/common/login/Login'
 import Register from 'components/common/register/Register'
-import Profile from 'components/common/profile/Profile'
 import ProtectedRoute from 'components/ProtectedRoute'
 import { loadUser } from 'redux/authSlice'
 import ContestInfo from 'components/contest/contestInfo/ContestInfo'
@@ -26,6 +25,7 @@ import './App.scss'
 import StatisticTest from 'components/contest/statistics/StatisticTest'
 import StatisticContest from 'components/contest/statistics/StatisticContest'
 import { ToastContainer } from 'react-toastify'
+import Profile from 'components/User/Profile/Profile'
 
 const loadingCss = {
     width: '100%',
