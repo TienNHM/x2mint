@@ -10,18 +10,21 @@ import { toast } from 'react-toastify'
 import Cookies from 'js-cookie'
 import { COOKIES } from 'utils/constants'
 
+const initialState = {
+    username: '',
+    email: '',
+    password: '',
+    reEnterPassword: ''
+}
+
 const Register = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { authLoading, isAuthenticated } = useSelector((state) => state.auth.isAuthenticated)
-    const [user, setUser] = useState({
-        username: '',
-        email: '',
-        password: '',
-        reEnterPassword: ''
-    })
-    const [error, setError] = useState('')
+    const [user, setUser] = useState(initialState)
+    const [error] = useState('')
     const { username, email, password, reEnterPassword } = user
+
     const handleChange = (event) => {
         setUser({ ...user, [event.target.name]: event.target.value })
     }
@@ -57,14 +60,15 @@ const Register = () => {
                 navigate('/login')
             }
         } catch (error) {
-            console.log(error)
+            error.response.data.msg &&
+            setUser({ ...user, error: error.response.data.msg, success: '' })
         }
     }
 
     return isAuthenticated ? (
         <Navigate to="/login" />
     ) : (
-        <div className="register">
+        <div className="register container">
             {authLoading && (
                 <div
                     style={{
@@ -89,8 +93,12 @@ const Register = () => {
                 </div>
             )}
 
-            <section className="signup__body" onSubmit={handleSubmit} method="POST">
-                <div className="signup__area">
+            <section className="signup__body row" onSubmit={handleSubmit} method="POST">
+                <div className="register__right col">
+                    <h1 className="form__title">Đăng ký tài khoản</h1>
+                    <img className="auth__pic" src="assets/auth.svg"></img>
+                </div>
+                <div className="signup__area col">
                     <div className="input">
                         <div className="input_item" >
                             <input
@@ -157,10 +165,6 @@ const Register = () => {
                         Đăng nhập
                     </button>
                     {/* <button className="btn__signup-gg" onClick={register}><img src="google_32.png"></img></button> */}
-                </div>
-                <div className="register__right">
-                    <h1 className="form__title">Đăng ký tài khoản</h1>
-                    <img className="auth__pic" src="assets/auth.svg"></img>
                 </div>
             </section>
         </div>

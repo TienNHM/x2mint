@@ -25,16 +25,13 @@ function Homepage() {
             </section>
         )
     }
-
     const renderAbout = () => {
         return (
             <section className="about" id="about">
                 <Image src={process.env.PUBLIC_URL + '/assets/icons/plant-line.svg'}></Image>
-
-                <h5> X2M!NT là một nền tảng cho phép người dùng tạo ra các bài kiểm tra và tham gia làm bài.
+                <h6 className='intro2'> X2M!NT là một nền tảng cho phép người dùng tạo ra các bài kiểm tra và tham gia làm bài.
                     <br />Có thể tùy chọn quy mô và cách tổ chức của các bài kiểm tra để tạo ra các lớp học, các cuộc thi có nhiều vòng hoặc đơn giản chỉ là các bài test đơn lẻ, ...
-                </h5>
-
+                </h6>
                 <div className="about__contest">
                     <div className="left">
                         <img className="create__pic" src="assets/create.svg"></img>

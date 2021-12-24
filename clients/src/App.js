@@ -69,7 +69,7 @@ function App() {
                             <Route path="/500" element={<Page500 />} />
                             <Route path="/forgotPassword" element={<ForgotPassword/>} />
                             <Route path="/activation/:activation_token" element={<ActivationEmail />} />
-                            <Route path="/resetPassword" element={<ResetPassword/>} />
+                            <Route path="/resetPassword/:activation_token" element={<ResetPassword/>} />
                             <Route path="/dashboard" element={<ProtectedRoute />}>
                                 <Route
                                     path="/dashboard"

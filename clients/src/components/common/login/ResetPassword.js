@@ -1,55 +1,61 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import { isLength, isMatch } from 'utils/Validation'
-import { showErrMsg, showSuccessMsg } from 'utils/notification/Notification'
+import { isEmpty, isLength, isMatch } from 'utils/Validation'
+import { useDispatch } from 'react-redux'
 import './Login.scss'
-const initialState = {
-    password: '',
-    reEnterPassword: '',
-    err: '',
-    success: ''
-}
+import { resetPassword } from 'redux/authSlice'
+import { toast } from 'react-toastify'
 
-function ResetPassword() {
-    const [data, setData] = useState(initialState)
-    const { token } = useParams()
-
-    const { password, reEnterPassword, err, success } = data
-
-    const handleChangeInput = e => {
-        const { name, value } = e.target
-        setData({ ...data, [name]:value, err: '', success: '' })
+const ResetPassword = () => {
+    const [resetForm, setResetForm] = useState({
+        password: '',
+        reEnterPassword:'',
+        token:''
+    })
+    const dispatch = useDispatch()
+    //const { access_token } = useParams()
+    const token = useParams().activation_token
+    const { password, reEnterPassword } = resetForm
+    const handleChange = (event) => {
+        setResetForm({ ...resetForm, token, [event.target.name]: event.target.value })
     }
 
-    const resetPassword = async () => {
-        if (!isLength(password))
-            return setData({ ...data, err: 'Password must be at least 6 characters.', success: '' })
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        if (isEmpty(password) || isEmpty(reEnterPassword))
+        {
+            toast.warning('📝 Vui lòng điền đủ thông tin nhé !')
+            return null
+        }
+        if (isLength(password))
+        {
+            toast.warning('🔑 Mật khẩu yếu, hãy chọn mật khẩu khác!')
+            return null
+        }
         if (!isMatch(password, reEnterPassword))
-            return setData({ ...data, err: 'Password did not match.', success: '' })
+        {
+            toast.error('🔑 Sai mật khẩu, vui lòng nhập lại!')
+            return null
+        }
         try {
-            const res = await axios.post('/auths/resetPassword', { password }, {
-                headers: { Authorization: token }
-            })
-
-            return setData({ ...data, err: '', success: res.data.msg })
-        } catch (err) {
-            err.response.data.msg && setData({ ...data, err:  err.response.data.msg, success: '' })
+            dispatch(resetPassword(resetForm, token))
+        } catch (error) {
+            error.response.data.msg &&
+            setResetForm({ ...resetForm, error: error.response.data.msg, success: '' })
         }
     }
     return (
         <div className="reset">
             <h2 className="form__title">Đặt lại mật khẩu...</h2>
             <div>
-                {err && showErrMsg(err)}
-                {success && showSuccessMsg(success)}
                 <div className='password__reset'>
                     <input
                         type="password"
                         name="password"
                         value={password}
-                        onChange={handleChangeInput}
+                        onChange={handleChange}
                         placeholder="Mật khẩu..."
+                        require
                     ></input>
                 </div>
                 <div className='password__reset'>
@@ -57,16 +63,17 @@ function ResetPassword() {
                         type="password"
                         name="reEnterPassword"
                         value={reEnterPassword}
-                        onChange={handleChangeInput}
+                        onChange={handleChange}
                         placeholder="Xác nhận mật khẩu..."
+                        require
                     ></input>
                 </div>
                 <button
                     className="btn__resetPassword"
-                    onClick={resetPassword}>Đặt lại</button>
+                    onClick={(e) => handleSubmit(e)}>Đặt lại
+                </button>
             </div>
         </div>
     )
 }
-
 export default ResetPassword

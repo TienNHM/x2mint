@@ -1,21 +1,20 @@
 @import '_setting.scss';
 
 .register{
-    align-items: center;
-    margin: 10% auto 0;
+    margin: calc(60px + 3%) auto;
+    padding: 20px ;
     font-family: var(--body-font);
     border: 1.5px solid var(--mint);
-    height: 400px;
-    width: 920px;
+    height: 50%;
+    width: 50%;
     border-radius: 30px;
-    display: block;
     &__right{
         margin-top: 20px;
     }
-}
+    
 .form__title{
     text-align: center;
-    padding-top: 30px;
+    padding-bottom: 30px;
     font-family: var(--logo-font);
     color: var(--mint);
     font-weight: 700;
@@ -30,6 +29,8 @@
         width: 250px;
         font-size: var(--h2-font-size);
         margin: 10px;
+        padding: 5px 10%;
+        width: fit-content;
         &:hover{
             color:var(--mint);
             background-color: var(--light-mint);
@@ -41,7 +42,7 @@
         color: var(--mint);
         background-color: white;
         width: 150px;
-        padding: auto;
+        padding: 10px 15px;
         font-size: var(--h3-font-size);
         margin: 10px;
         &:hover{
@@ -58,25 +59,22 @@
 .signup__body{
     display: flex;
     justify-content: center;
-    margin: -15px 10%;
+    margin: auto;
 }
 .been-member{
     color:var(--gray)
 }
 div .signup__area{
-    margin: 30px 60px 0 20px;
+    margin: auto;
     display:block;
     .btn__signup{
-
         &-gg{
-        margin-top: -10px;
         background: none;
         border: none;
     }}
-
     .btn__login{
         margin-top: -20px;
-        padding: 5px;
+        padding: 10px;
     }
 }
 .input_item{
@@ -86,21 +84,18 @@ div .signup__area{
     align-items: center;
 }
 input {
-    justify-content: center;
-    align-items: center;
+    margin: auto;
     padding: 10px 20px;
-    margin-top: 5px;
     display: block;
     border-radius: 50px;
-    width: 300px;
     font-size: 1rem;
     border-radius: 50px;
     border: 1px solid var(--mint);
     color: var(--mint);
     background-color: white;
     font-weight: 700;
-
     ::placeholder {
         border: 1px solid var(--mint);
     }
+}
 }

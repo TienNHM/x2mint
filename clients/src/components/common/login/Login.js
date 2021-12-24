@@ -3,22 +3,13 @@ import './Login.scss'
 import { Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { loginUser } from 'redux/authSlice'
+import { loginUser, loginViaGoogle } from 'redux/authSlice'
 import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { isEmpty } from 'utils/Validation'
-import { store } from 'react-notifications-component'
+import { toast } from 'react-toastify'
 
-const notify = {
-    insert: 'top',
-    container: 'top-center',
-    animationIn: ['animated fadeIn'],
-    animationOut: ['animated fadeOut'],
-    dismiss: {
-        duration: 5000,
-        onScreen: true
-    }
-}
+import { GoogleLogin } from 'react-google-login'
 
 
 const Login = () => {
@@ -43,18 +34,23 @@ const Login = () => {
         event.preventDefault()
         if (isEmpty(username) || isEmpty(password))
         {
-            store.addNotification({
-                ...notify,
-                title: 'THÔNG TIN CÒN THIẾU',
-                message: 'Vui lòng điền đủ thông tin nhé !!',
-                type: 'warning'
-            })
+            toast.warning('❌ Thiếu username hoặc mật khẩu. Vui lòng nhập lại!')
             return null
         }
         try {
             dispatch(loginUser(loginForm))
         } catch (error) {
             console.log(error)
+        }
+    }
+    const responseGoogle = async (response) => {
+        // TODO: Đang gọi API login với google 2 lần
+        try {
+            console.log(dispatch(loginViaGoogle(response)))
+            dispatch(loginViaGoogle(response))
+            toast.success('🌟 Tạo tài khoản thành công. Vui lòng kiểm tra mail để lấy thông tin đăng nhập!')
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -86,53 +82,59 @@ const Login = () => {
                 </div>
             )}
 
+
+            {/* <AlertMessage info={alert} /> */}
             <h1 className="form__title">
                 Đăng nhập
             </h1>
-            <Form className="form__body" onSubmit={login}>
-                <img className="auth__pic" src="assets/auth.svg"></img>
-                <div className="info__area">
-                    <div className="input">
-                        <input
-                            type="text"
-                            name="username"
-                            value={username}
-                            onChange={onChangeLogin}
-                            placeholder="Username..."
-                        ></input>
-                        <input
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={onChangeLogin}
-                            placeholder="Mật khẩu..."
-                        ></input>
-                    </div>
-                    <div className="login__forget">
+            <Form className="form__body container" onSubmit={login}>
+                <div className="row">
+                    <img className="auth__pic col" src="assets/auth.svg"></img>
+                    <div className="info__area col">
+                        <div className="input">
+                            <input
+                                type="text"
+                                name="username"
+                                value={username}
+                                onChange={onChangeLogin}
+                                placeholder="Username..."
+                            ></input>
+                            <input
+                                type="password"
+                                name="password"
+                                value={password}
+                                onChange={onChangeLogin}
+                                placeholder="Mật khẩu..."
+                            ></input>
+                        </div>
+                        <div className="login__forget">
+                            <button
+                                className="nav__btn__signup"
+                                variant="success"
+                                type="submit"
+                            >
+                                {' '}
+                                Đăng nhập
+                            </button>
+                            <button className="forget__button"
+                                onClick={() => navigate('/forgotPassword', { replace: true })}>Quên mật khẩu</button>
+                        </div>
+                        <div className="login__gg">
+                            <GoogleLogin
+                                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                                buttonText="Đăng nhập với Google"
+                                onSuccess={responseGoogle}
+                                cookiePolicy={'single_host_origin'}
+                            />
+                        </div>
+
                         <button
-                            className="nav__btn__signup"
-                            variant="success"
-                            type="submit"
+                            className="nav__btn__login"
+                            onClick={() => navigate('/register', { replace: true })}
                         >
-                            {' '}
-                            Đăng nhập
+                            Đăng ký
                         </button>
-                        <button className="forget__button"
-                            onClick={() => navigate('/forgotPassword', { replace: true })}>Quên mật khẩu</button>
                     </div>
-                    <button
-                        className="button__login-gg"
-                        onClick={() => navigate('/login-gg', { replace: true })}
-                    >
-                        <img src="assets/icons/google_32.png"></img>Đăng nhập bằng Google
-                    </button>
-                    <br />
-                    <button
-                        className="nav__btn__login"
-                        onClick={() => navigate('/register', { replace: true })}
-                    >
-                        Đăng ký
-                    </button>
                 </div>
             </Form>
         </div>
