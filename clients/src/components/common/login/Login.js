@@ -8,6 +8,8 @@ import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { isEmpty } from 'utils/Validation'
 import { toast } from 'react-toastify'
+import Cookies from 'js-cookie'
+import { COOKIES } from 'utils/constants'
 
 import { GoogleLogin } from 'react-google-login'
 
@@ -45,8 +47,14 @@ const Login = () => {
     }
     const responseGoogle = async (response) => {
         try {
-            console.log(dispatch(loginViaGoogle(response)))
+            //console.log(dispatch(loginViaGoogle(response)))
             dispatch(loginViaGoogle(response))
+            const accessToken = Cookies.get(COOKIES.ACCESS_TOKEN)
+            const loginViaGoogleStatus = Cookies.get(COOKIES.LOGIN_GOOGLE_SUCCESS)
+            if (accessToken === loginViaGoogleStatus) {
+                Cookies.remove(COOKIES.LOGIN_GOOGLE_SUCCESS)
+                navigate('/')
+            }
         } catch (err) {
             console.log(err)
         }

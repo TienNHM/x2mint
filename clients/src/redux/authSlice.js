@@ -163,9 +163,10 @@ export const loginViaGoogle = createAsyncThunk(
                 })
             console.log(res)
             if (res.data.success === true) {
-                if (res.data.message === 'success')
+                if (res.data.message === 'login')
                 {
                     toast.success('🌟 Đăng nhập thành công! Chào mừng bạn trở lại X2M!NT')
+                    Cookies.set(COOKIES.LOGIN_GOOGLE_SUCCESS, res.data.accessToken)
                 }
                 else
                     toast.success('🌟 Đăng nhập và tạo tài khoản thành công! Kiểm tra Email nhé !!')
