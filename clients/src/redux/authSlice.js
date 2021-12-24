@@ -44,10 +44,6 @@ export const register = createAsyncThunk(
                 }
             }
 
-<<<<<<< HEAD
-        } catch (error) {
-
-=======
             // setAuthToken(res.data.accessToken)
             // // Set cookies
             // Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
@@ -59,7 +55,6 @@ export const register = createAsyncThunk(
             // }
         } catch (error) {
 
->>>>>>> b7c7833 (login GG)
             return rejectWithValue(error.response.data.message)
         }
     }
@@ -154,7 +149,6 @@ export const loginUser = createAsyncThunk(
         }
     }
 )
-<<<<<<< HEAD
 
 //Login via Google
 export const loginViaGoogle = createAsyncThunk(
@@ -206,29 +200,6 @@ export const loginViaGoogle = createAsyncThunk(
                 user: res.data.user,
                 isAuthenticated: true
             }
-=======
-
-//reset password
-export const resetPassword = createAsyncThunk(
-    'auth/resetPassword',
-    async (params, { rejectWithValue }) => {
-        const resetForm = params
-        console.log(resetForm)
-        let res = null
-        try {
-            await axios
-                .post(`${process.env.REACT_APP_API_ROOT}/auths/resetPassword`, resetForm)
-                .then((response) => {
-                    res = response
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-            if (res.data.success === true) {
-                toast.success('🌟 Đặt lại mật khẩu thành công thành công! Đăng nhập để trở lại X2M!NT nhé !')
-            }
-
->>>>>>> b7c7833 (login GG)
         } catch (error) {
             return rejectWithValue(error.response.data.message)
         }

@@ -1,7 +1,5 @@
 @import "_setting.scss";
 
- 
-
 .homepage {
 
     @media screen and (max-width: 800) {
@@ -195,19 +193,14 @@
 
 
 
-<<<<<<< HEAD
 .footer {
     border-radius: 10px;
-=======
-  .footer {
->>>>>>> b7c7833 (login GG)
     border-top: 1px solid var(--mint);
     text-align: justify;
     height: 300px;
     width: 100%;
 
     &__logo {
-<<<<<<< HEAD
         margin: 20px 270px;
         display: inline;
 
@@ -217,32 +210,3 @@
         }
     }
 }
-=======
-      display: inline;
-
-      img {
-        max-width: 100px;
-      }
-    }
-    h1 .row{
-      color:var(--mint)
-    }
-  }
-
-  .vl {
-    align-items: center;
-    display: inline;
-    border-left: 4px solid var(--gray);
-    height: 100px;
-    position: absolute;
-    margin-left: 20px;
-    margin-top: 15px;
-    color: var(--mint);
-    padding: 20px;
-    vertical-align: middle;
-    font-family: var(--body-font);
-    font-size: 130%;
-    font-weight: 600;
-  }
-
->>>>>>> b7c7833 (login GG)
