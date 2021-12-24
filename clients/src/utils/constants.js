@@ -21,7 +21,8 @@ export const COOKIES = {
     ACCESS_TOKEN: 'accessToken',
     USER_ID: 'uid',
     MAX_DAYS_EXPIRE: 365,
-    REGISTER_STATUS: 'registerStatus'
+    REGISTER_STATUS: 'registerStatus',
+    LOGIN_GOOGLE_SUCCESS: 'loginSuccess'
 }
 
 export const STATUS = {
