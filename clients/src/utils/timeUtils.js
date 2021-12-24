@@ -52,3 +52,21 @@ export const getCurrentDatetime = () => {
 
     return datetime
 }
+
+export const getCurrentDate = () => {
+    var currentdate = new Date()
+    var date = currentdate.getFullYear()+ '-'
+        + (currentdate.getMonth() + 1) + '-'
+        + currentdate.getDate()
+
+    return date
+}
+
+export const getCurrentTime = () => {
+    var currentdate = new Date()
+    var time = currentdate.getHours() + ':'
+        + currentdate.getMinutes() + ':'
+        + currentdate.getSeconds() + ':00.000'
+
+    return time
+}

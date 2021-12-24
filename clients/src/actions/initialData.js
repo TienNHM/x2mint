@@ -4,8 +4,6 @@ export const blankContest = {
     description: '',
     url: '',
     embededMedia: '',
-    startTime: '',
-    endTime: '',
     status: ''
 }
 

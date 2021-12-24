@@ -7,6 +7,8 @@ import { isEmpty, isEmail, isLength, isMatch } from 'utils/Validation'
 import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { toast } from 'react-toastify'
+import Cookies from 'js-cookie'
+import { COOKIES } from 'utils/constants'
 
 const initialState = {
     username: '',
@@ -51,6 +53,12 @@ const Register = () => {
         }
         try {
             dispatch(register(user))
+            const s = Cookies.get(COOKIES.REGISTER_STATUS)
+            console.log(s)
+            Cookies.remove(COOKIES.REGISTER_STATUS)
+            if (s === 'success') {
+                navigate('/login')
+            }
         } catch (error) {
             error.response.data.msg &&
             setUser({ ...user, error: error.response.data.msg, success: '' })

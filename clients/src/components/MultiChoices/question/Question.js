@@ -9,6 +9,8 @@ import { createAnswer } from 'actions/api/AnswerAPI'
 import { updateQuestion } from 'actions/api/QuestionAPI'
 import { MAX, MODAL_ACTION, ROLE } from 'utils/constants'
 import './Question.scss'
+import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
+import { toast } from 'react-toastify'
 
 function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     // Lấy thông tin user
@@ -22,7 +24,9 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     const [rows, setRows] = useState(1)
     const [chooseAnswers, setChooseAnswers] = useState([])
     const [questionLength, setQuestionLength] = useState(MAX.QUESTION_LENGTH)
+
     const [isShowLibrary, setIsShowLibrary] = useState(false)
+    const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
 
     useEffect(() => {
         if (question) {
@@ -154,15 +158,6 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
         }
     }
 
-    const handleOnRemoveClick = async () => {
-        setEmbedMedia('')
-        const q = { ...question }
-        q.embededMedia = ''
-        setQuestion(q, !isUser)
-        const data = await updateQuestion(q)
-        console.log(data)
-    }
-
     const handleOnAddAnswer = async () => {
         const data = await createAnswer(
             {
@@ -186,18 +181,32 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
     //#endregion
 
-    const onConfirmModalAction = async (type, photo) => {
+    const onActionBrowseLibrary = async (type, photo) => {
         if (photo && type === MODAL_ACTION.CONFIRM) {
-            setEmbedMedia(photo.src.large)
+            setEmbedMedia(photo)
 
             const q = { ...question }
-            q.embededMedia = photo.src.large
+            q.embededMedia = photo
             setQuestion(q, !isUser)
-            const data = await updateQuestion(q)
-            console.log(data)
+            await updateQuestion(q)
         }
 
         setIsShowLibrary(false)
+    }
+
+    const onActionConfirmModal = async (action) => {
+        if (action === MODAL_ACTION.CONFIRM) {
+            setEmbedMedia('')
+            const q = { ...question }
+            q.embededMedia = ''
+            setQuestion(q, !isUser)
+            await updateQuestion(q)
+            toast.success('🌟 Đã xóa thành công!')
+        }
+        else {
+            toast.warning('💢 Đã hủy xóa hình ảnh!')
+        }
+        setIsShowConfirmModal(false)
     }
 
     const updateAnswer = (answer) => {
@@ -254,7 +263,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                             }
                         </div>
 
-                        <div className="question-embed col-10 d-flex align-items-end justify-content-center">
+                        <div className="question-embed mt-2 col-10 d-flex align-items-end justify-content-center">
                             {embededMedia &&
                                 <Image src={embededMedia} />
                             }
@@ -269,7 +278,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                             {!isUser &&
                                 <Button variant="danger"
                                     className="fw-bolder text-light"
-                                    onClick={handleOnRemoveClick}
+                                    onClick={() => setIsShowConfirmModal(true)}
                                 >
                                     <i className="fa fa-remove"></i>
                                 </Button>
@@ -304,7 +313,12 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                     )
                     }
 
-                    <BrowseLibrary show={isShowLibrary} onAction={onConfirmModalAction} />
+                    <ConfirmModal
+                        content="Bạn có thật sự muốn xóa bỏ hình này không?"
+                        isShow={isShowConfirmModal}
+                        onAction={onActionConfirmModal}
+                    />
+                    <BrowseLibrary show={isShowLibrary} onAction={onActionBrowseLibrary} />
                 </>
             }
         </div>

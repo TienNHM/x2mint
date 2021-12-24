@@ -13,7 +13,7 @@ import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
 import { createTakeTest, updateTakeTest } from 'actions/api/TakeTestAPI'
-import { Button, FormControl, Image, InputGroup } from 'react-bootstrap'
+import { Button, FormControl, Image } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 
 function MultiChoices() {
@@ -137,7 +137,7 @@ function MultiChoices() {
         else {
             toast.error('❌ Sai mã PIN, vui lòng nhập lại!')
             pinRef.current.value = ''
-            pinRef.current.focus() 
+            pinRef.current.focus()
         }
     }
 
@@ -206,8 +206,6 @@ function MultiChoices() {
                             <PanelSettings
                                 test={test}
                                 setTest={setTest}
-                                isCreator={!isUser}
-                                setSelectedQuestion={updateSelectedQuestion}
                             />
                         </div>
                     </div>

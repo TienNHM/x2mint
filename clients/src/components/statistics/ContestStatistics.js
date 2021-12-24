@@ -63,7 +63,7 @@ export function StatisticTakeTestsInContest(data) {
                     <div className="fw-bolder">{value.user.full_name}</div>
                     <div>
                         <Badge pill bg="info">
-                            <a href={process.env.REACT_APP_DOMAIN + '/404'}
+                            <a href={process.env.REACT_APP_WEBSITE + '/404'}
                                 className="text-light">
                                 @{value.user.username}
                             </a>
@@ -83,7 +83,7 @@ export function StatisticTakeTestsInContest(data) {
 
         const url = value.test.url ?
             value.test.url :
-            `${process.env.REACT_APP_DOMAIN}/404`
+            `${process.env.REACT_APP_WEBSITE}/404`
 
         const linkTest = (
             <Button size="sm" href={url} target="_blank">

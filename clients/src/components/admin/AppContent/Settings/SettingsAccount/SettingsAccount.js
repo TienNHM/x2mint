@@ -4,11 +4,12 @@ import { Form, Image, Button, Row, Col, Badge } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import ModalUpdateUserInfo from './ModalUpdateUserInfo'
 import { COOKIES, MODAL_ACTION, STATUS } from 'utils/constants'
-import { updateUserInfo } from 'actions/api/UserAPI'
+import { changePassword, updateUserInfo } from 'actions/api/UserAPI'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
 import { HashLoader } from 'react-spinners'
 import { toast } from 'react-toastify'
+import ChangePassword from 'components/User/ChangePassword'
 
 export default function SettingsAccount() {
     const user = useSelector((state) => state.auth.user)
@@ -27,6 +28,7 @@ export default function SettingsAccount() {
     const [userData, setUserData] = useState(null)
 
     const [isShow, setIsShow] = useState(false)
+    const [isShowModalChangePassword, setIsShowModalChangePassword] = useState(false)
 
     useEffect(() => {
         if (response) {
@@ -64,6 +66,7 @@ export default function SettingsAccount() {
 
             const data = await updateUserInfo(newUser)
             console.log(data)
+
             setUserData({
                 full_name: data.user.full_name,
                 username: data.user.username,
@@ -79,6 +82,18 @@ export default function SettingsAccount() {
             setIsShow(false)
 
             toast.success('🎉 Đã cập nhật thông tin thành công!')
+        }
+    }
+
+    const handleChangePassword = async (action, data) => {
+        const res = await changePassword(user.id, data.password, data.newPassword)
+        console.log(res)
+        if (res.success) {
+            toast.success('🌟 Bạn đã đổi mật khẩu thành công!')
+            setIsShowModalChangePassword(false)
+        }
+        else {
+            toast.error('💢 Vui lòng kiểm tra lại mật khẩu!')
         }
     }
 
@@ -118,7 +133,8 @@ export default function SettingsAccount() {
                                     </div>
 
                                     <div>
-                                        <Button size="sm" variant="primary" className="m-1">
+                                        <Button size="sm" variant="primary" className="m-1"
+                                            onClick={() => setIsShowModalChangePassword(true)}>
                                             Đổi mật khẩu
                                         </Button>
                                         <Button size="sm" variant="success" className="m-1"
@@ -178,6 +194,11 @@ export default function SettingsAccount() {
                         user={userData}
                         isShow={isShow}
                         onAction={handleAction}
+                    />
+
+                    <ChangePassword
+                        isShow={isShowModalChangePassword}
+                        onAction={handleChangePassword}
                     />
                 </>
             }

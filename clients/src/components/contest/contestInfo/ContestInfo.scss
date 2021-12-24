@@ -1,8 +1,7 @@
 @import '_setting.scss';
 
-$contest-title-height: 45px;
 $title-list-tests-height: 60px;
-$container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-height} - #{$title-list-tests-height} - 30px);
+$container-list-tests-height: calc(100vh - #{$navbar-height} - #{$title-list-tests-height} - 10px);
 
 .contest-information {
     margin-top: $navbar-height;
@@ -13,19 +12,6 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
         margin-left: 0 !important;
         margin-right: 0 !important;
     }
-    
-    .contest-title {
-        display: flex;
-        flex-direction: row;
-        height: $contest-title-height;
-        margin: $gap 0;
-
-        .heading {
-            text-transform: uppercase;
-            color: $theme-color;
-            width: 100%;
-        }
-    }
 
     .loading {
         height: calc(100vh - 3*#{$navbar-height});
@@ -34,6 +20,7 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
     .container-section {
         display: flex;
         flex-direction: row;
+        height: 90vh;
 
         > * {
             margin-bottom: $gap;
@@ -49,7 +36,7 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$contest-title-
             .card {
                 border-radius: $gap/2;
                 border: none;
-                max-height: calc(100vh - #{$navbar-height} - #{$contest-title-height} - 2.5*#{$gap});
+                max-height: calc(100vh - #{$navbar-height} - 2.5*#{$gap});
 
                 .card-img-top {
                     margin: $gap;

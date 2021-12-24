@@ -1,7 +1,7 @@
 import React from 'react'
-import './Image.scss'
+import './MyImage.scss'
 
-function Image({ photo, index, selectedIndex, updateSelectedPhoto }) {
+function MyImage({ photo, index, selectedIndex, updateSelectedPhoto }) {
     return (
         <img className={index === selectedIndex ? 'img-result selected' : 'img-result'}
             src={photo.src.tiny}
@@ -11,4 +11,4 @@ function Image({ photo, index, selectedIndex, updateSelectedPhoto }) {
     )
 }
 
-export default Image
+export default MyImage

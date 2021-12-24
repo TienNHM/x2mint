@@ -1,31 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { showErrMsg, showSuccessMsg } from 'utils/notification/Notification'
-import { useDispatch} from 'react-redux'
-import { activation } from 'redux/authSlice'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
+import axios from 'axios'
 
 const ActivationEmail = () => {
-    const dispatch = useDispatch()
     const { activation_token } = useParams()
     const [err, setErr] = useState('')
-    const [success] = useState('')
+    const [success, setSuccess] = useState('')
 
-    try {
-        dispatch(activation(activation_token))
-    } catch (error) {
-        error.response.data.msg &&
-        setErr({ error: error.response.data.msg, success: '' })
-    }
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (activation_token) {
+            const activationEmail = async () => {
+                try {
+                    const res = await axios.post('/auths/activation', { activation_token })
+                    console.log(res)
+                    setSuccess(res.data.success)
+                } catch (err) {
+                    err.response.data.msg && setErr(err.response.data.msg)
+                }
+            }
+            activationEmail()
+        }
+    }, [activation_token])
 
     return (
-        <>
-            <Navigate to="/login" />
-            <div className="active_page">
-                {err && showErrMsg(err)}
-                {success && showSuccessMsg(success)}
-            </div>
-        </>
+        <div className="active_page">
+            {success && navigate('/')}
+            {!success && <p>Lỗi</p>}
+        </div>
     )
 }
 
