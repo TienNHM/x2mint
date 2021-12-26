@@ -10,13 +10,13 @@ function ConfirmModal({ title, content, isShow, onAction }) {
             onHide={() => onAction(MODAL_ACTION.CLOSE)}
             backdrop='static'
             keyboard={false}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton className="d-flex justify-content-center">
                 <Modal.Title>
                     {HTMLReactParser(title || 'Xác nhận')}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>{HTMLReactParser(content)}</Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className="d-flex justify-content-center">
                 <Button variant="secondary" onClick={() => onAction(MODAL_ACTION.CLOSE)}>
                     Đóng
                 </Button>

@@ -75,9 +75,10 @@ export default function SubmitResult() {
                 size="lg"
                 fullscreen={true}
                 show={true}
+                onHide={() => navigate(-2)}
                 backdrop='static'
                 keyboard={false}>
-                <Modal.Header>
+                <Modal.Header closeButton className="d-flex justify-content-center">
                     <Modal.Title>
                         <span className="fw-bolder">{takeTest && takeTest.test.name}</span>
                     </Modal.Title>
@@ -91,9 +92,9 @@ export default function SubmitResult() {
 
                     {!loadingTakeTest && !loadingTakeTestLogs &&
                         <div className="row">
-                            <div className="take-test-info col-8">
-                                <div className="duration d-flex align-items-end">
-                                    <div>
+                            <div className="take-test-info col-lg-6 col-12">
+                                <div className="duration d-flex align-items-end row">
+                                    <div className="col-12 col-lg-6">
                                         <div className="label">
                                             Thời gian nộp bài:
                                         </div>
@@ -114,7 +115,7 @@ export default function SubmitResult() {
                                             />
                                         </div>
                                     </div>
-                                    <div>
+                                    <div className="col-6 col-lg-3">
                                         <div className="label">Điểm số:</div>
                                         <div className="row">
                                             <Form.Control
@@ -126,11 +127,13 @@ export default function SubmitResult() {
                                             />
                                         </div>
                                     </div>
-                                    <div>
-                                        <ExportToExcel
-                                            apiData={takeTestData.rows}
-                                            fileName={takeTest.user.username + ' ' + takeTest.submitTime}
-                                        />
+                                    <div className="col-6 col-lg-3 d-flex justify-content-end">
+                                        <div>
+                                            <ExportToExcel
+                                                apiData={takeTestData.rows}
+                                                fileName={takeTest.user.username + ' ' + takeTest.submitTime}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="data-table">
@@ -140,12 +143,12 @@ export default function SubmitResult() {
                                         entries={10}
                                         pagesAmount={4}
                                         data={takeTestData}
-                                        materialSearch
+                                        materialSearch scrollX
                                     />
                                 </div>
                             </div>
 
-                            <div className="take-test-logs col-4">
+                            <div className="take-test-logs col-lg-6 col-12">
                                 <div className="fw-bolder">Lịch sử làm bài</div>
                                 <ul className="logs" style={{ listStyle: 'square', lineHeight: '2' }}>
                                     {takeTestLogsData.map((value, index) => {
@@ -168,13 +171,6 @@ export default function SubmitResult() {
                         </div>
                     }
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary"
-                        onClick={() => navigate(-2)}
-                    >
-                        Đóng
-                    </Button>
-                </Modal.Footer>
             </Modal>
         </>
     )

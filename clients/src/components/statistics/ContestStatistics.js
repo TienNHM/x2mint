@@ -14,7 +14,7 @@ export const TAKETEST_COLUMNS = [
         label: STATISTICS.TAKE_TEST.TEST_NAME,
         field: STATISTICS.TAKE_TEST.TEST_NAME,
         sort: 'asc',
-        width: 250
+        width: 220
     },
     {
         label: STATISTICS.TAKE_TEST._TEST_URL,
@@ -62,11 +62,11 @@ export function StatisticTakeTestsInContest(data) {
 
         const user = (
             <div className="row">
-                <div className="col-2 ps-3">
+                <div className="col-2">
                     <Image roundedCircle src={avatar} width="48px" height="48px" alt='M' />
                 </div>
-                <div className="col-10 text-start pe-3">
-                    <div className="fw-bolder">{value.user.full_name}</div>
+                <div className="col-10 text-start">
+                    <div className="fw-bold">{value.user.full_name}</div>
                     <div>
                         <Badge pill bg="info">
                             <a href={process.env.REACT_APP_WEBSITE + '/404'}

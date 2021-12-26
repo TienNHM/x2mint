@@ -94,7 +94,7 @@ export default function Share({ isShow, handleIsShow, shareContent }) {
             keyboard={false}
             onHide={() => handleIsShow(false)}
         >
-            <Modal.Header closeButton>
+            <Modal.Header closeButton className="d-flex justify-content-center">
                 <Modal.Title>Chia sẻ</Modal.Title>
             </Modal.Header>
             <Modal.Body className="text-center">
@@ -105,11 +105,6 @@ export default function Share({ isShow, handleIsShow, shareContent }) {
                 <ShareLinkedin url={url} title={title} content={content} source={source} />
                 <ShareEmail url={url} title={title} content={content} />
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant="primary" onClick={() => handleIsShow(false)}>
-                    OK
-                </Button>
-            </Modal.Footer>
         </Modal>
     )
 }

@@ -80,7 +80,7 @@ export default function ChangePassword({ isShow, onAction }) {
             onHide={() => handleSubmit(MODAL_ACTION.CLOSE)}
             backdrop='static'
             keyboard={false}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton className="d-flex justify-content-center">
                 <Modal.Title>
                     Đổi mật khẩu
                 </Modal.Title>
@@ -123,7 +123,7 @@ export default function ChangePassword({ isShow, onAction }) {
                     </div>
                 </div>
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className="d-flex justify-content-center">
                 <Button variant="secondary" onClick={() => handleSubmit(MODAL_ACTION.CLOSE)}>
                     Đóng
                 </Button>

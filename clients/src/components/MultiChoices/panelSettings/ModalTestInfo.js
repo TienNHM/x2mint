@@ -39,7 +39,7 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
             backdrop='static'
             keyboard={false}>
 
-            <Modal.Header closeButton>
+            <Modal.Header closeButton className="d-flex justify-content-center">
                 <Modal.Title className="h5 fw-bolder">Thông tin chi tiết</Modal.Title>
             </Modal.Header>
 
@@ -169,7 +169,7 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
                 </div>
             </Modal.Body>
 
-            <Modal.Footer>
+            <Modal.Footer className="d-flex justify-content-center">
                 <Button variant="secondary"
                     onClick={() => handleAction(MODAL_ACTION.CLOSE)}>
                     Đóng

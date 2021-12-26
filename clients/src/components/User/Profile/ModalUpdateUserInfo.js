@@ -91,7 +91,7 @@ export default function ModalUpdateUserInfo(props) {
             size="lg"
             backdrop='static'
             keyboard={false}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton className="d-flex justify-content-center">
                 <Modal.Title>Cập nhật thông tin</Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -165,7 +165,7 @@ export default function ModalUpdateUserInfo(props) {
                     </Row>
                 </div>
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className="d-flex justify-content-center">
                 <Button variant="secondary" onClick={() => handleAction(MODAL_ACTION.CLOSE)}>
                     Hủy
                 </Button>
