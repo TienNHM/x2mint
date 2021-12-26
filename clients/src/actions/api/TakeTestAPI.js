@@ -20,10 +20,15 @@ export const createTakeTest = async (takeTest) => {
     }
 }
 
-export const updateTakeTest = async (takeTest) => {
+export const updateTakeTest = async (takeTest, action) => {
     try {
+        const data = {
+            ...takeTest,
+            action: action
+        }
+        console.log(data)
         const url = `${process.env.REACT_APP_API_ROOT}/takeTest/${takeTest._id}`
-        const request = await axios.put(url, takeTest, {
+        const request = await axios.put(url, data, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
             }

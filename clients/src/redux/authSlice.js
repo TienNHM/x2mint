@@ -250,6 +250,7 @@ export const loadUser = createAsyncThunk(
                         response = err.response
                     })
 
+                console.log(response)
                 if (response.data.success === true) {
                     return {
                         isAuthenticated: true,

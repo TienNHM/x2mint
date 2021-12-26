@@ -111,8 +111,9 @@ function MultiChoices() {
             answers: [...chooseAnswer]
         }
 
+        let index = 0
         if (newTakeTest.chooseAnswers.length > 0) {
-            const index = newTakeTest.chooseAnswers.findIndex(e => e.question === question._id)
+            index = newTakeTest.chooseAnswers.findIndex(e => e.question === question._id)
             if (index !== -1) {
                 newTakeTest.chooseAnswers[index] = choose
             }
@@ -120,7 +121,10 @@ function MultiChoices() {
         }
         else newTakeTest.chooseAnswers = [choose]
 
-        const data = await updateTakeTest(newTakeTest)
+        const data = await updateTakeTest(
+            newTakeTest,
+            `Chọn đáp án ${chooseAnswer.join(', ')} cho câu hỏi số ${index+1}.`
+        )
 
         setTakeTest({
             ...data.takeTest,
