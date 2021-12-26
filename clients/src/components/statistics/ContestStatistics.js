@@ -92,7 +92,7 @@ export function StatisticTakeTestsInContest(data) {
             `${process.env.REACT_APP_WEBSITE}/404`
 
         const linkTest = (
-            <Button size="sm" href={url} target="_blank"
+            <Button size="sm" href={url} target="_self"
                 style={{ backgroundColor: 'transparent', border: 'none' }}>
                 <i className="fa fa-link text-primary"></i>
             </Button>
@@ -100,7 +100,7 @@ export function StatisticTakeTestsInContest(data) {
 
         const detail = (
             <Button size="sm"
-                href={`/takeTest/${value.id}`} target="_blank"
+                href={`/takeTest/${value.id}`} target="_self"
                 style={{ backgroundColor: 'transparent', border: 'none' }}>
                 <i className="fa fa-info-circle text-primary"></i>
             </Button>

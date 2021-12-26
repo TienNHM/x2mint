@@ -133,7 +133,6 @@ function MultiChoices() {
     }
 
     const enterTest = () => {
-        console.log(test)
         if (pinRef.current.value === test.pin) {
             toast.success('🎉 Nhập mã PIN thành công, chúc bạn thi tốt')
             setIsEntered(true)

@@ -190,17 +190,6 @@ export default function StatisticContest() {
                             />
                         </div>
                     </div>
-
-                    <div id="charts">
-                        <div className="section-header m-3 h4 d-flex">
-                            <i className="fa fa-line-chart me-3"></i>
-                            Lịch sử làm bài
-                        </div>
-
-                        <div className="row ps-3 pe-3 chart-data justify-content-around align-item-end">
-                            
-                        </div>
-                    </div>
                 </>
             }
         </div>
