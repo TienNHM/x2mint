@@ -133,7 +133,13 @@ export const TAKETEST_COLUMNS = [
         label: STATISTICS.TAKE_TEST.IS_PASSED,
         field: STATISTICS.TAKE_TEST.IS_PASSED,
         sort: 'asc',
-        width: 150
+        width: 120
+    },
+    {
+        label: STATISTICS.TAKE_TEST._DETAIL,
+        field: STATISTICS.TAKE_TEST._DETAIL,
+        sort: 'disabled',
+        width: 80
     }
 ]
 
@@ -166,6 +172,14 @@ export function ExportDataTakeTest(data) {
                 <Badge pill bg="danger">{value._status}</Badge> :
                 <Badge pill bg="warning">{value._status}</Badge>
 
+        const detail = (
+            <Button size="sm"
+                href={`/takeTest/${value.id}`} target="_self"
+                style={{ backgroundColor: 'transparent', border: 'none' }}>
+                <i className="fa fa-info-circle text-primary"></i>
+            </Button>
+        )
+
         const item = {
             [STATISTICS.TAKE_TEST.STT]: index + 1,
             [STATISTICS.TAKE_TEST.TEST_NAME]: value.test.name,
@@ -175,7 +189,8 @@ export function ExportDataTakeTest(data) {
             [STATISTICS.TAKE_TEST.SUBMIT_TIME]: submitTime.time + ' ngày ' + submitTime.date,
             [STATISTICS.TAKE_TEST.POINTS]: value.points,
             [STATISTICS.TAKE_TEST.IS_PASSED]: status,
-            [STATISTICS.TAKE_TEST.STATUS]: value._status
+            [STATISTICS.TAKE_TEST.STATUS]: value._status,
+            [STATISTICS.TAKE_TEST._DETAIL]: detail
         }
         return item
     })
