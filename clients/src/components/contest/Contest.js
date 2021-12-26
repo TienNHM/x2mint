@@ -279,7 +279,7 @@ export default function Contest() {
 
                         {contests.length === 0 &&
                             <Card.Body className="row d-flex justify-content-center align-items-center">
-                                <Image src={process.env.PUBLIC_URL + '/assets/nothing.svg'} style={{ width: '70%' }} />
+                                <Image src={process.env.PUBLIC_URL + '/assets/nothing.svg'} style={{ width: '50%' }} />
                             </Card.Body>
                         }
                     </>
