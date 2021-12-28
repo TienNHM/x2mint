@@ -108,3 +108,5 @@ export const STATISTICS = {
         _STATUS: 'Status'
     }
 }
+
+export const MAX_EXIT_FULLSCREEN = 3

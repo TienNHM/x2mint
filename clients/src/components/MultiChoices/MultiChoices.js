@@ -8,7 +8,7 @@ import { useParams } from 'react-router'
 import { Navigate } from 'react-router-dom'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
-import { COOKIES, ROLE, STATUS } from 'utils/constants'
+import { COOKIES, MAX_EXIT_FULLSCREEN, ROLE, STATUS } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
@@ -16,6 +16,7 @@ import { createTakeTest, updateTakeTest } from 'actions/api/TakeTestAPI'
 import { Button, FormControl, Image } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import { useEventListener } from 'utils/EventListener'
+import { submit } from 'actions/api/TakeTestAPI'
 
 function MultiChoices() {
     let { testId } = useParams()
@@ -42,26 +43,29 @@ function MultiChoices() {
     const [selectedQuestion, setSelectedQuestion] = useState(null)
     const [takeTest, setTakeTest] = useState(null)
 
-    const handler = ({ key }) => {
+    const [countExitFullscreen, setCountExitFullscreen] = useState(0)
+
+    const handler = async () => {
         if (!isEntered) {
             return
         }
-        console.log(key)
-        // Hiện tại
-        if (window.innerWidth === screen.width &&
-            window.innerHeight === screen.height
+
+        if (window.innerWidth !== screen.width ||
+            window.innerHeight !== screen.height
         ) {
-            // Nếu đã fullscreen, nhưng thoát
-            toast.success(window.innerWidth + ' ' + screen.width + ' ' +
-                window.innerHeight + ' ' + screen.height)
-        } else {
-            // Ngược lại thì thôi
-            toast.success(window.innerWidth + ' ' + screen.width + ' ' +
-                window.innerHeight + ' ' + screen.height)
+            if (countExitFullscreen < MAX_EXIT_FULLSCREEN) {
+                toast.error('💢 Vui lòng mở toàn màn hình để tiếp tục làm bài!')
+                setCountExitFullscreen(countExitFullscreen + 1)
+            }
+            else {
+                toast.error('💢 Bài thi vi phạm quy chế thi!')
+                await submit(takeTest._id)
+                setIsSubmitted(true)
+            }
         }
     }
 
-    useEventListener('keyup', handler)
+    useEventListener('resize', handler)
 
     useEffect(() => {
         async function callCreateTakeTest(_takeTest) {
