@@ -119,24 +119,23 @@ function PanelSettings(props) {
 
     const handleOnUpdateTestInfo = async (action, _test) => {
         if (action === MODAL_ACTION.CONFIRM) {
-            console.log('test', test)
             const newTest = {
                 ...test,
                 name: _test.name,
                 maxPoints: _test.maxPoints,
                 url: _test.url,
+                pin: _test.pin,
                 description: _test.description,
                 startTime: _test.startTime,
                 endTime: _test.endTime
             }
 
             // Lưu vào CSDL
-            const data = await updateTest(newTest)
-            console.log(data)
+            await updateTest(newTest)
 
             // Update lại test
             setTest(newTest)
-            alert.success('Đã lưu lại những thay đổi của bạn!')
+            toast.success('Đã lưu lại những thay đổi của bạn!')
         }
         setIsShowTestInfo(false)
     }
@@ -174,7 +173,7 @@ function PanelSettings(props) {
     return (
         <div className="panel-settings">
             <div className="panel-right">
-                <div className="panel-right-title">Thông tin chi tiết</div>
+                <div className="panel-right-title">Chi tiết</div>
 
                 <div className="attributes app-vertical-scrollbar">
                     <div className="attribute-title">
@@ -244,7 +243,7 @@ function PanelSettings(props) {
 
                     {!isUser &&
                         <>
-                            {/* <div className="attribute-title">
+                            <div className="attribute-title">
                                 <div>Link</div>
                                 <div className="title">
                                     <Form.Control
@@ -258,7 +257,7 @@ function PanelSettings(props) {
                                         readOnly={isUser}
                                     />
                                 </div>
-                            </div> */}
+                            </div>
 
                             <div className="time-picker">
                                 <div>Thời gian bắt đầu</div>

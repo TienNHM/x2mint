@@ -173,7 +173,8 @@ export default function StatisticContest() {
                                 fieldsToBeRemoved={[
                                     STATISTICS.TAKE_TEST.EXAMINEE,
                                     STATISTICS.TAKE_TEST.IS_PASSED,
-                                    STATISTICS.TAKE_TEST._TEST_URL
+                                    STATISTICS.TAKE_TEST._TEST_URL,
+                                    STATISTICS.TAKE_TEST._DETAIL
                                 ]}
                             />
                         </div>

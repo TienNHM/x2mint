@@ -53,12 +53,13 @@ const Register = () => {
         }
         try {
             dispatch(register(user))
-            const s = Cookies.get(COOKIES.REGISTER_STATUS)
-            console.log(s)
-            Cookies.remove(COOKIES.REGISTER_STATUS)
-            if (s === 'success') {
-                navigate('/login')
-            }
+            navigate('/login')
+            // const s = Cookies.get(COOKIES.REGISTER_STATUS)
+            // console.log(s)
+            // Cookies.remove(COOKIES.REGISTER_STATUS)
+            // if (s === 'success') {
+            //     navigate('/login')
+            // }
         } catch (error) {
             error.response.data.msg &&
             setUser({ ...user, error: error.response.data.msg, success: '' })
@@ -102,6 +103,7 @@ const Register = () => {
                     <div className="input">
                         <div className="input_item" >
                             <input
+                                className={user.error ? 'makeRed' : ''}
                                 type="text"
                                 name="username"
                                 value={user.username}
@@ -112,6 +114,7 @@ const Register = () => {
                         </div>
                         <div className="input_item">
                             <input
+                                className={user.error ? 'makeRed' : ''}
                                 type="text"
                                 name="email"
                                 value={user.email}
@@ -122,6 +125,7 @@ const Register = () => {
                         </div>
                         <div className="input_item">
                             <input
+                                className={user.error ? 'makeRed' : ''}
                                 type="password"
                                 name="password"
                                 value={user.password}
@@ -132,6 +136,7 @@ const Register = () => {
                         </div>
                         <div className="input_item">
                             <input
+                                className={user.error ? 'makeRed' : ''}
                                 type="password"
                                 name="reEnterPassword"
                                 value={user.reEnterPassword}

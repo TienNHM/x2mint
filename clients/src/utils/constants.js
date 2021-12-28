@@ -85,14 +85,15 @@ export const STATISTICS = {
         STT: 'STT',
         TEST_NAME: 'Tên bài thi',
         TEST_URL: 'Link bài test',
-        _TEST_URL: 'Link bài thi',
         EXAMINEE: 'Thí sinh',
         EXAMINEE_FULLNAME: 'Họ tên thí sinh',
         EXAMINEE_USERNAME: 'Username',
         POINTS: 'Điểm',
         SUBMIT_TIME: 'Thời gian nộp bài',
         STATUS: 'Trạng thái',
-        IS_PASSED: 'Pass/Fail'
+        IS_PASSED: 'Pass/Fail',
+        _TEST_URL: 'Link bài thi',
+        _DETAIL: 'Chi tiết'
     },
     CONTEST: {
         STT: 'STT',
@@ -107,3 +108,5 @@ export const STATISTICS = {
         _STATUS: 'Status'
     }
 }
+
+export const MAX_EXIT_FULLSCREEN = 3

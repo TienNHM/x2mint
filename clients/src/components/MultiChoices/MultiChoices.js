@@ -8,13 +8,16 @@ import { useParams } from 'react-router'
 import { Navigate } from 'react-router-dom'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
-import { COOKIES, ROLE, STATUS } from 'utils/constants'
+import { COOKIES, MAX_EXIT_FULLSCREEN, ROLE, STATUS } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
 import { createTakeTest, updateTakeTest } from 'actions/api/TakeTestAPI'
 import { Button, FormControl, Image } from 'react-bootstrap'
 import { toast } from 'react-toastify'
+import { useEventListener } from 'utils/EventListener'
+import { submit } from 'actions/api/TakeTestAPI'
+import { cloneDeep } from 'lodash'
 
 function MultiChoices() {
     let { testId } = useParams()
@@ -31,15 +34,49 @@ function MultiChoices() {
 
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE.USER
-    const [isSubmitted, setIsSubmitted] = useState(false)
-    const [isEntered, setIsEntered] = useState(false)
 
     const pinRef = useRef('')
 
+    const [isSubmitted, setIsSubmitted] = useState(false)
+    const [isEntered, setIsEntered] = useState(false)
     const [test, setTest] = useState(null)
     const [questions, setQuestions] = useState(null)
     const [selectedQuestion, setSelectedQuestion] = useState(null)
     const [takeTest, setTakeTest] = useState(null)
+
+    const [countExitFullscreen, setCountExitFullscreen] = useState(0)
+    const [isFullScreen, setIsFullScreen] = useState(true)
+
+    const handler = async () => {
+        if (!isEntered) {
+            return
+        }
+
+        if (window.innerWidth !== screen.width ||
+            window.innerHeight !== screen.height
+        ) {
+            if (countExitFullscreen < MAX_EXIT_FULLSCREEN) {
+                toast.error('💢 Vui lòng mở toàn màn hình để tiếp tục làm bài!')
+                setCountExitFullscreen(countExitFullscreen + 1)
+                setIsFullScreen(false)
+
+                await updateTakeTest(
+                    cloneDeep(takeTest),
+                    '⚠ Thoát toàn màn hình.'
+                )
+            }
+            else {
+                toast.error('💢 Bài thi vi phạm quy chế thi!')
+                await submit(takeTest._id)
+                setIsSubmitted(true)
+            }
+        }
+        else {
+            setIsFullScreen(true)
+        }
+    }
+
+    useEventListener('resize', handler)
 
     useEffect(() => {
         async function callCreateTakeTest(_takeTest) {
@@ -123,7 +160,7 @@ function MultiChoices() {
 
         const data = await updateTakeTest(
             newTakeTest,
-            `Chọn đáp án ${chooseAnswer.join(', ')} cho câu hỏi số ${index+1}.`
+            `Chọn đáp án ${chooseAnswer.join(', ')} cho câu hỏi số ${index + 1}.`
         )
 
         setTakeTest({
@@ -133,10 +170,12 @@ function MultiChoices() {
     }
 
     const enterTest = () => {
-        console.log(test)
         if (pinRef.current.value === test.pin) {
             toast.success('🎉 Nhập mã PIN thành công, chúc bạn thi tốt')
             setIsEntered(true)
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen()
+            }
         }
         else {
             toast.error('❌ Sai mã PIN, vui lòng nhập lại!')
@@ -146,76 +185,92 @@ function MultiChoices() {
     }
 
     if (isEntered || !isUser) {
-        return (
-            <div className="app-container">
-                {isSubmitted &&
-                    <Navigate to={`/takeTest/${takeTest._id}`} />
-                }
+        if (isFullScreen) {
+            return (
+                <div className="app-container">
+                    {isSubmitted &&
+                        <Navigate to={`/takeTest/${takeTest._id}`} />
+                    }
 
-                {testIsLoading &&
-                    <div
-                        className='sweet-loading d-flex justify-content-center align-items-center'
-                        style={
-                            {
-                                width: '100%',
-                                height: '100%',
-                                position: 'absolute',
-                                top: 0,
-                                left: 0
+                    {testIsLoading &&
+                        <div
+                            className='sweet-loading d-flex justify-content-center align-items-center'
+                            style={
+                                {
+                                    width: '100%',
+                                    height: '100%',
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0
+                                }
                             }
-                        }
-                    >
-                        <HashLoader color={'#7ED321'} loading={testIsLoading} />
-                    </div>
-                }
-
-                {!testIsLoading &&
-                    <div className="row">
-                        {!isUser ?
-                            (
-                                <div className="col-lg-2 col-12">
-                                    <PanelPreview
-                                        test={test}
-                                        setTest={setTest}
-                                        questions={questions}
-                                        setQuestions={setQuestions}
-                                        selectedQuestion={selectedQuestion}
-                                        setSelectedQuestion={setSelectedQuestion}
-                                    />
-                                </div>
-                            ) : (
-                                <div className="col-lg-2 col-12">
-                                    <PanelQuestionPicker
-                                        test={test}
-                                        selectedQuestion={selectedQuestion}
-                                        setSelectedQuestion={setSelectedQuestion}
-                                        takeTest={takeTest}
-                                        setIsSubmitted={setIsSubmitted}
-                                    />
-                                </div>
-                            )
-                        }
-
-                        <div className="col-lg-8 col-12">
-                            <Question
-                                question={selectedQuestion}
-                                setQuestion={updateSelectedQuestion}
-                                isCreator={!isUser}
-                                takeTest={takeTest}
-                                updateTakeTest={updateTakeTestInfo}
-                            />
+                        >
+                            <HashLoader color={'#7ED321'} loading={testIsLoading} />
                         </div>
+                    }
 
-                        <div className="col-lg-2 col-12" id="panel-settings">
-                            <PanelSettings
-                                test={test}
-                                setTest={setTest}
-                            />
+                    {!testIsLoading &&
+                        <div className="row">
+                            {!isUser ?
+                                (
+                                    <div className="col-lg-2 col-12">
+                                        <PanelPreview
+                                            test={test}
+                                            setTest={setTest}
+                                            questions={questions}
+                                            setQuestions={setQuestions}
+                                            selectedQuestion={selectedQuestion}
+                                            setSelectedQuestion={setSelectedQuestion}
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="col-lg-2 col-12">
+                                        <PanelQuestionPicker
+                                            test={test}
+                                            selectedQuestion={selectedQuestion}
+                                            setSelectedQuestion={setSelectedQuestion}
+                                            takeTest={takeTest}
+                                            setIsSubmitted={setIsSubmitted}
+                                        />
+                                    </div>
+                                )
+                            }
+
+                            <div className="col-lg-8 col-12">
+                                <Question
+                                    question={selectedQuestion}
+                                    setQuestion={updateSelectedQuestion}
+                                    isCreator={!isUser}
+                                    takeTest={takeTest}
+                                    updateTakeTest={updateTakeTestInfo}
+                                />
+                            </div>
+
+                            <div className="col-lg-2 col-12" id="panel-settings">
+                                <PanelSettings
+                                    test={test}
+                                    setTest={setTest}
+                                />
+                            </div>
                         </div>
-                    </div>
-                }
-            </div>
-        )
+                    }
+                </div>
+            )
+        }
+        else {
+            return (
+                <div className="d-flex flex-column justify-content-center align-items-center"
+                    style={{ height: '100vh' }}>
+                    <h1 className="fw-bolder text-danger">
+                        Vui lòng bấm F11 mở toàn màn hình để tiếp tục làm bài thi!
+                    </h1>
+                    <Button variant="success"
+                        onClick={() => document.documentElement.requestFullscreen()}>
+                        Làm bài
+                    </Button>
+                </div>
+            )
+        }
     }
     else {
         return (
@@ -231,12 +286,14 @@ function MultiChoices() {
                         </div>
 
                         <FormControl
-                            aria-label="Default"
-                            aria-describedby="inputGroup-sizing-default"
+                            aria-label="PIN"
+                            className="fw-bolder text-center m-1"
                             ref={pinRef}
                         />
 
-                        <Button variant="success" onClick={() => enterTest()}>
+                        <Button variant="success"
+                            className="m-1"
+                            onClick={() => enterTest()}>
                             Xác nhận
                         </Button>
                     </div>

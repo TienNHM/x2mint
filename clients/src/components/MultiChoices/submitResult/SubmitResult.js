@@ -9,14 +9,15 @@ import { useNavigate, useParams } from 'react-router'
 import { useAxios } from 'actions/useAxios.js'
 import Cookies from 'js-cookie'
 import { HashLoader } from 'react-spinners'
+import { splitTime } from 'utils/timeUtils'
 
 export default function SubmitResult() {
     let { takeTestId } = useParams()
     let navigate = useNavigate()
 
     const {
-        response,
-        loading
+        response: responseTakeTest,
+        loading: loadingTakeTest
     } = useAxios({
         method: 'GET',
         url: `/takeTest/${takeTestId}`,
@@ -25,16 +26,48 @@ export default function SubmitResult() {
         }
     })
 
+    const {
+        response: responseTakeTestLogs,
+        loading: loadingTakeTestLogs
+    } = useAxios({
+        method: 'GET',
+        url: `/takeTest/${takeTestId}/logs`,
+        headers: {
+            Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
+        }
+    })
+
     const [takeTest, setTakeTest] = useState(null)
-    const [data, setData] = useState(null)
+    const [takeTestData, setTakeTestData] = useState(null)
+    //const [takeTestLogs, setTakeTestLogs] = useState(null)
+    const [takeTestLogsData, setTakeTestLogsData] = useState(null)
 
     useEffect(() => {
-        if (response) {
-            setTakeTest(response.data)
-            console.log(response.data)
-            setData(exportData(response.data))
+        if (responseTakeTest) {
+            setTakeTest(responseTakeTest.data)
+            setTakeTestData(exportData(responseTakeTest.data))
         }
-    }, [response])
+    }, [responseTakeTest])
+
+    useEffect(() => {
+        if (responseTakeTestLogs) {
+            const data = responseTakeTestLogs.data
+            //setTakeTestLogs(data)
+            if (data) {
+                const logs = data.logs.map(value => {
+                    const { time, action } = value
+                    const datatime = splitTime(time)
+                    return {
+                        date: datatime.date,
+                        time: datatime.time,
+                        action: action
+                    }
+                })
+                setTakeTestLogsData(logs)
+            }
+            else setTakeTestLogsData([])
+        }
+    }, [responseTakeTestLogs])
 
     return (
         <>
@@ -42,82 +75,102 @@ export default function SubmitResult() {
                 size="lg"
                 fullscreen={true}
                 show={true}
+                onHide={() => navigate(-2)}
                 backdrop='static'
                 keyboard={false}>
-                <Modal.Header>
+                <Modal.Header closeButton className="d-flex justify-content-center">
                     <Modal.Title>
                         <span className="fw-bolder">{takeTest && takeTest.test.name}</span>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {loading ? (
+                    {(loadingTakeTest || loadingTakeTestLogs) && (
                         <div className='sweet-loading'>
-                            <HashLoader color={'#7ED321'} loading={loading} />
+                            <HashLoader color={'#7ED321'} loading={loadingTakeTest} />
                         </div>
-                    ) : (
-                        <div className="take-test-info">
-                            <div className="duration d-flex align-items-end">
-                                <div>
-                                    <div className="label">
-                                        Thời gian nộp bài:
+                    )}
+
+                    {!loadingTakeTest && !loadingTakeTestLogs &&
+                        <div className="row">
+                            <div className="take-test-info col-lg-6 col-12">
+                                <div className="duration d-flex align-items-end row">
+                                    <div className="col-12 col-lg-6">
+                                        <div className="label">
+                                            Thời gian nộp bài:
+                                        </div>
+                                        <div className="row">
+                                            <Form.Control
+                                                size="sm"
+                                                type="date"
+                                                value={takeTest.submitTime.split('T')[0]}
+                                                readOnly={true}
+                                                style={{ width: '140px', margin: '5px', textAlign: 'center' }}
+                                            />
+                                            <Form.Control
+                                                size="sm"
+                                                type="time"
+                                                value={takeTest.submitTime.split('T')[1].slice(0, 5)}
+                                                readOnly={true}
+                                                style={{ width: '140px', margin: '5px', textAlign: 'center' }}
+                                            />
+                                        </div>
                                     </div>
-                                    <div className="row">
-                                        <Form.Control
-                                            size="sm"
-                                            type="date"
-                                            value={takeTest.submitTime.split('T')[0]}
-                                            readOnly={true}
-                                            style={{ width: '140px', margin: '5px', textAlign: 'center' }}
-                                        />
-                                        <Form.Control
-                                            size="sm"
-                                            type="time"
-                                            value={takeTest.submitTime.split('T')[1].slice(0, 5)}
-                                            readOnly={true}
-                                            style={{ width: '140px', margin: '5px', textAlign: 'center' }}
-                                        />
+                                    <div className="col-6 col-lg-3">
+                                        <div className="label">Điểm số:</div>
+                                        <div className="row">
+                                            <Form.Control
+                                                size="sm"
+                                                type="text"
+                                                value={takeTest.points}
+                                                readOnly={true}
+                                                style={{ width: '80px', margin: '5px', textAlign: 'center' }}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-6 col-lg-3 d-flex justify-content-end">
+                                        <div>
+                                            <ExportToExcel
+                                                apiData={takeTestData.rows}
+                                                fileName={takeTest.user.username + ' ' + takeTest.submitTime}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <div className="label">Điểm số:</div>
-                                    <div className="row">
-                                        <Form.Control
-                                            size="sm"
-                                            type="text"
-                                            value={takeTest.points}
-                                            readOnly={true}
-                                            style={{ width: '80px', margin: '5px', textAlign: 'center' }}
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <ExportToExcel
-                                        apiData={data.rows}
-                                        fileName={takeTest.user.username + ' ' + takeTest.submitTime}
+                                <div className="data-table">
+                                    <MDBDataTableV5
+                                        hover striped bordered
+                                        entriesOptions={[10, 25, 50, 100]}
+                                        entries={10}
+                                        pagesAmount={4}
+                                        data={takeTestData}
+                                        materialSearch scrollX
                                     />
                                 </div>
                             </div>
-                            <div className="data-table">
-                                <MDBDataTableV5
-                                    hover striped bordered
-                                    entriesOptions={[10, 25, 50, 100]}
-                                    entries={10}
-                                    pagesAmount={4}
-                                    data={data}
-                                    materialSearch
-                                />
+
+                            <div className="take-test-logs col-lg-6 col-12">
+                                <div className="fw-bolder">Lịch sử làm bài</div>
+                                <ul className="logs" style={{ listStyle: 'square', lineHeight: '2' }}>
+                                    {takeTestLogsData.map((value, index) => {
+                                        return (
+                                            <li key={index}>
+                                                <span>
+                                                    <span className="bg-info text-light px-1 mx-1">
+                                                        {value.time}
+                                                    </span>
+                                                    <span className="bg-success text-light px-1 mx-1">
+                                                        {value.date}
+                                                    </span>
+                                                </span>
+                                                <span>{value.action}</span>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
                             </div>
                         </div>
-                    )
                     }
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary"
-                        onClick={() => navigate(-2)}
-                    >
-                        Đóng
-                    </Button>
-                </Modal.Footer>
             </Modal>
         </>
     )

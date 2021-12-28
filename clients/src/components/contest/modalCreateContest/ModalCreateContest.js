@@ -125,7 +125,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                 backdrop='static'
                 keyboard={false}>
 
-                <Modal.Header closeButton>
+                <Modal.Header closeButton className="d-flex justify-content-center">
                     <Modal.Title className="h5 fw-bolder">Tạo mới</Modal.Title>
                 </Modal.Header>
 
@@ -244,7 +244,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                     </div>
                 </Modal.Body>
 
-                <Modal.Footer>
+                <Modal.Footer className="d-flex justify-content-center">
                     <Button variant="secondary"
                         onClick={() => handleAction(MODAL_ACTION.CLOSE)}>
                         Đóng

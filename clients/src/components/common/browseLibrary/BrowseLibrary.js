@@ -110,7 +110,7 @@ function BrowseLibrary({ show, onAction }) {
             onHide={() => onAction(MODAL_ACTION.CLOSE)}
             backdrop='static'
             keyboard={false}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton className="d-flex justify-content-center">
                 <Modal.Title className="h4 text-center w-100">Chọn ảnh</Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -219,7 +219,7 @@ function BrowseLibrary({ show, onAction }) {
                 </Tabs>
 
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className="d-flex justify-content-center">
                 <Button variant="secondary"
                     onClick={() => onAction(MODAL_ACTION.CLOSE, link)}>
                     Đóng

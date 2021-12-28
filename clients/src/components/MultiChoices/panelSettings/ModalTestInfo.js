@@ -10,6 +10,7 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
     const [testName, setTestName] = useState(test.name)
     const [maxPoints, setMaxPoints] = useState(test.maxPoints)
     const [link, setLink] = useState(test.url)
+    const [pin, setPin] = useState(test.pin ? test.pin : '')
     const [description, setDescription] = useState(test.description)
     const [startDate, setStartDate] = useState(start.date)
     const [startTime, setStartTime] = useState(start.time)
@@ -21,6 +22,7 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
             name: testName,
             maxPoints: maxPoints,
             url: link,
+            pin: pin,
             description: description,
             startTime: startDate + 'T' + startTime + ':00.000Z',
             endTime: endDate + 'T' + endTime + ':00.000Z'
@@ -37,7 +39,7 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
             backdrop='static'
             keyboard={false}>
 
-            <Modal.Header closeButton>
+            <Modal.Header closeButton className="d-flex justify-content-center">
                 <Modal.Title className="h5 fw-bolder">Thông tin chi tiết</Modal.Title>
             </Modal.Header>
 
@@ -76,6 +78,18 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
                                 className="test-title text-center"
                                 value={link}
                                 onChange={(e) => setLink(e.target.value)}
+                                readOnly={isUser}
+                            />
+                        </div>
+
+                        <div className="test-title-section mt-2">
+                            <div className="label">PIN</div>
+                            <Form.Control
+                                size="sm"
+                                type="text"
+                                className="test-title text-center"
+                                value={pin}
+                                onChange={(e) => setPin(e.target.value)}
                                 readOnly={isUser}
                             />
                         </div>
@@ -155,7 +169,7 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
                 </div>
             </Modal.Body>
 
-            <Modal.Footer>
+            <Modal.Footer className="d-flex justify-content-center">
                 <Button variant="secondary"
                     onClick={() => handleAction(MODAL_ACTION.CLOSE)}>
                     Đóng

@@ -14,7 +14,7 @@ export const TAKETEST_COLUMNS = [
         label: STATISTICS.TAKE_TEST.TEST_NAME,
         field: STATISTICS.TAKE_TEST.TEST_NAME,
         sort: 'asc',
-        width: 250
+        width: 220
     },
     {
         label: STATISTICS.TAKE_TEST._TEST_URL,
@@ -44,7 +44,13 @@ export const TAKETEST_COLUMNS = [
         label: STATISTICS.TAKE_TEST.IS_PASSED,
         field: STATISTICS.TAKE_TEST.IS_PASSED,
         sort: 'disabled',
-        width: 100
+        width: 120
+    },
+    {
+        label: STATISTICS.TAKE_TEST._DETAIL,
+        field: STATISTICS.TAKE_TEST._DETAIL,
+        sort: 'disabled',
+        width: 80
     }
 ]
 
@@ -56,11 +62,11 @@ export function StatisticTakeTestsInContest(data) {
 
         const user = (
             <div className="row">
-                <div className="col-2 ps-3">
+                <div className="col-2">
                     <Image roundedCircle src={avatar} width="48px" height="48px" alt='M' />
                 </div>
-                <div className="col-10 text-start pe-3">
-                    <div className="fw-bolder">{value.user.full_name}</div>
+                <div className="col-10 text-start">
+                    <div className="fw-bold">{value.user.full_name}</div>
                     <div>
                         <Badge pill bg="info">
                             <a href={process.env.REACT_APP_WEBSITE + '/404'}
@@ -86,8 +92,17 @@ export function StatisticTakeTestsInContest(data) {
             `${process.env.REACT_APP_WEBSITE}/404`
 
         const linkTest = (
-            <Button size="sm" href={url} target="_blank">
-                <i className="fa fa-link"></i>
+            <Button size="sm" href={url} target="_self"
+                style={{ backgroundColor: 'transparent', border: 'none' }}>
+                <i className="fa fa-link text-primary"></i>
+            </Button>
+        )
+
+        const detail = (
+            <Button size="sm"
+                href={`/takeTest/${value.id}`} target="_self"
+                style={{ backgroundColor: 'transparent', border: 'none' }}>
+                <i className="fa fa-info-circle text-primary"></i>
             </Button>
         )
 
@@ -102,7 +117,8 @@ export function StatisticTakeTestsInContest(data) {
             [STATISTICS.TAKE_TEST.SUBMIT_TIME]: submitTime.time + ' ngày ' + submitTime.date,
             [STATISTICS.TAKE_TEST.POINTS]: value.points,
             [STATISTICS.TAKE_TEST.IS_PASSED]: status,
-            [STATISTICS.TAKE_TEST.STATUS]: value._status
+            [STATISTICS.TAKE_TEST.STATUS]: value._status,
+            [STATISTICS.TAKE_TEST._DETAIL]: detail
         }
         return item
     })

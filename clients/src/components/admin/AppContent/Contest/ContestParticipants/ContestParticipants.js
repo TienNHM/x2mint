@@ -158,7 +158,8 @@ export default function ContestParticipants() {
                                 fileName={'Danh sách các lượt thi - ' + getCurrentDatetime()}
                                 fieldsToBeRemoved={[
                                     STATISTICS.TAKE_TEST.EXAMINEE,
-                                    STATISTICS.TAKE_TEST.IS_PASSED
+                                    STATISTICS.TAKE_TEST.IS_PASSED,
+                                    STATISTICS.TAKE_TEST._DETAIL
                                 ]}
                             />
                         </div>
