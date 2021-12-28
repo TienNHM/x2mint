@@ -1,32 +1,38 @@
 import React from 'react'
-import {
-    CCol,
-    CContainer,
-    CImage,
-    CRow
-} from '@coreui/react'
+import { Col, Container, Image, Row } from 'react-bootstrap'
 
 const Page404 = () => {
     return (
         <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
-            <CContainer>
-                <CRow className="justify-content-center">
-                    <CCol md={6}>
+            <Container>
+                <Row className="justify-content-center">
+                    <Col md={6}>
                         <span className="clearfix d-flex flex-column justify-content-center">
-                            <h1 className="float-start display-3 me-4 d-flex justify-content-center">
-                                <span className="display-1">404</span>
-                                <span className="h1 ps-4 pt-4">Đã xảy ra lỗi!</span>
-                            </h1>
+                            <div className="float-start display-3 me-4 d-flex justify-content-center">
+                                <h1 className="display-1 fw-bolder text-danger"
+                                    style={{ fontSize: '5rem' }}>
+                                    404
+                                </h1>
+                                <h1 className="ps-4 pt-4 text-warning"
+                                    style={{ fontSize: '3rem' }}>
+                                    Đã xảy ra lỗi!
+                                </h1>
+                            </div>
 
-                            <CImage align="center" src={process.env.PUBLIC_URL + '/assets/empty.svg'} width={300} height={300} />
+                            <div>
+                                <Image align="center"
+                                    src={process.env.PUBLIC_URL + '/assets/empty.svg'}
+                                    width={300} height={300}
+                                />
+                            </div>
 
-                            <h6 className="pt-4">
+                            <h6 className="pt-4 text-success" style={{ fontSize: '1.5rem' }}>
                                 Không tìm thấy tài nguyên. Vui lòng quay lại sau!
                             </h6>
                         </span>
-                    </CCol>
-                </CRow>
-            </CContainer>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     )
 }

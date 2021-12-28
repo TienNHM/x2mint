@@ -1,101 +1,119 @@
 @import '_setting.scss';
 
-.register{
+.register {
     margin: calc(60px + 3%) auto;
-    padding: 20px ;
+    padding: 20px;
     font-family: var(--body-font);
     border: 1.5px solid var(--mint);
     height: 50%;
     width: 50%;
     border-radius: 30px;
-    &__right{
+
+    &__right {
         margin-top: 20px;
     }
-    
-.form__title{
-    text-align: center;
-    padding-bottom: 30px;
-    font-family: var(--logo-font);
-    color: var(--mint);
-    font-weight: 700;
-}
 
-.btn {
-    &__signup{
-        border-radius: 50px;
-        border: 1px solid var(--mint);
-        color: white;
-        background-color: var(--mint);
-        width: 250px;
-        font-size: var(--h2-font-size);
-        margin: 10px;
-        padding: 5px 10%;
-        width: fit-content;
-        &:hover{
-            color:var(--mint);
-            background-color: var(--light-mint);
+    .makeRed {
+        border-bottom: 1px solid red !important;
+    }
+
+    .form__title {
+        text-align: center;
+        padding-bottom: 30px;
+        font-family: var(--logo-font);
+        color: var(--mint);
+        font-weight: 700;
+    }
+
+    .btn {
+        &__signup {
+            border-radius: 50px;
+            border: 1px solid var(--mint);
+            color: white;
+            background-color: var(--mint);
+            width: 250px;
+            font-size: var(--h2-font-size);
+            margin: 10px;
+            padding: 5px 10%;
+            width: fit-content;
+
+            &:hover {
+                color: var(--mint);
+                background-color: var(--light-mint);
+            }
+        }
+
+        &__login {
+            border-radius: 50px;
+            border: 1px solid var(--mint);
+            color: var(--mint);
+            background-color: white;
+            width: 150px;
+            padding: 10px 15px;
+            font-size: var(--h3-font-size);
+            margin: 10px;
+
+            &:hover {
+                color: white;
+                background-color: var(--mint);
+            }
         }
     }
-    &__login{
+
+    .auth__pic {
+        width: 300px;
+        vertical-align: center;
+        margin-top: -30px;
+    }
+
+    .signup__body {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+    }
+
+    .been-member {
+        color: var(--gray)
+    }
+
+    div .signup__area {
+        margin: auto;
+        display: block;
+
+        .btn__signup {
+            &-gg {
+                background: none;
+                border: none;
+            }
+        }
+
+        .btn__login {
+            margin-top: -20px;
+            padding: 10px;
+        }
+    }
+
+    .input_item {
+        margin: 10px !important;
+        justify-content: center;
+        display: block;
+        align-items: center;
+    }
+
+    input {
+        margin: auto;
+        padding: 10px 20px;
+        display: block;
+        border-radius: 50px;
+        font-size: 1rem;
         border-radius: 50px;
         border: 1px solid var(--mint);
         color: var(--mint);
         background-color: white;
-        width: 150px;
-        padding: 10px 15px;
-        font-size: var(--h3-font-size);
-        margin: 10px;
-        &:hover{
-            color: white;
-            background-color: var(--mint);
+        font-weight: 700;
+
+        ::placeholder {
+            border: 1px solid var(--mint);
         }
     }
-}
-.auth__pic {
-    width: 300px;
-    vertical-align: center;
-    margin-top: -30px;
-}
-.signup__body{
-    display: flex;
-    justify-content: center;
-    margin: auto;
-}
-.been-member{
-    color:var(--gray)
-}
-div .signup__area{
-    margin: auto;
-    display:block;
-    .btn__signup{
-        &-gg{
-        background: none;
-        border: none;
-    }}
-    .btn__login{
-        margin-top: -20px;
-        padding: 10px;
-    }
-}
-.input_item{
-    margin: 10px !important;
-    justify-content: center;
-    display: block;
-    align-items: center;
-}
-input {
-    margin: auto;
-    padding: 10px 20px;
-    display: block;
-    border-radius: 50px;
-    font-size: 1rem;
-    border-radius: 50px;
-    border: 1px solid var(--mint);
-    color: var(--mint);
-    background-color: white;
-    font-weight: 700;
-    ::placeholder {
-        border: 1px solid var(--mint);
-    }
-}
 }

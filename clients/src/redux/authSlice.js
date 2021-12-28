@@ -21,6 +21,7 @@ export const register = createAsyncThunk(
             console.log(res)
 
             if (res.data.success === true) {
+                Cookies.set(COOKIES.REGISTER_STATUS, 'success')
                 toast.success('🎉 Đăng ký tài khoản thành công. Kiểm tra email để xác thực tài khoản nhé !')
             } else {
                 switch (res.data.message) {
@@ -40,10 +41,10 @@ export const register = createAsyncThunk(
                 }
             }
 
-            // setAuthToken(res.data.accessToken)
-            // // Set cookies
-            // Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
-            // Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
+            setAuthToken(res.data.accessToken)
+            // Set cookies
+            Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
+            Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
 
             return {
                 user: res.data.user,

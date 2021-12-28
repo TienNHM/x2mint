@@ -34,8 +34,7 @@ const Login = () => {
 
     const login = async (event) => {
         event.preventDefault()
-        if (isEmpty(username) || isEmpty(password))
-        {
+        if (isEmpty(username) || isEmpty(password)) {
             toast.warning('❌ Thiếu username hoặc mật khẩu. Vui lòng nhập lại!')
             return null
         }
@@ -67,13 +66,11 @@ const Login = () => {
             {authLoading && (
                 <div
                     style={{
-                        width: '100%',
-                        height: '100%',
+                        width: '100%', height: '100%',
                         position: 'absolute',
                         textAlign: 'center',
                         alignItems: 'center',
-                        top: 0,
-                        left: 0,
+                        top: 0, left: 0,
                         backgroundColor: 'rgba(0,0,0,0.4)',
                         zIndex: 10000,
                         paddingTop: 300
@@ -88,11 +85,8 @@ const Login = () => {
                 </div>
             )}
 
+            <h1 className="form__title">Đăng nhập</h1>
 
-            {/* <AlertMessage info={alert} /> */}
-            <h1 className="form__title">
-                Đăng nhập
-            </h1>
             <Form className="form__body container" onSubmit={login}>
                 <div className="row">
                     <img className="auth__pic col" src="assets/auth.svg"></img>
@@ -119,7 +113,6 @@ const Login = () => {
                                 variant="success"
                                 type="submit"
                             >
-                                {' '}
                                 Đăng nhập
                             </button>
                             <button className="forget__button"
@@ -131,13 +124,12 @@ const Login = () => {
                                 buttonText="Đăng nhập với Google"
                                 onSuccess={responseGoogle}
                                 cookiePolicy={'single_host_origin'}
+                                // isSignedIn={true}
                             />
                         </div>
 
-                        <button
-                            className="nav__btn__login"
-                            onClick={() => navigate('/register', { replace: true })}
-                        >
+                        <button className="nav__btn__login"
+                            onClick={() => navigate('/register', { replace: true })}>
                             Đăng ký
                         </button>
                     </div>

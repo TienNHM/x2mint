@@ -15,6 +15,7 @@ import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
 import { createTakeTest, updateTakeTest } from 'actions/api/TakeTestAPI'
 import { Button, FormControl, Image } from 'react-bootstrap'
 import { toast } from 'react-toastify'
+import { useEventListener } from 'utils/EventListener'
 
 function MultiChoices() {
     let { testId } = useParams()
@@ -31,15 +32,36 @@ function MultiChoices() {
 
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE.USER
-    const [isSubmitted, setIsSubmitted] = useState(false)
-    const [isEntered, setIsEntered] = useState(false)
 
     const pinRef = useRef('')
 
+    const [isSubmitted, setIsSubmitted] = useState(false)
+    const [isEntered, setIsEntered] = useState(false)
     const [test, setTest] = useState(null)
     const [questions, setQuestions] = useState(null)
     const [selectedQuestion, setSelectedQuestion] = useState(null)
     const [takeTest, setTakeTest] = useState(null)
+
+    const handler = ({ key }) => {
+        if (!isEntered) {
+            return
+        }
+        console.log(key)
+        // Hiện tại
+        if (window.innerWidth === screen.width &&
+            window.innerHeight === screen.height
+        ) {
+            // Nếu đã fullscreen, nhưng thoát
+            toast.success(window.innerWidth + ' ' + screen.width + ' ' +
+                window.innerHeight + ' ' + screen.height)
+        } else {
+            // Ngược lại thì thôi
+            toast.success(window.innerWidth + ' ' + screen.width + ' ' +
+                window.innerHeight + ' ' + screen.height)
+        }
+    }
+
+    useEventListener('keyup', handler)
 
     useEffect(() => {
         async function callCreateTakeTest(_takeTest) {
@@ -123,7 +145,7 @@ function MultiChoices() {
 
         const data = await updateTakeTest(
             newTakeTest,
-            `Chọn đáp án ${chooseAnswer.join(', ')} cho câu hỏi số ${index+1}.`
+            `Chọn đáp án ${chooseAnswer.join(', ')} cho câu hỏi số ${index + 1}.`
         )
 
         setTakeTest({
@@ -136,6 +158,9 @@ function MultiChoices() {
         if (pinRef.current.value === test.pin) {
             toast.success('🎉 Nhập mã PIN thành công, chúc bạn thi tốt')
             setIsEntered(true)
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen()
+            }
         }
         else {
             toast.error('❌ Sai mã PIN, vui lòng nhập lại!')
