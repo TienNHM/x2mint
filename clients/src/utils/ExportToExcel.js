@@ -1,6 +1,6 @@
 import React from 'react'
-import * as FileSaver from 'file-saver'
-import * as XLSX from 'xlsx'
+import FileSaver from 'file-saver'
+import XLSX from 'xlsx'
 import { Button } from 'react-bootstrap'
 
 export const ExportToExcel = ({ apiData, fileName, fieldsToBeRemoved=[] }) => {

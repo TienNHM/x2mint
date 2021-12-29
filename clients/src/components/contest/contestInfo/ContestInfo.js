@@ -17,6 +17,7 @@ import { MODAL_ACTION, COOKIES, ROLE, STATUS } from 'utils/constants'
 import './ContestInfo.scss'
 import { cloneDeep } from 'lodash'
 import { toast } from 'react-toastify'
+import { ImportTestData } from 'utils/ImportTestData'
 
 export default function ContestInfo() {
     const navigate = useNavigate()
@@ -476,21 +477,26 @@ export default function ContestInfo() {
                         <div className="list-tests col-xl-9 col-lg-8 col-md-7 col-sm-12">
                             <Card>
                                 <Card.Header className="row search-section d-flex justify-content-between">
-                                    <div className="col-11 d-flex align-items-center justify-content-center">
-                                        <FormControl
-                                            type="search"
-                                            value={searchQuery}
-                                            onChange={(e) => setSearchQuery(e.target.value)}
-                                            style={{ boxShadow: 'none' }}>
-                                        </FormControl>
+                                    <div className="col-6 row">
+                                        <div className="col-11 d-flex align-items-center justify-content-center">
+                                            <FormControl
+                                                type="search"
+                                                value={searchQuery}
+                                                onChange={(e) => setSearchQuery(e.target.value)}
+                                                style={{ boxShadow: 'none' }}>
+                                            </FormControl>
+                                            <div className="col-1 p-1 d-flex justify-content-center">
+                                                <Button size="sm" variant="primary"
+                                                    onClick={() => handleSearch()}>
+                                                    <i className="fa fa-search"></i>
+                                                </Button>
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    <div className="col-1 p-1 d-flex justify-content-center">
-                                        <Button size="sm" variant="primary"
-                                            onClick={() => handleSearch()}>
-                                            <i className="fa fa-search"></i>
-                                            <span className="btn-label ms-2 fw-bolder">Tìm</span>
-                                        </Button>
+                                    <div className="col-6 d-flex justify-content-center align-items-center">
+                                        <div className="w-100">
+                                            <ImportTestData />
+                                        </div>
                                     </div>
                                 </Card.Header>
 
