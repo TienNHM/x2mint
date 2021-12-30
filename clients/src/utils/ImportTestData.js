@@ -7,8 +7,10 @@ import { createTest, updateQuestionsInTest } from 'actions/api/TestAPI'
 import { createQuestion, updateQuestion } from 'actions/api/QuestionAPI'
 import { createAnswer } from 'actions/api/AnswerAPI'
 import { useSelector } from 'react-redux'
+import { updateTestsInContest } from 'actions/api/ContestAPI'
+import { cloneDeep } from 'lodash'
 
-export const ImportTestData = ({ contest, setContest }) => {
+export const ImportTestData = ({ contest, setContest, setData }) => {
     const user = useSelector((state) => state.auth.user)
     // const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheetcharset=UTF-8'
     // const fileExtension = '.xlsx'
@@ -21,12 +23,15 @@ export const ImportTestData = ({ contest, setContest }) => {
     const importFile = async () => {
         const testId = await importTestData()
         const data = await importQuestions(testId)
-        console.log(data)
-        const testsList = contest.tests.push(data)
-        setContest({
-            ...contest,
-            tests: testsList
-        })
+
+        // Update lại contest
+        const testsList = [...contest.tests]
+        const testIDs = testsList.map(x => x._id)
+        testIDs.push(data.id)
+        const updateContestResponse = await updateTestsInContest(contest.id, testIDs)
+        console.log(updateContestResponse)
+        setContest(cloneDeep(updateContestResponse.contest))
+        setData(cloneDeep(updateContestResponse.contest.tests))
     }
 
     const importTestData = async () => {
@@ -125,7 +130,7 @@ export const ImportTestData = ({ contest, setContest }) => {
             setSelectedFile(file)
             const data = await file.arrayBuffer()
             const workbook = XLSX.read(data)
-            console.log(workbook)
+
             const sheetnames = workbook.SheetNames
 
             const _info = workbook.Sheets[sheetnames[0]]
@@ -135,11 +140,6 @@ export const ImportTestData = ({ contest, setContest }) => {
             const test_data = XLSX.utils.sheet_to_json(_test)
             setTestInfo(info_data[0])
             setTestData(test_data)
-
-            console.log(info_data)
-            console.log(info_data[0]['Mô tả'])
-            console.log(test_data)
-
             setSelectedFileData(workbook)
         }
     }
