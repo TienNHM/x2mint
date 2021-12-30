@@ -3,29 +3,30 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import MyAppNavbar from 'components/common/appNavbar/AppNavbar'
 import Contest from 'components/contest/Contest'
-import SubmitResult from 'components/MultiChoices/submitResult/SubmitResult'
 import Homepage from 'components/common/home/Homepage'
-import Login from 'components/common/login/Login'
-import Register from 'components/common/register/Register'
 import ProtectedRoute from 'components/ProtectedRoute'
 import { loadUser } from 'redux/authSlice'
 import ContestInfo from 'components/contest/contestInfo/ContestInfo'
-import MultiChoices from 'components/MultiChoices/MultiChoices'
+import MultiChoices from 'components/multiChoices/MultiChoices'
 import Admin from 'components/admin/Admin'
 import Page404 from 'pages/Page404'
 import Page500 from 'pages/Page500'
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
-import ActivationEmail from 'components/common/register/ActivationEmail'
-import ForgotPassword from 'components/common/login/ForgotPassword'
-import ResetPassword from 'components/common/login/ResetPassword'
+import ForgotPassword from 'components/user/handlePassword/ForgotPassword'
+import ResetPassword from 'components/user/handlePassword/ResetPassword'
 import { SyncLoader } from 'react-spinners'
 import 'react-notifications-component/dist/theme.css'
 import './App.scss'
 import StatisticTest from 'components/contest/statistics/StatisticTest'
 import StatisticContest from 'components/contest/statistics/StatisticContest'
 import { ToastContainer } from 'react-toastify'
-import Profile from 'components/User/Profile/Profile'
+import { Auth0Provider } from '@auth0/auth0-react'
+import Login from 'components/user/login/Login'
+import Register from 'components/user/register/Register'
+import ActivationEmail from 'components/user/register/ActivationEmail'
+import SubmitResult from 'components/multiChoices/submitResult/SubmitResult'
+import Profile from 'components/user/profile/Profile'
 
 const loadingCss = {
     width: '100%',
@@ -48,7 +49,7 @@ function App() {
         <BrowserRouter>
             <ReactNotification />
             <div className="app">
-                {authLoading ? (
+                {authLoading && (
                     <div style={loadingCss} className='d-flex align-items-center justify-content-center'>
                         <SyncLoader
                             color={'#7ED321'}
@@ -56,7 +57,9 @@ function App() {
                             speedMultiplier={2}
                         />
                     </div>
-                ) : (
+                )}
+
+                {!authLoading && (
                     <div className="bootstrap-container">
                         <MyAppNavbar />
 
@@ -68,9 +71,9 @@ function App() {
                             <Route path="/404" element={<Page404 />} />
                             <Route path="*" element={<Page404 />} />
                             <Route path="/500" element={<Page500 />} />
-                            <Route path="/forgotPassword" element={<ForgotPassword/>} />
+                            <Route path="/forgotPassword" element={<ForgotPassword />} />
                             <Route path="/activation/:activation_token" element={<ActivationEmail />} />
-                            <Route path="/resetPassword/:activation_token" element={<ResetPassword/>} />
+                            <Route path="/resetPassword/:activation_token" element={<ResetPassword />} />
                             <Route path="/dashboard" element={<ProtectedRoute />}>
                                 <Route
                                     path="/dashboard"
