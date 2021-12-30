@@ -12,6 +12,8 @@ export const createTest = async (test) => {
             }
         }).then(response => response)
 
+        console.log(request.data)
+
         return request.data
     }
     catch (err) {

@@ -9,18 +9,23 @@ import { createAnswer } from 'actions/api/AnswerAPI'
 import { useSelector } from 'react-redux'
 import { updateTestsInContest } from 'actions/api/ContestAPI'
 import { cloneDeep } from 'lodash'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router'
+import { HashLoader } from 'react-spinners'
 
 export const ImportTestData = ({ contest, setContest, setData }) => {
     const user = useSelector((state) => state.auth.user)
-    // const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheetcharset=UTF-8'
-    // const fileExtension = '.xlsx'
+    const navigate = useNavigate()
 
     const [selectedFile, setSelectedFile] = useState(null)
     const [selectedFileData, setSelectedFileData] = useState(null)
     const [testInfo, setTestInfo] = useState(null)
     const [testData, setTestData] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const importFile = async () => {
+        setLoading(true)
+        toast.success('⏳ Đang tải đề thi lên, vui lòng chờ đợi trong ít phút!')
         const testId = await importTestData()
         const data = await importQuestions(testId)
 
@@ -28,10 +33,14 @@ export const ImportTestData = ({ contest, setContest, setData }) => {
         const testsList = [...contest.tests]
         const testIDs = testsList.map(x => x._id)
         testIDs.push(data.id)
-        const updateContestResponse = await updateTestsInContest(contest.id, testIDs)
-        console.log(updateContestResponse)
-        setContest(cloneDeep(updateContestResponse.contest))
-        setData(cloneDeep(updateContestResponse.contest.tests))
+        await updateTestsInContest(contest.id, testIDs)
+        setLoading(false)
+        // const updateContestResponse = await updateTestsInContest(contest.id, testIDs)
+        // console.log(updateContestResponse)
+        // setContest(cloneDeep(updateContestResponse.contest))
+        // setData(cloneDeep(updateContestResponse.contest.tests))
+        navigate(`/test/${testId}`)
+        toast.success('🎉 Đã hoàn tất tải lên!')
     }
 
     const importTestData = async () => {
@@ -39,6 +48,8 @@ export const ImportTestData = ({ contest, setContest, setData }) => {
             + testInfo[TEST_DATA.BASIC_INFO.START_TIME] + ':00.000Z'
         const end_time = testInfo[TEST_DATA.BASIC_INFO.END_DATE] + 'T'
             + testInfo[TEST_DATA.BASIC_INFO.END_TIME] + ':00.000Z'
+
+        console.log(start_time, end_time)
 
         const test = {
             name: testInfo[TEST_DATA.BASIC_INFO.NAME],
@@ -145,16 +156,33 @@ export const ImportTestData = ({ contest, setContest, setData }) => {
     }
 
     return (
-        <div className="row">
-            <div className="col-10">
-                <FormControl type="file" onChange={handleOnFileChange} />
+        <>
+            <div className="row">
+                <div className="col-10">
+                    <FormControl type="file" onChange={handleOnFileChange} />
+                </div>
+                <div className="col-2 d-flex justify-content-start align-items-center">
+                    <Button type="submit" variant="primary" size="sm"
+                        onClick={() => importFile()}>
+                        <i className="fa fa-upload"></i>
+                    </Button>
+                </div>
             </div>
-            <div className="col-2 d-flex justify-content-start align-items-center">
-                <Button type="submit" variant="primary" size="sm"
-                    onClick={() => importFile()}>
-                    <i className="fa fa-upload"></i>
-                </Button>
-            </div>
-        </div>
+
+            {loading &&
+                <div
+                    className='sweet-loading d-flex justify-content-center align-items-center'
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        zIndex: 10000
+                    }}>
+                    <HashLoader color={'#7ED321'} loading={loading} />
+                </div>
+            }
+        </>
     )
 }

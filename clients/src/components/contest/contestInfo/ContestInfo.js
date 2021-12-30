@@ -86,9 +86,6 @@ export default function ContestInfo() {
             setStartTime(start_time.time)
             setEndDate(end_time.date)
             setEndTime(end_time.time)
-
-            console.log(contest)
-            console.log(start_time, end_time)
         }
     }, [contest])
 
