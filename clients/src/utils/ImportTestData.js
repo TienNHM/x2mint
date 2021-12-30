@@ -1,46 +1,44 @@
 import React, { useState } from 'react'
-import FileSaver from 'file-saver'
 import XLSX from 'xlsx'
-import { Button, FormControl } from 'react-bootstrap'
+import { Button, FormControl, Modal } from 'react-bootstrap'
 import { QUESTION_TYPE, TEST_DATA } from 'utils/constants'
 import { createTest, updateQuestionsInTest } from 'actions/api/TestAPI'
 import { createQuestion, updateQuestion } from 'actions/api/QuestionAPI'
 import { createAnswer } from 'actions/api/AnswerAPI'
 import { useSelector } from 'react-redux'
 import { updateTestsInContest } from 'actions/api/ContestAPI'
-import { cloneDeep } from 'lodash'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router'
 import { HashLoader } from 'react-spinners'
 
-export const ImportTestData = ({ contest, setContest, setData }) => {
+export const ImportTestData = ({ contest, isShow, onCloseAction }) => {
     const user = useSelector((state) => state.auth.user)
     const navigate = useNavigate()
 
-    const [selectedFile, setSelectedFile] = useState(null)
-    const [selectedFileData, setSelectedFileData] = useState(null)
     const [testInfo, setTestInfo] = useState(null)
     const [testData, setTestData] = useState(null)
     const [loading, setLoading] = useState(false)
 
     const importFile = async () => {
-        setLoading(true)
-        toast.success('⏳ Đang tải đề thi lên, vui lòng chờ đợi trong ít phút!')
-        const testId = await importTestData()
-        const data = await importQuestions(testId)
+        if (testInfo && testData) {
+            setLoading(true)
+            toast.success('⏳ Đang tải đề thi lên, vui lòng chờ đợi trong ít phút!')
+            const testId = await importTestData()
+            const data = await importQuestions(testId)
 
-        // Update lại contest
-        const testsList = [...contest.tests]
-        const testIDs = testsList.map(x => x._id)
-        testIDs.push(data.id)
-        await updateTestsInContest(contest.id, testIDs)
-        setLoading(false)
-        // const updateContestResponse = await updateTestsInContest(contest.id, testIDs)
-        // console.log(updateContestResponse)
-        // setContest(cloneDeep(updateContestResponse.contest))
-        // setData(cloneDeep(updateContestResponse.contest.tests))
-        navigate(`/test/${testId}`)
-        toast.success('🎉 Đã hoàn tất tải lên!')
+            // Update lại contest
+            const testsList = [...contest.tests]
+            const testIDs = testsList.map(x => x._id)
+            testIDs.push(data.id)
+            await updateTestsInContest(contest.id, testIDs)
+            setLoading(false)
+            onCloseAction()
+            navigate(`/test/${testId}`)
+            toast.success('🎉 Đã hoàn tất tải lên!')
+        }
+        else {
+            toast.error('💢 Vui lòng chọn file tải lên!')
+        }
     }
 
     const importTestData = async () => {
@@ -48,8 +46,6 @@ export const ImportTestData = ({ contest, setContest, setData }) => {
             + testInfo[TEST_DATA.BASIC_INFO.START_TIME] + ':00.000Z'
         const end_time = testInfo[TEST_DATA.BASIC_INFO.END_DATE] + 'T'
             + testInfo[TEST_DATA.BASIC_INFO.END_TIME] + ':00.000Z'
-
-        console.log(start_time, end_time)
 
         const test = {
             name: testInfo[TEST_DATA.BASIC_INFO.NAME],
@@ -130,7 +126,6 @@ export const ImportTestData = ({ contest, setContest, setData }) => {
                 content: question[ans]
             }
             const data = await createAnswer(answer, questionId)
-            console.log(data)
             return data.answer.id
         }
     }
@@ -138,7 +133,6 @@ export const ImportTestData = ({ contest, setContest, setData }) => {
     const handleOnFileChange = async (event) => {
         if (event.target.files[0]) {
             const file = event.target.files[0]
-            setSelectedFile(file)
             const data = await file.arrayBuffer()
             const workbook = XLSX.read(data)
 
@@ -151,38 +145,61 @@ export const ImportTestData = ({ contest, setContest, setData }) => {
             const test_data = XLSX.utils.sheet_to_json(_test)
             setTestInfo(info_data[0])
             setTestData(test_data)
-            setSelectedFileData(workbook)
         }
     }
 
     return (
-        <>
-            <div className="row">
-                <div className="col-10">
+        <Modal
+            show={isShow}
+            onHide={() => onCloseAction()}
+            backdrop='static'
+            centered
+            keyboard={false}>
+
+            <Modal.Header closeButton className="d-flex justify-content-center">
+                <Modal.Title className="h5 fw-bolder">Import đề thi</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+                <div className="row p-3">
                     <FormControl type="file" onChange={handleOnFileChange} />
                 </div>
-                <div className="col-2 d-flex justify-content-start align-items-center">
-                    <Button type="submit" variant="primary" size="sm"
-                        onClick={() => importFile()}>
-                        <i className="fa fa-upload"></i>
-                    </Button>
-                </div>
-            </div>
 
-            {loading &&
-                <div
-                    className='sweet-loading d-flex justify-content-center align-items-center'
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        zIndex: 10000
-                    }}>
-                    <HashLoader color={'#7ED321'} loading={loading} />
-                </div>
-            }
-        </>
+                {loading &&
+                    <div
+                        className='sweet-loading d-flex justify-content-center align-items-center'
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            zIndex: 10000
+                        }}>
+                        <HashLoader color={'#7ED321'} loading={loading} />
+                    </div>
+                }
+            </Modal.Body>
+
+            <Modal.Footer className="d-flex justify-content-center">
+                <Button variant="secondary"
+                    onClick={() => onCloseAction()}>
+                    Đóng
+                </Button>
+
+                <a className="btn btn-success"
+                    href={process.env.PUBLIC_URL + '/assets/samples/sample_test.xlsx'}
+                    download>
+                    <i className="fa fa-file mx-1"></i>
+                    Mẫu đề thi
+                </a>
+
+                <Button variant="primary"
+                    onClick={() => importFile()}>
+                    <i className="fa fa-upload mx-1"></i>
+                    Tải lên
+                </Button>
+            </Modal.Footer>
+        </Modal>
     )
 }
