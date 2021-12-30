@@ -120,7 +120,7 @@ export default function AppSidebar({ setCurrentAction }) {
                                     </span>
                                 </Button>
                                 <Button className="w-100"
-                                    onClick={() => navigate('/contest')}>
+                                    onClick={() => navigate('/contests-management')}>
                                     <div className="tooltip-component">
                                         <i className="fas fa-book-open me-3"></i>
                                         <span className="tooltiptext">

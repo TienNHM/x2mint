@@ -38,7 +38,7 @@ export default function MyAppNavbar() {
                         )}
 
                         {isAuthenticated && user.role === ROLE.CREATOR && (
-                            <NavLink to="/contests-mangement">
+                            <NavLink to="/contests-management">
                                 Quản lý cuộc thi
                             </NavLink>
                         )}

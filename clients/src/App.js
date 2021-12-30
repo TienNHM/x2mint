@@ -66,6 +66,7 @@ function App() {
                             <Route path="/profile" element={<Profile />} />
                             <Route path="/register" element={<Register />} />
                             <Route path="/404" element={<Page404 />} />
+                            <Route path="*" element={<Page404 />} />
                             <Route path="/500" element={<Page500 />} />
                             <Route path="/forgotPassword" element={<ForgotPassword/>} />
                             <Route path="/activation/:activation_token" element={<ActivationEmail />} />
@@ -77,17 +78,17 @@ function App() {
                                 />
                             </Route>
 
-                            <Route path="/contests-mangement" element={<ProtectedRoute />}>
+                            <Route path="/contests-management" element={<ProtectedRoute />}>
                                 <Route
-                                    path="/contests-mangement"
-                                    element={<Contest isCreator={true} />}
+                                    path="/contests-management"
+                                    element={<Contest />}
                                 />
                             </Route>
 
                             <Route path="/contest" element={<ProtectedRoute />}>
                                 <Route
                                     path="/contest" exact
-                                    element={<Contest isCreator={false} />}
+                                    element={<Contest />}
                                 />
                                 <Route
                                     path="/contest/:contestId"
