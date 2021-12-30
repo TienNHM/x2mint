@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import FileSaver from 'file-saver'
 import XLSX from 'xlsx'
 import { Button, FormControl } from 'react-bootstrap'
-import { TEST_DATA } from 'utils/constants'
-import { createTest } from 'actions/api/TestAPI'
+import { QUESTION_TYPE, TEST_DATA } from 'utils/constants'
+import { createTest, updateQuestionsInTest } from 'actions/api/TestAPI'
+import { createQuestion, updateQuestion } from 'actions/api/QuestionAPI'
+import { createAnswer } from 'actions/api/AnswerAPI'
 import { useSelector } from 'react-redux'
 
-export const ImportTestData = () => {
+export const ImportTestData = ({ contest, setContest }) => {
     const user = useSelector((state) => state.auth.user)
     // const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheetcharset=UTF-8'
     // const fileExtension = '.xlsx'
@@ -16,9 +18,15 @@ export const ImportTestData = () => {
     const [testInfo, setTestInfo] = useState(null)
     const [testData, setTestData] = useState(null)
 
-    const importFile = () => {
-        importTestData()
-        importQuestions()
+    const importFile = async () => {
+        const testId = await importTestData()
+        const data = await importQuestions(testId)
+        console.log(data)
+        const testsList = contest.tests.push(data)
+        setContest({
+            ...contest,
+            tests: testsList
+        })
     }
 
     const importTestData = async () => {
@@ -27,7 +35,6 @@ export const ImportTestData = () => {
         const end_time = testInfo[TEST_DATA.BASIC_INFO.END_DATE] + 'T'
             + testInfo[TEST_DATA.BASIC_INFO.END_TIME] + ':00.000Z'
 
-        console.log(start_time, end_time)
         const test = {
             name: testInfo[TEST_DATA.BASIC_INFO.NAME],
             description: testInfo[TEST_DATA.BASIC_INFO.DESCRIPTION],
@@ -39,12 +46,76 @@ export const ImportTestData = () => {
         }
 
         const newTestResponse = await createTest(test)
-        console.log(newTestResponse)
+        return newTestResponse.test.id
     }
 
-    const importQuestions = async () => {
+    const importQuestions = async (testId) => {
+        let questionsList = []
         for (var question of testData) {
-            console.log(question)
+            // Create new question
+            const quiz = {
+                content: question[TEST_DATA.QUESTION.CONTENT],
+                correctAnswers: question[TEST_DATA.QUESTION.CORRECT_ANSWERS].split(', '),
+                embededMedia: question[TEST_DATA.QUESTION.EMBEDED_MEDIA],
+                type: QUESTION_TYPE.MULTICHOICE
+            }
+            const questionResponse = await createQuestion(quiz, testId)
+
+            // Add question to questions List in test
+            questionsList.push(questionResponse.question.id)
+
+            // Create newQuestion to update question
+            const newQuestion = {
+                ...questionResponse.question,
+                _id: questionResponse.question.id
+            }
+            delete newQuestion.id
+
+            // Add answersList to question
+            const answersList = await importAllAnswers(newQuestion._id, question)
+            await updateQuestion(
+                {
+                    ...newQuestion,
+                    answers: answersList
+                }
+            )
+        }
+
+        // Add questionsList to test
+        const updateTestResponse = await updateQuestionsInTest(testId, questionsList)
+        return updateTestResponse.test
+    }
+
+    const importAllAnswers = async (questionId, question) => {
+        const answersList = []
+        if (question[TEST_DATA.QUESTION.A]) {
+            const answerA = await importAnswer(questionId, question, TEST_DATA.QUESTION.A)
+            answersList.push(answerA)
+        }
+        if (question[TEST_DATA.QUESTION.B]) {
+            const answerB = await importAnswer(questionId, question, TEST_DATA.QUESTION.B)
+            answersList.push(answerB)
+        }
+        if (question[TEST_DATA.QUESTION.C]) {
+            const answerC = await importAnswer(questionId, question, TEST_DATA.QUESTION.C)
+            answersList.push(answerC)
+        }
+        if (question[TEST_DATA.QUESTION.D]) {
+            const answerD = await importAnswer(questionId, question, TEST_DATA.QUESTION.D)
+            answersList.push(answerD)
+        }
+        return answersList
+    }
+
+    const importAnswer = async (questionId, question, ans) => {
+        if (ans) {
+            const answer = {
+                name: ans,
+                content: question[ans]
+            }
+            const data = await createAnswer(answer, questionId)
+            console.log(data)
+            return data.answer.id
         }
     }
 

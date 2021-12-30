@@ -133,3 +133,7 @@ export const TEST_DATA = {
         EMBEDED_MEDIA: 'Ảnh minh họa'
     }
 }
+
+export const QUESTION_TYPE = {
+    MULTICHOICE: 'MULTICHOICE'
+}

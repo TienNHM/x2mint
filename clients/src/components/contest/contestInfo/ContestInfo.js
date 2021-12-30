@@ -495,7 +495,10 @@ export default function ContestInfo() {
                                     </div>
                                     <div className="col-6 d-flex justify-content-center align-items-center">
                                         <div className="w-100">
-                                            <ImportTestData />
+                                            <ImportTestData
+                                                contest={contest}
+                                                setContest={setContest}
+                                            />
                                         </div>
                                     </div>
                                 </Card.Header>
