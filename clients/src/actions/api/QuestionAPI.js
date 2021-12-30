@@ -28,7 +28,6 @@ export const updateQuestion = async (question) => {
             }
         }).then(response => response)
 
-        console.log(request.data)
         return request.data
     }
     catch (err) {
@@ -46,7 +45,6 @@ export const deleteQuestion = async (questionId) => {
             }
         }).then(response => response)
 
-        console.log(request.data)
         return request.data
     }
     catch (err) {

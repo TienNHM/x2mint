@@ -110,3 +110,30 @@ export const STATISTICS = {
 }
 
 export const MAX_EXIT_FULLSCREEN = 3
+
+export const TEST_DATA = {
+    BASIC_INFO: {
+        NAME: 'Tên cuộc thi',
+        DESCRIPTION: 'Mô tả',
+        PIN: 'Mã PIN',
+        START_DATE: 'Ngày bắt đầu',
+        START_TIME: 'Giờ bắt đầu',
+        END_DATE: 'Ngày kết thúc',
+        END_TIME: 'Giờ kết thúc',
+        MAX_POINTS: 'Điểm tối đa'
+    },
+    QUESTION: {
+        CONTENT: 'Câu hỏi',
+        STT: 'STT',
+        A: 'A',
+        B: 'B',
+        C: 'C',
+        D: 'D',
+        CORRECT_ANSWERS: 'Đáp án đúng',
+        EMBEDED_MEDIA: 'Ảnh minh họa'
+    }
+}
+
+export const QUESTION_TYPE = {
+    MULTICHOICE: 'MULTICHOICE'
+}

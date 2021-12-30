@@ -17,6 +17,7 @@ import { MODAL_ACTION, COOKIES, ROLE, STATUS } from 'utils/constants'
 import './ContestInfo.scss'
 import { cloneDeep } from 'lodash'
 import { toast } from 'react-toastify'
+import { ImportTestData } from 'utils/ImportTestData'
 
 export default function ContestInfo() {
     const navigate = useNavigate()
@@ -46,6 +47,7 @@ export default function ContestInfo() {
     //#region States
     const [data, setData] = useState(null) // Tests hiện ra kết quả tìm kiếm
     const [contest, setContest] = useState(null) // Data từ API
+    const [isShowImportTest, setIsShowImportTest] = useState(false)
     const [isShowCreateContest, setIsShowCreateContest] = useState(false)
     const [isShowConfirmModal, setIsShowConfirmModal] = useState(false)
     const [isShowShareModal, setIsShowShareModal] = useState(false)
@@ -475,22 +477,31 @@ export default function ContestInfo() {
 
                         <div className="list-tests col-xl-9 col-lg-8 col-md-7 col-sm-12">
                             <Card>
-                                <Card.Header className="row search-section d-flex justify-content-between">
-                                    <div className="col-11 d-flex align-items-center justify-content-center">
+                                <Card.Header className="row search-section d-flex justify-content-center">
+                                    <div className="import-test-area col-6 col-lg-3 d-flex justify-content-center align-items-center">
+                                        <Button onClick={() => setIsShowImportTest(true)}>
+                                            <i className="fa fa-upload"></i>
+                                            <span className="px-2 import-test">Import đề thi</span>
+                                        </Button>
+                                        <ImportTestData
+                                            contest={contest}
+                                            isShow={isShowImportTest}
+                                            onCloseAction={() => setIsShowImportTest(false)}
+                                        />
+                                    </div>
+                                    <div className="form-search-area col-6 col-lg-9 d-flex align-items-center justify-content-between">
                                         <FormControl
                                             type="search"
                                             value={searchQuery}
                                             onChange={(e) => setSearchQuery(e.target.value)}
                                             style={{ boxShadow: 'none' }}>
                                         </FormControl>
-                                    </div>
-
-                                    <div className="col-1 p-1 d-flex justify-content-center">
-                                        <Button size="sm" variant="primary"
-                                            onClick={() => handleSearch()}>
-                                            <i className="fa fa-search"></i>
-                                            <span className="btn-label ms-2 fw-bolder">Tìm</span>
-                                        </Button>
+                                        <div className="p-1 d-flex justify-content-center">
+                                            <Button variant="primary" className="ms-1"
+                                                onClick={() => handleSearch()}>
+                                                <i className="fa fa-search"></i>
+                                            </Button>
+                                        </div>
                                     </div>
                                 </Card.Header>
 

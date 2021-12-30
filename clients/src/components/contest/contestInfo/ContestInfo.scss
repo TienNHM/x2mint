@@ -78,7 +78,7 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$title-list-tes
         }
 
         .list-tests {
-            min-width: 420px;
+            min-width: 300px;
             border-radius: $gap/2;
 
             .create-test {
@@ -191,6 +191,18 @@ $container-list-tests-height: calc(100vh - #{$navbar-height} - #{$title-list-tes
     @media screen and (max-width: 1220px) {
         .btn-label {
             display: none;
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        .import-test-area {
+            width: 25%;
+            .import-test {
+                display: none;
+            }
+        }
+        .form-search-area {
+            width: 75%;
         }
     }
 }
