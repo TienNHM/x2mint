@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { isEmail } from 'utils/Validation'
 import { showErrMsg, showSuccessMsg } from 'utils/notification/Notification'
-import './Login.scss'
+//import './Login.scss'
 const initialState = {
     email: '',
     err: '',

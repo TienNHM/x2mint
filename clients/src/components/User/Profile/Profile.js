@@ -9,10 +9,10 @@ import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
 import { HashLoader } from 'react-spinners'
 import { toast } from 'react-toastify'
-import ChangePassword from 'components/User/ChangePassword'
 import { MDBDataTableV5 } from 'mdbreact'
 import { cloneDeep } from 'lodash'
 import { ExportDataUserTakeTest } from './UserTakeTest'
+import ChangePassword from 'components/user/handlePassword/ChangePassword'
 
 export default function Profile() {
     const user = useSelector((state) => state.auth.user)

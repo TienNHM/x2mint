@@ -1,3 +1,4 @@
+import Profile from 'components/user/profile/Profile'
 import React, { useEffect, useState } from 'react'
 import { ADMIN } from 'utils/constants'
 import AccountGrantPermissions from './Account/AccountGrantPermissions/AccountGrantPermissions'
@@ -7,7 +8,6 @@ import ContestArchive from './Contest/ContestArchive/ContestArchived'
 import ContestParticipants from './Contest/ContestParticipants/ContestParticipants'
 import ContestStatistics from './Contest/ContestStatistics/ContestStatistics'
 import Dashboard from './Dashboard/Dashboard'
-import Profile from 'components/User/Profile/Profile'
 
 export default function AppContent({ currentAction }) {
     const [component, setComponent] = useState(null)

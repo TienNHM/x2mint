@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { mapOrder } from 'utils/sorts'
-import PanelPreview from 'components/MultiChoices/panelPreview/PanelPreview'
-import Question from 'components/MultiChoices/question/Question'
-import PanelSettings from 'components/MultiChoices/panelSettings/PanelSettings'
 import './MultiChoices.scss'
 import { useParams } from 'react-router'
 import { Navigate } from 'react-router-dom'
@@ -18,6 +15,9 @@ import { toast } from 'react-toastify'
 import { useEventListener } from 'utils/EventListener'
 import { submit } from 'actions/api/TakeTestAPI'
 import { cloneDeep } from 'lodash'
+import PanelPreview from './panelPreview/PanelPreview'
+import PanelSettings from './panelSettings/PanelSettings'
+import Question from './question/Question'
 
 function MultiChoices() {
     let { testId } = useParams()
