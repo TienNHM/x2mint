@@ -46,14 +46,7 @@ const Login = () => {
     }
     const responseGoogle = async (response) => {
         try {
-            //console.log(dispatch(loginViaGoogle(response)))
             dispatch(loginViaGoogle(response))
-            const accessToken = Cookies.get(COOKIES.ACCESS_TOKEN)
-            const loginViaGoogleStatus = Cookies.get(COOKIES.LOGIN_GOOGLE_SUCCESS)
-            if (accessToken === loginViaGoogleStatus) {
-                Cookies.remove(COOKIES.LOGIN_GOOGLE_SUCCESS)
-                navigate('/')
-            }
         } catch (err) {
             console.log(err)
         }
@@ -124,7 +117,7 @@ const Login = () => {
                                 buttonText="Đăng nhập với Google"
                                 onSuccess={responseGoogle}
                                 cookiePolicy={'single_host_origin'}
-                                // isSignedIn={true}
+                                isSignedIn={true}
                             />
                         </div>
 
