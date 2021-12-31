@@ -150,7 +150,7 @@ export const loginUser = createAsyncThunk(
 
 //Login via Google
 export const loginViaGoogle = createAsyncThunk(
-    'auth/loginViaGoogle',
+    'auth/logins',
     async (params, { rejectWithValue }) => {
         let res = null
         try {
@@ -162,12 +162,11 @@ export const loginViaGoogle = createAsyncThunk(
                 .catch((err) => {
                     console.log(err)
                 })
-            console.log(res)
+
             if (res.data.success === true) {
                 if (res.data.message === 'login')
                 {
-                    toast.success('🌟 Đăng nhập thành công! Chào mừng bạn trở lại X2M!NT')
-                    Cookies.set(COOKIES.LOGIN_GOOGLE_SUCCESS, res.data.accessToken)
+                    toast.success('🌟 Chào mừng bạn trở lại X2M!NT')
                 }
                 else
                     toast.success('🌟 Đăng nhập và tạo tài khoản thành công! Kiểm tra Email nhé !!')
@@ -195,6 +194,7 @@ export const loginViaGoogle = createAsyncThunk(
                 res.data.user.id,
                 { expires: COOKIES.MAX_DAYS_EXPIRE }
             )
+
             return {
                 user: res.data.user,
                 isAuthenticated: true

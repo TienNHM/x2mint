@@ -6,13 +6,15 @@ import { logOut } from 'redux/authSlice'
 import { ROLE } from 'utils/constants'
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import { NavHashLink } from 'react-router-hash-link'
+import { GoogleLogout } from 'react-google-login'
 
 export default function MyAppNavbar() {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
     const user = useSelector((state) => state.auth.user)
 
     const dispatch = useDispatch()
-    const logOut_ = () => {
+
+    const onLogoutSuccess = () => {
         dispatch(logOut())
     }
     return (
@@ -73,17 +75,26 @@ export default function MyAppNavbar() {
                                     Trang cá nhân
                                 </NavLink>
 
-                                <NavLink to="/"
-                                    className="nav__btn__signup nav__link active-link">
-                                    <button className="fw-bolder"
-                                        style={{
-                                            background: 'transparent',
-                                            borderWidth: 0
-                                        }}
-                                        onClick={() => logOut_()}>
-                                        Đăng xuất
-                                    </button>
-                                </NavLink>
+                                <GoogleLogout
+                                    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                                    buttonText="Đăng xuất"
+                                    onLogoutSuccess={onLogoutSuccess}
+                                    render={renderProps => (
+                                        <NavLink to="/"
+                                            className="nav__btn__signup nav__link active-link">
+                                            <button className="fw-bolder"
+                                                style={{
+                                                    background: 'transparent',
+                                                    borderWidth: 0
+                                                }}
+                                                onClick={renderProps.onClick}
+                                                disabled={renderProps.disabled}>
+                                                Đăng xuất
+                                            </button>
+                                        </NavLink>
+                                    )}
+                                >
+                                </GoogleLogout>
                             </>
                         )}
                     </Nav>
