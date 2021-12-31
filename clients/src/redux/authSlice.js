@@ -25,19 +25,19 @@ export const register = createAsyncThunk(
                 toast.success('🎉 Đăng ký tài khoản thành công. Kiểm tra email để xác thực tài khoản nhé !')
             } else {
                 switch (res.data.message) {
-                case 'username':
-                    toast.error('❌ Username đã tồn tại. Vui lòng chọn đăng nhập!')
-                    Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
-                    break
-                case 'email':
-                    toast.error('❌ Email đã tồn tại. Vui lòng chọn đăng nhập!')
-                    Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
-                    break
-                case 'password':
-                    toast.error('💢 Sai mật khẩu, vui lòng nhập lại!')
-                    Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
-                    break
-                default:
+                    case 'username':
+                        toast.error('❌ Username đã tồn tại. Vui lòng chọn đăng nhập!')
+                        Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
+                        break
+                    case 'email':
+                        toast.error('❌ Email đã tồn tại. Vui lòng chọn đăng nhập!')
+                        Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
+                        break
+                    case 'password':
+                        toast.error('💢 Sai mật khẩu, vui lòng nhập lại!')
+                        Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
+                        break
+                    default:
                 }
             }
 
@@ -115,33 +115,39 @@ export const loginUser = createAsyncThunk(
             console.log(res)
             if (res.data.success === true) {
                 toast.success('🌟 Đăng nhập thành công! Chào mừng bạn trở lại X2M!NT')
-            } else {
-                switch (res.data.message) {
-                case 'incorrect':
-                    toast.error('💢 Tài khoản không tồn tại!')
-                    break
-                case 'password':
-                    toast.error('💢 Sai mật khẩu, vui lòng nhập lại!')
-                    break
+
+                setAuthToken(res.data.accessToken)
+
+                // Set cookies
+                Cookies.set(
+                    COOKIES.ACCESS_TOKEN,
+                    res.data.accessToken,
+                    { expires: COOKIES.MAX_DAYS_EXPIRE }
+                )
+                Cookies.set(
+                    COOKIES.USER_ID,
+                    res.data.user.id,
+                    { expires: COOKIES.MAX_DAYS_EXPIRE }
+                )
+                return {
+                    user: res.data.user,
+                    isAuthenticated: true
                 }
             }
-            setAuthToken(res.data.accessToken)
+            else {
+                if (res.data.message === 'incorrect') {
+                    toast.error('💢 Tài khoản không tồn tại!')
+                }
+                else if (res.data.message === 'password') {
+                    toast.error('💢 Sai mật khẩu, vui lòng nhập lại!')
+                }
+            }
 
-            // Set cookies
-            Cookies.set(
-                COOKIES.ACCESS_TOKEN,
-                res.data.accessToken,
-                { expires: COOKIES.MAX_DAYS_EXPIRE }
-            )
-            Cookies.set(
-                COOKIES.USER_ID,
-                res.data.user.id,
-                { expires: COOKIES.MAX_DAYS_EXPIRE }
-            )
             return {
                 user: res.data.user,
-                isAuthenticated: true
+                isAuthenticated: false
             }
+
         } catch (error) {
             return rejectWithValue(error.response.data.message)
         }
@@ -164,40 +170,42 @@ export const loginViaGoogle = createAsyncThunk(
                 })
 
             if (res.data.success === true) {
-                if (res.data.message === 'login')
-                {
+                if (res.data.message === 'login') {
                     toast.success('🌟 Chào mừng bạn trở lại X2M!NT')
+
+                    setAuthToken(res.data.accessToken)
+
+                    // Set cookies
+                    Cookies.set(
+                        COOKIES.ACCESS_TOKEN,
+                        res.data.accessToken,
+                        { expires: COOKIES.MAX_DAYS_EXPIRE }
+                    )
+                    Cookies.set(
+                        COOKIES.USER_ID,
+                        res.data.user.id,
+                        { expires: COOKIES.MAX_DAYS_EXPIRE }
+                    )
+
+                    return {
+                        user: res.data.user,
+                        isAuthenticated: true
+                    }
                 }
                 else
                     toast.success('🌟 Đăng nhập và tạo tài khoản thành công! Kiểm tra Email nhé !!')
             } else {
-                switch (res.data.message) {
-                case 'email':
+                if (res.data.message === 'email') {
                     toast.error('💢 Email không tồn tại !')
-                    break
-                case 'password':
+                }
+                else if (res.data.message === 'password') {
                     toast.error('💢 Đăng nhập không thành công, vui lòng thử lại !')
-                    break
                 }
             }
 
-            setAuthToken(res.data.accessToken)
-
-            // Set cookies
-            Cookies.set(
-                COOKIES.ACCESS_TOKEN,
-                res.data.accessToken,
-                { expires: COOKIES.MAX_DAYS_EXPIRE }
-            )
-            Cookies.set(
-                COOKIES.USER_ID,
-                res.data.user.id,
-                { expires: COOKIES.MAX_DAYS_EXPIRE }
-            )
-
             return {
                 user: res.data.user,
-                isAuthenticated: true
+                isAuthenticated: false
             }
         } catch (error) {
             return rejectWithValue(error.response.data.message)
