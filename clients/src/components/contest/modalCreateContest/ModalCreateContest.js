@@ -230,7 +230,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                             <div className="label">Ảnh cover</div>
 
                             <div className="display-image">
-                                <Image fluid src={link || process.env.PUBLIC_URL + '/assets/placeholder.png'} />
+                                <Image fluid src={link || process.env.PUBLIC_URL + '/assets/images/placeholder.png'} />
                             </div>
 
                             <div className="change-image">

@@ -272,7 +272,7 @@ function MultiChoices() {
         return (
             <div className="d-flex flex-column justify-content-center align-items-center">
                 <div style={{ paddingTop: '10vh' }}>
-                    <Image src={process.env.PUBLIC_URL + '/assets/enter-otp.svg'}
+                    <Image src={process.env.PUBLIC_URL + '/assets/images/enter-otp.svg'}
                         style={{ height: '60vh' }}></Image>
                 </div>
                 <div className="row">

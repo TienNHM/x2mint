@@ -42,7 +42,7 @@ export default function About() {
 
                 <div className="col-12 col-md-6 con" data-aos="fade-up">
                     <Image className="w-50"
-                        src={process.env.PUBLIC_URL + 'assets/contest.svg'} />
+                        src={process.env.PUBLIC_URL + 'assets/images/contest.svg'} />
                     <p id="create">DỰ THI</p>
                 </div>
             </div>
@@ -50,7 +50,7 @@ export default function About() {
             <div className="row container w-100 p-3 d-flex justify-content-center align-items-center">
                 <div className="col-12 col-md-6" data-aos="fade-up">
                     <Image className="w-50"
-                        src={process.env.PUBLIC_URL + '/assets/create.svg'} />
+                        src={process.env.PUBLIC_URL + '/assets/images/create.svg'} />
                     <p id="create">TẠO BÀI KIỂM TRA</p>
                 </div>
 
@@ -83,9 +83,9 @@ export default function About() {
                 <h2 className='text-center'>
                     Còn chần chừ gì mà không tham gia ngay nào!
                 </h2>
-                <Image src={process.env.PUBLIC_URL + '/assets/svg/login.svg'} />
+                <Image src={process.env.PUBLIC_URL + '/assets/images/login.svg'} />
                 <Link to="/register">
-                    <Button variant="success"
+                    <Button variant="success" size="lg"
                         className="fw-bolder" pill>
                         <i className="fa fa-graduation-cap pe-1"></i>
                         Đăng ký

@@ -253,7 +253,7 @@ export default function ContestInfo() {
                     <Image fluid={true} variant="top"
                         src={embededMedia ?
                             embededMedia :
-                            process.env.PUBLIC_URL + '/assets/placeholder.png'
+                            process.env.PUBLIC_URL + '/assets/images/placeholder.png'
                         }
                         className="p-3 contest-image"
                     />
@@ -512,7 +512,7 @@ export default function ContestInfo() {
 
                                     {data.length == 0 &&
                                         <Card.Body className="row d-flex justify-content-center align-items-center">
-                                            <Image src={process.env.PUBLIC_URL + '/assets/nothing.svg'} style={{ width: '70%' }} />
+                                            <Image src={process.env.PUBLIC_URL + '/assets/images/nothing.svg'} style={{ width: '70%' }} />
                                         </Card.Body>
                                     }
                                 </div>

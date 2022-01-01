@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Login.scss'
-import { Form } from 'react-bootstrap'
+import { Form, Image } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { loginUser, loginViaGoogle } from 'redux/authSlice'
@@ -80,7 +80,8 @@ const Login = () => {
 
             <Form className="form__body container" onSubmit={login}>
                 <div className="row">
-                    <img className="auth__pic col" src="assets/auth.svg"></img>
+                    <Image className="auth__pic col"
+                        src={process.env.PUBLIC_URL + 'assets/images/auth.svg'} />
                     <div className="info__area col">
                         <div className="input">
                             <input

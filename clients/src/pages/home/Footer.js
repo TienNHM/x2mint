@@ -46,7 +46,7 @@ function Footer() {
                             <a className="p-1"
                                 href="https://github.com/tiennhm"
                                 target="_blank" rel="noreferrer">
-                                <Image src={process.env.PUBLIC_URL + '/assets/images/tien.webp'}
+                                <Image src={process.env.PUBLIC_URL + '/assets/avatars/tien.webp'}
                                     roundedCircle
                                     width="48" height="48"
                                 />
@@ -54,7 +54,7 @@ function Footer() {
                             <a className="p-1"
                                 href="https://github.com/timomint"
                                 target="_blank" rel="noreferrer">
-                                <Image src={process.env.PUBLIC_URL + '/assets/images/thien.webp'}
+                                <Image src={process.env.PUBLIC_URL + '/assets/avatars/thien.webp'}
                                     roundedCircle
                                     width="48" height="48"
                                 />
