@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image } from 'react-bootstrap'
 import './Homepage.scss'
-import Footer from 'components/common/home/Footer'
+import Footer from 'pages/home/Footer'
 
 
 function Homepage() {
