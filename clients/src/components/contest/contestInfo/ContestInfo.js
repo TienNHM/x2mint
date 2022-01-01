@@ -55,12 +55,12 @@ export default function ContestInfo() {
     const [confirmModalContent, setConfirmModalContent] = useState('')
     const [currentAction, setCurrentAction] = useState('')
     const [searchQuery, setSearchQuery] = useState('')
-    const [selectedTest, setSelectedTest] = useState(null) //TODO chuyển selectedTest sang lưu trữ selectedTest.id
+    const [selectedTest, setSelectedTest] = useState(null)
 
     // Test information
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [url, setUrl] = useState('')
+    //const [url, setUrl] = useState('')
     const [embededMedia, setEmbedMedia] = useState('')
     const [startDate, setStartDate] = useState('')
     const [startTime, setStartTime] = useState('')
@@ -79,7 +79,7 @@ export default function ContestInfo() {
         if (contest) {
             setTitle(contest.name)
             setDescription(contest.description)
-            setUrl(contest.url)
+            //setUrl(contest.url)
             setEmbedMedia(contest.embededMedia)
             const start_time = splitTime(contest.startTime)
             const end_time = splitTime(contest.endTime)
@@ -253,7 +253,7 @@ export default function ContestInfo() {
                     <Image fluid={true} variant="top"
                         src={embededMedia ?
                             embededMedia :
-                            process.env.PUBLIC_URL + '/assets/placeholder.png'
+                            process.env.PUBLIC_URL + '/assets/images/placeholder.png'
                         }
                         className="p-3 contest-image"
                     />
@@ -512,7 +512,7 @@ export default function ContestInfo() {
 
                                     {data.length == 0 &&
                                         <Card.Body className="row d-flex justify-content-center align-items-center">
-                                            <Image src={process.env.PUBLIC_URL + '/assets/nothing.svg'} style={{ width: '70%' }} />
+                                            <Image src={process.env.PUBLIC_URL + '/assets/images/nothing.svg'} style={{ width: '70%' }} />
                                         </Card.Body>
                                     }
                                 </div>

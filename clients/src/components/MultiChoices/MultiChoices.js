@@ -81,7 +81,6 @@ function MultiChoices() {
     useEffect(() => {
         async function callCreateTakeTest(_takeTest) {
             const data = await createTakeTest(_takeTest)
-            console.log(data)
 
             setTakeTest({
                 ..._takeTest,
@@ -130,12 +129,9 @@ function MultiChoices() {
 
         // Update lại question trong list questions
         let newQuestions = [...questions]
-        // console.log('update selected question', newQuestions)
         const index = newQuestions.findIndex(q => q._id === selectedQuestion._id)
         newQuestions[index] = question
         setQuestions(newQuestions)
-
-        console.log(newQuestions)
     }
 
     const updateTakeTestInfo = async (question, chooseAnswer) => {
@@ -276,7 +272,7 @@ function MultiChoices() {
         return (
             <div className="d-flex flex-column justify-content-center align-items-center">
                 <div style={{ paddingTop: '10vh' }}>
-                    <Image src={process.env.PUBLIC_URL + '/assets/enter-otp.svg'}
+                    <Image src={process.env.PUBLIC_URL + '/assets/images/enter-otp.svg'}
                         style={{ height: '60vh' }}></Image>
                 </div>
                 <div className="row">

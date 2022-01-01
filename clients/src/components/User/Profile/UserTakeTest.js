@@ -149,7 +149,7 @@ export function ExportDataArchiveContest(data, onClickContestStatus) {
     const rows = data.map((value, index) => {
         const avatar = value.creatorId.avatar ?
             value.creatorId.avatar :
-            process.env.PUBLIC_URL + '/assets/male-user.png'
+            process.env.PUBLIC_URL + '/assets/images/male-user.png'
 
         const user = (
             <div className="row">

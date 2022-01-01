@@ -7,8 +7,9 @@ import { isEmpty, isEmail, isLength, isMatch } from 'utils/Validation'
 import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { toast } from 'react-toastify'
-import Cookies from 'js-cookie'
-import { COOKIES } from 'utils/constants'
+import { Image } from 'react-bootstrap'
+// import Cookies from 'js-cookie'
+// import { COOKIES } from 'utils/constants'
 
 const initialState = {
     username: '',
@@ -31,23 +32,19 @@ const Register = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        if (isEmpty(email)|| isEmpty(username) || isEmpty(password)|| isEmpty(reEnterPassword))
-        {
+        if (isEmpty(email) || isEmpty(username) || isEmpty(password) || isEmpty(reEnterPassword)) {
             toast.warning('📝 Vui lòng điền đủ thông tin nhé !')
             return null
         }
-        if (!isEmail(email))
-        {
+        if (!isEmail(email)) {
             toast.warning('📧 Sai email, vui lòng nhập lại!')
             return null
         }
-        if (isLength(password))
-        {
+        if (isLength(password)) {
             toast.warning('🔑 Mật khẩu yếu, hãy chọn mật khẩu khác!')
             return null
         }
-        if (!isMatch(password, reEnterPassword))
-        {
+        if (!isMatch(password, reEnterPassword)) {
             toast.error('🔑 Sai mật khẩu, vui lòng nhập lại!')
             return null
         }
@@ -62,7 +59,7 @@ const Register = () => {
             // }
         } catch (error) {
             error.response.data.msg &&
-            setUser({ ...user, error: error.response.data.msg, success: '' })
+                setUser({ ...user, error: error.response.data.msg, success: '' })
         }
     }
 
@@ -97,7 +94,9 @@ const Register = () => {
             <section className="signup__body row" onSubmit={handleSubmit} method="POST">
                 <div className="register__right col">
                     <h1 className="form__title">Đăng ký tài khoản</h1>
-                    <img className="auth__pic" src="assets/auth.svg"></img>
+                    <Image className="auth__pic"
+                        src={process.env.PUBLIC_URL + 'assets/images/auth.svg'}
+                    />
                 </div>
                 <div className="signup__area col">
                     <div className="input">

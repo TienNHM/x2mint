@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const ActivationEmail = () => {
     const { activation_token } = useParams()
-    const [err, setErr] = useState('')
+    //const [err, setErr] = useState('')
     const [success, setSuccess] = useState('')
 
     const navigate = useNavigate()
@@ -18,7 +18,7 @@ const ActivationEmail = () => {
                     console.log(res)
                     setSuccess(res.data.success)
                 } catch (err) {
-                    err.response.data.msg && setErr(err.response.data.msg)
+                    //err.response.data.msg && setErr(err.response.data.msg)
                 }
             }
             activationEmail()

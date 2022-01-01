@@ -21,7 +21,7 @@ const Page404 = () => {
 
                             <div>
                                 <Image align="center"
-                                    src={process.env.PUBLIC_URL + '/assets/empty.svg'}
+                                    src={process.env.PUBLIC_URL + '/assets/images/empty.svg'}
                                     width={300} height={300}
                                 />
                             </div>

@@ -58,7 +58,7 @@ export function StatisticTakeTestsInContest(data) {
     const rows = data.map((value, index) => {
         const avatar = value.user.avatar ?
             value.user.avatar :
-            process.env.PUBLIC_URL + '/assets/male-user.png'
+            process.env.PUBLIC_URL + '/assets/images/male-user.png'
 
         const user = (
             <div className="row">

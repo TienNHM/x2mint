@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { isEmail } from 'utils/Validation'
-import { showErrMsg, showSuccessMsg } from 'utils/notification/Notification'
-//import './Login.scss'
+
 const initialState = {
     email: '',
     err: '',
@@ -16,7 +15,7 @@ function ForgotPassword() {
 
     const handleChangeInput = e => {
         const { name, value } = e.target
-        setData({ ...data, [name]:value, err: '', success: '' })
+        setData({ ...data, [name]: value, err: '', success: '' })
     }
 
     const forgotPassword = async () => {
@@ -25,17 +24,25 @@ function ForgotPassword() {
         try {
             const res = await axios.post('/auths/forgotPassword', { email })
 
-            return setData({ ...data, err: '', success: res.data.msg })
+            return setData({
+                ...data,
+                err: '',
+                success: res.data.msg
+            })
         } catch (err) {
-            err.response.data.msg && setData({ ...data, err:  err.response.data.msg, success: '' })
+            err.response.data.msg && setData({
+                ...data,
+                err: err.response.data.msg,
+                success: ''
+            })
         }
     }
     return (
         <div className="forgot">
             <h2 className="form__title">Lấy lại mật khẩu...</h2>
             <div>
-                {err && showErrMsg(err)}
-                {success && showSuccessMsg(success)}
+                {err && <div className="bg-danger">{err}</div>}
+                {success && <div className="bg-success">{success}</div>}
                 <div className='email__reset'>
                     <input
                         type="email"
@@ -47,7 +54,7 @@ function ForgotPassword() {
                 </div>
                 <button
                     className="btn__resetPassword"
-                    onClick={forgotPassword}>Nhận Email</button>
+                    onClick={forgotPassword}>Nhập Email</button>
             </div>
         </div>
     )

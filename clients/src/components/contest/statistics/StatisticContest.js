@@ -18,6 +18,8 @@ import { getCurrentDatetime } from 'utils/timeUtils'
 import { useParams } from 'react-router'
 import { StatisticTakeTestsInContest } from 'components/statistics/ContestStatistics'
 
+Chart.register()
+
 export default function StatisticContest() {
     let { contestId } = useParams()
 

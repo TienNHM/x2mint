@@ -18,6 +18,8 @@ import { cloneDeep } from 'lodash'
 import { getCurrentDatetime } from 'utils/timeUtils'
 import { useParams } from 'react-router'
 
+Chart.register()
+
 export default function StatisticTest() {
     let { testId } = useParams()
 

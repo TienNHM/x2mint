@@ -184,7 +184,7 @@ export default function Contest() {
             <Card key={index}>
                 <div className="d-flex justify-content-center embeded-media">
                     <Image className="embeded-img"
-                        src={c.embededMedia || 'assets/placeholder.png'}
+                        src={c.embededMedia || 'assets/images/placeholder.png'}
                     />
                 </div>
 
@@ -279,7 +279,7 @@ export default function Contest() {
 
                         {contests.length === 0 &&
                             <Card.Body className="row d-flex justify-content-center align-items-center">
-                                <Image src={process.env.PUBLIC_URL + '/assets/nothing.svg'} style={{ width: '50%' }} />
+                                <Image src={process.env.PUBLIC_URL + '/assets/images/nothing.svg'} style={{ width: '50%' }} />
                             </Card.Body>
                         }
                     </>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Modal, Form } from 'react-bootstrap'
+import { Modal, Form } from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact'
 import { COOKIES } from 'utils/constants'
 import exportData from './data.js'

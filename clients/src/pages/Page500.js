@@ -21,7 +21,7 @@ const Page500 = () => {
 
                             <div>
                                 <Image align="center"
-                                    src={process.env.PUBLIC_URL + '/assets/opps.svg'}
+                                    src={process.env.PUBLIC_URL + '/assets/images/opps.svg'}
                                     width={300} height={300}
                                 />
                             </div>

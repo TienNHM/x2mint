@@ -26,8 +26,7 @@ export default function MyAppNavbar() {
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-                <Navbar.Collapse
-                    id="basic-navbar-nav">
+                <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="d-flex justify-content-center">
                         <NavLink to="/">
                             Trang chủ

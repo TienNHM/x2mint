@@ -145,7 +145,7 @@ export function ExportDataUser(data, onClickUserStatus) {
     const rows = data.map((value, index) => {
         const avatar = value.avatar ?
             <Image roundedCircle src={value.avatar} width="32px" height="32px" alt="avatar" /> :
-            <Image roundedCircle src={process.env.PUBLIC_URL + '/assets/male-user.png'} width="32px" height="32px" alt="avatar" />
+            <Image roundedCircle src={process.env.PUBLIC_URL + '/assets/images/male-user.png'} width="32px" height="32px" alt="avatar" />
 
         const item = {
             [STATISTICS.ACCOUNT.STT]: index + 1,
@@ -259,7 +259,7 @@ export function ExportDataUserPermissions(data, onClickUserPermissions, onClickU
     const rows = data.map((value, index) => {
         const avatar = value.avatar ?
             <Image roundedCircle src={value.avatar} width="32px" height="32px" alt="avatar" /> :
-            <Image roundedCircle src={process.env.PUBLIC_URL + '/assets/male-user.png'} width="32px" height="32px" alt="avatar" />
+            <Image roundedCircle src={process.env.PUBLIC_URL + '/assets/images/male-user.png'} width="32px" height="32px" alt="avatar" />
 
         const item = {
             [STATISTICS.ACCOUNT.STT]: index + 1,

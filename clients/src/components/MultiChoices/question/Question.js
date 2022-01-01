@@ -52,7 +52,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                 {!isUser &&
                     <>
                         <h1 className="fw-bolder">Chưa có câu hỏi nào!</h1>
-                        <Image src={process.env.PUBLIC_URL + '/assets/no-records.svg'}
+                        <Image src={process.env.PUBLIC_URL + '/assets/images/no-records.svg'}
                             style={{ height: '50vh' }} />
                         <h4 className="fw-bold text-warning">Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!</h4>
                     </>
@@ -269,7 +269,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                             }
 
                             {!embededMedia &&
-                                <Image src={process.env.PUBLIC_URL + '/assets/placeholder.png'}
+                                <Image src={process.env.PUBLIC_URL + '/assets/images/placeholder.png'}
                                     alt="Nothing" />
                             }
                         </div>

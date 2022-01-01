@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { SyncLoader } from 'react-spinners'
+import { ToastContainer } from 'react-toastify'
 import MyAppNavbar from 'components/common/appNavbar/AppNavbar'
 import Contest from 'components/contest/Contest'
-import Homepage from 'components/common/home/Homepage'
+import Homepage from 'pages/home/Homepage'
 import ProtectedRoute from 'components/ProtectedRoute'
 import { loadUser } from 'redux/authSlice'
 import ContestInfo from 'components/contest/contestInfo/ContestInfo'
@@ -11,22 +13,16 @@ import MultiChoices from 'components/multiChoices/MultiChoices'
 import Admin from 'components/admin/Admin'
 import Page404 from 'pages/Page404'
 import Page500 from 'pages/Page500'
-import ReactNotification from 'react-notifications-component'
-import 'react-notifications-component/dist/theme.css'
 import ForgotPassword from 'components/user/handlePassword/ForgotPassword'
 import ResetPassword from 'components/user/handlePassword/ResetPassword'
-import { SyncLoader } from 'react-spinners'
-import 'react-notifications-component/dist/theme.css'
-import './App.scss'
 import StatisticTest from 'components/contest/statistics/StatisticTest'
 import StatisticContest from 'components/contest/statistics/StatisticContest'
-import { ToastContainer } from 'react-toastify'
-import { Auth0Provider } from '@auth0/auth0-react'
 import Login from 'components/user/login/Login'
 import Register from 'components/user/register/Register'
 import ActivationEmail from 'components/user/register/ActivationEmail'
 import SubmitResult from 'components/multiChoices/submitResult/SubmitResult'
 import Profile from 'components/user/profile/Profile'
+import './App.scss'
 
 const loadingCss = {
     width: '100%',
@@ -47,7 +43,6 @@ function App() {
 
     return (
         <BrowserRouter>
-            <ReactNotification />
             <div className="app">
                 {authLoading && (
                     <div style={loadingCss} className='d-flex align-items-center justify-content-center'>
