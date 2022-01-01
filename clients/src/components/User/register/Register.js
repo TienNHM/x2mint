@@ -7,8 +7,8 @@ import { isEmpty, isEmail, isLength, isMatch } from 'utils/Validation'
 import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { toast } from 'react-toastify'
-import Cookies from 'js-cookie'
-import { COOKIES } from 'utils/constants'
+// import Cookies from 'js-cookie'
+// import { COOKIES } from 'utils/constants'
 
 const initialState = {
     username: '',

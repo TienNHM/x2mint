@@ -81,7 +81,6 @@ function MultiChoices() {
     useEffect(() => {
         async function callCreateTakeTest(_takeTest) {
             const data = await createTakeTest(_takeTest)
-            console.log(data)
 
             setTakeTest({
                 ..._takeTest,
@@ -130,12 +129,9 @@ function MultiChoices() {
 
         // Update lại question trong list questions
         let newQuestions = [...questions]
-        // console.log('update selected question', newQuestions)
         const index = newQuestions.findIndex(q => q._id === selectedQuestion._id)
         newQuestions[index] = question
         setQuestions(newQuestions)
-
-        console.log(newQuestions)
     }
 
     const updateTakeTestInfo = async (question, chooseAnswer) => {

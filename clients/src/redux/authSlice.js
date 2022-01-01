@@ -25,19 +25,19 @@ export const register = createAsyncThunk(
                 toast.success('🎉 Đăng ký tài khoản thành công. Kiểm tra email để xác thực tài khoản nhé !')
             } else {
                 switch (res.data.message) {
-                    case 'username':
-                        toast.error('❌ Username đã tồn tại. Vui lòng chọn đăng nhập!')
-                        Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
-                        break
-                    case 'email':
-                        toast.error('❌ Email đã tồn tại. Vui lòng chọn đăng nhập!')
-                        Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
-                        break
-                    case 'password':
-                        toast.error('💢 Sai mật khẩu, vui lòng nhập lại!')
-                        Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
-                        break
-                    default:
+                case 'username':
+                    toast.error('❌ Username đã tồn tại. Vui lòng chọn đăng nhập!')
+                    Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
+                    break
+                case 'email':
+                    toast.error('❌ Email đã tồn tại. Vui lòng chọn đăng nhập!')
+                    Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
+                    break
+                case 'password':
+                    toast.error('💢 Sai mật khẩu, vui lòng nhập lại!')
+                    Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
+                    break
+                default:
                 }
             }
 
@@ -235,6 +235,7 @@ export const resetPassword = createAsyncThunk(
         }
         catch (err) {
             console.log(err)
+            return rejectWithValue(err.response.data.message)
         }
     }
 )
@@ -296,6 +297,7 @@ const initialState = {
     error: '',
     isOpened: true
 }
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,

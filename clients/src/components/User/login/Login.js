@@ -8,8 +8,6 @@ import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { isEmpty } from 'utils/Validation'
 import { toast } from 'react-toastify'
-import Cookies from 'js-cookie'
-import { COOKIES } from 'utils/constants'
 
 import { GoogleLogin } from 'react-google-login'
 

@@ -13,12 +13,12 @@ function Homepage() {
                 </div>
                 <div className="home__right">
                     <div>
-                        <h1>
+                        <h1 className="text-center">
                             Nền tảng tạo đề thi <br /> trắc nghiệm trực tuyến
                         </h1>
-                        <h5 className="intro">
+                        <h5 className="intro text-justify">
                             Tạo đề thi, game trắc nghiệm nhanh chóng với nhiều dạng câu hỏi.
-                            <br /> Giám sát thí sinh hiệu quả, thống kê trực quan plapla ....
+                            <br /> Giám sát thí sinh hiệu quả, thống kê trực quan ....
                         </h5>
                     </div>
                 </div>

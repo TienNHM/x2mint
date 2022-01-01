@@ -12,6 +12,8 @@ import { ExportToExcel } from 'utils/ExportToExcel'
 import { cloneDeep } from 'lodash'
 import { getCurrentDatetime } from 'utils/timeUtils'
 
+Chart.register()
+
 export default function ContestParticipants() {
     const [takeTestStatistics, setTakeTestStatistics] = useState(null)
     const [statisticsSubmitTime, setStatisticsSubmitTime] = useState(null)

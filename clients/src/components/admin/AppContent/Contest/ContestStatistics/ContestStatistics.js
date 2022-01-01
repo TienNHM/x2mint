@@ -8,6 +8,8 @@ import { COOKIES } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
 import { StatisticSubmitTime, StatisticTakeTest } from '../data'
 
+Chart.register()
+
 export default function ContestStatistics() {
     const [data, setData] = useState(null)
     const [takeTestStatistics, setTakeTestStatistics] = useState(null)
