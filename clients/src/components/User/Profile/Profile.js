@@ -87,21 +87,28 @@ export default function Profile() {
 
             const data = await updateUserInfo(newUser)
 
-            setUserData({
-                full_name: data.user.full_name,
-                username: data.user.username,
-                email: data.user.email,
-                phone: data.user.phone,
-                dob: data.user.dob,
-                school: data.user.school,
-                address: data.user.address,
-                avatar: data.user.avatar,
-                _status: data.user._status,
-                _id: data.user.id
-            })
-            setIsShow(false)
+            if (data.success) {
+                setUserData({
+                    full_name: data.user.full_name,
+                    username: data.user.username,
+                    email: data.user.email,
+                    phone: data.user.phone,
+                    dob: data.user.dob,
+                    school: data.user.school,
+                    address: data.user.address,
+                    avatar: data.user.avatar,
+                    _status: data.user._status,
+                    _id: data.user.id
+                })
+                setIsShow(false)
 
-            toast.success('🎉 Đã cập nhật thông tin thành công!')
+                toast.success('🎉 Đã cập nhật thông tin thành công!')
+            }
+            else {
+                if (data.message.indexOf('Duplicate') !== -1) {
+                    toast.error('💢 Username đã được dùng, vui lòng chọn username khác!')
+                }
+            }
         }
     }
 

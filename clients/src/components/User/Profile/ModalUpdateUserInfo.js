@@ -9,6 +9,7 @@ export default function ModalUpdateUserInfo(props) {
     const [isShowLibrary, setIsShowLibrary] = useState(false)
     const [data, setData] = useState({
         full_name: user.full_name,
+        username: user.username,
         avatar: user.avatar,
         email: user.email,
         phone: user.phone,
@@ -21,6 +22,7 @@ export default function ModalUpdateUserInfo(props) {
         const newUser = {
             ...user,
             full_name: data.full_name,
+            username: data.username,
             avatar: data.avatar,
             email: data.email,
             phone: data.phone,
@@ -45,6 +47,13 @@ export default function ModalUpdateUserInfo(props) {
         setData({
             ...data,
             full_name: event.target.value
+        })
+    }
+
+    const handleUsernameChange = (event) => {
+        setData({
+            ...data,
+            username: event.target.value
         })
     }
 
@@ -109,11 +118,18 @@ export default function ModalUpdateUserInfo(props) {
                 </div>
                 <div className="user-information m-3">
                     <Row sm={12}>
-                        <Form.Group as={Col} className="mb-3" controlId="email">
+                        <Form.Group as={Col} className="mb-3" controlId="full_name">
                             <Form.Label>Họ và tên</Form.Label>
-                            <Form.Control size="sm" type="email"
+                            <Form.Control size="sm" type="text"
                                 value={data.full_name}
                                 onChange={(event) => handleFullNameChange(event)}
+                            />
+                        </Form.Group>
+                        <Form.Group as={Col} className="mb-3" controlId="username">
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control size="sm" type="text"
+                                value={data.username}
+                                onChange={(event) => handleUsernameChange(event)}
                             />
                         </Form.Group>
                     </Row>
@@ -127,7 +143,7 @@ export default function ModalUpdateUserInfo(props) {
                             />
                         </Form.Group>
 
-                        <Form.Group as={Col} className="mb-3" controlId="password">
+                        <Form.Group as={Col} className="mb-3" controlId="text">
                             <Form.Label>Số điện thoại</Form.Label>
                             <Form.Control size="sm" type="text"
                                 value={data.phone}
@@ -139,7 +155,7 @@ export default function ModalUpdateUserInfo(props) {
                     <Row sm={12}>
                         <Form.Group as={Col} className="mb-3" controlId="dob">
                             <Form.Label>Ngày sinh</Form.Label>
-                            <Form.Control size="sm" type="text"
+                            <Form.Control size="sm" type="date"
                                 value={data.dob}
                                 onChange={(event) => handleDobChange(event)}
                             />
