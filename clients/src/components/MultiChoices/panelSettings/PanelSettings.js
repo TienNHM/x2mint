@@ -15,7 +15,6 @@ import { cloneDeep } from 'lodash'
 
 function PanelSettings(props) {
     const { test, setTest } = props
-    console.log(test)
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE.USER
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Container, Draggable } from 'react-smooth-dnd'
 import { cloneDeep, isEmpty } from 'lodash'
 import { Button } from 'react-bootstrap'
@@ -36,7 +36,6 @@ function PanelPreview(props) {
         const order = newQuestions.map(q => q._id)
         newTest.questionsOrder = order
         newTest.questions = newQuestions
-        console.log(newTest)
 
         const data = await updateTest(newTest)
         setQuestions(cloneDeep(data.test.questions))

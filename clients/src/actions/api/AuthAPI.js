@@ -1,12 +1,12 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { COOKIES, ROLE } from 'utils/constants'
+import { COOKIES } from 'utils/constants'
 
 export const registerAccount = async (data) => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/auths/register`
         const request = await axios.post(url, data)
-        console.log(request.data)
+
         return request.data
     } catch (error) {
         console.log(error)

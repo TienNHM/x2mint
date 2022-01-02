@@ -23,10 +23,8 @@ export default function PanelQuestionPicker(props) {
             btnSubmitRef.current.disabled = true
             timeRemainRef.current.stop()
             setIsShowConfirm(false)
-            const data = await submit(takeTest._id)
-            // takeTest.id = data.takeTestId
+            await submit(takeTest._id)
             setIsSubmitted(true)
-            console.log(data)
         }
         else if (action === MODAL_ACTION.CLOSE) {
             timeRemainRef.current.start()

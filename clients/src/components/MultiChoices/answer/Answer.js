@@ -5,7 +5,6 @@ import { MAX } from 'utils/constants'
 import './Answer.scss'
 
 function Answer({ answer, setAnswer, onClick, disabled, isChosen }) {
-    console.log('answer', answer)
     const css = answer ? 'answer answer-' + answer.name : 'answer'
     const [name, setName] = useState(answer.name)
     const [rows, setRows] = useState(1)
@@ -38,10 +37,10 @@ function Answer({ answer, setAnswer, onClick, disabled, isChosen }) {
             ...answer,
             content: content
         }
-        console.log(newAnswer)
+
         // Update lại trong CSDL
         const data = await updateAnswer(newAnswer)
-        console.log('****', data)
+
         // Update lại answer hiện tại vào question
         setAnswer({
             ...data.answer,

@@ -13,7 +13,6 @@ import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { toast } from 'react-toastify'
 
 function Question({ question, setQuestion, takeTest, updateTakeTest }) {
-    console.log('question', question)
     // Lấy thông tin user
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE.USER
@@ -106,9 +105,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     }
 
     const handleTextBlur = async () => {
-        console.log(question)
-        const data = await updateQuestion(question)
-        console.log(data)
+        await updateQuestion(question)
     }
 
     const handleOnAnswerClick = async (answerName, checkStatus) => {
@@ -148,7 +145,6 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
 
             const data = await updateQuestion(newQuestion)
-            console.log(data)
             setQuestion({
                 ...data.question,
                 _id: data.question.id
@@ -212,7 +208,6 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
     const updateAnswer = (answer) => {
         const newQuestion = { ...question }
-        console.log('123', newQuestion)
         const index = newQuestion.answers.findIndex(a => a.id === answer.id)
         newQuestion.answers[index] = answer
         setQuestion(newQuestion, !isUser)

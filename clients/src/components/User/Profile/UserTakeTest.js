@@ -145,7 +145,6 @@ export function GetContestStatusComponent(index, contest, onClickContestStatus) 
 
 
 export function ExportDataArchiveContest(data, onClickContestStatus) {
-    console.log(data)
     const rows = data.map((value, index) => {
         const avatar = value.creatorId.avatar ?
             value.creatorId.avatar :

@@ -137,7 +137,6 @@ export default function Contest() {
     ) => {
         const url = `${process.env.REACT_APP_WEBSITE}/contest/${id}`
 
-        console.log(url)
         const obj = {
             url: url,
             title: title,

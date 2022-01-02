@@ -73,7 +73,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
             const start_time = startDate.trim() + 'T' + startTime.trim() + ':00.000Z'
             const end_time = endDate.trim() + 'T' + endTime.trim() + ':00.000Z'
             const str = title + startDate.trim() + startTime.trim() + endDate.trim() + endTime.trim()
-            console.log(start_time, end_time)
+
             //#region Validate
             if (!title || title === '') {
                 toast.error('💢 Vui lòng nhập tên cuộc thi!')

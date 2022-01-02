@@ -26,7 +26,7 @@ export const updateTakeTest = async (takeTest, action) => {
             ...takeTest,
             action: action
         }
-        console.log(data)
+
         const url = `${process.env.REACT_APP_API_ROOT}/takeTest/${takeTest._id}`
         const request = await axios.put(url, data, {
             headers: {

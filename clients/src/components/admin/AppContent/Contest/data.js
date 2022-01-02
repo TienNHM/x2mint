@@ -145,7 +145,6 @@ export const TAKETEST_COLUMNS = [
 
 export function ExportDataTakeTest(data) {
     const rows = data.map((value, index) => {
-        console.log(value)
         const avatar = value.user.avatar ?
             value.user.avatar :
             process.env.PUBLIC_URL + '/assets/images/male-user.png'
@@ -280,7 +279,6 @@ export function GetContestStatusComponent(index, contest, onClickContestStatus) 
 
 
 export function ExportDataArchiveContest(data, onClickContestStatus) {
-    console.log(data)
     const rows = data.map((value, index) => {
         const avatar = value.creatorId.avatar ?
             value.creatorId.avatar :
