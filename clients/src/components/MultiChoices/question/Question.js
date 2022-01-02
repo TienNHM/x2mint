@@ -105,9 +105,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     }
 
     const handleTextBlur = async () => {
-        console.log(question)
-        const data = await updateQuestion(question)
-        console.log(data)
+        await updateQuestion(question)
     }
 
     const handleOnAnswerClick = async (answerName, checkStatus) => {
@@ -147,7 +145,6 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
 
             const data = await updateQuestion(newQuestion)
-            console.log(data)
             setQuestion({
                 ...data.question,
                 _id: data.question.id
@@ -211,7 +208,6 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
     const updateAnswer = (answer) => {
         const newQuestion = { ...question }
-        console.log('123', newQuestion)
         const index = newQuestion.answers.findIndex(a => a.id === answer.id)
         newQuestion.answers[index] = answer
         setQuestion(newQuestion, !isUser)

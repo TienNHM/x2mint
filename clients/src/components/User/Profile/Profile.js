@@ -86,7 +86,6 @@ export default function Profile() {
             //#endregion
 
             const data = await updateUserInfo(newUser)
-            console.log(data)
 
             setUserData({
                 full_name: data.user.full_name,

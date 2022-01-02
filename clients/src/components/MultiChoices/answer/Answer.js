@@ -37,10 +37,10 @@ function Answer({ answer, setAnswer, onClick, disabled, isChosen }) {
             ...answer,
             content: content
         }
-        console.log(newAnswer)
+
         // Update lại trong CSDL
         const data = await updateAnswer(newAnswer)
-        console.log('****', data)
+
         // Update lại answer hiện tại vào question
         setAnswer({
             ...data.answer,

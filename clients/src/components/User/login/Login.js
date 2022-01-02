@@ -45,8 +45,8 @@ const Login = () => {
     const responseGoogle = async (response) => {
         try {
             dispatch(loginViaGoogle(response))
-        } catch (err) {
-            console.log(err)
+        } catch (error) {
+            console.log(error)
         }
     }
 

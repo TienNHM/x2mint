@@ -123,6 +123,10 @@ function MultiChoices() {
         setTest(newTest)
     }, [questions])
 
+    useEffect(() => {
+        //console.log('test', test)
+    }, [test])
+
     const updateSelectedQuestion = (question) => {
         // TODO kiểm tra lại
         setSelectedQuestion(question)

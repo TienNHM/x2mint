@@ -28,11 +28,9 @@ export default function AccountStatistics() {
     useEffect(() => {
         if (response) {
             setData(response.data)
-            console.log('response', response.data)
 
             const signupStatisticsData = StatisticAccountSignUp(response.data)
             setSignupStatistics(signupStatisticsData)
-            console.log('signupStatisticsData', signupStatisticsData)
 
             setOverview(StatisticAccountOverview(response.data))
         }

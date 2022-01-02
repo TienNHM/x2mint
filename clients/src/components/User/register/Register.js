@@ -51,12 +51,6 @@ const Register = () => {
         try {
             dispatch(register(user))
             navigate('/login')
-            // const s = Cookies.get(COOKIES.REGISTER_STATUS)
-            // console.log(s)
-            // Cookies.remove(COOKIES.REGISTER_STATUS)
-            // if (s === 'success') {
-            //     navigate('/login')
-            // }
         } catch (error) {
             error.response.data.msg &&
                 setUser({ ...user, error: error.response.data.msg, success: '' })

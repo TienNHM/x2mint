@@ -45,7 +45,6 @@ export const createContest = async (contest) => {
             }
         }).then(response => response)
 
-        console.log(request.data)
         return request.data
     }
     catch (err) {

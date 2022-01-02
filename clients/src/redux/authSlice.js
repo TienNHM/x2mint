@@ -18,7 +18,6 @@ export const register = createAsyncThunk(
                 ...userForm,
                 role: ROLE.USER
             })
-            console.log(res)
 
             if (res.data.success === true) {
                 Cookies.set(COOKIES.REGISTER_STATUS, 'success')
@@ -71,26 +70,13 @@ export const activation = createAsyncThunk(
                 .catch((err) => {
                     console.log(err)
                 })
-            console.log(res)
 
             if (res.data.success === true) {
                 toast.success('🎉 Xác thực tài khoản thành công. Xin mời Đăng nhập để tiếp tục !')
             } else {
                 toast.error('❌ Tài khoản này đã xác thực !')
             }
-
-            // setAuthToken(res.data.accessToken)
-            // // Set cookies
-            // Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
-            // Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
-
-            // return {
-            //     user: res.data.user,
-            //     isAuthenticated: true
-            // }
         } catch (error) {
-
-            console.log('error', error)
             return rejectWithValue(error.response.data.message)
         }
 
@@ -112,7 +98,7 @@ export const loginUser = createAsyncThunk(
                 .catch((err) => {
                     console.log(err)
                 })
-            console.log(res)
+
             if (res.data.success === true) {
                 toast.success('🌟 Đăng nhập thành công! Chào mừng bạn trở lại X2M!NT')
 
@@ -218,7 +204,7 @@ export const resetPassword = createAsyncThunk(
     'auth/resetPassword',
     async (params, { rejectWithValue }) => {
         const resetForm = params
-        console.log(resetForm)
+
         let res = null
         try {
             await axios
@@ -260,7 +246,6 @@ export const loadUser = createAsyncThunk(
                         response = err.response
                     })
 
-                console.log(response)
                 if (response.data.success === true) {
                     return {
                         isAuthenticated: true,
@@ -321,6 +306,7 @@ const authSlice = createSlice({
         },
         [loginUser.pending]: (state, actions) => {
             state.authLoading = true
+            actions
         },
         [loginUser.rejected]: (state, actions) => {
             state.authLoading = false
@@ -330,6 +316,7 @@ const authSlice = createSlice({
         },
         [loadUser.pending]: (state, actions) => {
             state.authLoading = true
+            actions
         },
         [loadUser.fulfilled]: (state, action) => {
             state.authLoading = false

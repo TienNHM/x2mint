@@ -29,15 +29,12 @@ export default function ContestStatistics() {
     useEffect(() => {
         if (response) {
             setData(response.data)
-            console.log('response', response.data)
 
             const takeTestStatisticsData = StatisticTakeTest(response.data.takeTests)
             setTakeTestStatistics(takeTestStatisticsData)
-            console.log('takeTestStatistics', takeTestStatisticsData)
 
             const submitTimeStatisticsData = StatisticSubmitTime(response.data.takeTests)
             setStatisticsSubmitTime(submitTimeStatisticsData)
-            console.log('signupStatisticsData', submitTimeStatisticsData)
         }
     }, [response])
 
