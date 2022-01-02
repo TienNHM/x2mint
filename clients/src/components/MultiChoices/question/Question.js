@@ -13,6 +13,7 @@ import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { toast } from 'react-toastify'
 
 function Question({ question, setQuestion, takeTest, updateTakeTest }) {
+    console.log('question', question)
     // Lấy thông tin user
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE.USER

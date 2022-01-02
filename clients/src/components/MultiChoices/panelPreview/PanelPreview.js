@@ -39,7 +39,6 @@ function PanelPreview(props) {
         console.log(newTest)
 
         const data = await updateTest(newTest)
-        console.log('update order', data.test)
         setQuestions(cloneDeep(data.test.questions))
         setTest(cloneDeep(data.test.questions))
     }
@@ -68,11 +67,28 @@ function PanelPreview(props) {
             await deleteQuestion(selectedQuestion._id)
 
             const newQuestions = [...questions]
-            const index = newQuestions.indexOf(selectedQuestion)
+            let index = -1
+            newQuestions.forEach((question, i) => {
+                if (question._id === selectedQuestion._id) {
+                    index = i
+                }
+            })
             newQuestions.splice(index, 1)
 
-            setQuestions(newQuestions)
-            setSelectedQuestion(newQuestions[index > 0 ? index - 1 : 0])
+            const updateTestRes = await updateTest({
+                ...test,
+                questions: cloneDeep(newQuestions),
+                questionsOrder: newQuestions.map(q => {
+                    if (q._id !== selectedQuestion._id)
+                        return q._id
+                })
+            })
+            const newTest = updateTestRes.test
+            setTest(cloneDeep(newTest))
+            setQuestions(newTest.questions)
+
+            const newIndex = (index > 0 && index < newTest.questions.length) ? index : 0
+            setSelectedQuestion(newTest.questions[newIndex])
 
             toast.success('🌟 Đã xóa thành công!')
         }
