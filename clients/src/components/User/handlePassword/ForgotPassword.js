@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { isEmail } from 'utils/Validation'
+import './ForgotPassword.scss'
+import Footer from 'pages/home/Footer'
 
 const initialState = {
     email: '',
@@ -38,24 +40,29 @@ function ForgotPassword() {
         }
     }
     return (
-        <div className="forgot">
-            <h2 className="form__title">Lấy lại mật khẩu...</h2>
-            <div>
-                {err && <div className="bg-danger">{err}</div>}
-                {success && <div className="bg-success">{success}</div>}
-                <div className='email__reset'>
-                    <input
-                        type="email"
-                        name="email"
-                        value={email}
-                        onChange={handleChangeInput}
-                        placeholder="Email..."
-                    ></input>
+        <div className="forgot-password d-flex flex-column justify-content-end">
+            <div className="d-flex justify-content-center">
+                <div className="forgot">
+                    <h2 className="form__title">Lấy lại mật khẩu...</h2>
+                    <div>
+                        {err && <div className="bg-danger">{err}</div>}
+                        {success && <div className="bg-success">{success}</div>}
+                        <div className='email__reset'>
+                            <input
+                                type="email"
+                                name="email"
+                                value={email}
+                                onChange={handleChangeInput}
+                                placeholder="Email..."
+                            ></input>
+                        </div>
+                        <button
+                            className="btn__resetPassword"
+                            onClick={forgotPassword}>Nhập Email</button>
+                    </div>
                 </div>
-                <button
-                    className="btn__resetPassword"
-                    onClick={forgotPassword}>Nhập Email</button>
             </div>
+            <Footer />
         </div>
     )
 }
