@@ -45,8 +45,17 @@ function ForgotPassword() {
                 <div className="forgot">
                     <h2 className="form__title">Lấy lại mật khẩu...</h2>
                     <div>
-                        {err && <div className="bg-danger">{err}</div>}
-                        {success && <div className="bg-success">{success}</div>}
+                        {err &&
+                            <div className="bg-danger text-light">
+                                {err}
+                            </div>
+                        }
+
+                        {success &&
+                            <div className="bg-success text-light">
+                                Vui lòng kiểm tra email để đặt lại mật khẩu!
+                            </div>
+                        }
                         <div className='email__reset'>
                             <input
                                 type="email"
@@ -57,8 +66,10 @@ function ForgotPassword() {
                             ></input>
                         </div>
                         <button
-                            className="btn__resetPassword"
-                            onClick={forgotPassword}>Nhập Email</button>
+                            className="btn__resetPassword text-light"
+                            onClick={forgotPassword}>
+                            OK
+                        </button>
                     </div>
                 </div>
             </div>
