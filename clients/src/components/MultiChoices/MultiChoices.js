@@ -19,7 +19,7 @@ import PanelPreview from './panelPreview/PanelPreview'
 import PanelSettings from './panelSettings/PanelSettings'
 import Question from './question/Question'
 
-function MultiChoices() {
+export default function MultiChoices() {
     let { testId } = useParams()
     const {
         response: testResponse,
@@ -302,5 +302,3 @@ function MultiChoices() {
         )
     }
 }
-
-export default MultiChoices
