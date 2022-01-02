@@ -33,12 +33,15 @@ function PanelPreview(props) {
 
         // Tạo bản sao
         const newTest = cloneDeep(test)
-        newTest.questionsOrder = newQuestions.map(q => q.id)
+        const order = newQuestions.map(q => q._id)
+        newTest.questionsOrder = order
         newTest.questions = newQuestions
+        console.log(newTest)
 
-        await updateTest(newTest)
-        setQuestions(newQuestions)
-        setTest(newTest)
+        const data = await updateTest(newTest)
+        console.log('update order', data.test)
+        setQuestions(cloneDeep(data.test.questions))
+        setTest(cloneDeep(data.test.questions))
     }
 
     const handleOnAddQuestion = async () => {
@@ -78,10 +81,6 @@ function PanelPreview(props) {
         }
         setIsShow(false)
     }
-
-    useEffect(() => {
-        console.log(selectedQuestion)
-    }, [selectedQuestion])
 
     const renderPreviewQuestion = (q, index) => {
         const isSelectedClassName = q._id === selectedQuestion._id ?

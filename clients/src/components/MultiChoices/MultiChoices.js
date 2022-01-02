@@ -92,6 +92,8 @@ function MultiChoices() {
             const t = testResponse.data
             setTest(t)
 
+            console.log(t)
+
             const q = mapOrder(t.questions, t.questionsOrder, 'id')
             setQuestions(q)
             setSelectedQuestion(selectedQuestion ? selectedQuestion : q[0])
@@ -122,6 +124,10 @@ function MultiChoices() {
         newTest.questions = questions
         setTest(newTest)
     }, [questions])
+
+    useEffect(() => {
+        //console.log('test', test)
+    }, [test])
 
     const updateSelectedQuestion = (question) => {
         // TODO kiểm tra lại

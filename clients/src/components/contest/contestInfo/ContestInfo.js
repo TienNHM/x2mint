@@ -202,8 +202,8 @@ export default function ContestInfo() {
                 const newTest = {
                     ...blankTest,
                     creatorId: user.id,
-                    startTime: new Date().toISOString(),
-                    endTime: new Date().toISOString()
+                    startTime: new Date(),
+                    endTime: new Date()
                 }
 
                 // Tạo mới test, lưu vào CSDL

@@ -14,7 +14,6 @@ import ModalTestInfo from './ModalTestInfo'
 import { cloneDeep } from 'lodash'
 
 function PanelSettings(props) {
-    console.log(props)
     const { test, setTest } = props
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE.USER
@@ -142,7 +141,6 @@ function PanelSettings(props) {
 
     useEffect(() => {
         if (test) {
-            console.log(test)
             setTestTitle(test.name)
             setTestDescription(test.description)
             setTestMaxPoints(test.maxPoints)
