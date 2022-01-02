@@ -1,4 +1,4 @@
-import Profile from 'components/user/profile/Profile'
+import Profile from 'components/account/profile/Profile'
 import React, { useEffect, useState } from 'react'
 import { ADMIN } from 'utils/constants'
 import AccountGrantPermissions from './Account/AccountGrantPermissions/AccountGrantPermissions'
