@@ -57,116 +57,129 @@ const Register = () => {
         }
     }
 
-    return isAuthenticated ? (
-        <Navigate to="/login" />
-    ) : (
-        <div className="register container">
-            {authLoading && (
-                <div
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        position: 'absolute',
-                        textAlign: 'center',
-                        alignItems: 'center',
-                        top: 0,
-                        left: 0,
-                        backgroundColor: 'rgba(0,0,0,0.4)',
-                        zIndex: 10000,
-                        paddingTop: 300
-                    }}
-                >
-                    <Spinner
-                        animation="border"
-                        color="#5FA509"
-                        style={{ color: '#188a0b' }}
-                        size={50}
-                    ></Spinner>
-                </div>
-            )}
-
-            <section className="signup__body row" onSubmit={handleSubmit} method="POST">
-                <div className="register__right col">
-                    <h1 className="form__title">Đăng ký tài khoản</h1>
-                    <Image className="auth__pic"
-                        src={process.env.PUBLIC_URL + 'assets/images/auth.svg'}
-                    />
-                </div>
-                <div className="signup__area col">
-                    <div className="input">
-                        <div className="input_item" >
-                            <input
-                                className={user.error ? 'makeRed' : ''}
-                                type="text"
-                                name="username"
-                                value={user.username}
-                                onChange={handleChange}
-                                placeholder="Username"
-                                require
-                            ></input>
-                        </div>
-                        <div className="input_item">
-                            <input
-                                className={user.error ? 'makeRed' : ''}
-                                type="text"
-                                name="email"
-                                value={user.email}
-                                onChange={handleChange}
-                                placeholder="Email"
-                                require
-                            ></input>
-                        </div>
-                        <div className="input_item">
-                            <input
-                                className={user.error ? 'makeRed' : ''}
-                                type="password"
-                                name="password"
-                                value={user.password}
-                                onChange={handleChange}
-                                placeholder="Mật khẩu"
-                                require
-                            ></input>
-                        </div>
-                        <div className="input_item">
-                            <input
-                                className={user.error ? 'makeRed' : ''}
-                                type="password"
-                                name="reEnterPassword"
-                                value={user.reEnterPassword}
-                                onChange={handleChange}
-                                placeholder="Xác nhận lại mật khẩu"
-                                require
-                            ></input>
-                        </div>
-                        <p
-                            style={{
-                                color: 'red',
-                                fontSize: 14,
-                                fontFamily: 'monospace'
-                            }}
-                        >
-                            {error}
-                        </p>
-                        <button
-                            type="submit"
-                            className="btn__signup"
-                            onClick={(e) => handleSubmit(e)}
-                        >
-                            Đăng ký
-                        </button>
-                    </div>
-                    <p className="been-member">Bạn đã có tài khoản?</p>
-                    <button
-                        className="btn__login"
-                        onClick={() => navigate('/login', { replace: true })}
+    if (isAuthenticated) {
+        return <Navigate to="/login" />
+    }
+    else {
+        return (
+            <div className="register">
+                {authLoading && (
+                    <div
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            position: 'absolute',
+                            textAlign: 'center',
+                            alignItems: 'center',
+                            top: 0,
+                            left: 0,
+                            backgroundColor: 'rgba(0,0,0,0.4)',
+                            zIndex: 10000,
+                            paddingTop: 300
+                        }}
                     >
-                        Đăng nhập
-                    </button>
-                    {/* <button className="btn__signup-gg" onClick={register}><img src="google_32.png"></img></button> */}
-                </div>
-            </section>
-        </div>
-    )
+                        <Spinner
+                            animation="border"
+                            color="#5FA509"
+                            style={{ color: '#188a0b' }}
+                            size={50}
+                        ></Spinner>
+                    </div>
+                )}
+
+                {!authLoading && (
+                    <>
+                        <h1 className="form__title">Đăng ký tài khoản</h1>
+
+                        <section className="signup__body row"
+                            onSubmit={handleSubmit}
+                            method="POST">
+                            <div className="register__right col-12 col-sm-6">
+                                <Image className="auth__pic"
+                                    src={process.env.PUBLIC_URL + 'assets/images/auth.svg'}
+                                />
+                            </div>
+
+                            <div className="signup__area col-12 col-sm-6">
+                                <div className="input">
+                                    <div className="input_item" >
+                                        <input
+                                            className="w-100"
+                                            type="text"
+                                            name="username"
+                                            value={user.username}
+                                            onChange={handleChange}
+                                            placeholder="Username"
+                                            require
+                                        ></input>
+                                    </div>
+                                    <div className="input_item">
+                                        <input
+                                            className="w-100"
+                                            type="text"
+                                            name="email"
+                                            value={user.email}
+                                            onChange={handleChange}
+                                            placeholder="Email"
+                                            require
+                                        ></input>
+                                    </div>
+                                    <div className="input_item">
+                                        <input
+                                            className="w-100"
+                                            type="password"
+                                            name="password"
+                                            value={user.password}
+                                            onChange={handleChange}
+                                            placeholder="Mật khẩu"
+                                            require
+                                        ></input>
+                                    </div>
+                                    <div className="input_item">
+                                        <input
+                                            className="w-100"
+                                            type="password"
+                                            name="reEnterPassword"
+                                            value={user.reEnterPassword}
+                                            onChange={handleChange}
+                                            placeholder="Xác nhận lại mật khẩu"
+                                            require
+                                        ></input>
+                                    </div>
+                                    <p
+                                        style={{
+                                            color: 'red',
+                                            fontSize: 14,
+                                            fontFamily: 'monospace'
+                                        }}
+                                    >
+                                        {error}
+                                    </p>
+                                    <button
+                                        type="submit"
+                                        className="btn__signup"
+                                        onClick={(e) => handleSubmit(e)}
+                                    >
+                                        Đăng ký
+                                    </button>
+                                </div>
+
+                                <div className="mt-3">
+                                    <div>Bạn đã có tài khoản?</div>
+                                    <button
+                                        className="btn__login"
+                                        onClick={() => navigate('/login', { replace: true })}
+                                    >
+                                        Đăng nhập
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+                    </>
+                )}
+            </div>
+        )
+    }
 }
 
 export default Register
