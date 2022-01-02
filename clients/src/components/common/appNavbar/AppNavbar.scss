@@ -43,25 +43,6 @@
                     }
                 }
 
-                .active-link {
-                    position: relative;
-                    color: var(--black);
-                
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        bottom: -.5rem;
-                        left: 0;
-                        width: 50%;
-                        height: 2px;
-                        background-color: var(--first-color);
-                    }
-                
-                    &::after :hover {
-                        color: var(--mint);
-                    }
-                }
-
                 .nav__btn {
 
                     &__login {

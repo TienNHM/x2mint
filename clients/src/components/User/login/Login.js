@@ -90,6 +90,7 @@ const Login = () => {
                                 value={username}
                                 onChange={onChangeLogin}
                                 placeholder="Username..."
+                                autoComplete='on'
                             ></input>
                             <input
                                 type="password"
@@ -97,6 +98,7 @@ const Login = () => {
                                 value={password}
                                 onChange={onChangeLogin}
                                 placeholder="Mật khẩu..."
+                                autoComplete='on'
                             ></input>
                         </div>
                         <div className="login__forget">
