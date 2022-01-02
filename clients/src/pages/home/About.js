@@ -85,8 +85,7 @@ export default function About() {
                 </h2>
                 <Image src={process.env.PUBLIC_URL + '/assets/images/login.svg'} />
                 <Link to="/register">
-                    <Button variant="success" size="lg"
-                        className="fw-bolder" pill>
+                    <Button variant="success" size="lg" className="fw-bolder">
                         <i className="fa fa-graduation-cap pe-1"></i>
                         Đăng ký
                     </Button>

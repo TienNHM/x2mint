@@ -70,7 +70,7 @@ export default function MyAppNavbar() {
                         {isAuthenticated && (
                             <>
                                 <NavLink to="/profile"
-                                    className="nav__btn__login nav__link active-link">
+                                    className="nav__btn__login nav__link">
                                     Trang cá nhân
                                 </NavLink>
 
@@ -80,7 +80,7 @@ export default function MyAppNavbar() {
                                     onLogoutSuccess={onLogoutSuccess}
                                     render={renderProps => (
                                         <NavLink to="/"
-                                            className="nav__btn__signup nav__link active-link">
+                                            className="nav__btn__signup nav__link">
                                             <button className="fw-bolder"
                                                 style={{
                                                     background: 'transparent',

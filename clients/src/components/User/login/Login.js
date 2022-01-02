@@ -10,6 +10,7 @@ import { isEmpty } from 'utils/Validation'
 import { toast } from 'react-toastify'
 
 import { GoogleLogin } from 'react-google-login'
+import Footer from 'pages/home/Footer'
 
 
 const Login = () => {
@@ -50,85 +51,101 @@ const Login = () => {
         }
     }
 
-    return isAuthenticated ? (
-        <Navigate to="/" />
-    ) : (
-        <div className="login">
-            {authLoading && (
-                <div
-                    style={{
-                        width: '100%', height: '100%',
-                        position: 'absolute',
-                        textAlign: 'center',
-                        alignItems: 'center',
-                        top: 0, left: 0,
-                        backgroundColor: 'rgba(0,0,0,0.4)',
-                        zIndex: 10000,
-                        paddingTop: 300
-                    }}
-                >
-                    <Spinner
-                        animation="border"
-                        color="#5FA509"
-                        style={{ color: '#188a0b' }}
-                        size={50}
-                    ></Spinner>
-                </div>
-            )}
-
-            <h1 className="form__title">Đăng nhập</h1>
-
-            <Form className="form__body container" onSubmit={login}>
-                <div className="row">
-                    <Image className="auth__pic col"
-                        src={process.env.PUBLIC_URL + 'assets/images/auth.svg'} />
-                    <div className="info__area col">
-                        <div className="input">
-                            <input
-                                type="text"
-                                name="username"
-                                value={username}
-                                onChange={onChangeLogin}
-                                placeholder="Username..."
-                            ></input>
-                            <input
-                                type="password"
-                                name="password"
-                                value={password}
-                                onChange={onChangeLogin}
-                                placeholder="Mật khẩu..."
-                            ></input>
-                        </div>
-                        <div className="login__forget">
-                            <button
-                                className="nav__btn__signup"
-                                variant="success"
-                                type="submit"
-                            >
-                                Đăng nhập
-                            </button>
-                            <button className="forget__button"
-                                onClick={() => navigate('/forgotPassword', { replace: true })}>Quên mật khẩu</button>
-                        </div>
-                        <div className="login__gg">
-                            <GoogleLogin
-                                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                                buttonText="Đăng nhập với Google"
-                                onSuccess={responseGoogle}
-                                cookiePolicy={'single_host_origin'}
-                                isSignedIn={true}
-                            />
-                        </div>
-
-                        <button className="nav__btn__login"
-                            onClick={() => navigate('/register', { replace: true })}>
-                            Đăng ký
-                        </button>
+    if (isAuthenticated) {
+        return <Navigate to="/" />
+    }
+    else {
+        return (
+            <div className="d-flex flex-column justify-content-end login">
+                {authLoading && (
+                    <div
+                        style={{
+                            width: '100%', height: '100%',
+                            position: 'absolute',
+                            textAlign: 'center',
+                            alignItems: 'center',
+                            top: 0, left: 0,
+                            backgroundColor: 'rgba(0,0,0,0.4)',
+                            zIndex: 10000,
+                            paddingTop: 300
+                        }}
+                    >
+                        <Spinner
+                            animation="border"
+                            color="#5FA509"
+                            style={{ color: '#188a0b' }}
+                            size={50}
+                        ></Spinner>
                     </div>
-                </div>
-            </Form>
-        </div>
-    )
+                )}
+
+                {!authLoading && (
+                    <div className="w-100 d-flex justify-content-center">
+                        <div className="login-form">
+                            <h1 className="form__title">Đăng nhập</h1>
+
+                            <Form className="form__body container" onSubmit={login}>
+                                <div className="row">
+                                    <div className="info__area col-12 col-sm-6">
+                                        <div className="input">
+                                            <input
+                                                type="text"
+                                                name="username"
+                                                value={username}
+                                                onChange={onChangeLogin}
+                                                placeholder="Username..."
+                                                autoComplete='on'
+                                            ></input>
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                value={password}
+                                                onChange={onChangeLogin}
+                                                placeholder="Mật khẩu..."
+                                                autoComplete='on'
+                                            ></input>
+                                        </div>
+                                        <div className="login__forget">
+                                            <button
+                                                className="nav__btn__signup"
+                                                variant="success"
+                                                type="submit"
+                                            >
+                                                Đăng nhập
+                                            </button>
+                                            <button className="forget__button"
+                                                onClick={() => navigate('/forgotPassword', { replace: true })}>Quên mật khẩu</button>
+                                        </div>
+                                        <div className="login__gg">
+                                            <GoogleLogin
+                                                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                                                buttonText="Đăng nhập với Google"
+                                                onSuccess={responseGoogle}
+                                                cookiePolicy={'single_host_origin'}
+                                                isSignedIn={true}
+                                            />
+                                        </div>
+
+                                        <button className="nav__btn__login"
+                                            onClick={() => navigate('/register', { replace: true })}>
+                                            Đăng ký
+                                        </button>
+                                    </div>
+
+                                    <div className="col-12 col-sm-6">
+                                        <Image className="w-100"
+                                            src={process.env.PUBLIC_URL + 'assets/images/auth.svg'} />
+                                    </div>
+                                </div>
+                            </Form>
+                        </div>
+                    </div>
+                )}
+
+                <Footer />
+            </div>
+        )
+    }
 }
 
 export default Login

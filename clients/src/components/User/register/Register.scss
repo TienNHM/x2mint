@@ -1,13 +1,18 @@
 @import '_setting.scss';
 
 .register {
-    margin: calc(60px + 3%) auto;
+    margin: calc(60px + 3vw) auto;
+    margin-top: 1.75*$navbar-height;
     padding: 20px;
     font-family: var(--body-font);
     border: 1.5px solid var(--mint);
-    height: 50%;
-    width: 50%;
     border-radius: 30px;
+    width: fit-content;
+    height: fit-content;
+
+    @media screen and (max-width: 675px) {
+        border: none;
+    }
 
     &__right {
         margin-top: 20px;
@@ -31,9 +36,7 @@
             border: 1px solid var(--mint);
             color: white;
             background-color: var(--mint);
-            width: 250px;
             font-size: var(--h2-font-size);
-            margin: 10px;
             padding: 5px 10%;
             width: fit-content;
 
@@ -48,8 +51,7 @@
             border: 1px solid var(--mint);
             color: var(--mint);
             background-color: white;
-            width: 150px;
-            padding: 10px 15px;
+            padding: $gap;
             font-size: var(--h3-font-size);
             margin: 10px;
 
@@ -80,16 +82,9 @@
         margin: auto;
         display: block;
 
-        .btn__signup {
-            &-gg {
-                background: none;
-                border: none;
-            }
-        }
-
         .btn__login {
             margin-top: -20px;
-            padding: 10px;
+            padding: 5px;
         }
     }
 

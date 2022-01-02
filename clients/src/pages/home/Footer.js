@@ -9,7 +9,7 @@ function Footer() {
         backgroundRepeat: 'no-repeat'
     }
     return (
-        <div className="footer mt-3"
+        <div className="footer mt-3" id="contact"
             style={styleBottom}>
             <div className="row d-flex justify-content-center align-items-center">
                 <div className="col-12 col-md-4 pt-3 x2mint">
