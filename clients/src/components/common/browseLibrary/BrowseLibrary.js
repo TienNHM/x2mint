@@ -14,6 +14,7 @@ function BrowseLibrary({ show, onAction }) {
     const [photos, setPhotos] = useState(null)
     const [limit, setLimit] = useState(1)
     const [isHidden, setIsHidden] = useState(true)
+    const [isUploaded, setIsUploaded] = useState(false)
 
     const queryRef = useRef('nature')
 
@@ -31,6 +32,7 @@ function BrowseLibrary({ show, onAction }) {
                 setImgData(reader.result)
             })
             reader.readAsDataURL(e.target.files[0])
+            setIsUploaded(false)
         }
     }
 
@@ -54,6 +56,7 @@ function BrowseLibrary({ show, onAction }) {
             })
 
         onAction(MODAL_ACTION.CONFIRM, data.secure_url)
+        setIsUploaded(true)
     }
     //#endregion
 
@@ -136,9 +139,16 @@ function BrowseLibrary({ show, onAction }) {
                                 </div>
                                 <div className="d-flex justify-content-center">
                                     {imgData &&
-                                        <Image src={imgData} style={{ height: '60vh' }}
-                                            className="mt-3"
-                                        />
+                                        <div className="d-flex flex-column">
+                                            {!isUploaded &&
+                                                <div className="text-danger text-center">
+                                                    Vui lòng upload ảnh!
+                                                </div>
+                                            }
+                                            <Image src={imgData} style={{ height: '58vh' }}
+                                                className="my-1"
+                                            />
+                                        </div>
                                     }
                                 </div>
                             </div>
