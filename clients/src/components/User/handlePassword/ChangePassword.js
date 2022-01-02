@@ -10,7 +10,7 @@ export default function ChangePassword({ isShow, onAction }) {
         reEnterNewPassword: ''
     })
 
-    const [passwordHelper, setPasswordHelper] = useState('Mật khẩu mới phải khớp nhau!')
+    const [passwordHelper, setPasswordHelper] = useState('')
 
     const handlePasswordChange = (event) => {
         setData({
