@@ -173,6 +173,14 @@ export default function Profile() {
                                             onClick={() => setIsShow(true)}>
                                             Cập nhật
                                         </Button>
+                                    </div>
+
+                                    <div className="m-2">
+                                        <h6>Trạng thái</h6>
+                                        <Badge pill bg="success" className="m-2 px-2">
+                                            <i className="fas fa-tree me-1"></i>
+                                            Lite
+                                        </Badge>
                                         <Payments />
                                     </div>
                                 </div>

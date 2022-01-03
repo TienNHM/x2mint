@@ -10,13 +10,11 @@ export default function Payments() {
     const pay = async () => {
         const res = await CheckoutVNPay({
             bankCode: '',
-            orderDescription: 'Checkout',
+            orderDescription: user.id,
             orderType: 'billpayment',
             language: 'vn',
             amount: 100000
         })
-
-        console.log(res)
 
         if (res.success) {
             window.open(res.vnpUrl, '_self')
@@ -28,8 +26,9 @@ export default function Payments() {
 
     return (
         <div className="payments">
-            <Button onClick={() => pay()}>
-                Thanh toán
+            <Button onClick={() => pay()} size="sm">
+                <i className="fa fa-star mx-1"></i>
+                <span>Nâng cấp</span>
             </Button>
         </div>
     )

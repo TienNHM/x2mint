@@ -54,7 +54,11 @@ export default function PaymentReturn() {
     }
     useEffect(() => {
         if (response) {
-            if (response.success && response.code === '00') {
+            console.log(response)
+            if (response.success &&
+                response.code === '00' &&
+                response.userId === user.id
+            ) {
                 upgrade()
                 setIsSuccess(true)
             }
@@ -95,7 +99,7 @@ export default function PaymentReturn() {
                 <div className="d-flex flex-column justify-content-center align-items-center">
                     <Image src={process.env.PUBLIC_URL + '/assets/images/opps.svg'} />
                     <h3 className="fw-bolder m-3 p-3">
-                        Giao dịch đã bị hủy!
+                        Giao dịch không thành công!
                     </h3>
                     <Button variant="success"
                         onClick={() => navigate('/profile')}>
