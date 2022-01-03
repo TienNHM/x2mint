@@ -23,6 +23,7 @@ import MultiChoices from 'components/exam/MultiChoices'
 import SubmitResult from 'components/exam/submitResult/SubmitResult'
 import Admin from 'components/admin/Admin'
 import './App.scss'
+import PaymentReturn from 'components/payments/PaymentReturn'
 
 const loadingCss = {
     width: '100%',
@@ -116,6 +117,13 @@ function App() {
                                 <Route
                                     path="/statistics/contest/:contestId/taketests"
                                     element={<StatisticContest />}
+                                />
+                            </Route>
+
+                            <Route path="/payments/vnpay_return" element={<ProtectedRoute />}>
+                                <Route
+                                    path="/payments/vnpay_return"
+                                    element={<PaymentReturn />}
                                 />
                             </Route>
                         </Routes>
