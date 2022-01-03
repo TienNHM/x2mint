@@ -1,0 +1,18 @@
+@import '_setting.scss';
+
+.payment-return {
+    margin-top: $navbar-height;
+    height: 90vh;
+    width: 100vw;
+
+    h1 {
+        font-family: var(--logo-font);
+        color: var(--mint) !important;
+        font-weight: var(--font-bold);
+    }
+
+    h3 {
+        font-family: var(--logo-font);
+        color: var(--mint) !important;
+    }
+}
