@@ -27,8 +27,6 @@ export default function MainBanner() {
                                 src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/000000/external-online-management-flatart-icons-flat-flatarticons-1.png" />
                             <img className="m-3"
                                 src="https://img.icons8.com/external-becris-flat-becris/64/000000/external-statistics-data-science-becris-flat-becris.png" />
-                            <img className="m-3"
-                                src="https://img.icons8.com/external-others-justicon/64/000000/external-image-photography-others-justicon.png" />
                         </div>
                     </div>
                 </div>
