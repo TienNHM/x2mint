@@ -13,6 +13,7 @@ import { MDBDataTableV5 } from 'mdbreact'
 import { cloneDeep } from 'lodash'
 import { ExportDataUserTakeTest } from './UserTakeTest'
 import ChangePassword from 'components/account/handlePassword/ChangePassword'
+import Payments from 'components/payments/Payments'
 
 export default function Profile() {
     const user = useSelector((state) => state.auth.user)
@@ -146,7 +147,7 @@ export default function Profile() {
 
             {!loadingUserData && !loadingTakeTestData &&
                 <>
-                    <Form>
+                    <div>
                         <Row className="p-3">
                             <Col lg={3} md={12} xs={12}
                                 className="mb-4 d-flex justify-content-center align-content-center"
@@ -172,6 +173,7 @@ export default function Profile() {
                                             onClick={() => setIsShow(true)}>
                                             Cập nhật
                                         </Button>
+                                        <Payments />
                                     </div>
                                 </div>
                             </Col>
@@ -240,7 +242,7 @@ export default function Profile() {
                                 </div>
                             </Col>
                         </Row>
-                    </Form>
+                    </div>
 
                     <ModalUpdateUserInfo
                         user={userData}
