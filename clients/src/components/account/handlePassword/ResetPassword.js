@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty, isLength, isMatch } from 'utils/Validation'
 import { useDispatch } from 'react-redux'
-//import './Login.scss'
 import { resetPassword } from 'redux/authSlice'
 import { toast } from 'react-toastify'
 
@@ -13,7 +12,6 @@ const ResetPassword = () => {
         token:''
     })
     const dispatch = useDispatch()
-    //const { access_token } = useParams()
     const token = useParams().activation_token
     const { password, reEnterPassword } = resetForm
     const handleChange = (event) => {

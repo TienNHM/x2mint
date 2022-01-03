@@ -3,7 +3,7 @@ import { Button, Accordion } from 'react-bootstrap'
 import 'react-tiny-fab/dist/styles.css'
 import './AppSidebar.scss'
 import { ADMIN } from 'utils/constants'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 
 export default function AppSidebar({ setCurrentAction }) {
     const navigate = useNavigate()

@@ -8,7 +8,7 @@ import { createAnswer } from 'actions/api/AnswerAPI'
 import { useSelector } from 'react-redux'
 import { updateTestsInContest } from 'actions/api/ContestAPI'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { HashLoader } from 'react-spinners'
 
 export const ImportTestData = ({ contest, isShow, onCloseAction }) => {

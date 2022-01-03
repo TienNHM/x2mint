@@ -16,7 +16,7 @@ import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import { cloneDeep } from 'lodash'
 import { getCurrentDatetime } from 'utils/timeUtils'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 
 Chart.register()
 

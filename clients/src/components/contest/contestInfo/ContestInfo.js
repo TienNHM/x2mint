@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router-dom'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import { Button, Card, ListGroup, ListGroupItem, Form, Image, FormControl } from 'react-bootstrap'
