@@ -18,6 +18,15 @@
             font-weight: bold;
             width: 100px;
         }
+
+        .account-type {
+            margin-bottom: 0.4rem;
+            padding: $gap/2;
+            overflow-y: auto;
+            border: 1px dashed  gray;
+            border-radius: $gap;
+            background-color: lighten($light-theme-color, 15);
+        }
     }
     .detail-info-section {
         .form-label {

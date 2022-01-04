@@ -26,9 +26,9 @@ export default function Payments() {
 
     return (
         <div className="payments">
-            <Button onClick={() => pay()} size="sm">
+            <Button onClick={() => pay()} size="sm" className='w-100'>
                 <i className="fa fa-star mx-1"></i>
-                <span>Nâng cấp</span>
+                <span>Nâng cấp ngay</span>
             </Button>
         </div>
     )

@@ -3,7 +3,7 @@ import './Profile.scss'
 import { Form, Image, Button, Row, Col, Badge } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import ModalUpdateUserInfo from './ModalUpdateUserInfo'
-import { COOKIES, MODAL_ACTION, STATUS } from 'utils/constants'
+import { ACCOUNT_TYPES, COOKIES, MODAL_ACTION, STATUS } from 'utils/constants'
 import { changePassword, updateUserInfo } from 'actions/api/UserAPI'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
@@ -164,6 +164,19 @@ export default function Profile() {
                                         </div>
                                     </div>
 
+                                    <div className="m-2">
+                                        {user.type === ACCOUNT_TYPES.PRO && (
+                                            <Badge pill bg="warning" className="m-2 px-2">
+                                                <i className="fa fa-star me-1"></i>
+                                                Pro
+                                            </Badge>
+                                        )}
+
+                                        {user.type !== ACCOUNT_TYPES.PRO && (
+                                            <Payments />
+                                        )}
+                                    </div>
+
                                     <div>
                                         <Button size="sm" variant="primary" className="m-1"
                                             onClick={() => setIsShowModalChangePassword(true)}>
@@ -173,15 +186,6 @@ export default function Profile() {
                                             onClick={() => setIsShow(true)}>
                                             Cập nhật
                                         </Button>
-                                    </div>
-
-                                    <div className="m-2">
-                                        <h6>Trạng thái</h6>
-                                        <Badge pill bg="success" className="m-2 px-2">
-                                            <i className="fas fa-tree me-1"></i>
-                                            Lite
-                                        </Badge>
-                                        <Payments />
                                     </div>
                                 </div>
                             </Col>
