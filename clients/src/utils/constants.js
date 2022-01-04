@@ -37,11 +37,13 @@ export const STATUS = {
     ARCHIVED: 'archived',
     NOT_SUBMITTED: 'not submitted',
     PASSED: 'passed',
-    FAILED: 'failed'
+    FAILED: 'failed',
+    SUCCESS: 'success'
 }
 
 export const ADMIN = {
-    DASHBOARD: 'dashboard',
+    DASHBOARD: 'Dashboard',
+    REVENUE: 'Doanh thu',
     ACCOUNT: {
         MANAGE: 'Quản lý người dùng',
         GRANT_PERMISSIONS: 'Cấp quyền tài khoản',
@@ -113,6 +115,16 @@ export const STATISTICS = {
         _CREATOR: 'Người tạo',
         _URL: 'Link',
         _STATUS: 'Status'
+    },
+    BILL: {
+        STT: 'STT',
+        USER: 'Khách hàng',
+        USERNAME: 'Username',
+        TIME: 'Thời gian',
+        STATUS: 'Status',
+        AMOUNT: 'Đơn giá',
+        _STATUS: 'Trạng thái',
+        _USER: 'Người dùng'
     }
 }
 

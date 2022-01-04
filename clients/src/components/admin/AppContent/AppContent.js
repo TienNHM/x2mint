@@ -7,6 +7,7 @@ import AccountStatistics from './Account/AccountStatistics/AccountStatistics'
 import ContestArchive from './Contest/ContestArchive/ContestArchived'
 import ContestParticipants from './Contest/ContestParticipants/ContestParticipants'
 import ContestStatistics from './Contest/ContestStatistics/ContestStatistics'
+import Revenue from './Revenue/Revenue'
 import Dashboard from './Dashboard/Dashboard'
 
 export default function AppContent({ currentAction }) {
@@ -21,6 +22,7 @@ export default function AppContent({ currentAction }) {
             [ADMIN.CONTEST.PARTICIPANT]: <ContestParticipants />,
             [ADMIN.CONTEST.ARCHIVE]: <ContestArchive />,
             [ADMIN.SETTINGS.ACCOUNT]: <Profile />,
+            [ADMIN.REVENUE]: <Revenue />,
             [ADMIN.DASHBOARD]: <Dashboard />
         }
 

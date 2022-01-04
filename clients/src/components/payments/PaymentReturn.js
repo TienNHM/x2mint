@@ -2,9 +2,10 @@ import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { COOKIES, ACCOUNT_TYPES } from 'utils/constants'
+import { COOKIES, ACCOUNT_TYPES, STATUS } from 'utils/constants'
 import { useSelector } from 'react-redux'
 import { updateUserInfo } from 'actions/api/UserAPI'
+import { createBill } from 'actions/api/BillAPI'
 import { cloneDeep } from 'lodash'
 import { HashLoader } from 'react-spinners'
 import { Image, Button } from 'react-bootstrap'
@@ -52,6 +53,16 @@ export default function PaymentReturn() {
 
         await updateUserInfo(userInfo)
     }
+
+    const createNewBill = async (status) => {
+        const data = await createBill({
+            userId: user.id,
+            amount: searchParams.get('vnp_Amount'),
+            _status: status
+        })
+        console.log(data)
+    }
+
     useEffect(() => {
         if (response) {
             console.log(response)
@@ -60,9 +71,11 @@ export default function PaymentReturn() {
                 response.userId === user.id
             ) {
                 upgrade()
+                createNewBill(STATUS.SUCCESS)
                 setIsSuccess(true)
             }
             else {
+                createNewBill(STATUS.FAILED)
                 setIsSuccess(false)
             }
         }

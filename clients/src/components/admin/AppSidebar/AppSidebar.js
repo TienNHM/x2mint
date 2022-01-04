@@ -262,52 +262,28 @@ export default function AppSidebar({ setCurrentAction }) {
 
                         <Accordion.Item eventKey="3">
                             <Accordion.Header className="w-100 button-title"
-                                onClick={() => setCurrentAction(ADMIN.SETTINGS.ACCOUNT)}>
+                                onClick={() => setCurrentAction(ADMIN.REVENUE)}>
                                 <div className="tooltip-component">
                                     <i className="fas fa-cog me-3"></i>
                                     <span className="tooltiptext">
-                                        Cài đặt
+                                        Doanh thu
                                     </span>
                                 </div>
                                 <span className="sidebar-section">
-                                    Cài đặt
+                                    Doanh thu
                                 </span>
                             </Accordion.Header>
                             <Accordion.Body>
                                 <Button className="w-100"
-                                    onClick={() => setCurrentAction(ADMIN.SETTINGS.ACCOUNT)}>
+                                    onClick={() => setCurrentAction(ADMIN.REVENUE)}>
                                     <div className="tooltip-component">
                                         <i className="fas fa-user-circle me-3"></i>
                                         <span className="tooltiptext">
-                                            {ADMIN.SETTINGS.ACCOUNT}
+                                            {ADMIN.REVENUE}
                                         </span>
                                     </div>
                                     <span className="sidebar-section">
-                                        {ADMIN.SETTINGS.ACCOUNT}
-                                    </span>
-                                </Button>
-                                <Button className="w-100"
-                                    onClick={() => setCurrentAction(ADMIN.SETTINGS.THEME)}>
-                                    <div className="tooltip-component">
-                                        <i className="fas fa-palette me-3"></i>
-                                        <span className="tooltiptext">
-                                            {ADMIN.SETTINGS.THEME}
-                                        </span>
-                                    </div>
-                                    <span className="sidebar-section">
-                                        {ADMIN.SETTINGS.THEME}
-                                    </span>
-                                </Button>
-                                <Button className="w-100"
-                                    onClick={() => setCurrentAction(ADMIN.SETTINGS.NOTIFICATION)}>
-                                    <div className="tooltip-component">
-                                        <i className="fas fas fa-bell me-3"></i>
-                                        <span className="tooltiptext">
-                                            {ADMIN.SETTINGS.NOTIFICATION}
-                                        </span>
-                                    </div>
-                                    <span className="sidebar-section">
-                                        {ADMIN.SETTINGS.NOTIFICATION}
+                                        {ADMIN.REVENUE}
                                     </span>
                                 </Button>
                             </Accordion.Body>
