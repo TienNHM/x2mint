@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import './AccountManagement.scss'
 import 'react-toastify/dist/ReactToastify.css'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
 import { COOKIES, STATISTICS } from 'utils/constants'
@@ -9,58 +8,50 @@ import { HashLoader } from 'react-spinners'
 import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import { cloneDeep } from 'lodash'
-import { ExportDataUser } from '../data'
-import { updateUserInfo } from 'actions/api/UserAPI'
 import { getCurrentDatetime } from 'utils/timeUtils'
+import { ExportBills, StatisticBills } from './data'
+import { Line } from 'react-chartjs-2'
 
-export default function AccountManagement() {
+export default function Revenue() {
     const [tableData, setTableData] = useState(null)
-    const [users, setUsers] = useState(null)
+    const [billsStatistic, setBillsStatistic] = useState(null)
 
     const {
         response,
         loading
     } = useAxios({
         method: 'GET',
-        url: '/statistics',
+        url: '/bills',
         headers: {
             Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
         }
     })
 
-    const onClickUserStatus = async (index, user, newStatus) => {
-        const _user = {
-            ...user,
-            _id: user.id,
-            _status: newStatus
-        }
-
-        await updateUserInfo(_user)
-
-        // Update lại table
-        const newUsers = [...users]
-        newUsers[index] = _user
-        setUsers(newUsers)
-
-        toast.success('🎉 Update thành công!')
-    }
-
     useEffect(() => {
         if (response) {
-            setUsers(response.data.users)
-            setTableData(ExportDataUser(response.data.users, onClickUserStatus))
+            const bills = response.bills
+            setBillsStatistic(StatisticBills(bills))
+            setTableData(ExportBills(bills))
         }
     }, [response])
 
-    useEffect(() => {
-        if (users) {
-            const data = ExportDataUser(users, onClickUserStatus)
-            setTableData(data)
+    const lineChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Thống kê doanh thu theo thời gian',
+                position: 'bottom'
+            }
         }
-    }, [users])
+    }
 
     return (
-        <div className="account-management">
+        <div className="account-permissions">
             {loading &&
                 <div
                     className='sweet-loading d-flex justify-content-center align-items-center'
@@ -77,6 +68,15 @@ export default function AccountManagement() {
 
             {!loading &&
                 <>
+                    <div className="chart-data row ps-3 pe-3 d-flex justify-content-around m-4">
+                        <div className="chart-line col p-3 d-flex align-items-end">
+                            <Line
+                                data={billsStatistic}
+                                options={lineChartOptions}
+                            />
+                        </div>
+                    </div>
+
                     <div id="table-data">
                         <div className="section-header m-3 h4 d-flex">
                             <i className="fa fa-list me-3"></i>
@@ -86,11 +86,10 @@ export default function AccountManagement() {
                         <div>
                             <ExportToExcel
                                 apiData={cloneDeep(tableData.rows)}
-                                fileName={'Danh sách người dùng - ' + getCurrentDatetime()}
+                                fileName={'Thống kê doanh thu - ' + getCurrentDatetime()}
                                 fieldsToBeRemoved={[
-                                    STATISTICS.ACCOUNT._AVATAR,
-                                    STATISTICS.ACCOUNT._STATUS,
-                                    STATISTICS.ACCOUNT._TYPE
+                                    STATISTICS.BILL._USER,
+                                    STATISTICS.BILL._STATUS
                                 ]}
                             />
                         </div>
@@ -108,17 +107,6 @@ export default function AccountManagement() {
                     </div>
                 </>
             }
-            <ToastContainer
-                position="top-right"
-                autoClose={1500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
         </div>
     )
 }

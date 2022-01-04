@@ -37,11 +37,13 @@ export const STATUS = {
     ARCHIVED: 'archived',
     NOT_SUBMITTED: 'not submitted',
     PASSED: 'passed',
-    FAILED: 'failed'
+    FAILED: 'failed',
+    SUCCESS: 'success'
 }
 
 export const ADMIN = {
-    DASHBOARD: 'dashboard',
+    DASHBOARD: 'Dashboard',
+    REVENUE: 'Doanh thu',
     ACCOUNT: {
         MANAGE: 'Quản lý người dùng',
         GRANT_PERMISSIONS: 'Cấp quyền tài khoản',
@@ -75,16 +77,18 @@ export const STATISTICS = {
         USERNAME: 'Username',
         FULLNAME: 'Họ tên',
         EMAIL: 'Email',
-        ROLE: 'Loại tài khoản',
+        ROLE: 'Phân quyền',
         ADDRESS: 'Địa chỉ',
         DOB: 'Ngày sinh',
         SCHOOL: 'Trường',
         PHONE: 'SĐT',
         AVATAR: 'Ảnh đại diện',
         STATUS: 'Trạng thái',
+        TYPE: 'Loại tài khoản',
         _AVATAR: 'Ảnh',
         _ROLE: 'Quyền',
-        _STATUS: 'Status'
+        _STATUS: 'Status',
+        _TYPE: 'Cấp'
     },
     TAKE_TEST: {
         STT: 'STT',
@@ -111,6 +115,16 @@ export const STATISTICS = {
         _CREATOR: 'Người tạo',
         _URL: 'Link',
         _STATUS: 'Status'
+    },
+    BILL: {
+        STT: 'STT',
+        USER: 'Khách hàng',
+        USERNAME: 'Username',
+        TIME: 'Thời gian',
+        STATUS: 'Status',
+        AMOUNT: 'Đơn giá',
+        _STATUS: 'Trạng thái',
+        _USER: 'Người dùng'
     }
 }
 
