@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
 import { COLOR } from 'utils/colors'
-import { ROLE, STATISTICS, STATUS } from 'utils/constants'
+import { ACCOUNT_TYPES, ROLE, STATISTICS, STATUS } from 'utils/constants'
 import { splitTime } from 'utils/timeUtils'
 
 export function StatisticAccountSignUp(users) {
@@ -76,7 +76,7 @@ export const USER_INFO_COLUMNS = [
         label: STATISTICS.ACCOUNT.EMAIL,
         field: STATISTICS.ACCOUNT.EMAIL,
         sort: 'asc',
-        width: 250
+        width: 300
     },
     {
         label: STATISTICS.ACCOUNT.PHONE,
@@ -94,7 +94,13 @@ export const USER_INFO_COLUMNS = [
         label: STATISTICS.ACCOUNT._AVATAR,
         field: STATISTICS.ACCOUNT._AVATAR,
         sort: 'disabled',
-        width: 80
+        width: 100
+    },
+    {
+        label: STATISTICS.ACCOUNT._TYPE,
+        field: STATISTICS.ACCOUNT._TYPE,
+        sort: 'asc',
+        width: 150
     },
     {
         label: STATISTICS.ACCOUNT._STATUS,
@@ -113,7 +119,7 @@ export function GetUserStatusComponent(index, user, onClickUserStatus) {
     else if (user._status === STATUS.DEACTIVE) {
         variant = 'warning'
     }
-    else if (user._status=== STATUS.DELETED) {
+    else if (user._status === STATUS.DELETED) {
         variant = 'danger'
     }
 
@@ -122,7 +128,7 @@ export function GetUserStatusComponent(index, user, onClickUserStatus) {
             title={user._status}
             variant={variant} size="sm">
             <div className="text-center fw-bolder">Trạng thái tài khoản</div>
-            <Dropdown.Divider/>
+            <Dropdown.Divider />
             <Dropdown.Item
                 onClick={() => onClickUserStatus(index, user, STATUS.OK)}>
                 <Badge pill bg="primary">{STATUS.OK}</Badge>
@@ -147,6 +153,19 @@ export function ExportDataUser(data, onClickUserStatus) {
             <Image roundedCircle src={value.avatar} width="32px" height="32px" alt="avatar" /> :
             <Image roundedCircle src={process.env.PUBLIC_URL + '/assets/images/male-user.png'} width="32px" height="32px" alt="avatar" />
 
+        const type = value.type === ACCOUNT_TYPES.PRO ?
+            (
+                <Badge pill bg="warning" className="p-2">
+                    <i className="fa fa-star me-1"></i>
+                    Pro
+                </Badge>
+            ) : (
+                <Badge pill bg="success" className="p-2">
+                    <i className="fas fa-seedling me-1"></i>
+                    Lite
+                </Badge>
+            )
+
         const item = {
             [STATISTICS.ACCOUNT.STT]: index + 1,
             [STATISTICS.ACCOUNT._AVATAR]: avatar,
@@ -157,6 +176,8 @@ export function ExportDataUser(data, onClickUserStatus) {
             [STATISTICS.ACCOUNT.PHONE]: value.phone,
             [STATISTICS.ACCOUNT.ADDRESS]: value.address,
             [STATISTICS.ACCOUNT.AVATAR]: value.avatar,
+            [STATISTICS.ACCOUNT.TYPE]: value.type === ACCOUNT_TYPES.PRO ? 'Pro' : 'Lite',
+            [STATISTICS.ACCOUNT._TYPE]: type,
             [STATISTICS.ACCOUNT.STATUS]: value._status,
             [STATISTICS.ACCOUNT._STATUS]: GetUserStatusComponent(index, value, onClickUserStatus)
         }
@@ -236,7 +257,7 @@ export function GetUserPermissionsComponent(index, user, onClickUserPermissions)
             title={user.role}
             variant={variant} size="sm">
             <div className="text-center fw-bolder">Quyền tài khoản</div>
-            <Dropdown.Divider/>
+            <Dropdown.Divider />
             <Dropdown.Item
                 onClick={() => onClickUserPermissions(index, user, ROLE.USER)}>
                 <Badge pill bg="primary">{ROLE.USER}</Badge>

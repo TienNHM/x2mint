@@ -75,16 +75,18 @@ export const STATISTICS = {
         USERNAME: 'Username',
         FULLNAME: 'Họ tên',
         EMAIL: 'Email',
-        ROLE: 'Loại tài khoản',
+        ROLE: 'Phân quyền',
         ADDRESS: 'Địa chỉ',
         DOB: 'Ngày sinh',
         SCHOOL: 'Trường',
         PHONE: 'SĐT',
         AVATAR: 'Ảnh đại diện',
         STATUS: 'Trạng thái',
+        TYPE: 'Loại tài khoản',
         _AVATAR: 'Ảnh',
         _ROLE: 'Quyền',
-        _STATUS: 'Status'
+        _STATUS: 'Status',
+        _TYPE: 'Cấp'
     },
     TAKE_TEST: {
         STT: 'STT',

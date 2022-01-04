@@ -89,7 +89,8 @@ export default function AccountManagement() {
                                 fileName={'Danh sách người dùng - ' + getCurrentDatetime()}
                                 fieldsToBeRemoved={[
                                     STATISTICS.ACCOUNT._AVATAR,
-                                    STATISTICS.ACCOUNT._STATUS
+                                    STATISTICS.ACCOUNT._STATUS,
+                                    STATISTICS.ACCOUNT._TYPE
                                 ]}
                             />
                         </div>
