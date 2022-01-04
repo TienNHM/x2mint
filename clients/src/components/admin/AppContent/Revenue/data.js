@@ -80,3 +80,32 @@ export const ExportBills = (data) => {
 
     return result
 }
+
+export function StatisticBills(data) {
+
+    let datasets = [{
+        label: 'Thời gian',
+        data: [],
+        backgroundColor: COLOR.TABLEAU.NEW.HueCircle19
+    }]
+
+    let datetime = data.map(x => x.createdAt)
+    datetime.sort((a, b) => new Date(a) - new Date(b))
+    let labels = datetime.map(x => splitTime(x).date)
+    labels = [...new Set(labels)]
+
+    labels.map(date => {
+        var count = 0
+        for (var i = 0; i < data.length; i++) {
+            const d = splitTime(data[i].createdAt)
+            if (d.date === date) {
+                count += 1
+            }
+        }
+        datasets[0].data.push({ x: date, y: count })
+    })
+
+    return {
+        datasets: datasets
+    }
+}

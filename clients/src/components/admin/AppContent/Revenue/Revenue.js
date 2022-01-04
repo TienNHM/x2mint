@@ -9,11 +9,12 @@ import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import { cloneDeep } from 'lodash'
 import { getCurrentDatetime } from 'utils/timeUtils'
-import { ExportBills } from './data'
+import { ExportBills, StatisticBills } from './data'
+import { Line } from 'react-chartjs-2'
 
 export default function Revenue() {
     const [tableData, setTableData] = useState(null)
-    const [bills, setBills] = useState(null)
+    const [billsStatistic, setBillsStatistic] = useState(null)
 
     const {
         response,
@@ -28,14 +29,26 @@ export default function Revenue() {
 
     useEffect(() => {
         if (response) {
-            console.log(response)
             const bills = response.bills
-            setBills(bills)
-            const data = ExportBills(bills)
-            console.log(data)
-            setTableData(data)
+            setBillsStatistic(StatisticBills(bills))
+            setTableData(ExportBills(bills))
         }
     }, [response])
+
+    const lineChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Thống kê doanh thu theo thời gian',
+                position: 'bottom'
+            }
+        }
+    }
 
     return (
         <div className="account-permissions">
@@ -55,6 +68,15 @@ export default function Revenue() {
 
             {!loading &&
                 <>
+                    <div className="chart-data row ps-3 pe-3 d-flex justify-content-around m-4">
+                        <div className="chart-line col p-3 d-flex align-items-end">
+                            <Line
+                                data={billsStatistic}
+                                options={lineChartOptions}
+                            />
+                        </div>
+                    </div>
+
                     <div id="table-data">
                         <div className="section-header m-3 h4 d-flex">
                             <i className="fa fa-list me-3"></i>
