@@ -5,13 +5,18 @@ import { Card } from 'react-bootstrap'
 import { Line, Pie } from 'react-chartjs-2'
 import { HashLoader } from 'react-spinners'
 import { COLOR } from 'utils/colors'
-import { COOKIES, ROLE } from 'utils/constants'
-import { StatisticAccountSignUp, StatisticAccountOverview } from '../data'
+import { ACCOUNT_TYPES, COOKIES, ROLE } from 'utils/constants'
+import {
+    StatisticAccountSignUp,
+    StatisticUserRoleOverview,
+    StatisticUserTypeOverview
+} from '../data'
 import './AccountStatistics.scss'
 
 export default function AccountStatistics() {
     const [data, setData] = useState(null)
-    const [overview, setOverview] = useState(null)
+    const [userRoleOverview, setUserRoleOverview] = useState(null)
+    const [userTypeOverview, setUserTypeOverview] = useState(null)
     const [signupStatistics, setSignupStatistics] = useState(null)
 
     const {
@@ -32,7 +37,8 @@ export default function AccountStatistics() {
             const signupStatisticsData = StatisticAccountSignUp(response.data)
             setSignupStatistics(signupStatisticsData)
 
-            setOverview(StatisticAccountOverview(response.data))
+            setUserRoleOverview(StatisticUserRoleOverview(response.data))
+            setUserTypeOverview(StatisticUserTypeOverview(response.data))
         }
     }, [response])
 
@@ -45,7 +51,23 @@ export default function AccountStatistics() {
             },
             title: {
                 display: true,
-                text: 'Thống kê số lượng tài khoản đăng ký mới'
+                text: 'Thống kê số lượng tài khoản đăng ký mới',
+                position: 'bottom'
+            }
+        }
+    }
+
+    const userRolePieChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Tỉ lệ các tài khoản được phân quyền trong hệ thống (%)',
+                position: 'bottom'
             }
         }
     }
@@ -59,7 +81,8 @@ export default function AccountStatistics() {
             },
             title: {
                 display: true,
-                text: 'Tỉ lệ phân bổ giữa các loại tài khoản trong hệ thống (%)'
+                text: 'Tỉ lệ phân bổ các loại tài khoản trong hệ thống (%)',
+                position: 'bottom'
             }
         }
     }
@@ -130,7 +153,7 @@ export default function AccountStatistics() {
                                 <Card.Body>
                                     <Card.Title className="d-flex justify-content-around">
                                         <span className="h1 number">
-                                            {overview[ROLE.USER]}
+                                            {userRoleOverview[ROLE.USER]}
                                         </span>
                                         <img src="https://img.icons8.com/color/48/000000/student-male.png" />
                                     </Card.Title>
@@ -155,7 +178,7 @@ export default function AccountStatistics() {
                                 <Card.Body>
                                     <Card.Title className="d-flex justify-content-around">
                                         <span className="h1 number">
-                                            {overview[ROLE.CREATOR]}
+                                            {userRoleOverview[ROLE.CREATOR]}
                                         </span>
                                         <img src="https://img.icons8.com/color/48/000000/female-teacher.png" />
                                     </Card.Title>
@@ -170,19 +193,19 @@ export default function AccountStatistics() {
                             >
                                 <Card.Header>
                                     <div className="tooltip-component">
-                                        Số Admins
+                                        Pro Users
                                         <i className="fa fa-info-circle ms-2"></i>
                                         <span className="tooltiptext">
-                                            Tổng số Admins trên hệ thống hiện tại.
+                                            Tổng số người dùng dùng bản Pro trên hệ thống hiện tại.
                                         </span>
                                     </div>
                                 </Card.Header>
                                 <Card.Body>
                                     <Card.Title className="d-flex justify-content-around">
                                         <span className="h1 number">
-                                            {overview[ROLE.ADMIN]}
+                                            {userTypeOverview[ACCOUNT_TYPES.PRO]}
                                         </span>
-                                        <img src="https://img.icons8.com/fluent/48/000000/microsoft-admin.png" />
+                                        <img src="https://img.icons8.com/fluency/48/000000/star.png"/>
                                     </Card.Title>
                                 </Card.Body>
                             </Card>
@@ -195,7 +218,7 @@ export default function AccountStatistics() {
                     </div>
 
                     <div className="chart-data row ps-3 pe-3 d-flex justify-content-around m-4">
-                        <div className="chart-line col-sm-12 col-md-6 p-3 d-flex align-items-end">
+                        <div className="chart-line col-sm-12 col-md-4 p-3 d-flex align-items-end">
                             <Line
                                 data={signupStatistics}
                                 options={signupLineChartOptions}
@@ -204,22 +227,44 @@ export default function AccountStatistics() {
                             />
                         </div>
 
-                        <div className="chart-pie col-sm-12 col-md-6 p-3 d-flex align-items-end">
+                        <div className="chart-pie col-sm-12 col-md-4 p-3 d-flex align-items-end">
                             <Pie
-                                options={usertypePieChartOptions}
+                                options={userRolePieChartOptions}
                                 data={{
                                     labels: ['User', 'Creator', 'Admin'],
                                     datasets: [
                                         {
                                             label: 'Tỉ lệ (%)',
                                             data: [
-                                                overview[ROLE.USER],
-                                                overview[ROLE.CREATOR],
-                                                overview[ROLE.ADMIN]
+                                                userRoleOverview[ROLE.USER],
+                                                userRoleOverview[ROLE.CREATOR],
+                                                userRoleOverview[ROLE.ADMIN]
                                             ].map(x => x * 100 / data.length),
                                             backgroundColor: COLOR.BREWER.YELLOW_GREEN_BLUE.YlGnBu3,
                                             borderWidth: 1,
                                             hoverBorderColor: COLOR.BREWER.YELLOW_GREEN_BLUE.YlGnBu3
+                                        }
+                                    ]
+                                }}
+                                height="400"
+                                width="400" />
+                        </div>
+
+                        <div className="chart-pie col-sm-12 col-md-4 p-3 d-flex align-items-end">
+                            <Pie
+                                options={usertypePieChartOptions}
+                                data={{
+                                    labels: ['Pro', 'Lite'],
+                                    datasets: [
+                                        {
+                                            label: 'Tỉ lệ (%)',
+                                            data: [
+                                                userTypeOverview[ACCOUNT_TYPES.PRO],
+                                                userTypeOverview[ACCOUNT_TYPES.LITE]
+                                            ].map(x => x * 100 / data.length),
+                                            backgroundColor: COLOR.BREWER.ORANGES.Oranges3,
+                                            borderWidth: 1,
+                                            hoverBorderColor: COLOR.BREWER.ORANGES.Oranges3
                                         }
                                     ]
                                 }}

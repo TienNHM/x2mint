@@ -33,7 +33,7 @@ export function StatisticAccountSignUp(users) {
     }
 }
 
-export function StatisticAccountOverview(users) {
+export function StatisticUserRoleOverview(users) {
     let res = {
         [ROLE.ADMIN]: 0,
         [ROLE.CREATOR]: 0,
@@ -42,6 +42,19 @@ export function StatisticAccountOverview(users) {
 
     users.map(u => {
         res[u.role] += 1
+    })
+
+    return res
+}
+
+export function StatisticUserTypeOverview(users) {
+    let res = {
+        [ACCOUNT_TYPES.PRO]: 0,
+        [ACCOUNT_TYPES.LITE]: 0
+    }
+
+    users.map(u => {
+        res[u.type] += 1
     })
 
     return res
