@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
-import { toast } from 'react-toastify'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
 import { COOKIES, STATISTICS } from 'utils/constants'
@@ -9,12 +8,14 @@ import { MDBDataTableV5 } from 'mdbreact'
 import { ExportToExcel } from 'utils/ExportToExcel'
 import { cloneDeep } from 'lodash'
 import { getCurrentDatetime } from 'utils/timeUtils'
-import { ExportBills, StatisticBills } from './data'
-import { Line } from 'react-chartjs-2'
+import { ExportBills, GetTotalAmount, StatisticBills } from './data'
+import { Chart } from 'react-chartjs-2'
+import { Card } from 'react-bootstrap'
 
 export default function Revenue() {
     const [tableData, setTableData] = useState(null)
     const [billsStatistic, setBillsStatistic] = useState(null)
+    const [totalAmount, setTotalAmount] = useState(0)
 
     const {
         response,
@@ -32,10 +33,11 @@ export default function Revenue() {
             const bills = response.bills
             setBillsStatistic(StatisticBills(bills))
             setTableData(ExportBills(bills))
+            setTotalAmount(GetTotalAmount(bills))
         }
     }, [response])
 
-    const lineChartOptions = {
+    const chartOptions = {
         responsive: true,
         plugins: {
             legend: {
@@ -68,11 +70,43 @@ export default function Revenue() {
 
             {!loading &&
                 <>
+                    <div className="section-header m-3 h4 d-flex justify-content-center">
+                        <i className="fa fa-map-signs me-3"></i>
+                        Tổng doanh thu toàn thời gian
+                    </div>
+                    <div className="m-2 p-2">
+                        <Card
+                            bg="success" text="light"
+                            className="m-1 shadow-lg"
+                        >
+                            <Card.Header>
+                                <div className="tooltip-component">
+                                    Tổng doanh thu
+                                    <i className="fa fa-info-circle ms-2"></i>
+                                    <span className="tooltiptext">
+                                        Tổng doanh thu đến thời điểm hiện tại.
+                                    </span>
+                                </div>
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Title className="d-flex justify-content-around">
+                                    <span className="h1 number">
+                                        {totalAmount} VNĐ
+                                    </span>
+                                </Card.Title>
+                            </Card.Body>
+                        </Card>
+                    </div>
+
+                    <div className="section-header m-3 h4 d-flex justify-content-center">
+                        <i className="fa fa-map-signs me-3"></i>
+                        Thống kê doanh thu theo thời gian
+                    </div>
                     <div className="chart-data row ps-3 pe-3 d-flex justify-content-around m-4">
                         <div className="chart-line col p-3 d-flex align-items-end">
-                            <Line
+                            <Chart
                                 data={billsStatistic}
-                                options={lineChartOptions}
+                                options={chartOptions}
                             />
                         </div>
                     </div>

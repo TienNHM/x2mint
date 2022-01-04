@@ -1,7 +1,7 @@
 import React from 'react'
-import { Image, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
+import { Image, Badge } from 'react-bootstrap'
 import { COLOR } from 'utils/colors'
-import { ACCOUNT_TYPES, ROLE, STATISTICS, STATUS } from 'utils/constants'
+import { STATISTICS, STATUS } from 'utils/constants'
 import { splitTime } from 'utils/timeUtils'
 
 export const BILL_INFO_COLUMNS = [
@@ -83,11 +83,20 @@ export const ExportBills = (data) => {
 
 export function StatisticBills(data) {
 
-    let datasets = [{
-        label: 'Thời gian',
-        data: [],
-        backgroundColor: COLOR.TABLEAU.NEW.HueCircle19
-    }]
+    let datasets = [
+        {
+            type: 'line',
+            label: 'Số lượng',
+            data: [],
+            backgroundColor: COLOR.TABLEAU.NEW.HueCircle19
+        },
+        {
+            type: 'bar',
+            label: 'Doanh thu (x100.000 VND)',
+            data: [],
+            backgroundColor: COLOR.TABLEAU.NEW.RedGold21
+        }
+    ]
 
     let datetime = data.map(x => x.createdAt)
     datetime.sort((a, b) => new Date(a) - new Date(b))
@@ -96,16 +105,30 @@ export function StatisticBills(data) {
 
     labels.map(date => {
         var count = 0
+        var amount = 0
         for (var i = 0; i < data.length; i++) {
             const d = splitTime(data[i].createdAt)
             if (d.date === date) {
                 count += 1
+                if (data[i]._status === STATUS.SUCCESS) {
+                    amount += data[i].amount / 10000000
+                }
             }
         }
         datasets[0].data.push({ x: date, y: count })
+        datasets[1].data.push({ x: date, y: amount })
     })
 
     return {
         datasets: datasets
     }
+}
+
+export function GetTotalAmount(data) {
+    var amount = 0
+    for (var bill of data) {
+        if (bill._status === STATUS.SUCCESS)
+            amount += bill.amount
+    }
+    return amount
 }
