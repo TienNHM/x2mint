@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Button, Modal, Form, Tabs, Tab, Image } from 'react-bootstrap'
+import { Button, Modal, Form, Tabs, Tab, Image, Badge } from 'react-bootstrap'
 import { createClient } from 'pexels'
 import MyImage from 'components/common/myImage/MyImage'
-import { MODAL_ACTION, MAX } from 'utils/constants'
+import { MODAL_ACTION, MAX, ACCOUNT_TYPES } from 'utils/constants'
 import './BrowseLibrary.scss'
 import { toast } from 'react-toastify'
+import { useSelector } from 'react-redux'
 
 function BrowseLibrary({ show, onAction }) {
+    const user = useSelector((state) => state.auth.user)
     const client = createClient(process.env.REACT_APP_PEXELS_ID)
     const [link, setLink] = useState('')
     const [selectedPhoto, setSelectedPhoto] = useState(null)
@@ -118,42 +120,9 @@ function BrowseLibrary({ show, onAction }) {
             </Modal.Header>
             <Modal.Body>
 
-                <Tabs defaultActiveKey="image-upload" id="uncontrolled-tab-example" className="mb-3">
-                    <Tab eventKey="image-upload" title="Upload ảnh">
-                        <div className="browse-modal" >
-                            <div className="top-modal">
-                                <div className="link-input-area d-flex justify-content-center">
-                                    <Form.Control
-                                        size="sm" type="file"
-                                        accept=".jpg,.jpeg,.png"
-                                        className="text-input w-75"
-                                        onChange={handleOnImageChange}
-                                    />
-                                    <Button
-                                        variant="primary" size="sm"
-                                        onClick={() => uploadImage()}
-                                    >
-                                        <i className="fa fa-upload me-2"></i>
-                                        <span className="fw-bolder">Tải lên</span>
-                                    </Button>
-                                </div>
-                                <div className="d-flex justify-content-center">
-                                    {imgData &&
-                                        <div className="d-flex flex-column">
-                                            {!isUploaded &&
-                                                <div className="text-danger text-center">
-                                                    Vui lòng upload ảnh!
-                                                </div>
-                                            }
-                                            <Image src={imgData} style={{ height: '58vh' }}
-                                                className="my-1"
-                                            />
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </Tab>
+                <Tabs defaultActiveKey="image-link"
+                    id="browse-library"
+                    className="mb-3">
 
                     <Tab eventKey="image-link" title="Link ảnh">
                         <div className="browse-modal" >
@@ -224,6 +193,44 @@ function BrowseLibrary({ show, onAction }) {
                                     </div>
                                 </div>
                             }
+                        </div>
+                    </Tab>
+
+                    <Tab eventKey="image-upload"
+                        title={<span>Upload ảnh <Badge bg="warning" pill>Pro</Badge></span>}
+                        disabled={user.type !== ACCOUNT_TYPES.PRO}>
+                        <div className="browse-modal" >
+                            <div className="top-modal">
+                                <div className="link-input-area d-flex justify-content-center">
+                                    <Form.Control
+                                        size="sm" type="file"
+                                        accept=".jpg,.jpeg,.png"
+                                        className="text-input w-75"
+                                        onChange={handleOnImageChange}
+                                    />
+                                    <Button
+                                        variant="primary" size="sm"
+                                        onClick={() => uploadImage()}
+                                    >
+                                        <i className="fa fa-upload me-2"></i>
+                                        <span className="fw-bolder">Tải lên</span>
+                                    </Button>
+                                </div>
+                                <div className="d-flex justify-content-center">
+                                    {imgData &&
+                                        <div className="d-flex flex-column">
+                                            {!isUploaded &&
+                                                <div className="text-danger text-center">
+                                                    Vui lòng upload ảnh!
+                                                </div>
+                                            }
+                                            <Image src={imgData} style={{ height: '58vh' }}
+                                                className="my-1"
+                                            />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </Tab>
                 </Tabs>
