@@ -6,9 +6,14 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
 .panel-center {
     padding: 0 $gap;
+    height: 89.5vh;
     
     >* {
         font-weight: bold;
+    }
+
+    .nothing {
+        color: var(--mint) !important;
     }
 
     .question {

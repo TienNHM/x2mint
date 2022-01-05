@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, FormCheck } from 'react-bootstrap'
 import 'react-toastify/dist/ReactToastify.css'
 import { toast } from 'react-toastify'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
@@ -30,8 +30,12 @@ function PanelSettings(props) {
     const [testDescription, setTestDescription] = useState(test.description !== null ? test.description : '')
 
     // Test URL
-    const inputLinkRef = useRef('')
-    const [testLink, setTestLink] = useState(test.url)
+    // const inputLinkRef = useRef('')
+    // const [testLink, setTestLink] = useState(test.url)
+
+    // Test URL
+    const inputNumberOfTimesRef = useRef('')
+    const [testNumberOfTimes, setTestNumberOfTimes] = useState(test.maxTimes ? test.maxTimes : 1)
 
     // Điểm tối đa
     const inputMaxPointsRef = useRef(null)
@@ -61,6 +65,7 @@ function PanelSettings(props) {
     const [isShowTestInfo, setIsShowTestInfo] = useState(false)
     //#endregion
 
+    //#region Handlers
     const handleSaveClick = async () => {
         const titleValue = inputTestTitleRef.current.value
         if (titleValue.trim() === '') {
@@ -86,8 +91,9 @@ function PanelSettings(props) {
                     endTime: endTime,
                     description: testDescription,
                     maxPoints: testMaxPoints,
-                    pin: testPIN,
-                    url: testLink
+                    maxTimes: testNumberOfTimes,
+                    pin: testPIN
+                    // url: testLink
                 }
 
                 // Lưu vào CSDL
@@ -122,7 +128,8 @@ function PanelSettings(props) {
                 ...test,
                 name: _test.name,
                 maxPoints: _test.maxPoints,
-                url: _test.url,
+                //url: _test.url,
+                maxTimes: _test.maxTimes,
                 pin: _test.pin,
                 description: _test.description,
                 startTime: _test.startTime,
@@ -138,13 +145,15 @@ function PanelSettings(props) {
         }
         setIsShowTestInfo(false)
     }
+    //#endregion
 
     useEffect(() => {
         if (test) {
             setTestTitle(test.name)
             setTestDescription(test.description)
             setTestMaxPoints(test.maxPoints)
-            setTestLink(test.url)
+            // setTestLink(test.url)
+            setTestNumberOfTimes(test.maxTimes)
             setTestPIN(test.pin)
 
             const start_time = splitTime(test.startTime)
@@ -175,13 +184,13 @@ function PanelSettings(props) {
 
                 <div className="attributes app-vertical-scrollbar">
                     <div className="attribute-title">
-                        <div>Tên bài test</div>
+                        <div>Tên</div>
                         <div className="title">
                             <Form.Control
                                 size="sm"
                                 type="text"
                                 ref={inputTestTitleRef}
-                                placeholder="Tên bài test..."
+                                placeholder="Tên..."
                                 className="attribute-title-input"
                                 value={testTitle ? testTitle : ''}
                                 onChange={e => setTestTitle(e.target.value)}
@@ -208,22 +217,6 @@ function PanelSettings(props) {
                     </div>
 
                     <div className="attribute-title">
-                        <div>Điểm tối đa</div>
-                        <div className="title">
-                            <Form.Control
-                                size="sm"
-                                type="number"
-                                ref={inputMaxPointsRef}
-                                placeholder="0"
-                                className="attribute-title-input max-points"
-                                value={testMaxPoints}
-                                onChange={e => setTestMaxPoints(e.target.value)}
-                                readOnly={isUser}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="attribute-title">
                         <div>Mã PIN</div>
                         <div className="title">
                             <Form.Control
@@ -239,9 +232,25 @@ function PanelSettings(props) {
                         </div>
                     </div>
 
+                    <div className="attribute-title">
+                        <div>Điểm tối đa</div>
+                        <div className="title">
+                            <Form.Control
+                                size="sm"
+                                type="number"
+                                ref={inputMaxPointsRef}
+                                placeholder="0"
+                                className="attribute-title-input max-points"
+                                value={testMaxPoints}
+                                onChange={e => setTestMaxPoints(e.target.value)}
+                                readOnly={isUser}
+                            />
+                        </div>
+                    </div>
+
                     {!isUser &&
                         <>
-                            <div className="attribute-title">
+                            {/* <div className="attribute-title">
                                 <div>Link</div>
                                 <div className="title">
                                     <Form.Control
@@ -252,6 +261,26 @@ function PanelSettings(props) {
                                         className="attribute-title-input"
                                         value={testLink}
                                         onChange={e => setTestLink(e.target.value)}
+                                        readOnly={isUser}
+                                    />
+                                </div>
+                            </div> */}
+
+                            <div className="attribute-title">
+                                <div>
+                                    <abbr title="Thiết đặt số lần tối đa mà thí sinh có thể tham gia thi">
+                                        Số lượt làm bài
+                                    </abbr>
+                                </div>
+                                <div className="title">
+                                    <Form.Control
+                                        size="sm"
+                                        type="number"
+                                        min="0"
+                                        ref={inputNumberOfTimesRef}
+                                        className="attribute-title-input"
+                                        value={testNumberOfTimes}
+                                        onChange={e => setTestNumberOfTimes(e.target.value)}
                                         readOnly={isUser}
                                     />
                                 </div>

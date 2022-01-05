@@ -38,15 +38,28 @@ $question-attribute-setting-height: 80px;
                 margin-bottom: $gap;
                 font-weight: bold;
                 font-size: 16px;
-                padding: $gap/2 $gap $gap $gap;
+                padding: $gap;
                 border-radius: $gap;
             }
     
             .attribute-title {
+
                 .title {
                     .attribute-title-input {
                         width: 100%;
                         background-color: rgba(255, 255, 255, 0.877);
+                    }
+                }
+
+                .switch-only-one {
+                    padding: 0 !important;
+                }
+
+                .only-one {
+                    height: 100%;
+                    .form-check.form-switch .form-check-input {
+                        margin: unset !important;
+                        margin-top: 0.25em !important;
                     }
                 }
     
