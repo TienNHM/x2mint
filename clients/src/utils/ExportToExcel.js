@@ -1,9 +1,12 @@
 import React from 'react'
 import FileSaver from 'file-saver'
 import XLSX from 'xlsx'
-import { Button } from 'react-bootstrap'
+import { Badge, Button } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+import { ACCOUNT_TYPES } from './constants'
 
 export const ExportToExcel = ({ apiData, fileName, fieldsToBeRemoved=[] }) => {
+    const user = useSelector((state) => state.auth.user)
     const fileType =
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheetcharset=UTF-8'
     const fileExtension = '.xlsx'
@@ -29,9 +32,12 @@ export const ExportToExcel = ({ apiData, fileName, fieldsToBeRemoved=[] }) => {
             variant="success"
             onClick={() => exportToCSV(data, fileName)}
             className="fw-bolder"
+            disabled={user.type !== ACCOUNT_TYPES.PRO}
         >
             <i className="fas fa-save"></i>
-            <span className="ps-2">Lưu</span>
+            <span className="ps-2">
+            Lưu <Badge pill bg="warning">Pro</Badge>
+            </span>
         </Button>
     )
 }

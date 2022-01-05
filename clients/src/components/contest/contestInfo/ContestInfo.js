@@ -13,7 +13,7 @@ import { createTest, deleteTest } from 'actions/api/TestAPI'
 import { blankTest } from 'actions/initialData'
 import { displayTime, displayTimeDelta, splitTime } from 'utils/timeUtils'
 import { archiveContest, updateContest, updateTestsInContest } from 'actions/api/ContestAPI'
-import { MODAL_ACTION, COOKIES, ROLE, STATUS } from 'utils/constants'
+import { MODAL_ACTION, COOKIES, ROLE, STATUS, ACCOUNT_TYPES } from 'utils/constants'
 import './ContestInfo.scss'
 import { cloneDeep } from 'lodash'
 import { toast } from 'react-toastify'
@@ -479,9 +479,11 @@ export default function ContestInfo() {
                             <Card>
                                 <Card.Header className="row search-section d-flex justify-content-center">
                                     <div className="import-test-area col-6 col-lg-3 d-flex justify-content-center align-items-center">
-                                        <Button onClick={() => setIsShowImportTest(true)}>
+                                        <Button onClick={() => setIsShowImportTest(true)}
+                                            disabled={user.type !== ACCOUNT_TYPES.PRO}>
                                             <i className="fa fa-upload"></i>
                                             <span className="px-2 import-test">Import đề thi</span>
+                                            <Badge bg="warning" pill>Pro</Badge>
                                         </Button>
                                         <ImportTestData
                                             contest={contest}

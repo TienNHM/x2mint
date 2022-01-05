@@ -59,31 +59,42 @@ export default function About() {
                         Người tổ chức cuộc thi có thể tạo các cuộc thi với đa dạng các tính năng:
                         <div className="d-flex align-items-start flex-column">
                             <li className="my-1">
+                                <Badge pill bg="success" className="mx-1">Chia sẻ</Badge> liên kết cuộc thi, bài thi
+                            </li>
+                            <li className="my-1">
                                 <Badge pill bg="success" className="mx-1">Tùy chỉnh thời gian</Badge> diễn ra cuộc thi
                             </li>
                             <li className="my-1">
                                 <Badge pill bg="success" className="mx-1">Kho ảnh minh họa</Badge> phong phú, đa dạng
                             </li>
                             <li className="my-1">
-                                <Badge pill bg="success" className="mx-1">Import đề thi</Badge> từ file Excel
-                            </li>
-                            <li className="my-1">
                                 <Badge pill bg="success" className="mx-1">Xem thống kê</Badge> chi tiết về cuộc thi
                             </li>
                             <li className="my-1">
+                                <Badge pill bg="success" className="mx-1">Upload ảnh</Badge> không giới hạn
+                                <Badge pill bg="warning" className="mx-1">Pro</Badge>
+                            </li>
+                            <li className="my-1">
+                                <Badge pill bg="success" className="mx-1">Import đề thi</Badge> từ file Excel
+                                <Badge pill bg="warning" className="mx-1">Pro</Badge>
+                            </li>
+                            <li className="my-1">
                                 <Badge pill bg="success" className="mx-1">Xuất file Excel</Badge> kết quả chi tiết
+                                <Badge pill bg="warning" className="mx-1">Pro</Badge>
                             </li>
                         </div>
                     </h5>
                 </div>
             </div>
 
-            <br/>
+            <br />
             <div className="row w-50 mt-3 p-3 d-flex justify-content-center align-items-center">
                 <h2 className='text-center'>
                     Còn chần chừ gì mà không tham gia ngay nào!
                 </h2>
-                <Image src={process.env.PUBLIC_URL + '/assets/images/login.svg'} />
+                <div className='w-50'>
+                    <Image src={process.env.PUBLIC_URL + '/assets/images/login.svg'} />
+                </div>
                 <Link to="/register">
                     <Button variant="success" size="lg" className="fw-bolder">
                         <i className="fa fa-graduation-cap pe-1"></i>
