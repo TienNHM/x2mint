@@ -4,6 +4,7 @@ import { isEmpty, isLength, isMatch } from 'utils/Validation'
 import { useDispatch } from 'react-redux'
 import { resetPassword } from 'redux/authSlice'
 import { toast } from 'react-toastify'
+import './ResetPassword.scss'
 
 const ResetPassword = () => {
     const [resetForm, setResetForm] = useState({
