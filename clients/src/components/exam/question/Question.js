@@ -51,7 +51,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
                 {!isUser &&
                     <>
-                        <h1 className="fw-bolder">Chưa có câu hỏi nào!</h1>
+                        <h1 className="fw-bolder nothing">Chưa có câu hỏi nào!</h1>
                         <Image src={process.env.PUBLIC_URL + '/assets/images/no-records.svg'}
                             style={{ height: '50vh' }} />
                         <h4 className="fw-bold text-warning">Vui lòng tạo thêm ít nhất 1 câu hỏi cho bài thi!</h4>
@@ -87,8 +87,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
         indexQuestion = takeTest.chooseAnswers.findIndex(c => c.question === question._id)
     }
 
-    //#region Handle
-
+    //#region Handler
     const handleTextChange = (event) => {
         const value = event.target.value.replace(/\n/g, ' ')
         if (value.length <= MAX.QUESTION_LENGTH) {

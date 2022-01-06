@@ -130,7 +130,7 @@ function PanelPreview(props) {
     return (
         <div className="panel-preview">
             <div className="panel-left">
-                <div className="questions-preview-title">Questions</div>
+                <div className="questions-preview-title">Câu hỏi</div>
                 <div className="questions-preview">
                     {!isEmpty(test) &&
                         <Container

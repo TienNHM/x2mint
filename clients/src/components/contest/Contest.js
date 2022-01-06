@@ -260,7 +260,7 @@ export default function Contest() {
                 </div>
             </div>
 
-            <div className="list-contests d-flex justify-content-center align-items-center">
+            <div className="list-contests d-flex">
                 {loading && (
                     <div className='sweet-loading'>
                         <HashLoader color={'#7ED321'} loading={loading} />
