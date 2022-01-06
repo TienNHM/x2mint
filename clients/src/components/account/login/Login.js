@@ -8,10 +8,8 @@ import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { isEmpty } from 'utils/Validation'
 import { toast } from 'react-toastify'
-
 import { GoogleLogin } from 'react-google-login'
 import Footer from 'pages/home/Footer'
-
 
 const Login = () => {
     //Route

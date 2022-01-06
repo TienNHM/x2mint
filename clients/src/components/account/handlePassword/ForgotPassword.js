@@ -43,7 +43,7 @@ function ForgotPassword() {
         <div className="forgot-password d-flex flex-column justify-content-end">
             <div className="d-flex justify-content-center">
                 <div className="forgot">
-                    <h2 className="form__title">Lấy lại mật khẩu...</h2>
+                    <h2 className="form__title">Lấy lại mật khẩu</h2>
                     <div>
                         {err &&
                             <div className="bg-danger text-light">
@@ -63,6 +63,7 @@ function ForgotPassword() {
                                 value={email}
                                 onChange={handleChangeInput}
                                 placeholder="Email..."
+                                className="text-center"
                             ></input>
                         </div>
                         <button

@@ -12,12 +12,12 @@ function Footer() {
         <div className="footer mt-3" id="contact"
             style={styleBottom}>
             <div className="row d-flex justify-content-center align-items-center">
-                <div className="col-12 col-md-4 pt-3 x2mint">
+                <div className="col-12 col-sm-4 pt-3 x2mint">
                     <Image src={process.env.PUBLIC_URL + '/assets/icons/logo.png'}
                         alt="logo"
                         width="150" height="150" />
                 </div>
-                <div className="col-12 col-md-4 pt-3 d-flex justify-content-center align-items-center">
+                <div className="col-12 col-sm-4 pt-3 d-flex justify-content-center align-items-center">
                     <div>
                         <h5>Liên hệ</h5>
                         <div className="d-flex justify-content-center">
@@ -39,7 +39,7 @@ function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="col-12 col-md-4 pt-3 d-flex justify-content-center align-items-center">
+                <div className="col-12 col-sm-4 pt-3 d-flex justify-content-center align-items-center">
                     <div>
                         <h5>Phát triển bởi</h5>
                         <div className="d-flex justify-content-center">

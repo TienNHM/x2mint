@@ -218,6 +218,9 @@ export const resetPassword = createAsyncThunk(
             if (res.data.success === true) {
                 toast.success('🌟 Đặt lại mật khẩu thành công thành công! Đăng nhập để trở lại X2M!NT nhé !')
             }
+            return {
+                success: true
+            }
         }
         catch (err) {
             console.log(err)
@@ -280,6 +283,7 @@ const initialState = {
     isAuthenticated: false,
     user: null,
     error: '',
+    success: false,
     isOpened: true
 }
 
@@ -303,9 +307,11 @@ const authSlice = createSlice({
             state.authLoading = false
             state.isAuthenticated = action.payload.isAuthenticated
             state.user = action.payload.user
+            state.success = action.payload.isAuthenticated
         },
         [loginUser.pending]: (state, actions) => {
             state.authLoading = true
+            state.success = false
             actions
         },
         [loginUser.rejected]: (state, actions) => {
@@ -313,21 +319,35 @@ const authSlice = createSlice({
             state.isAuthenticated = false
             state.error = actions.payload
             state.user = null
+            state.success = false
         },
         [loadUser.pending]: (state, actions) => {
             state.authLoading = true
+            state.success = false
             actions
         },
         [loadUser.fulfilled]: (state, action) => {
             state.authLoading = false
             state.isAuthenticated = action.payload.isAuthenticated
             state.user = action.payload.user
+            state.success = action.payload.isAuthenticated
         },
         [loadUser.rejected]: (state, actions) => {
             state.authLoading = false
             state.isAuthenticated = false
             state.user = null
             state.error = actions.payload
+        },
+        [resetPassword.pending]: (state, actions) => {
+            state.success = false
+            actions
+        },
+        [resetPassword.fulfilled]: (state, actions) => {
+            console.log(actions)
+            state.success = actions.payload.success
+        },
+        [resetPassword.rejected]: (state, actions) => {
+            state.success = false
         }
     }
 })
