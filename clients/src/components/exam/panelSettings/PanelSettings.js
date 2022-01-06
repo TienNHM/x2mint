@@ -35,7 +35,7 @@ function PanelSettings(props) {
 
     // Test URL
     const inputNumberOfTimesRef = useRef('')
-    const [testNumberOfTimes, setTestNumberOfTimes] = useState(test.maxTimes ? test.maxTimes : 1)
+    const [testNumberOfTimes, setTestNumberOfTimes] = useState(test.maxTimes !== null ? test.maxTimes : 1)
 
     // Điểm tối đa
     const inputMaxPointsRef = useRef(null)
@@ -91,7 +91,7 @@ function PanelSettings(props) {
                     endTime: endTime,
                     description: testDescription,
                     maxPoints: testMaxPoints,
-                    maxTimes: testNumberOfTimes,
+                    maxTimes: inputNumberOfTimesRef.current.value,
                     pin: testPIN
                     // url: testLink
                 }
@@ -268,7 +268,7 @@ function PanelSettings(props) {
 
                             <div className="attribute-title">
                                 <div>
-                                    <abbr title="Thiết đặt số lần tối đa mà thí sinh có thể tham gia thi">
+                                    <abbr title="Đặt giá trị 0 nếu không giới hạn">
                                         Số lượt làm bài
                                     </abbr>
                                 </div>

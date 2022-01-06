@@ -13,6 +13,7 @@ import { createTest, deleteTest } from 'actions/api/TestAPI'
 import { blankTest } from 'actions/initialData'
 import { displayTime, displayTimeDelta, splitTime } from 'utils/timeUtils'
 import { archiveContest, updateContest, updateTestsInContest } from 'actions/api/ContestAPI'
+import { getAllTakeTestByUser } from 'actions/api/TakeTestAPI'
 import { MODAL_ACTION, COOKIES, ROLE, STATUS, ACCOUNT_TYPES } from 'utils/constants'
 import './ContestInfo.scss'
 import { cloneDeep } from 'lodash'
@@ -66,12 +67,36 @@ export default function ContestInfo() {
     const [startTime, setStartTime] = useState('')
     const [endDate, setEndDate] = useState('')
     const [endTime, setEndTime] = useState('')
+
+    // TakeTest
+    const [takeTestStatus, setTakeTestStatus] = useState(user.role === ROLE.USER ? null : true)
     //#endregion
+
+    const getTakeTestByUserData = async (tests) => {
+        const data = await getAllTakeTestByUser(user.id)
+
+        var status = {}
+        for (const test of tests) {
+            var count = 0
+            data.takeTests.map(value => {
+                if (value.test._id === test._id)
+                    count += 1
+            })
+            status[test._id] = count
+        }
+        console.log(status)
+        setTakeTestStatus(status)
+    }
 
     useEffect(() => {
         if (contestResponse) {
-            setContest(cloneDeep(contestResponse.data))
-            setData(cloneDeep(contestResponse.data.tests))
+            const _contest = cloneDeep(contestResponse.data)
+            setContest(_contest)
+            setData(_contest.tests)
+
+            if (user.role === ROLE.USER) {
+                getTakeTestByUserData(_contest.tests)
+            }
         }
     }, [contestResponse])
 
@@ -434,13 +459,27 @@ export default function ContestInfo() {
 
                             {user.role === ROLE.USER &&
                                 <>
+                                    {
+                                        console.log(test, takeTestStatus[test._id])
+                                    }
                                     <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
-                                        disabled={Date.parse(test.endTime) - Date.now() <= 0}
+                                        disabled={
+                                            (Date.parse(test.endTime) - Date.now() <= 0) ||
+                                            ((takeTestStatus[test._id] >= test.maxTimes) && (test.maxTimes > 0))
+                                        }
                                         onClick={() => navigate(`/test/${test._id}`)}
                                         size="sm"
                                         className="col"
                                     >
                                         <i className="fas fa-pen"></i>
+                                    </Button>
+                                    <Button variant="warning"
+                                        disabled={Date.parse(test.endTime) - Date.now() <= 0}
+                                        onClick={() => navigate(`/test/${test._id}`)}
+                                        size="sm"
+                                        className="col"
+                                    >
+                                        <i className="fa fa-bar-chart"></i>
                                     </Button>
                                 </>
                             }
@@ -460,7 +499,7 @@ export default function ContestInfo() {
                 </div> */}
 
                 {/* <!-- ContestInfo container --> */}
-                {contestIsLoading &&
+                {(contestIsLoading || !takeTestStatus) &&
                     <div className='loading d-flex align-items-center justify-content-center'>
                         <HashLoader
                             color={'#7ED321'}
@@ -469,7 +508,7 @@ export default function ContestInfo() {
                     </div>
                 }
 
-                {!contestIsLoading &&
+                {!contestIsLoading && takeTestStatus &&
                     <div className="container-section row">
                         <div className="contest-show-info col-xl-3 col-lg-4 col-md-5 col-sm-12">
                             {renderContestInfo()}
@@ -482,7 +521,7 @@ export default function ContestInfo() {
                                         <Button onClick={() => setIsShowImportTest(true)}
                                             disabled={user.type !== ACCOUNT_TYPES.PRO}>
                                             <i className="fa fa-upload"></i>
-                                            <span className="px-2 import-test">Import đề thi</span>
+                                            <span className="px-2 import-test">Import</span>
                                             <Badge bg="warning" pill>Pro</Badge>
                                         </Button>
                                         <ImportTestData

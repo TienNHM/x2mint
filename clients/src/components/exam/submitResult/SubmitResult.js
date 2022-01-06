@@ -37,6 +37,10 @@ export default function SubmitResult() {
         }
     })
 
+    if (document.fullscreenElement) {
+        document.exitFullscreen()
+    }
+
     const [takeTest, setTakeTest] = useState(null)
     const [takeTestData, setTakeTestData] = useState(null)
     //const [takeTestLogs, setTakeTestLogs] = useState(null)
