@@ -472,6 +472,9 @@ export default function ContestInfo() {
                                         className="col"
                                     >
                                         <i className="fas fa-pen"></i>
+                                        {test.maxTimes > 0 &&
+                                            <span className="px-1">{test.maxTimes - takeTestStatus[test._id]}</span>
+                                        }
                                     </Button>
                                     <Button variant="warning"
                                         disabled={Date.parse(test.endTime) - Date.now() <= 0}
