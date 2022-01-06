@@ -477,8 +477,7 @@ export default function ContestInfo() {
                                         }
                                     </Button>
                                     <Button variant="warning"
-                                        disabled={Date.parse(test.endTime) - Date.now() <= 0}
-                                        onClick={() => navigate(`/test/${test._id}`)}
+                                        onClick={() => navigate(`/statistics/take-test/${test._id}`)}
                                         size="sm"
                                         className="col"
                                     >
@@ -520,19 +519,21 @@ export default function ContestInfo() {
                         <div className="list-tests col-xl-9 col-lg-8 col-md-7 col-sm-12">
                             <Card>
                                 <Card.Header className="row search-section d-flex justify-content-center">
-                                    <div className="import-test-area col-6 col-lg-3 d-flex justify-content-center align-items-center">
-                                        <Button onClick={() => setIsShowImportTest(true)}
-                                            disabled={user.type !== ACCOUNT_TYPES.PRO}>
-                                            <i className="fa fa-upload"></i>
-                                            <span className="px-2 import-test">Import</span>
-                                            <Badge bg="warning" pill>Pro</Badge>
-                                        </Button>
-                                        <ImportTestData
-                                            contest={contest}
-                                            isShow={isShowImportTest}
-                                            onCloseAction={() => setIsShowImportTest(false)}
-                                        />
-                                    </div>
+                                    {user.role !== ROLE.USER && (
+                                        <div className="import-test-area col-6 col-lg-3 d-flex justify-content-center align-items-center">
+                                            <Button onClick={() => setIsShowImportTest(true)}
+                                                disabled={user.type !== ACCOUNT_TYPES.PRO}>
+                                                <i className="fa fa-upload"></i>
+                                                <span className="px-2 import-test">Import</span>
+                                                <Badge bg="warning" pill>Pro</Badge>
+                                            </Button>
+                                            <ImportTestData
+                                                contest={contest}
+                                                isShow={isShowImportTest}
+                                                onCloseAction={() => setIsShowImportTest(false)}
+                                            />
+                                        </div>
+                                    )}
                                     <div className="form-search-area col-6 col-lg-9 d-flex align-items-center justify-content-between">
                                         <FormControl
                                             type="search"
