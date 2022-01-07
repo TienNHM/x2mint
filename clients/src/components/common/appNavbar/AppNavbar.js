@@ -33,9 +33,14 @@ export default function MyAppNavbar() {
                         </NavLink>
 
                         {isAuthenticated && user.role === ROLE.ADMIN && (
-                            <NavLink to="/dashboard">
-                                Dashboard
-                            </NavLink>
+                            <>
+                                <NavLink to="/contests-management">
+                                    Các cuộc thi
+                                </NavLink>
+                                <NavLink to="/dashboard">
+                                    Dashboard
+                                </NavLink>
+                            </>
                         )}
 
                         {isAuthenticated && user.role === ROLE.CREATOR && (

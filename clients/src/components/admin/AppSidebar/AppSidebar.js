@@ -30,6 +30,7 @@ export default function AppSidebar({ setCurrentAction }) {
 
                 <div className="settings">
                     <Accordion className="mt-2 mb-2" flush>
+                        {/* Người dùng */}
                         <Accordion.Item eventKey="0">
                             <Accordion.Header className="w-100 button-title"
                                 onClick={() => setCurrentAction(ADMIN.ACCOUNT.STATISTICS)}>
@@ -78,7 +79,7 @@ export default function AppSidebar({ setCurrentAction }) {
                                         {ADMIN.ACCOUNT.GRANT_PERMISSIONS}
                                     </span>
                                 </Button>
-                                <Button className="w-100"
+                                <>{/* <Button className="w-100"
                                     onClick={() => setCurrentAction(ADMIN.ACCOUNT.REPORT)}>
                                     <div className="tooltip-component">
                                         <i className="fas fa-exclamation-triangle me-3"></i>
@@ -89,10 +90,12 @@ export default function AppSidebar({ setCurrentAction }) {
                                     <span className="sidebar-section">
                                         {ADMIN.ACCOUNT.REPORT}
                                     </span>
-                                </Button>
+                                </Button> */}
+                                </>
                             </Accordion.Body>
                         </Accordion.Item>
 
+                        {/* Cuộc thi */}
                         <Accordion.Item eventKey="1">
                             <Accordion.Header className="w-100 button-title"
                                 onClick={() => setCurrentAction(ADMIN.CONTEST.STATISTICS)}>
@@ -143,7 +146,7 @@ export default function AppSidebar({ setCurrentAction }) {
                                         {ADMIN.CONTEST.PARTICIPANT}
                                     </span>
                                 </Button>
-                                <Button className="w-100"
+                                <>{/*<Button className="w-100"
                                     onClick={() => setCurrentAction(ADMIN.CONTEST.LEADERBOARD)}>
                                     <div className="tooltip-component">
                                         <i className="fas fa-trophy me-3"></i>
@@ -166,7 +169,8 @@ export default function AppSidebar({ setCurrentAction }) {
                                     <span className="sidebar-section">
                                         {ADMIN.CONTEST.TRAFFIC}
                                     </span>
-                                </Button>
+                                </Button> */}
+                                </>
                                 <Button className="w-100"
                                     onClick={() => setCurrentAction(ADMIN.CONTEST.ARCHIVE)}>
                                     <div className="tooltip-component">
@@ -182,7 +186,7 @@ export default function AppSidebar({ setCurrentAction }) {
                             </Accordion.Body>
                         </Accordion.Item>
 
-                        <Accordion.Item eventKey="2">
+                        <>{/* <Accordion.Item eventKey="2">
                             <Accordion.Header className="w-100 button-title"
                                 onClick={() => setCurrentAction(ADMIN.RESOURCES.STATISTICS)}>
                                 <div className="tooltip-component">
@@ -258,7 +262,8 @@ export default function AppSidebar({ setCurrentAction }) {
                                     </span>
                                 </Button>
                             </Accordion.Body>
-                        </Accordion.Item>
+                        </Accordion.Item> */}
+                        </>
 
                         <Accordion.Item eventKey="3">
                             <Accordion.Header className="w-100 button-title"
