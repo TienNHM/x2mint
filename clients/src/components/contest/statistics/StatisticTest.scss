@@ -1,8 +1,6 @@
 @import '_setting.scss';
 
 .contest-participants {
-    margin-top: $navbar-height;
-    
     &::-webkit-scrollbar {
         -webkit-appearance: none;
     }

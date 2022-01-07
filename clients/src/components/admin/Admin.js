@@ -24,10 +24,6 @@ export default function Admin() {
                 </div>
 
                 <AppContent currentAction={currentAction} />
-
-                <div className="footer bg-light">
-                    Copyright &copy; X2M!INT
-                </div>
             </div>
         </div>
     )
