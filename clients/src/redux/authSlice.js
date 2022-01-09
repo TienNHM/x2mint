@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
 import { ROLE, COOKIES } from 'utils/constants'
 import { toast } from 'react-toastify'
-import { registerAccount } from 'actions/api/AuthAPI'
+import { registerAccount, activateAccount } from 'actions/api/AuthAPI'
 
 //Register
 export const register = createAsyncThunk(
@@ -19,11 +19,11 @@ export const register = createAsyncThunk(
                 role: ROLE.USER
             })
 
-            if (res.data.success === true) {
-                Cookies.set(COOKIES.REGISTER_STATUS, 'success')
+            if (res.success === true) {
                 toast.success('🎉 Đăng ký tài khoản thành công. Kiểm tra email để xác thực tài khoản nhé !')
-            } else {
-                switch (res.data.message) {
+            }
+            else {
+                switch (res.message) {
                 case 'username':
                     toast.error('❌ Username đã tồn tại. Vui lòng chọn đăng nhập!')
                     Cookies.set(COOKIES.REGISTER_STATUS, 'fail', { expires: COOKIES.MAX_DAYS_EXPIRE })
@@ -40,13 +40,7 @@ export const register = createAsyncThunk(
                 }
             }
 
-            setAuthToken(res.data.accessToken)
-            // Set cookies
-            Cookies.set(COOKIES.ACCESS_TOKEN, res.data.accessToken, { expires: COOKIES.MAX_DAYS_EXPIRE })
-            Cookies.set(COOKIES.USER_ID, res.data.user.id, { expires: COOKIES.MAX_DAYS_EXPIRE })
-
             return {
-                user: res.data.user,
                 isAuthenticated: true
             }
         } catch (error) {
@@ -60,18 +54,14 @@ export const activation = createAsyncThunk(
     'auth/activation',
     async (params, { rejectWithValue }) => {
         const activation_token = params
-        let res = null
-        try {
-            await axios
-                .post(`${process.env.REACT_APP_API_ROOT}/auths/activation`, { activation_token })
-                .then((response) => {
-                    res = response
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
 
-            if (res.data.success === true) {
+        try {
+
+            let res = await activateAccount(activation_token)
+            console.log(res)
+
+            alert(res.success)
+            if (res.success === true) {
                 toast.success('🎉 Xác thực tài khoản thành công. Xin mời Đăng nhập để tiếp tục !')
             } else {
                 toast.error('❌ Tài khoản này đã xác thực !')
@@ -348,6 +338,7 @@ const authSlice = createSlice({
         },
         [resetPassword.rejected]: (state, actions) => {
             state.success = false
+            actions
         }
     }
 })
