@@ -14,6 +14,20 @@ export const registerAccount = async (data) => {
     }
 }
 
+export const activateAccount = async (data) => {
+    try {
+        const url = `${process.env.REACT_APP_API_ROOT}/auths/activation`
+        const request = await axios.post(url, data)
+
+        console.log(request)
+
+        return request
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
 export const verify = async () => {
     try {
         const url = `${process.env.REACT_APP_API_ROOT}/auths/verify`

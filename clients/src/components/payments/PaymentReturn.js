@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import './PaymentReturn.scss'
 
 export default function PaymentReturn() {
+    // eslint-disable-next-line
     const [searchParams, setSearchParams] = useSearchParams()
     const user = useSelector((state) => state.auth.user)
     const navigate = useNavigate()

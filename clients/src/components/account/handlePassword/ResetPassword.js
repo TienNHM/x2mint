@@ -6,7 +6,6 @@ import { resetPassword } from 'redux/authSlice'
 import { toast } from 'react-toastify'
 import './ResetPassword.scss'
 import Footer from 'pages/home/Footer'
-import { Navigate } from 'react-router'
 
 const ResetPassword = () => {
     const [resetForm, setResetForm] = useState({
