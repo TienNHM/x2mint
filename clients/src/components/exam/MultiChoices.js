@@ -17,6 +17,7 @@ import { cloneDeep } from 'lodash'
 import PanelPreview from './panelPreview/PanelPreview'
 import PanelSettings from './panelSettings/PanelSettings'
 import Question from './question/Question'
+import { onSelectStart } from 'utils/DisableSelectEventListener'
 
 export default function MultiChoices() {
     let { testId } = useParams()
@@ -186,7 +187,7 @@ export default function MultiChoices() {
     if (isEntered || !isUser) {
         if (isFullScreen) {
             return (
-                <div className="app-container">
+                <div className="app-container" ref={isUser && onSelectStart}>
                     {isSubmitted &&
                         <Navigate to={`/takeTest/${takeTest._id}`} />
                     }
