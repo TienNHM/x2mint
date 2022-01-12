@@ -56,17 +56,15 @@ export default function PaymentReturn() {
     }
 
     const createNewBill = async (status) => {
-        const data = await createBill({
+        await createBill({
             userId: user.id,
-            amount: searchParams.get('vnp_Amount'),
+            amount: searchParams.get('vnp_Amount')/100, // Do VNPay đã nhân 100 để triệt tiêu dấu phẩy
             _status: status
         })
-        console.log(data)
     }
 
     useEffect(() => {
         if (response) {
-            console.log(response)
             if (response.success &&
                 response.code === '00' &&
                 response.userId === user.id

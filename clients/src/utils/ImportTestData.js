@@ -22,19 +22,25 @@ export const ImportTestData = ({ contest, isShow, onCloseAction }) => {
     const importFile = async () => {
         if (testInfo && testData) {
             setLoading(true)
-            toast.success('⏳ Đang tải đề thi lên, vui lòng chờ đợi trong ít phút!')
-            const testId = await importTestData()
-            const data = await importQuestions(testId)
-
-            // Update lại contest
-            const testsList = [...contest.tests]
-            const testIDs = testsList.map(x => x._id)
-            testIDs.push(data.id)
-            await updateTestsInContest(contest.id, testIDs)
-            setLoading(false)
-            onCloseAction()
-            navigate(`/test/${testId}`)
-            toast.success('🎉 Đã hoàn tất tải lên!')
+            try {
+                toast.success('⏳ Đang tải đề thi lên, vui lòng chờ đợi trong ít phút!')
+                const testId = await importTestData()
+                const data = await importQuestions(testId)
+                // Update lại contest
+                const testsList = [...contest.tests]
+                const testIDs = testsList.map(x => x._id)
+                testIDs.push(data.id)
+                await updateTestsInContest(contest.id, testIDs)
+                setLoading(false)
+                onCloseAction()
+                navigate(`/test/${testId}`)
+                toast.success('🎉 Đã hoàn tất tải lên!')
+            }
+            catch (err) {
+                toast.dismiss()
+                toast.error('💢 Đã xảy ra lỗi trong quá trình Import đề thi. Vui lòng đảm bảo file đúng cấu trúc của file mẫu!')
+                setLoading(false)
+            }
         }
         else {
             toast.error('💢 Vui lòng chọn file tải lên!')
