@@ -187,7 +187,7 @@ export default function MultiChoices() {
     if (isEntered || !isUser) {
         if (isFullScreen) {
             return (
-                <div className="app-container" ref={isUser && onSelectStart}>
+                <div className="app-container" ref={isUser ? onSelectStart : null}>
                     {isSubmitted &&
                         <Navigate to={`/takeTest/${takeTest._id}`} />
                     }
