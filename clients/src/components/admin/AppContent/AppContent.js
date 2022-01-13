@@ -9,6 +9,7 @@ import ContestParticipants from './Contest/ContestParticipants/ContestParticipan
 import ContestStatistics from './Contest/ContestStatistics/ContestStatistics'
 import Revenue from './Revenue/Revenue'
 import Dashboard from './Dashboard/Dashboard'
+import MessengerCustomerChat from 'react-messenger-customer-chat'
 
 export default function AppContent({ currentAction }) {
     const [component, setComponent] = useState(null)
@@ -33,6 +34,12 @@ export default function AppContent({ currentAction }) {
     return (
         <div>
             {component ? component : <Dashboard />}
+
+            <MessengerCustomerChat
+                pageId="110971274789083"
+                appId="332254335175096"
+                htmlRef="fb-customer-chat"
+            />
         </div>
     )
 }
