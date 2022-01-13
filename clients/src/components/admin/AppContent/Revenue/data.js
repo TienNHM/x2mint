@@ -111,7 +111,7 @@ export function StatisticBills(data) {
             if (d.date === date) {
                 count += 1
                 if (data[i]._status === STATUS.SUCCESS) {
-                    amount += data[i].amount / 10000000
+                    amount += data[i].amount / 100000
                 }
             }
         }
