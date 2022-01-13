@@ -3,7 +3,7 @@ import './Profile.scss'
 import { Form, Image, Button, Row, Col, Badge } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import ModalUpdateUserInfo from './ModalUpdateUserInfo'
-import { ACCOUNT_TYPES, COOKIES, MODAL_ACTION, STATUS } from 'utils/constants'
+import { ACCOUNT_TYPES, COOKIES, MODAL_ACTION, ROLE, STATUS } from 'utils/constants'
 import { changePassword, updateUserInfo } from 'actions/api/UserAPI'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
@@ -14,6 +14,7 @@ import { cloneDeep } from 'lodash'
 import { ExportDataUserTakeTest } from './UserTakeTest'
 import ChangePassword from 'components/account/handlePassword/ChangePassword'
 import Payments from 'components/payments/Payments'
+import MessengerCustomerChat from 'react-messenger-customer-chat'
 
 export default function Profile() {
     const user = useSelector((state) => state.auth.user)
@@ -266,6 +267,14 @@ export default function Profile() {
                         isShow={isShowModalChangePassword}
                         onAction={handleChangePassword}
                     />
+
+                    {user.type !== ROLE.USER && (
+                        <MessengerCustomerChat
+                            pageId="110971274789083"
+                            appId="332254335175096"
+                            htmlRef="fb-customer-chat"
+                        />
+                    )}
                 </>
             }
         </div>
