@@ -118,12 +118,12 @@ export const USER_INFO_COLUMNS = [
     {
         label: STATISTICS.ACCOUNT._STATUS,
         field: STATISTICS.ACCOUNT._STATUS,
-        sort: 'asc',
+        sort: 'dec',
         width: 150
     }
 ]
 
-export function GetUserStatusComponent(index, user, onClickUserStatus) {
+export function GetUserStatusComponent(index, user, onClickUserStatus, table) {
     let variant = 'secondary'
 
     if (user._status === STATUS.OK) {
@@ -143,15 +143,15 @@ export function GetUserStatusComponent(index, user, onClickUserStatus) {
             <div className="text-center fw-bolder">Trạng thái tài khoản</div>
             <Dropdown.Divider />
             <Dropdown.Item
-                onClick={() => onClickUserStatus(index, user, STATUS.OK)}>
+                onClick={() => onClickUserStatus(index, user, STATUS.OK, table)}>
                 <Badge pill bg="primary">{STATUS.OK}</Badge>
             </Dropdown.Item>
             <Dropdown.Item
-                onClick={() => onClickUserStatus(index, user, STATUS.DEACTIVE)}>
+                onClick={() => onClickUserStatus(index, user, STATUS.DEACTIVE, table)}>
                 <Badge pill bg="warning">{STATUS.DEACTIVE}</Badge>
             </Dropdown.Item>
             <Dropdown.Item
-                onClick={() => onClickUserStatus(index, user, STATUS.DELETED)}>
+                onClick={() => onClickUserStatus(index, user, STATUS.DELETED, table)}>
                 <Badge pill bg="danger">{STATUS.DELETED}</Badge>
             </Dropdown.Item>
         </DropdownButton>
@@ -247,12 +247,12 @@ export const USER_PERMISSIONS_COLUMNS = [
     {
         label: STATISTICS.ACCOUNT._STATUS,
         field: STATISTICS.ACCOUNT._STATUS,
-        sort: 'asc',
+        sort: 'dec',
         width: 150
     }
 ]
 
-export function GetUserPermissionsComponent(index, user, onClickUserPermissions) {
+export function GetUserPermissionsComponent(index, user, onClickUserPermissions, table) {
     let variant = 'secondary'
 
     if (user.role === ROLE.USER) {
@@ -272,15 +272,15 @@ export function GetUserPermissionsComponent(index, user, onClickUserPermissions)
             <div className="text-center fw-bolder">Quyền tài khoản</div>
             <Dropdown.Divider />
             <Dropdown.Item
-                onClick={() => onClickUserPermissions(index, user, ROLE.USER)}>
+                onClick={() => onClickUserPermissions(index, user, ROLE.USER, table)}>
                 <Badge pill bg="primary">{ROLE.USER}</Badge>
             </Dropdown.Item>
             <Dropdown.Item
-                onClick={() => onClickUserPermissions(index, user, ROLE.CREATOR)}>
+                onClick={() => onClickUserPermissions(index, user, ROLE.CREATOR, table)}>
                 <Badge pill bg="warning">{ROLE.CREATOR}</Badge>
             </Dropdown.Item>
             <Dropdown.Item
-                onClick={() => onClickUserPermissions(index, user, ROLE.ADMIN)}>
+                onClick={() => onClickUserPermissions(index, user, ROLE.ADMIN, table)}>
                 <Badge pill bg="danger">{ROLE.ADMIN}</Badge>
             </Dropdown.Item>
         </DropdownButton>
@@ -289,7 +289,8 @@ export function GetUserPermissionsComponent(index, user, onClickUserPermissions)
     return role
 }
 
-export function ExportDataUserPermissions(data, onClickUserPermissions, onClickUserStatus) {
+export function ExportDataUserPermissions(
+    data, onClickUserPermissions, onClickUserStatus, table) {
     const rows = data.map((value, index) => {
         const avatar = value.avatar ?
             <Image roundedCircle src={value.avatar} width="32px" height="32px" alt="avatar" /> :
@@ -304,8 +305,8 @@ export function ExportDataUserPermissions(data, onClickUserPermissions, onClickU
             [STATISTICS.ACCOUNT.ROLE]: value.role,
             [STATISTICS.ACCOUNT.STATUS]: value._status,
             [STATISTICS.ACCOUNT._AVATAR]: avatar,
-            [STATISTICS.ACCOUNT._ROLE]: GetUserPermissionsComponent(index, value, onClickUserPermissions),
-            [STATISTICS.ACCOUNT._STATUS]: GetUserStatusComponent(index, value, onClickUserStatus)
+            [STATISTICS.ACCOUNT._ROLE]: GetUserPermissionsComponent(index, value, onClickUserPermissions, table),
+            [STATISTICS.ACCOUNT._STATUS]: GetUserStatusComponent(index, value, onClickUserStatus, table)
         }
         return item
     })

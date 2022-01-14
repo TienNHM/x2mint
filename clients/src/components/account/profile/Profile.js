@@ -130,6 +130,21 @@ export default function Profile() {
         }
     }
 
+    const registerCreator = async () => {
+        const _user = {
+            ...user,
+            _id: user.id,
+            _status: STATUS.UPGRADE_PENDING
+        }
+
+        const data = await updateUserInfo(_user)
+        setUserData({
+            ...userData,
+            _status: data.user._status
+        })
+        toast.success('🎉 Update thành công!')
+    }
+
     return (
         <div className="settings-account">
             {(loadingUserData || loadingTakeTestData) &&
@@ -188,6 +203,16 @@ export default function Profile() {
                                             Cập nhật
                                         </Button>
                                     </div>
+
+                                    {user.role === ROLE.USER && (
+                                        <div className="w-100 my-3">
+                                            <h6 className="text-success fw-bolder">Đăng ký tài khoản Creator</h6>
+                                            <Button variant="danger"
+                                                onClick={registerCreator}>
+                                                Đăng ký
+                                            </Button>
+                                        </div>
+                                    )}
                                 </div>
                             </Col>
 

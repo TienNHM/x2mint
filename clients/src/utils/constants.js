@@ -38,7 +38,8 @@ export const STATUS = {
     NOT_SUBMITTED: 'not submitted',
     PASSED: 'passed',
     FAILED: 'failed',
-    SUCCESS: 'success'
+    SUCCESS: 'success',
+    UPGRADE_PENDING: 'pending'
 }
 
 export const ADMIN = {
