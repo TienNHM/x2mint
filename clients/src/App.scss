@@ -1,7 +1,11 @@
 @import '_setting.scss';
 
-#ssIFrame_google {
+iframe {
     display: none !important;
+}
+
+.fb_customer_chat_bounce_out_v2 {
+    display: inline-block !important;
 }
 
 .app {
@@ -31,6 +35,11 @@
     align-items: center;
     text-align: center;
 
+    // Table 
+    .mdb-dataTable_scrollBody {
+        min-height: 250px;
+    }
+    
     // Loại bỏ những settings mặt định cho ô input và button
     .bootstrap-container {
         margin: 0;
