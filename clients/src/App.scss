@@ -1,7 +1,16 @@
 @import '_setting.scss';
 
+iframe {
+    display: none !important;
+}
+
 #ssIFrame_google {
     display: none !important;
+    z-index: -1000;
+}
+
+#fb-root {
+    display: unset !important;
 }
 
 .app {

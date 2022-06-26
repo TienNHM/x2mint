@@ -172,7 +172,7 @@ export function ExportDataTakeTest(data) {
                 <Badge pill bg="warning">{value._status}</Badge>
 
         const detail = (
-            <Button size="sm"
+            <Button size="small"
                 href={`/takeTest/${value.id}`} target="_self"
                 style={{ backgroundColor: 'transparent', border: 'none' }}>
                 <i className="fa fa-info-circle text-primary"></i>
@@ -301,7 +301,7 @@ export function ExportDataArchiveContest(data, onClickContestStatus) {
         const url = (
             <Button variant="success"
                 href={value.url}
-                size="sm"
+                size="small"
                 target="_blank">
                 <i className="fa fa-link text-primary"></i>
             </Button>

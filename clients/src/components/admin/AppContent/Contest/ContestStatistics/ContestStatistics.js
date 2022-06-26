@@ -7,6 +7,7 @@ import Cookies from 'js-cookie'
 import { COOKIES } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
 import { StatisticSubmitTime, StatisticTakeTest } from '../data'
+import ContestKmeansClustering from '../ContestKmeansClustering/ContestKmeansClustering'
 
 Chart.register()
 
@@ -28,6 +29,8 @@ export default function ContestStatistics() {
 
     useEffect(() => {
         if (response) {
+            console.log(response)
+
             setData(response.data)
 
             const takeTestStatisticsData = StatisticTakeTest(response.data.takeTests)
@@ -35,6 +38,8 @@ export default function ContestStatistics() {
 
             const submitTimeStatisticsData = StatisticSubmitTime(response.data.takeTests)
             setStatisticsSubmitTime(submitTimeStatisticsData)
+
+
         }
     }, [response])
 
@@ -93,6 +98,11 @@ export default function ContestStatistics() {
 
             {!loading &&
                 <>
+                    <ContestKmeansClustering
+                        takeTestData={data.takeTests}
+                        isShow={true}
+                    />
+
                     <div className="section-header m-3 h4 d-flex">
                         <i className="fa fa-map-signs me-3"></i>
                         Tổng quan

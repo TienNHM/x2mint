@@ -55,6 +55,7 @@ export const TAKETEST_COLUMNS = [
 ]
 
 export function StatisticTakeTestsInContest(data) {
+    console.log(data)
     const rows = data.map((value, index) => {
         const avatar = value.user.avatar ?
             value.user.avatar :
