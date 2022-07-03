@@ -55,18 +55,26 @@ export const getCurrentDatetime = () => {
 
 export const getCurrentDate = () => {
     var currentdate = new Date()
-    var date = currentdate.getFullYear()+ '-'
-        + (currentdate.getMonth() + 1) + '-'
-        + currentdate.getDate()
+    var yyyy = currentdate.getFullYear()
+    var mm = (currentdate.getMonth() + 1)
+    var dd = currentdate.getDate()
+
+    var date = yyyy + '-' +
+        (mm < 10 ? '0' + mm : mm) + '-' +
+        (dd < 10 ? '0' + dd : dd)
 
     return date
 }
 
 export const getCurrentTime = () => {
     var currentdate = new Date()
-    var time = currentdate.getHours() + ':'
-        + currentdate.getMinutes() + ':'
-        + currentdate.getSeconds() + ':00.000'
+    var hh = currentdate.getHours()
+    var mm = currentdate.getMinutes()
+    var ss = currentdate.getSeconds()
+
+    var time = (hh < 10 ? '0' + hh : hh) + ':'
+        + (mm < 10 ? '0' + mm : mm) + ':'
+        + (ss < 10 ? '0' + ss : ss) + ':00.000'
 
     return time
 }
