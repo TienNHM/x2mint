@@ -24,7 +24,6 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     //#region Refs
     const titleRef = useRef(null)
     const descriptionRef = useRef(null)
-    const urlRef = useRef(null)
     const startDateRef = useRef(null)
     const endDateRef = useRef(null)
     const startTimeRef = useRef(null)
