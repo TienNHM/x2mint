@@ -211,6 +211,16 @@ export default function MultiChoices() {
 
                     {!testIsLoading &&
                         <div className="row">
+                            <div className="col-lg-10 col-12">
+                                <Question
+                                    question={selectedQuestion}
+                                    setQuestion={updateSelectedQuestion}
+                                    isCreator={!isUser}
+                                    takeTest={takeTest}
+                                    updateTakeTest={updateTakeTestInfo}
+                                />
+                            </div>
+
                             {!isUser ?
                                 (
                                     <div className="col-lg-2 col-12">
@@ -236,17 +246,7 @@ export default function MultiChoices() {
                                 )
                             }
 
-                            <div className="col-lg-8 col-12">
-                                <Question
-                                    question={selectedQuestion}
-                                    setQuestion={updateSelectedQuestion}
-                                    isCreator={!isUser}
-                                    takeTest={takeTest}
-                                    updateTakeTest={updateTakeTestInfo}
-                                />
-                            </div>
-
-                            <div className="col-lg-2 col-12" id="panel-settings">
+                            <div className="" id="panel-settings">
                                 <PanelSettings
                                     test={test}
                                     setTest={setTest}

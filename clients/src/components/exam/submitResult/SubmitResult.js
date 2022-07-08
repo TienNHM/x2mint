@@ -89,7 +89,15 @@ export default function SubmitResult() {
                 </Modal.Header>
                 <Modal.Body>
                     {(loadingTakeTest || loadingTakeTestLogs) && (
-                        <div className='sweet-loading'>
+                        <div
+                            className='sweet-loading d-flex justify-content-center align-items-center'
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                position: 'absolute',
+                                top: 0,
+                                left: 100
+                            }}>
                             <HashLoader color={'#7ED321'} loading={loadingTakeTest} />
                         </div>
                     )}

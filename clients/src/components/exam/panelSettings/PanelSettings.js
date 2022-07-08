@@ -62,7 +62,7 @@ function PanelSettings(props) {
     const [content, setContent] = useState('')
 
     // Test Info Modal
-    const [isShowTestInfo, setIsShowTestInfo] = useState(false)
+    const [isShowTestInfo, setIsShowTestInfo] = useState(!isUser)
     //#endregion
 
     //#region Handlers
@@ -177,213 +177,250 @@ function PanelSettings(props) {
         backgroundColor: '#edc132'
     }
 
+    // return (
+    //     <div className="panel-settings">
+    //         <div className="panel-right">
+    //             <div className="panel-right-title">Chi tiết</div>
+
+    //             <div className="attributes app-vertical-scrollbar">
+    //                 <div className="attribute-title">
+    //                     <div>Tên</div>
+    //                     <div className="title">
+    //                         <Form.Control
+    //                             size="sm"
+    //                             type="text"
+    //                             ref={inputTestTitleRef}
+    //                             placeholder="Tên..."
+    //                             className="attribute-title-input"
+    //                             value={testTitle ? testTitle : ''}
+    //                             onChange={e => setTestTitle(e.target.value)}
+    //                             readOnly={isUser}
+    //                         />
+    //                     </div>
+    //                 </div>
+
+    //                 <div className="attribute-title">
+    //                     <div>Mô tả</div>
+    //                     <div className="title">
+    //                         <Form.Control
+    //                             size="sm"
+    //                             as="textarea"
+    //                             rows={8}
+    //                             ref={inputTestDescriptionRef}
+    //                             placeholder="Mô tả..."
+    //                             className="attribute-title-input"
+    //                             value={testDescription ? testDescription : ''}
+    //                             onChange={e => setTestDescription(e.target.value)}
+    //                             readOnly={isUser}
+    //                         />
+    //                     </div>
+    //                 </div>
+
+    //                 <div className="attribute-title">
+    //                     <div>Mã PIN</div>
+    //                     <div className="title">
+    //                         <Form.Control
+    //                             size="sm"
+    //                             type="text"
+    //                             ref={inputPinRef}
+    //                             placeholder="0"
+    //                             className="attribute-title-input max-points"
+    //                             value={testPIN}
+    //                             onChange={e => setTestPIN(e.target.value)}
+    //                             readOnly={isUser}
+    //                         />
+    //                     </div>
+    //                 </div>
+
+    //                 <div className="attribute-title">
+    //                     <div>Điểm tối đa</div>
+    //                     <div className="title">
+    //                         <Form.Control
+    //                             size="sm"
+    //                             type="number"
+    //                             ref={inputMaxPointsRef}
+    //                             placeholder="0"
+    //                             className="attribute-title-input max-points"
+    //                             value={testMaxPoints}
+    //                             onChange={e => setTestMaxPoints(e.target.value)}
+    //                             readOnly={isUser}
+    //                         />
+    //                     </div>
+    //                 </div>
+
+    //                 {!isUser &&
+    //                     <>
+    //                         {/* <div className="attribute-title">
+    //                             <div>Link</div>
+    //                             <div className="title">
+    //                                 <Form.Control
+    //                                     size="sm"
+    //                                     type="text"
+    //                                     ref={inputLinkRef}
+    //                                     placeholder="Link URL..."
+    //                                     className="attribute-title-input"
+    //                                     value={testLink}
+    //                                     onChange={e => setTestLink(e.target.value)}
+    //                                     readOnly={isUser}
+    //                                 />
+    //                             </div>
+    //                         </div> */}
+
+    //                         <div className="attribute-title">
+    //                             <div>
+    //                                 <abbr title="Đặt giá trị 0 nếu không giới hạn">
+    //                                     Số lượt làm bài
+    //                                 </abbr>
+    //                             </div>
+    //                             <div className="title">
+    //                                 <Form.Control
+    //                                     size="sm"
+    //                                     type="number"
+    //                                     min="0"
+    //                                     ref={inputNumberOfTimesRef}
+    //                                     className="attribute-title-input"
+    //                                     value={testNumberOfTimes}
+    //                                     onChange={e => setTestNumberOfTimes(e.target.value)}
+    //                                     readOnly={isUser}
+    //                                 />
+    //                             </div>
+    //                         </div>
+
+    //                         <div className="time-picker">
+    //                             <div>Thời gian bắt đầu</div>
+    //                             <div className="time-area">
+    //                                 <Form.Control
+    //                                     size="sm"
+    //                                     type="date"
+    //                                     ref={startDateRef}
+    //                                     value={startDate}
+    //                                     onChange={e => setStartDate(e.target.value)}
+    //                                     readOnly={isUser}
+    //                                 />
+    //                                 <Form.Control
+    //                                     size="sm"
+    //                                     type="time"
+    //                                     ref={startTimeRef}
+    //                                     value={startTime}
+    //                                     onChange={e => setStartTime(e.target.value)}
+    //                                     readOnly={isUser}
+    //                                 />
+    //                             </div>
+    //                         </div>
+
+    //                         <div className="time-picker">
+    //                             <div>Thời gian kết thúc</div>
+    //                             <div className="time-area">
+    //                                 <Form.Control
+    //                                     size="sm"
+    //                                     type="date"
+    //                                     ref={endDateRef}
+    //                                     value={endDate}
+    //                                     onChange={e => setEndDate(e.target.value)}
+    //                                     readOnly={isUser}
+    //                                 />
+    //                                 <Form.Control
+    //                                     size="sm"
+    //                                     type="time"
+    //                                     ref={endTimeRef}
+    //                                     value={endTime}
+    //                                     onChange={e => setEndTime(e.target.value)}
+    //                                     readOnly={isUser}
+    //                                 />
+    //                             </div>
+    //                         </div>
+    //                     </>
+    //                 }
+    //             </div>
+
+    //             <div className="quick-actions d-flex justify-content-center">
+    //                 {!isUser &&
+    //                     <Button variant="warning" className="w-100"
+    //                         onClick={handleSaveClick}>
+    //                         Lưu
+    //                     </Button>
+    //                 }
+
+    //                 <Button variant="danger" className="w-100"
+    //                     onClick={handleExit}>
+    //                     Thoát
+    //                 </Button>
+    //             </div>
+
+    //             <div className="confirm-submit">
+    //                 <ConfirmModal
+    //                     title="Xác nhận"
+    //                     content={content}
+    //                     isShow={isShowConfirm}
+    //                     onAction={handleConfirmModal}
+    //                 />
+    //             </div>
+    //         </div>
+
+    //         <div className="">
+    //             <div className="floating-buttons d-flex justify-content-end" id="floating-buttons">
+    //                 <Fab
+    //                     mainButtonStyles={btnInfoStyles}
+    //                     style={{ bottom: '-10px', right: '-10px' }}
+    //                     icon={<i className="fa fa-reorder"></i>}
+    //                     alwaysShowTitle={true}
+    //                     onClick={() => setIsShowTestInfo(true)}
+    //                 ></Fab>
+
+    //                 <Fab
+    //                     mainButtonStyles={btnExitStyles}
+    //                     style={{ bottom: '-10px', right: '40px' }}
+    //                     icon={<i className="fa fa-window-close"></i>}
+    //                     alwaysShowTitle={true}
+    //                     onClick={handleExit}
+    //                 ></Fab>
+    //             </div>
+    //         </div>
+    //     </div>
+
+    // )
+
     return (
-        <div className="panel-settings">
-            <div className="panel-right">
-                <div className="panel-right-title">Chi tiết</div>
+        <div className="">
+            <div className="floating-buttons d-flex justify-content-start" id="floating-buttons">
+                <Fab
+                    mainButtonStyles={btnInfoStyles}
+                    style={{ bottom: '-10px', right: '-20px' }}
+                    icon={<i className="fa fa-reorder"></i>}
+                    alwaysShowTitle={true}
+                    onClick={() => setIsShowTestInfo(true)}
+                >
+                    <abbr className='badge bg-warning p-2'>
+                        Thông tin bài kiểm tra
+                    </abbr>
+                </Fab>
 
-                <div className="attributes app-vertical-scrollbar">
-                    <div className="attribute-title">
-                        <div>Tên</div>
-                        <div className="title">
-                            <Form.Control
-                                size="sm"
-                                type="text"
-                                ref={inputTestTitleRef}
-                                placeholder="Tên..."
-                                className="attribute-title-input"
-                                value={testTitle ? testTitle : ''}
-                                onChange={e => setTestTitle(e.target.value)}
-                                readOnly={isUser}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="attribute-title">
-                        <div>Mô tả</div>
-                        <div className="title">
-                            <Form.Control
-                                size="sm"
-                                as="textarea"
-                                rows={8}
-                                ref={inputTestDescriptionRef}
-                                placeholder="Mô tả..."
-                                className="attribute-title-input"
-                                value={testDescription ? testDescription : ''}
-                                onChange={e => setTestDescription(e.target.value)}
-                                readOnly={isUser}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="attribute-title">
-                        <div>Mã PIN</div>
-                        <div className="title">
-                            <Form.Control
-                                size="sm"
-                                type="text"
-                                ref={inputPinRef}
-                                placeholder="0"
-                                className="attribute-title-input max-points"
-                                value={testPIN}
-                                onChange={e => setTestPIN(e.target.value)}
-                                readOnly={isUser}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="attribute-title">
-                        <div>Điểm tối đa</div>
-                        <div className="title">
-                            <Form.Control
-                                size="sm"
-                                type="number"
-                                ref={inputMaxPointsRef}
-                                placeholder="0"
-                                className="attribute-title-input max-points"
-                                value={testMaxPoints}
-                                onChange={e => setTestMaxPoints(e.target.value)}
-                                readOnly={isUser}
-                            />
-                        </div>
-                    </div>
-
-                    {!isUser &&
-                        <>
-                            {/* <div className="attribute-title">
-                                <div>Link</div>
-                                <div className="title">
-                                    <Form.Control
-                                        size="sm"
-                                        type="text"
-                                        ref={inputLinkRef}
-                                        placeholder="Link URL..."
-                                        className="attribute-title-input"
-                                        value={testLink}
-                                        onChange={e => setTestLink(e.target.value)}
-                                        readOnly={isUser}
-                                    />
-                                </div>
-                            </div> */}
-
-                            <div className="attribute-title">
-                                <div>
-                                    <abbr title="Đặt giá trị 0 nếu không giới hạn">
-                                        Số lượt làm bài
-                                    </abbr>
-                                </div>
-                                <div className="title">
-                                    <Form.Control
-                                        size="sm"
-                                        type="number"
-                                        min="0"
-                                        ref={inputNumberOfTimesRef}
-                                        className="attribute-title-input"
-                                        value={testNumberOfTimes}
-                                        onChange={e => setTestNumberOfTimes(e.target.value)}
-                                        readOnly={isUser}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="time-picker">
-                                <div>Thời gian bắt đầu</div>
-                                <div className="time-area">
-                                    <Form.Control
-                                        size="sm"
-                                        type="date"
-                                        ref={startDateRef}
-                                        value={startDate}
-                                        onChange={e => setStartDate(e.target.value)}
-                                        readOnly={isUser}
-                                    />
-                                    <Form.Control
-                                        size="sm"
-                                        type="time"
-                                        ref={startTimeRef}
-                                        value={startTime}
-                                        onChange={e => setStartTime(e.target.value)}
-                                        readOnly={isUser}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="time-picker">
-                                <div>Thời gian kết thúc</div>
-                                <div className="time-area">
-                                    <Form.Control
-                                        size="sm"
-                                        type="date"
-                                        ref={endDateRef}
-                                        value={endDate}
-                                        onChange={e => setEndDate(e.target.value)}
-                                        readOnly={isUser}
-                                    />
-                                    <Form.Control
-                                        size="sm"
-                                        type="time"
-                                        ref={endTimeRef}
-                                        value={endTime}
-                                        onChange={e => setEndTime(e.target.value)}
-                                        readOnly={isUser}
-                                    />
-                                </div>
-                            </div>
-                        </>
-                    }
-                </div>
-
-                <div className="quick-actions d-flex justify-content-center">
-                    {!isUser &&
-                        <Button variant="warning" className="w-100"
-                            onClick={handleSaveClick}>
-                            Lưu
-                        </Button>
-                    }
-
-                    <Button variant="danger" className="w-100"
-                        onClick={handleExit}>
+                <Fab
+                    mainButtonStyles={btnExitStyles}
+                    style={{ bottom: '-10px', right: '30px' }}
+                    icon={<i className="fa fa-window-close"></i>}
+                    alwaysShowTitle={true}
+                    onClick={handleExit}
+                >
+                    <abbr className='badge bg-warning p-2'>
                         Thoát
-                    </Button>
-                </div>
-
-                <div className="confirm-submit">
-                    <ConfirmModal
-                        title="Xác nhận"
-                        content={content}
-                        isShow={isShowConfirm}
-                        onAction={handleConfirmModal}
-                    />
-                </div>
+                    </abbr>
+                </Fab>
             </div>
-
-            <div className="">
-                <div className="floating-buttons d-flex justify-content-end" id="floating-buttons">
-                    <Fab
-                        mainButtonStyles={btnInfoStyles}
-                        style={{ bottom: '-10px', right: '-10px' }}
-                        icon={<i className="fa fa-reorder"></i>}
-                        alwaysShowTitle={true}
-                        onClick={() => setIsShowTestInfo(true)}
-                    ></Fab>
-
-                    <Fab
-                        mainButtonStyles={btnExitStyles}
-                        style={{ bottom: '-10px', right: '40px' }}
-                        icon={<i className="fa fa-window-close"></i>}
-                        alwaysShowTitle={true}
-                        onClick={handleExit}
-                    ></Fab>
-                </div>
-
-                <ModalTestInfo
-                    isShow={isShowTestInfo}
-                    onAction={handleOnUpdateTestInfo}
-                    test={test}
-                    isUser={isUser}
-                />
-            </div>
+            <ModalTestInfo
+                isShow={isShowTestInfo}
+                onAction={handleOnUpdateTestInfo}
+                test={test}
+                isUser={isUser}
+            />
+            <ConfirmModal
+                title="Xác nhận"
+                content={content}
+                isShow={isShowConfirm}
+                onAction={handleConfirmModal}
+            />
         </div>
+
     )
 }
 

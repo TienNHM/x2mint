@@ -162,35 +162,29 @@ function PanelPreview(props) {
                     }
                 </div>
 
-                <div className="question-actions">
-                    <Button
-                        variant="primary"
-                        onClick={handleOnAddQuestion}>
-                        Thêm
-                    </Button>
-
-                    <Button
-                        variant="danger"
-                        onClick={handleOnDeleteQuestion}>
-                        Xóa
-                    </Button>
-                </div>
-
-                <div className="floating-buttons">
+                <div className="">
                     <Fab
                         mainButtonStyles={btnAddQuestionStyles}
-                        style={{ bottom: '-10px', right: '140px' }}
+                        style={{ bottom: '-10px', right: '130px' }}
                         icon={<i className="fa fa-plus"></i>}
                         alwaysShowTitle={true}
                         onClick={handleOnAddQuestion}
-                    ></Fab>
+                    >
+                        <abbr className='badge bg-warning p-2'>
+                            Thêm câu hỏi
+                        </abbr>
+                    </Fab>
                     <Fab
                         mainButtonStyles={btnRemoveQuestionStyles}
-                        style={{ bottom: '-10px', right: '90px' }}
+                        style={{ bottom: '-10px', right: '80px' }}
                         icon={<i className="fa fa-minus"></i>}
                         alwaysShowTitle={true}
                         onClick={handleOnDeleteQuestion}
-                    ></Fab>
+                    >
+                        <abbr className='badge bg-warning p-2'>
+                            Xóa câu hỏi
+                        </abbr>
+                    </Fab>
                 </div>
             </div>
 

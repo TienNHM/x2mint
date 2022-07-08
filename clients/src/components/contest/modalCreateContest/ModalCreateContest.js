@@ -24,7 +24,6 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     //#region Refs
     const titleRef = useRef(null)
     const descriptionRef = useRef(null)
-    const urlRef = useRef(null)
     const startDateRef = useRef(null)
     const endDateRef = useRef(null)
     const startTimeRef = useRef(null)
@@ -38,7 +37,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
         setDescription(contest.description)
         setUrl(contest.url)
         setLink(contest.embededMedia)
-        if (contest.startTime) {
+        if (contest.startTime || contest.endTime) {
             const start_time = splitTime(contest.startTime)
             const end_time = splitTime(contest.endTime)
             setStartDate(start_time.date)
@@ -90,12 +89,12 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                 startDateRef.current.focus()
                 return
             }
-            if (!end_time || new Date(end_time) < Date.now()) {
+            if (!end_time) {
                 toast.error('💢Thời gian kết thúc cuộc thi không hợp lệ. Vui lòng chọn lại!')
                 endDateRef.current.focus()
                 return
             }
-            if (new Date(end_time) <= new Date(start_time)) {
+            if (new Date(end_time) < new Date(start_time)) {
                 toast.error('💢 Thời gian không hợp lệ. Thời gian kết thúc phải diễn ra sau thời gian bắt đầu!')
                 endDateRef.current.focus()
                 return
@@ -146,24 +145,27 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                                 />
                             </div>
 
-                            <div className="contest-title-section">
-                                <div className="label">URL</div>
-                                <InputGroup size="sm">
-                                    <InputGroup.Text>
-                                        {process.env.REACT_APP_WEBSITE + '/'}
-                                    </InputGroup.Text>
-                                    <Form.Control
-                                        size="sm"
-                                        type="text"
-                                        className="contest-title"
-                                        placeholder="Nhập URL..."
-                                        id="contest-url"
-                                        value={url}
-                                        ref={urlRef}
-                                        onChange={e => setUrl(e.target.value)}
-                                    />
-                                </InputGroup>
-                            </div>
+                            {isUpdate && (
+                                <div className="contest-title-section">
+                                    <div className="label">URL</div>
+                                    <InputGroup size="sm">
+                                        <InputGroup.Text>
+                                            {process.env.REACT_APP_WEBSITE + '/' + url}
+                                        </InputGroup.Text>
+                                        {/* <Form.Control
+                                            size="sm"
+                                            type="text"
+                                            className="contest-title"
+                                            placeholder="Nhập URL..."
+                                            id="contest-url"
+                                            value={url}
+                                            ref={urlRef}
+                                            disabled={true}
+                                            onChange={e => setUrl(e.target.value)}
+                                        /> */}
+                                    </InputGroup>
+                                </div>
+                            )}
 
                             <div className="contest-description-section">
                                 <div className="label">Mô tả</div>
