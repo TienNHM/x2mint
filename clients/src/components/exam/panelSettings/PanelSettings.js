@@ -62,7 +62,7 @@ function PanelSettings(props) {
     const [content, setContent] = useState('')
 
     // Test Info Modal
-    const [isShowTestInfo, setIsShowTestInfo] = useState(true)
+    const [isShowTestInfo, setIsShowTestInfo] = useState(!isUser)
     //#endregion
 
     //#region Handlers

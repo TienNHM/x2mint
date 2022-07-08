@@ -50,19 +50,17 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
             <Modal.Body>
                 <div className="row">
                     <div className="col-sm-6 col-xs-12">
-                        {!isUser &&
-                            <div className="test-title-section">
-                                <div className="label fw-bold">Tên</div>
-                                <Form.Control
-                                    size="sm"
-                                    type="text"
-                                    className="test-title"
-                                    value={testName}
-                                    onChange={(e) => setTestName(e.target.value)}
-                                    readOnly={isUser}
-                                />
-                            </div>
-                        }
+                        <div className="test-title-section">
+                            <div className="label fw-bold">Tên</div>
+                            <Form.Control
+                                size="sm"
+                                type="text"
+                                className="test-title"
+                                value={testName}
+                                onChange={(e) => setTestName(e.target.value)}
+                                readOnly={isUser}
+                            />
+                        </div>
 
                         {isUser &&
                             <div className="test-title-section mt-2">
@@ -201,18 +199,12 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
             </Modal.Body>
 
             <Modal.Footer className="d-flex justify-content-center">
-                {isUser && <>
-                    <Button variant="primary"
-                        onClick={() => handleAction(MODAL_ACTION.CONFIRM)}>
-                        Vào thi
-                    </Button>
-                </>}
+                <Button variant="secondary"
+                    onClick={() => handleAction(MODAL_ACTION.CLOSE)}>
+                    Đóng
+                </Button>
 
                 {!isUser && <>
-                    <Button variant="secondary"
-                        onClick={() => handleAction(MODAL_ACTION.CLOSE)}>
-                        Đóng
-                    </Button>
                     <Button variant="primary"
                         onClick={() => handleAction(MODAL_ACTION.CONFIRM)}>
                         Lưu
