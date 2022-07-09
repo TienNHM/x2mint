@@ -4,7 +4,7 @@ import './MultiChoices.scss'
 import { Navigate, useParams } from 'react-router-dom'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
-import { COOKIES, MAX_EXIT_FULLSCREEN, ROLE, STATUS } from 'utils/constants'
+import { COOKIES, TAKE_TEST_LOGS, ROLE, STATUS } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
@@ -55,7 +55,7 @@ export default function MultiChoices() {
         if (window.innerWidth !== screen.width ||
             window.innerHeight !== screen.height
         ) {
-            if (countExitFullscreen < MAX_EXIT_FULLSCREEN) {
+            if (countExitFullscreen < TAKE_TEST_LOGS.MAX_EXIT_FULLSCREEN) {
                 toast.error('💢 Vui lòng mở toàn màn hình để tiếp tục làm bài!')
                 setCountExitFullscreen(countExitFullscreen + 1)
                 setIsFullScreen(false)
@@ -218,6 +218,9 @@ export default function MultiChoices() {
                                     isCreator={!isUser}
                                     takeTest={takeTest}
                                     updateTakeTest={updateTakeTestInfo}
+                                    selectedQuestion={selectedQuestion}
+                                    setSelectedQuestion={setSelectedQuestion}
+                                    updateTakeTestLogs={updateTakeTest}
                                 />
                             </div>
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Countdown from 'react-countdown'
 import { Button } from 'react-bootstrap'
 import { MODAL_ACTION } from 'utils/constants'
@@ -6,16 +6,45 @@ import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { submit } from 'actions/api/TakeTestAPI'
 import './PanelQuestionPicker.scss'
 import { Fab } from 'react-tiny-fab'
+import FaceDetect, { initWebcam } from './faceDetection'
 
 export default function PanelQuestionPicker(props) {
+    const faceapi = window.faceapi
+
     const { test, selectedQuestion, setSelectedQuestion, takeTest, setIsSubmitted } = props
 
     const btnSubmitRef = useRef(null)
     const timeRemainRef = useRef(null)
+    const videoRef = useRef(null)
+    const [video, setVideo] = useState(null)
 
     // Confirm Modal
     const [isShowConfirm, setIsShowConfirm] = useState(false)
     const contentToShow = 'Bạn có muốn xác nhận việc nộp bài?<br /><strong>Lưu ý, sau khi xác nhận, bạn không thể chỉnh sửa câu trả lời.</strong>'
+
+    const faceDetection = () => {
+        const handle = {
+            video,
+            setVideo,
+            videoRef,
+            takeTest,
+            submit,
+            setIsSubmitted
+        }
+        FaceDetect(faceapi, handle)
+    }
+
+    useEffect(() => {
+        initWebcam(faceapi, videoRef, setVideo)
+        return () => {
+            setVideo(null)
+        }
+    }, [videoRef])
+
+    useEffect(() => {
+        console.log('video', video)
+        if (video) faceDetection()
+    }, [video])
 
     //#region  Submit
     const handleConfirmSubmit = async (action) => {
@@ -62,6 +91,14 @@ export default function PanelQuestionPicker(props) {
 
     return (
         <div className="take-test">
+            <div className="webcam">
+                <video id="video" autoPlay muted
+                    width="200" height="150"
+                    ref={videoRef}
+                    // onPlay={() => faceDetection()}
+                ></video>
+            </div>
+
             <div className="question-picker">
                 <div className="title">
                     <div className="section-title">Danh sách câu hỏi</div>

@@ -129,7 +129,10 @@ export const STATISTICS = {
     }
 }
 
-export const MAX_EXIT_FULLSCREEN = 3
+export const TAKE_TEST_LOGS = {
+    MAX_EXIT_FULLSCREEN: 3,
+    MAX_NO_FACE_DETECTED: 3
+}
 
 export const TEST_DATA = {
     BASIC_INFO: {
