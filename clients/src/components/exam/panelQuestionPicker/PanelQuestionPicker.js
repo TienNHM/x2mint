@@ -6,52 +6,31 @@ import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { submit } from 'actions/api/TakeTestAPI'
 import './PanelQuestionPicker.scss'
 import { Fab } from 'react-tiny-fab'
-import FaceDetect, { initWebcam } from './faceDetection'
+import FaceDetect, { initWebcam, stopWebcam } from './faceDetection'
 
 export default function PanelQuestionPicker(props) {
-    const faceapi = window.faceapi
 
-    const { test, selectedQuestion, setSelectedQuestion, takeTest, setIsSubmitted } = props
+    const { test, selectedQuestion, setSelectedQuestion, takeTest, setIsSubmitted, webcam } = props
+    const { video, setVideo, videoRef, faceDetectionInterval, setFaceDetectionInterval } = webcam
 
     const btnSubmitRef = useRef(null)
     const timeRemainRef = useRef(null)
-    const videoRef = useRef(null)
-    const [video, setVideo] = useState(null)
 
     // Confirm Modal
     const [isShowConfirm, setIsShowConfirm] = useState(false)
     const contentToShow = 'Bạn có muốn xác nhận việc nộp bài?<br /><strong>Lưu ý, sau khi xác nhận, bạn không thể chỉnh sửa câu trả lời.</strong>'
 
-    const faceDetection = () => {
-        const handle = {
-            video,
-            setVideo,
-            videoRef,
-            takeTest,
-            submit,
-            setIsSubmitted
-        }
-        FaceDetect(faceapi, handle)
-    }
-
-    useEffect(() => {
-        initWebcam(faceapi, videoRef, setVideo)
-        return () => {
-            setVideo(null)
-        }
-    }, [videoRef])
-
-    useEffect(() => {
-        console.log('video', video)
-        if (video) faceDetection()
-    }, [video])
-
     //#region  Submit
     const handleConfirmSubmit = async (action) => {
         if (action === MODAL_ACTION.CONFIRM) {
+            console.log(faceDetectionInterval)
+            setVideo(null)
+            stopWebcam(videoRef, faceDetectionInterval)
+
             btnSubmitRef.current.disabled = true
             timeRemainRef.current.stop()
             setIsShowConfirm(false)
+
             await submit(takeTest._id)
             setIsSubmitted(true)
         }
@@ -95,7 +74,7 @@ export default function PanelQuestionPicker(props) {
                 <video id="video" autoPlay muted
                     width="200" height="150"
                     ref={videoRef}
-                    // onPlay={() => faceDetection()}
+                // onPlay={() => faceDetection()}
                 ></video>
             </div>
 

@@ -18,8 +18,11 @@ import PanelPreview from './panelPreview/PanelPreview'
 import PanelSettings from './panelSettings/PanelSettings'
 import Question from './question/Question'
 import { onSelectStart } from 'utils/DisableSelectEventListener'
+import FaceDetect, { initWebcam, stopWebcam } from './panelQuestionPicker/faceDetection'
 
 export default function MultiChoices() {
+    const faceapi = window.faceapi
+
     let { testId } = useParams()
     const {
         response: testResponse,
@@ -47,6 +50,46 @@ export default function MultiChoices() {
     const [countExitFullscreen, setCountExitFullscreen] = useState(0)
     const [isFullScreen, setIsFullScreen] = useState(true)
 
+    const videoRef = useRef(null)
+    const [video, setVideo] = useState(null)
+    const [faceDetectionInterval, setFaceDetectionInterval] = useState(null)
+
+    useEffect(() => {
+        if (isUser && isEntered) {
+            const handle = {
+                setVideo,
+                videoRef,
+                setIsSubmitted
+            }
+            initWebcam(faceapi, handle)
+            return () => {
+                setVideo(null)
+            }
+        }
+    }, [videoRef, isEntered])
+
+    useEffect(() => {
+        if (isUser && video) faceDetection()
+    }, [video])
+
+    useEffect(() => {
+        console.log(faceDetectionInterval)
+    }, [faceDetectionInterval])
+
+    const faceDetection = () => {
+        const handle = {
+            video,
+            setVideo,
+            videoRef,
+            takeTest,
+            submit,
+            setIsSubmitted,
+            faceDetectionInterval,
+            setFaceDetectionInterval
+        }
+        FaceDetect(faceapi, handle)
+    }
+
     const handler = async () => {
         if (!isEntered) {
             return
@@ -56,9 +99,12 @@ export default function MultiChoices() {
             window.innerHeight !== screen.height
         ) {
             if (countExitFullscreen < TAKE_TEST_LOGS.MAX_EXIT_FULLSCREEN) {
+                console.log('f11')
+                if (videoRef) stopWebcam(videoRef, faceDetectionInterval)
                 toast.error('💢 Vui lòng mở toàn màn hình để tiếp tục làm bài!')
                 setCountExitFullscreen(countExitFullscreen + 1)
                 setIsFullScreen(false)
+                setVideo(null)
 
                 await updateTakeTest(
                     cloneDeep(takeTest),
@@ -67,12 +113,20 @@ export default function MultiChoices() {
             }
             else {
                 toast.error('💢 Bài thi vi phạm quy chế thi!')
+                stopWebcam(videoRef, faceDetectionInterval)
+                setVideo(null)
                 await submit(takeTest._id)
                 setIsSubmitted(true)
             }
         }
         else {
             setIsFullScreen(true)
+            const handle = {
+                setVideo,
+                videoRef,
+                setIsSubmitted
+            }
+            initWebcam(faceapi, handle)
         }
     }
 
@@ -122,10 +176,6 @@ export default function MultiChoices() {
         newTest.questions = questions
         setTest(newTest)
     }, [questions])
-
-    useEffect(() => {
-        //console.log('test', test)
-    }, [test])
 
     const updateSelectedQuestion = (question) => {
         // TODO kiểm tra lại
@@ -244,6 +294,14 @@ export default function MultiChoices() {
                                             setSelectedQuestion={setSelectedQuestion}
                                             takeTest={takeTest}
                                             setIsSubmitted={setIsSubmitted}
+                                            webcam={
+                                                {
+                                                    video,
+                                                    setVideo,
+                                                    videoRef,
+                                                    setFaceDetectionInterval
+                                                }
+                                            }
                                         />
                                     </div>
                                 )

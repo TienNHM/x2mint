@@ -1,13 +1,20 @@
 import { updateTakeTest } from "actions/api/TakeTestAPI"
-import { cloneDeep } from "lodash"
+import { cloneDeep, toInteger } from "lodash"
 import { toast } from "react-toastify"
-import { TAKE_TEST_LOGS } from "utils/constants"
+import { COOKIES, TAKE_TEST_LOGS } from "utils/constants"
+import Cookies from 'js-cookie'
 
 // const faceapi = window.faceapi
 const model = process.env.PUBLIC_URL + '/scripts/models'
 export const TIMEOUT = 10000
 
-export const initWebcam = (faceapi, videoRef, setVideo) => {
+export const initWebcam = (faceapi, handle) => {
+    const {
+        setVideo,
+        videoRef,
+        setIsSubmitted
+    } = handle
+
     Promise.all([
         faceapi.nets.tinyFaceDetector.loadFromUri(model),
         faceapi.nets.faceLandmark68Net.loadFromUri(model),
@@ -24,22 +31,30 @@ export const initWebcam = (faceapi, videoRef, setVideo) => {
                 video.play()
                 setVideo(video)
             })
-            .catch(err => {
+            .catch(async (err) => {
                 console.error('error:', err)
+                toast.error('💢 Không tìm thấy camera. Vui lòng cho phép trang web quyền truy cập camera và tham gia lại bài thi!')
+                setVideo(null)
+                setIsSubmitted(true)
             })
     }
 }
 
-export const stopWebcam = (videoRef) => {
-    if (!videoRef) {
-        return
+export const stopWebcam = (videoRef, faceDetectionInterval) => {
+    if (videoRef && videoRef.current) {
+        let stream = videoRef.current.srcObject
+        const tracks = stream.getTracks()
+
+        tracks.forEach(track => track.stop())
+        videoRef = null
+
+        clearInterval(faceDetectionInterval)
+        // Cookies.remove(COOKIES.FACE_DETECTION_INTERVAL)
     }
 
-    let stream = videoRef.current.srcObject
-    const tracks = stream.getTracks()
-
-    tracks.forEach(track => track.stop())
-    videoRef = null
+    const interval_id = Cookies.get(COOKIES.FACE_DETECTION_INTERVAL)
+    clearInterval(toInteger(interval_id))
+    // Cookies.remove(COOKIES.FACE_DETECTION_INTERVAL)
 }
 
 export default function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
@@ -51,7 +66,8 @@ export default function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
         videoRef,
         takeTest,
         submit,
-        setIsSubmitted
+        setIsSubmitted,
+        setFaceDetectionInterval
     } = handle
 
     if (!video || !videoRef) {
@@ -60,7 +76,6 @@ export default function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
 
     var t = 0
     var countNoFaceDetected = 0
-    var isSubmited = false
     // const canvas = faceapi.createCanvas(video)
     // document.body.append(canvas)
     // const displaySize = { width: video.width, height: video.height }
@@ -90,10 +105,12 @@ export default function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
         // faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
     }, 1000)
 
+    setFaceDetectionInterval(myInterval)
+    Cookies.set(COOKIES.FACE_DETECTION_INTERVAL, myInterval)
+
     const faceDetectHandle = async () => {
         if (countNoFaceDetected <= TAKE_TEST_LOGS.MAX_NO_FACE_DETECTED) {
-            toast.error(
-                '💢 Không phát hiện thấy khuôn mặt. Vui lòng đảm bảo camera được bật trong điều kiện đủ ánh sáng để tiếp tục làm bài!')
+            toast.error('💢 Không phát hiện thấy khuôn mặt. Vui lòng đảm bảo camera được bật trong điều kiện đủ ánh sáng để tiếp tục làm bài!')
 
             await updateTakeTest(
                 cloneDeep(takeTest),
@@ -104,9 +121,8 @@ export default function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
             toast.error('💢 Bài thi vi phạm quy chế thi!')
             await submit(takeTest._id)
             setVideo(null)
-            stopWebcam(videoRef)
+            stopWebcam(videoRef, myInterval)
             setIsSubmitted(true)
-            clearInterval(myInterval)
             return
         }
     }

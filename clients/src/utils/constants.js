@@ -27,7 +27,8 @@ export const COOKIES = {
     USER_ID: 'uid',
     MAX_DAYS_EXPIRE: 365,
     REGISTER_STATUS: 'registerStatus',
-    LOGIN_GOOGLE_SUCCESS: 'loginSuccess'
+    LOGIN_GOOGLE_SUCCESS: 'loginSuccess',
+    FACE_DETECTION_INTERVAL: 'faceDetectionInterval'
 }
 
 export const STATUS = {
