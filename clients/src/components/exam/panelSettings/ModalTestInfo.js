@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Button, Modal, Form, Image, FormControl, Row, Col } from 'react-bootstrap'
-import { MODAL_ACTION, TEST_DATA } from 'utils/constants'
+import { Button, Modal, Form, Image, FormControl, Row, Col, Badge } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+import { ACCOUNT_TYPES, MODAL_ACTION, TEST_DATA } from 'utils/constants'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
 
 export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
+    const user = useSelector((state) => state.auth.user)
+    console.log(user)
     const start = splitTime(test.startTime)
     const end = splitTime(test.endTime)
     const testUrl = process.env.REACT_APP_WEBSITE + test.url
@@ -221,6 +224,10 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
                     <div className="test-title-section mt-2">
                         <div className="label fw-bold">
                             Giám sát thí sinh
+                            <Badge pill bg="warning" className="m-2 px-2">
+                                <i className="fa fa-star me-1"></i>
+                                Pro
+                            </Badge>
                             <span className="mx-1 fw-lighter fst-italic">
                                 <abbr title="Thiết đặt tùy chọn giám sát thí sinh khi làm bài">
                                     (chi tiết)
@@ -232,7 +239,7 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
                                 inline
                                 type="switch"
                                 label="Toàn màn hình"
-                                disabled={isUser}
+                                disabled={isUser || (!isUser && user.type !== ACCOUNT_TYPES.PRO)}
                                 checked={fullscreenTracking}
                                 onChange={onFullscreenTrackingSwitchAction}
                             />
@@ -240,7 +247,7 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
                                 inline
                                 type="switch"
                                 label="Webcam"
-                                disabled={isUser}
+                                disabled={isUser || (!isUser && user.type !== ACCOUNT_TYPES.PRO)}
                                 checked={webcamTracking}
                                 onChange={onWebcamTrackingSwitchAction}
                             />
