@@ -117,14 +117,14 @@ export default function ContestInfo() {
 
     const onAction = async (
         isUpdate, action, title, description,
-        url, embededMedia, startTime, endTime
+        url, newUrl, embededMedia, startTime, endTime
     ) => {
         if (action === MODAL_ACTION.CONFIRM) {
             const newContest = {
                 ...contest,
                 name: title,
                 description: description,
-                url: url,
+                url: newUrl ? newUrl : null,
                 embededMedia: embededMedia,
                 startTime: startTime,
                 endTime: endTime

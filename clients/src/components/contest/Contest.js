@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import './Contest.scss'
 import { cloneDeep } from 'lodash'
 import { toast } from 'react-toastify'
+import slug from 'vietnamese-slug'
 
 export default function Contest() {
     const user = useSelector((state) => state.auth.user)
@@ -60,7 +61,7 @@ export default function Contest() {
 
     const onActionModalCreateContest = async (
         isUpdate, action, title = '', description = '',
-        url = '', embededMedia = '', startTime = '', endTime = ''
+        url = '', newUrl = '', embededMedia = '', startTime = '', endTime = ''
     ) => {
         if (action === MODAL_ACTION.CONFIRM) {
             let data = null
@@ -69,23 +70,26 @@ export default function Contest() {
                     ...selectedContest,
                     name: title,
                     description: description,
-                    url: url,
+                    url: newUrl ? newUrl : null,
                     embededMedia: embededMedia,
                     startTime: startTime,
                     endTime: endTime,
                     creatorId: user.id
                 }
 
+                // Update lại Database
+                data = await updateContest(newContest)
+                toast.success('🎉 Đã lưu thành công!')
+
                 // Update lại hiển thị trên trang Quản lý các cuộc thi
+                if (newUrl) {
+                    newContest.url = `/contests/${slug(newUrl.trim())}`
+                }
                 const index = contests.findIndex(c => c.id === selectedContest.id)
                 let tmpContests = [...contests]
                 tmpContests[index] = newContest
                 setContests(tmpContests)
                 setIsShow(false)
-
-                // Update lại Database
-                data = await updateContest(newContest)
-                toast.success('🎉 Đã lưu thành công!')
             }
             else {
                 if (new Date(startTime) < Date.now()) {

@@ -42,8 +42,6 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     useEffect(() => {
         if (!contest) return
 
-        console.log(contest)
-
         setTitle(contest.name)
         setDescription(contest.description)
         setUrl(contest.url)
@@ -118,9 +116,8 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                 onAction(isUpdate, MODAL_ACTION.RETRY)
             }
             else {
-                const updateUrl = isEditUrl ? newUrl : null
                 onAction(isUpdate, MODAL_ACTION.CONFIRM,
-                    title, description, updateUrl, embededMedia,
+                    title, description, url, newUrl, embededMedia,
                     start_time, end_time
                 )
 
@@ -157,8 +154,8 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                 </Modal.Header>
 
                 <Modal.Body className="d-flex justify-content-center align-items-center">
-                    <div className="contest-info w-100">
-                        <div className="body-left">
+                    <div className="contest-info w-100 row d-flex justify-content-between">
+                        <div className="body-left col-md-12 col-lg-6">
                             <div className="contest-title-section">
                                 <div className="label">Tên</div>
                                 <Form.Control
@@ -188,12 +185,12 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                                     </div>
                                     <InputGroup size="sm">
                                         {!isEditUrl && <>
-                                            <InputGroup.Text className="w-100 d-inline-block text-truncate">
+                                            <InputGroup.Text className="w-100 text-left d-inline-block text-truncate">
                                                 {process.env.REACT_APP_WEBSITE + url}
                                             </InputGroup.Text>
                                         </>}
                                         {isEditUrl && <>
-                                            <InputGroup.Text className="d-inline-block text-truncate">
+                                            <InputGroup.Text className="text-left d-inline-block text-truncate">
                                                 {process.env.REACT_APP_WEBSITE + '/contests/'}
                                             </InputGroup.Text>
                                             <Form.Control
@@ -271,7 +268,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                             </div>
                         </div>
 
-                        <div className="body-right">
+                        <div className="body-right col-md-12 col-lg-5">
                             <div className="label">Ảnh cover</div>
 
                             <div className="display-image">

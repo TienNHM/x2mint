@@ -1,11 +1,12 @@
 @import '_setting.scss';
 
-.share-content {
-    button {
-        box-shadow: none !important;
-        outline: none !important;
-    }
+button {
+    box-shadow: none !important;
+    outline: none !important;
+}
 
+.share-content {
+    
     button ~ button {
         margin: $gap/2;
     }

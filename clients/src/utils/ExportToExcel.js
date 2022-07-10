@@ -36,7 +36,7 @@ export const ExportToExcel = ({ apiData, fileName, fieldsToBeRemoved=[] }) => {
         >
             <i className="fas fa-save"></i>
             <span className="ps-2">
-            Lưu <Badge pill bg="warning">Pro</Badge>
+            Export excel <Badge pill bg="warning">Pro</Badge>
             </span>
         </Button>
     )
