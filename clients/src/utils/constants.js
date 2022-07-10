@@ -155,6 +155,10 @@ export const TEST_DATA = {
         D: 'D',
         CORRECT_ANSWERS: 'Đáp án đúng',
         EMBEDED_MEDIA: 'Ảnh minh họa'
+    },
+    TRACKING: {
+        FULLSCREEN: 'Fullscreen',
+        WEBCAM: 'Webcam'
     }
 }
 
