@@ -24,13 +24,13 @@ export default function ContestInfo() {
     const navigate = useNavigate()
 
     // Load Contest information
-    let { contestId } = useParams()
+    let { contestIdOrUrl } = useParams()
     const {
         response: contestResponse,
         loading: contestIsLoading
     } = useAxios({
         method: 'GET',
-        url: `/contests/${contestId}`,
+        url: `/contests/${contestIdOrUrl}`,
         headers: {
             Authorization: `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
         }
@@ -166,8 +166,7 @@ export default function ContestInfo() {
         setIsShowConfirmModal(true)
     }
 
-    const handleShareContent = (url = '',
-        title = '', content = '', hashtags = [], source = ''
+    const handleShareContent = (url = '', title = '', content = '', hashtags = [], source = ''
     ) => {
         const obj = {
             url: process.env.REACT_APP_WEBSITE + url,
@@ -351,7 +350,7 @@ export default function ContestInfo() {
                             </Button>
 
                             <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
-                                onClick={() => handleShareContent(`/contest/${contest.id}`, title, description, ['X2MINT', 'ITUTE'])}>
+                                onClick={() => handleShareContent(`${contest.url}`, title, description, ['X2MINT', 'ITUTE'])}>
                                 <i className="fa fa-share"></i>
                             </Button>
 
@@ -378,7 +377,7 @@ export default function ContestInfo() {
 
                     {user.role === ROLE.USER &&
                         <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
-                            onClick={() => handleShareContent(`/contest/${contest.id}`, title, description, ['X2MINT', 'ITUTE'])}
+                            onClick={() => handleShareContent(`${contest.url}`, title, description, ['X2MINT', 'ITUTE'])}
                         >
                             <i className="fa fa-share"></i>
                             <span className="m-3">Chia sẻ</span>

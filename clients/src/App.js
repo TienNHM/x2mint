@@ -77,20 +77,13 @@ function App() {
                                 />
                             </Route>
 
-                            <Route path="/contests-management" element={<ProtectedRoute />}>
+                            <Route path="/contests" element={<ProtectedRoute />}>
                                 <Route
-                                    path="/contests-management"
-                                    element={<Contest />}
-                                />
-                            </Route>
-
-                            <Route path="/contest" element={<ProtectedRoute />}>
-                                <Route
-                                    path="/contest" exact
+                                    path="/contests" exact
                                     element={<Contest />}
                                 />
                                 <Route
-                                    path="/contest/:contestId"
+                                    path="/contests/:contestIdOrUrl"
                                     element={<ContestInfo />}
                                 />
                             </Route>

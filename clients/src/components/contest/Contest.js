@@ -106,7 +106,7 @@ export default function Contest() {
                 toast.success('🎉 Đã tạo cuộc thi thành công, vui lòng bổ sung thông tin đầy đủ cho cuộc thi!')
                 setSelectedContest(null)
                 setIsShow(false)
-                navigate(`/contest/${data.contest.id}`)
+                navigate(`${data.contest.url}`)
             }
         }
         else if (action === MODAL_ACTION.CLOSE) {
@@ -132,13 +132,10 @@ export default function Contest() {
         }
     }
 
-    const handleShareContent = (
-        id, title = '', content = '', hashtags = [], source = ''
+    const handleShareContent = (url, title = '', content = '', hashtags = [], source = ''
     ) => {
-        const url = `${process.env.REACT_APP_WEBSITE}/contest/${id}`
-
         const obj = {
-            url: url,
+            url: `${process.env.REACT_APP_WEBSITE}${url}`,
             title: title,
             content: content,
             hashtags: hashtags,
@@ -200,7 +197,7 @@ export default function Contest() {
                     <div className="contest-action">
                         <Button
                             variant="secondary" size="sm"
-                            onClick={() => navigate(`/contest/${c.id}`)}
+                            onClick={() => navigate(`${c.url}`)}
                         >
                             <i className="fa fa-info-circle"></i>
                         </Button>
@@ -217,7 +214,7 @@ export default function Contest() {
                         <Button
                             variant="info" size="sm"
                             onClick={() => handleShareContent(
-                                c.id,
+                                c.url,
                                 c.name,
                                 c.description,
                                 ['X2MINT', 'ITUTE'])
