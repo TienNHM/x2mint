@@ -27,7 +27,8 @@ export const COOKIES = {
     USER_ID: 'uid',
     MAX_DAYS_EXPIRE: 365,
     REGISTER_STATUS: 'registerStatus',
-    LOGIN_GOOGLE_SUCCESS: 'loginSuccess'
+    LOGIN_GOOGLE_SUCCESS: 'loginSuccess',
+    FACE_DETECTION_INTERVAL: 'faceDetectionInterval'
 }
 
 export const STATUS = {
@@ -129,7 +130,10 @@ export const STATISTICS = {
     }
 }
 
-export const MAX_EXIT_FULLSCREEN = 3
+export const TAKE_TEST_LOGS = {
+    MAX_EXIT_FULLSCREEN: 3,
+    MAX_NO_FACE_DETECTED: 3
+}
 
 export const TEST_DATA = {
     BASIC_INFO: {
@@ -151,6 +155,10 @@ export const TEST_DATA = {
         D: 'D',
         CORRECT_ANSWERS: 'Đáp án đúng',
         EMBEDED_MEDIA: 'Ảnh minh họa'
+    },
+    TRACKING: {
+        FULLSCREEN: 'Fullscreen',
+        WEBCAM: 'Webcam'
     }
 }
 

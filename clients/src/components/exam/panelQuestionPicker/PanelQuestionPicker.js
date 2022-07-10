@@ -1,14 +1,19 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Countdown from 'react-countdown'
 import { Button } from 'react-bootstrap'
-import { MODAL_ACTION } from 'utils/constants'
+import { MODAL_ACTION, TEST_DATA } from 'utils/constants'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { submit } from 'actions/api/TakeTestAPI'
 import './PanelQuestionPicker.scss'
 import { Fab } from 'react-tiny-fab'
+import FaceDetect, { initWebcam, stopWebcam } from './faceDetection'
 
 export default function PanelQuestionPicker(props) {
-    const { test, selectedQuestion, setSelectedQuestion, takeTest, setIsSubmitted } = props
+
+    const { test, selectedQuestion, setSelectedQuestion, takeTest, setIsSubmitted, webcam } = props
+    const { video, setVideo, videoRef } = webcam
+
+    const webcamTracking = test.tracking && test.tracking.includes(TEST_DATA.TRACKING.WEBCAM)
 
     const btnSubmitRef = useRef(null)
     const timeRemainRef = useRef(null)
@@ -20,9 +25,15 @@ export default function PanelQuestionPicker(props) {
     //#region  Submit
     const handleConfirmSubmit = async (action) => {
         if (action === MODAL_ACTION.CONFIRM) {
+            if (webcamTracking) {
+                setVideo(null)
+                stopWebcam(videoRef)
+            }
+
             btnSubmitRef.current.disabled = true
             timeRemainRef.current.stop()
             setIsShowConfirm(false)
+
             await submit(takeTest._id)
             setIsSubmitted(true)
         }
@@ -99,6 +110,15 @@ export default function PanelQuestionPicker(props) {
                     Nộp bài
                 </Button>
             </div>
+
+            {webcamTracking && <>
+                <div className="webcam d-flex align-items-center justify-content-center">
+                    <video id="video" autoPlay muted
+                        width="200" height="140"
+                        ref={videoRef}
+                    ></video>
+                </div>
+            </>}
 
             <div className="submit-area d-flex justify-content-end" id="open-settings">
                 <ConfirmModal

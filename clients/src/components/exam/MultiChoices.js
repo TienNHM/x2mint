@@ -4,7 +4,7 @@ import './MultiChoices.scss'
 import { Navigate, useParams } from 'react-router-dom'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
-import { COOKIES, MAX_EXIT_FULLSCREEN, ROLE, STATUS } from 'utils/constants'
+import { COOKIES, TAKE_TEST_LOGS, ROLE, STATUS, TEST_DATA } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
@@ -18,8 +18,11 @@ import PanelPreview from './panelPreview/PanelPreview'
 import PanelSettings from './panelSettings/PanelSettings'
 import Question from './question/Question'
 import { onSelectStart } from 'utils/DisableSelectEventListener'
+import FaceDetect, { initWebcam, stopWebcam } from './panelQuestionPicker/faceDetection'
 
 export default function MultiChoices() {
+    const faceapi = window.faceapi
+
     let { testId } = useParams()
     const {
         response: testResponse,
@@ -45,17 +48,59 @@ export default function MultiChoices() {
     const [takeTest, setTakeTest] = useState(null)
 
     const [countExitFullscreen, setCountExitFullscreen] = useState(0)
-    const [isFullScreen, setIsFullScreen] = useState(true)
+    const [isFullScreen, setIsFullScreen] = useState(false)
+    const [fullscreenTracking, setFullscreenTracking] = useState(false)
+    const [webcamTracking, setWebcamTracking] = useState(false)
+
+    const videoRef = useRef(null)
+    const [video, setVideo] = useState(null)
+
+    useEffect(() => {
+        if (isUser && isEntered && webcamTracking) {
+            const handle = {
+                setVideo,
+                videoRef,
+                setIsSubmitted
+            }
+            initWebcam(faceapi, handle)
+            return () => {
+                setVideo(null)
+            }
+        }
+    }, [videoRef, isEntered])
+
+    useEffect(() => {
+        const faceDetection = async () => {
+            const handle = {
+                video,
+                setVideo,
+                videoRef,
+                takeTest,
+                submit,
+                setIsSubmitted
+            }
+            await FaceDetect(faceapi, handle)
+        }
+
+        if (isUser && video && webcamTracking) {
+            faceDetection()
+        }
+    }, [video, webcamTracking])
 
     const handler = async () => {
-        if (!isEntered) {
+        if (!isEntered || !fullscreenTracking) {
             return
         }
 
         if (window.innerWidth !== screen.width ||
             window.innerHeight !== screen.height
         ) {
-            if (countExitFullscreen < MAX_EXIT_FULLSCREEN) {
+            if (countExitFullscreen < TAKE_TEST_LOGS.MAX_EXIT_FULLSCREEN) {
+                if (webcamTracking) {
+                    if (videoRef) stopWebcam(videoRef)
+                    setVideo(null)
+                }
+
                 toast.error('💢 Vui lòng mở toàn màn hình để tiếp tục làm bài!')
                 setCountExitFullscreen(countExitFullscreen + 1)
                 setIsFullScreen(false)
@@ -67,12 +112,24 @@ export default function MultiChoices() {
             }
             else {
                 toast.error('💢 Bài thi vi phạm quy chế thi!')
+
+                if (webcamTracking) {
+                    stopWebcam(videoRef)
+                    setVideo(null)
+                }
+
                 await submit(takeTest._id)
                 setIsSubmitted(true)
             }
         }
         else {
             setIsFullScreen(true)
+            const handle = {
+                setVideo,
+                videoRef,
+                setIsSubmitted
+            }
+            initWebcam(faceapi, handle)
         }
     }
 
@@ -90,13 +147,18 @@ export default function MultiChoices() {
 
         if (testResponse) {
             const t = testResponse.data
-            setTest(t)
-
             const q = mapOrder(t.questions, t.questionsOrder, 'id')
+            setTest(t)
             setQuestions(q)
             setSelectedQuestion(selectedQuestion ? selectedQuestion : q[0])
 
             if (isUser) {
+                const _fullscreenTracking = t.tracking && t.tracking.includes(TEST_DATA.TRACKING.FULLSCREEN)
+                setFullscreenTracking(_fullscreenTracking)
+                setIsFullScreen(_fullscreenTracking)
+                const _webcamTracking = t.tracking && t.tracking.includes(TEST_DATA.TRACKING.WEBCAM)
+                setWebcamTracking(_webcamTracking)
+
                 const chooseAnswers = q.map(quiz => {
                     return {
                         question: quiz._id,
@@ -122,10 +184,6 @@ export default function MultiChoices() {
         newTest.questions = questions
         setTest(newTest)
     }, [questions])
-
-    useEffect(() => {
-        //console.log('test', test)
-    }, [test])
 
     const updateSelectedQuestion = (question) => {
         // TODO kiểm tra lại
@@ -173,7 +231,7 @@ export default function MultiChoices() {
         if (pinRef.current.value === test.pin) {
             toast.success('🎉 Nhập mã PIN thành công, chúc bạn thi tốt')
             setIsEntered(true)
-            if (!document.fullscreenElement) {
+            if (fullscreenTracking && !document.fullscreenElement) {
                 document.documentElement.requestFullscreen()
             }
         }
@@ -185,7 +243,7 @@ export default function MultiChoices() {
     }
 
     if (isEntered || !isUser) {
-        if (isFullScreen) {
+        if ((isFullScreen && fullscreenTracking) || (!fullscreenTracking)) {
             return (
                 <div className="app-container" ref={isUser ? onSelectStart : null}>
                     {isSubmitted &&
@@ -218,6 +276,9 @@ export default function MultiChoices() {
                                     isCreator={!isUser}
                                     takeTest={takeTest}
                                     updateTakeTest={updateTakeTestInfo}
+                                    selectedQuestion={selectedQuestion}
+                                    setSelectedQuestion={setSelectedQuestion}
+                                    updateTakeTestLogs={updateTakeTest}
                                 />
                             </div>
 
@@ -241,6 +302,13 @@ export default function MultiChoices() {
                                             setSelectedQuestion={setSelectedQuestion}
                                             takeTest={takeTest}
                                             setIsSubmitted={setIsSubmitted}
+                                            webcam={
+                                                {
+                                                    video,
+                                                    setVideo,
+                                                    videoRef
+                                                }
+                                            }
                                         />
                                     </div>
                                 )
@@ -250,6 +318,7 @@ export default function MultiChoices() {
                                 <PanelSettings
                                     test={test}
                                     setTest={setTest}
+                                    videoRef={videoRef}
                                 />
                             </div>
                         </div>
@@ -275,9 +344,9 @@ export default function MultiChoices() {
     else {
         return (
             <div className="d-flex flex-column justify-content-center align-items-center">
-                <div style={{ paddingTop: '10vh' }}>
+                <div style={{ paddingTop: '15vh' }}>
                     <Image src={process.env.PUBLIC_URL + '/assets/images/enter-otp.svg'}
-                        style={{ height: '60vh' }}></Image>
+                        style={{ width: '60vw', maxWidth: '500px' }} />
                 </div>
                 <div className="row">
                     <div className="col">

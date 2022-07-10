@@ -17,10 +17,36 @@
         margin: $gap/2 0;
     }
 
+    .webcam {
+        background-color: rgba(217, 233, 207, 0.548);
+        border-radius: $gap;
+        height: 20vh;
+        padding: $gap/2;
+        margin: $gap 0;
+        border: 2px solid $theme-color;
+
+        &::-webkit-scrollbar {
+            -webkit-appearance: none;
+        }
+
+        &::-webkit-scrollbar:vertical {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: lighten($color: $theme-color, $amount: 5);
+            border-radius: $gap;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+    }
+
     .question-picker {
         background-color: rgba(217, 233, 207, 0.548);
         border-radius: $gap;
-        height: 64vh;
+        height: 40vh;
         padding: $gap/2;
         border: 2px solid $theme-color;
 
@@ -84,13 +110,13 @@
         }
 
         .time-remain-show {
-            height: 55px;
+            height: 50px;
 
             .time-countdown {
                 background-color: transparent !important;
                 border-color: transparent !important;
                 outline: none !important;
-                font-size: 30px;
+                font-size: 26px;
             }
 
             .timeout {
@@ -121,12 +147,12 @@
         padding: 0px;
 
         .question-picker {
-            left: 0px;
+            left: 15vw;
             bottom: 0px;
             z-index: 1000;
             position: fixed;
             height: $question-picker-height;
-            width: 100%;
+            width: 85vw;
             padding-right: 160px;
             border-radius: 0px;
 
@@ -149,7 +175,18 @@
             }
         }
 
+        .webcam {
+            margin-bottom: $question-picker-height*1.25 !important;
+        }
+
         .time-remain {
+            left: 0px;
+            bottom: 0px;
+            z-index: 1000;
+            position: fixed;
+            height: $question-picker-height;
+            width: 15vw;
+            min-width: 80px;
             margin: 0;
             padding: $gap/2;
             border: none;
@@ -161,7 +198,7 @@
             }
 
             .time-remain-show {
-                height: 32px;
+                height: 100%;
                 justify-content: center;
 
                 .time-countdown {
