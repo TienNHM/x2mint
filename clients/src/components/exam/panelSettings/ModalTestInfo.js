@@ -49,7 +49,6 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
     }
 
     const onWebcamTrackingSwitchAction = () => {
-        console.log(webcamTracking)
         setWebcamTracking(!webcamTracking)
     }
 
