@@ -4,21 +4,30 @@ import { toast } from 'react-toastify'
 import Image from 'react-bootstrap/Image'
 import BrowseLibrary from 'components/common/browseLibrary/BrowseLibrary'
 import { getCurrentDate, getCurrentTime, splitTime } from 'utils/timeUtils'
-import { MODAL_ACTION } from 'utils/constants'
+import { MODAL_ACTION, ROLE } from 'utils/constants'
 import './ModalCreateContest.scss'
+import { useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+import { makeSlug } from 'utils/TextUtils'
 
 function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
+    const navigate = useNavigate()
+    const { contestIdOrUrl } = useParams()
+    const user = useSelector((state) => state.auth.user)
+    const isUser = user.role === ROLE.USER
 
     //#region States
     const [title, setTitle] = useState(' ')
     const [description, setDescription] = useState(' ')
     const [url, setUrl] = useState(' ')
+    const [newUrl, setNewUrl] = useState(' ')
     const [link, setLink] = useState(' ')
     const [startDate, setStartDate] = useState('')
     const [startTime, setStartTime] = useState('')
     const [endDate, setEndDate] = useState('')
     const [endTime, setEndTime] = useState('')
     const [isShowLibrary, setIsShowLibrary] = useState(false)
+    const [isEditUrl, setIsEditUrl] = useState(false)
     //#endregion
 
     //#region Refs
@@ -36,6 +45,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
         setTitle(contest.name)
         setDescription(contest.description)
         setUrl(contest.url)
+        setNewUrl(contest.url.split('/')[2])
         setLink(contest.embededMedia)
         if (contest.startTime || contest.endTime) {
             const start_time = splitTime(contest.startTime)
@@ -107,10 +117,25 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
             }
             else {
                 onAction(isUpdate, MODAL_ACTION.CONFIRM,
-                    title, description, url, embededMedia,
+                    title, description, url, newUrl, embededMedia,
                     start_time, end_time
                 )
+
+                if (isEditUrl) {
+                    contest.url = `/contests/${newUrl}`
+                    if (contestIdOrUrl) {
+                        navigate(`/contests/${newUrl}`)
+                    }
+                }
             }
+        }
+    }
+
+    const handleOnTitleChange = (value) => {
+        setTitle(value)
+
+        if (isEditUrl) {
+            setNewUrl(makeSlug(value))
         }
     }
 
@@ -129,8 +154,8 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                 </Modal.Header>
 
                 <Modal.Body className="d-flex justify-content-center align-items-center">
-                    <div className="contest-info w-100">
-                        <div className="body-left">
+                    <div className="contest-info w-100 row d-flex justify-content-between">
+                        <div className="body-left col-md-12 col-lg-6">
                             <div className="contest-title-section">
                                 <div className="label">Tên</div>
                                 <Form.Control
@@ -141,28 +166,43 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                                     placeholder="Nhập tên contest..."
                                     value={title}
                                     ref={titleRef}
-                                    onChange={e => setTitle(e.target.value)}
+                                    onChange={e => handleOnTitleChange(e.target.value)}
                                 />
                             </div>
 
                             {isUpdate && (
                                 <div className="contest-title-section">
-                                    <div className="label">URL</div>
+                                    <div className="label d-flex justify-content-between">
+                                        <span>URL</span>
+                                        <Form.Check
+                                            inline
+                                            type="switch"
+                                            label="Sửa"
+                                            disabled={isUser}
+                                            checked={isEditUrl}
+                                            onChange={() => setIsEditUrl(!isEditUrl)}
+                                        />
+                                    </div>
                                     <InputGroup size="sm">
-                                        <InputGroup.Text>
-                                            {process.env.REACT_APP_WEBSITE + '/' + url}
-                                        </InputGroup.Text>
-                                        {/* <Form.Control
-                                            size="sm"
-                                            type="text"
-                                            className="contest-title"
-                                            placeholder="Nhập URL..."
-                                            id="contest-url"
-                                            value={url}
-                                            ref={urlRef}
-                                            disabled={true}
-                                            onChange={e => setUrl(e.target.value)}
-                                        /> */}
+                                        {!isEditUrl && <>
+                                            <InputGroup.Text className="w-100 text-left d-inline-block text-truncate">
+                                                {process.env.REACT_APP_WEBSITE + url}
+                                            </InputGroup.Text>
+                                        </>}
+                                        {isEditUrl && <>
+                                            <InputGroup.Text className="text-left d-inline-block text-truncate">
+                                                {process.env.REACT_APP_WEBSITE + '/contests/'}
+                                            </InputGroup.Text>
+                                            <Form.Control
+                                                size="sm"
+                                                type="text"
+                                                className="contest-title"
+                                                placeholder="Nhập URL..."
+                                                id="contest-url"
+                                                value={newUrl}
+                                                readOnly
+                                            />
+                                        </>}
                                     </InputGroup>
                                 </div>
                             )}
@@ -228,7 +268,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                             </div>
                         </div>
 
-                        <div className="body-right">
+                        <div className="body-right col-md-12 col-lg-5">
                             <div className="label">Ảnh cover</div>
 
                             <div className="display-image">

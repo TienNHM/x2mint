@@ -34,7 +34,7 @@ export default function MyAppNavbar() {
 
                         {isAuthenticated && user.role === ROLE.ADMIN && (
                             <>
-                                <NavLink to="/contests-management">
+                                <NavLink to="/contests">
                                     Các cuộc thi
                                 </NavLink>
                                 <NavLink to="/dashboard">
@@ -44,13 +44,13 @@ export default function MyAppNavbar() {
                         )}
 
                         {isAuthenticated && user.role === ROLE.CREATOR && (
-                            <NavLink to="/contests-management">
+                            <NavLink to="/contests">
                                 Quản lý cuộc thi
                             </NavLink>
                         )}
 
                         {isAuthenticated && user.role === ROLE.USER && (
-                            <NavLink to="/contest">
+                            <NavLink to="/contests">
                                 Các cuộc thi
                             </NavLink>
                         )}

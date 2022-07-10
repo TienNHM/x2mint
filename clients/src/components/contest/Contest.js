@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import './Contest.scss'
 import { cloneDeep } from 'lodash'
 import { toast } from 'react-toastify'
+import slug from 'vietnamese-slug'
 
 export default function Contest() {
     const user = useSelector((state) => state.auth.user)
@@ -60,7 +61,7 @@ export default function Contest() {
 
     const onActionModalCreateContest = async (
         isUpdate, action, title = '', description = '',
-        url = '', embededMedia = '', startTime = '', endTime = ''
+        url = '', newUrl = '', embededMedia = '', startTime = '', endTime = ''
     ) => {
         if (action === MODAL_ACTION.CONFIRM) {
             let data = null
@@ -69,23 +70,26 @@ export default function Contest() {
                     ...selectedContest,
                     name: title,
                     description: description,
-                    url: url,
+                    url: newUrl ? newUrl : null,
                     embededMedia: embededMedia,
                     startTime: startTime,
                     endTime: endTime,
                     creatorId: user.id
                 }
 
+                // Update lại Database
+                data = await updateContest(newContest)
+                toast.success('🎉 Đã lưu thành công!')
+
                 // Update lại hiển thị trên trang Quản lý các cuộc thi
+                if (newUrl) {
+                    newContest.url = `/contests/${slug(newUrl.trim())}`
+                }
                 const index = contests.findIndex(c => c.id === selectedContest.id)
                 let tmpContests = [...contests]
                 tmpContests[index] = newContest
                 setContests(tmpContests)
                 setIsShow(false)
-
-                // Update lại Database
-                data = await updateContest(newContest)
-                toast.success('🎉 Đã lưu thành công!')
             }
             else {
                 if (new Date(startTime) < Date.now()) {
@@ -106,7 +110,7 @@ export default function Contest() {
                 toast.success('🎉 Đã tạo cuộc thi thành công, vui lòng bổ sung thông tin đầy đủ cho cuộc thi!')
                 setSelectedContest(null)
                 setIsShow(false)
-                navigate(`/contest/${data.contest.id}`)
+                navigate(`${data.contest.url}`)
             }
         }
         else if (action === MODAL_ACTION.CLOSE) {
@@ -132,13 +136,10 @@ export default function Contest() {
         }
     }
 
-    const handleShareContent = (
-        id, title = '', content = '', hashtags = [], source = ''
+    const handleShareContent = (url, title = '', content = '', hashtags = [], source = ''
     ) => {
-        const url = `${process.env.REACT_APP_WEBSITE}/contest/${id}`
-
         const obj = {
-            url: url,
+            url: `${process.env.REACT_APP_WEBSITE}${url}`,
             title: title,
             content: content,
             hashtags: hashtags,
@@ -200,7 +201,7 @@ export default function Contest() {
                     <div className="contest-action">
                         <Button
                             variant="secondary" size="sm"
-                            onClick={() => navigate(`/contest/${c.id}`)}
+                            onClick={() => navigate(`${c.url}`)}
                         >
                             <i className="fa fa-info-circle"></i>
                         </Button>
@@ -217,7 +218,7 @@ export default function Contest() {
                         <Button
                             variant="info" size="sm"
                             onClick={() => handleShareContent(
-                                c.id,
+                                c.url,
                                 c.name,
                                 c.description,
                                 ['X2MINT', 'ITUTE'])
