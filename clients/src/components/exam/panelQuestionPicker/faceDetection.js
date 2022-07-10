@@ -40,7 +40,7 @@ export const initWebcam = (faceapi, handle) => {
     }
 }
 
-export const stopWebcam = (videoRef, faceDetectionInterval) => {
+export const stopWebcam = (videoRef) => {
     if (videoRef && videoRef.current) {
         let stream = videoRef.current.srcObject
         const tracks = stream.getTracks()
@@ -48,7 +48,6 @@ export const stopWebcam = (videoRef, faceDetectionInterval) => {
         tracks.forEach(track => track.stop())
         videoRef = null
 
-        clearInterval(faceDetectionInterval)
         // Cookies.remove(COOKIES.FACE_DETECTION_INTERVAL)
     }
 
@@ -66,8 +65,7 @@ export default function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
         videoRef,
         takeTest,
         submit,
-        setIsSubmitted,
-        setFaceDetectionInterval
+        setIsSubmitted
     } = handle
 
     if (!video || !videoRef) {
@@ -88,7 +86,7 @@ export default function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
 
         if (!detections || detections.length <= 0) {
             if (Date.now() - t > timeout) {
-                console.log('No face detected!')
+                // console.log('No face detected!')
                 t = Date.now()
                 countNoFaceDetected += 1
                 await faceDetectHandle()
@@ -96,7 +94,7 @@ export default function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
         }
         else {
             t = Date.now()
-            console.log(t)
+            // console.log(t)
         }
         // const resizedDetections = faceapi.resizeResults(detections, displaySize)
         // canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
@@ -105,7 +103,6 @@ export default function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
         // faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
     }, 1000)
 
-    setFaceDetectionInterval(myInterval)
     Cookies.set(COOKIES.FACE_DETECTION_INTERVAL, myInterval)
 
     const faceDetectHandle = async () => {
@@ -121,7 +118,7 @@ export default function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
             toast.error('💢 Bài thi vi phạm quy chế thi!')
             await submit(takeTest._id)
             setVideo(null)
-            stopWebcam(videoRef, myInterval)
+            stopWebcam(videoRef)
             setIsSubmitted(true)
             return
         }

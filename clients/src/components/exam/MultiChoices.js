@@ -4,7 +4,7 @@ import './MultiChoices.scss'
 import { Navigate, useParams } from 'react-router-dom'
 import { useAxios } from 'actions/useAxios'
 import Cookies from 'js-cookie'
-import { COOKIES, TAKE_TEST_LOGS, ROLE, STATUS } from 'utils/constants'
+import { COOKIES, TAKE_TEST_LOGS, ROLE, STATUS, TEST_DATA } from 'utils/constants'
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
@@ -48,14 +48,15 @@ export default function MultiChoices() {
     const [takeTest, setTakeTest] = useState(null)
 
     const [countExitFullscreen, setCountExitFullscreen] = useState(0)
-    const [isFullScreen, setIsFullScreen] = useState(true)
+    const [isFullScreen, setIsFullScreen] = useState(false)
+    const [fullscreenTracking, setFullscreenTracking] = useState(false)
+    const [webcamTracking, setWebcamTracking] = useState(false)
 
     const videoRef = useRef(null)
     const [video, setVideo] = useState(null)
-    const [faceDetectionInterval, setFaceDetectionInterval] = useState(null)
 
     useEffect(() => {
-        if (isUser && isEntered) {
+        if (isUser && isEntered && webcamTracking) {
             const handle = {
                 setVideo,
                 videoRef,
@@ -69,12 +70,8 @@ export default function MultiChoices() {
     }, [videoRef, isEntered])
 
     useEffect(() => {
-        if (isUser && video) faceDetection()
-    }, [video])
-
-    useEffect(() => {
-        console.log(faceDetectionInterval)
-    }, [faceDetectionInterval])
+        if (isUser && video && webcamTracking) faceDetection()
+    }, [video, webcamTracking])
 
     const faceDetection = () => {
         const handle = {
@@ -83,15 +80,13 @@ export default function MultiChoices() {
             videoRef,
             takeTest,
             submit,
-            setIsSubmitted,
-            faceDetectionInterval,
-            setFaceDetectionInterval
+            setIsSubmitted
         }
         FaceDetect(faceapi, handle)
     }
 
     const handler = async () => {
-        if (!isEntered) {
+        if (!isEntered || !fullscreenTracking) {
             return
         }
 
@@ -99,12 +94,14 @@ export default function MultiChoices() {
             window.innerHeight !== screen.height
         ) {
             if (countExitFullscreen < TAKE_TEST_LOGS.MAX_EXIT_FULLSCREEN) {
-                console.log('f11')
-                if (videoRef) stopWebcam(videoRef, faceDetectionInterval)
+                if (webcamTracking) {
+                    if (videoRef) stopWebcam(videoRef)
+                    setVideo(null)
+                }
+
                 toast.error('💢 Vui lòng mở toàn màn hình để tiếp tục làm bài!')
                 setCountExitFullscreen(countExitFullscreen + 1)
                 setIsFullScreen(false)
-                setVideo(null)
 
                 await updateTakeTest(
                     cloneDeep(takeTest),
@@ -113,8 +110,12 @@ export default function MultiChoices() {
             }
             else {
                 toast.error('💢 Bài thi vi phạm quy chế thi!')
-                stopWebcam(videoRef, faceDetectionInterval)
-                setVideo(null)
+
+                if (webcamTracking) {
+                    stopWebcam(videoRef)
+                    setVideo(null)
+                }
+
                 await submit(takeTest._id)
                 setIsSubmitted(true)
             }
@@ -151,6 +152,12 @@ export default function MultiChoices() {
             setSelectedQuestion(selectedQuestion ? selectedQuestion : q[0])
 
             if (isUser) {
+                const _fullscreenTracking = t.tracking && t.tracking.includes(TEST_DATA.TRACKING.FULLSCREEN)
+                setFullscreenTracking(_fullscreenTracking)
+                setIsFullScreen(_fullscreenTracking)
+                const _webcamTracking = t.tracking && t.tracking.includes(TEST_DATA.TRACKING.WEBCAM)
+                setWebcamTracking(_webcamTracking)
+
                 const chooseAnswers = q.map(quiz => {
                     return {
                         question: quiz._id,
@@ -223,7 +230,7 @@ export default function MultiChoices() {
         if (pinRef.current.value === test.pin) {
             toast.success('🎉 Nhập mã PIN thành công, chúc bạn thi tốt')
             setIsEntered(true)
-            if (!document.fullscreenElement) {
+            if (fullscreenTracking && !document.fullscreenElement) {
                 document.documentElement.requestFullscreen()
             }
         }
@@ -235,7 +242,7 @@ export default function MultiChoices() {
     }
 
     if (isEntered || !isUser) {
-        if (isFullScreen) {
+        if ((isFullScreen && fullscreenTracking) || (!fullscreenTracking)) {
             return (
                 <div className="app-container" ref={isUser ? onSelectStart : null}>
                     {isSubmitted &&
@@ -298,8 +305,7 @@ export default function MultiChoices() {
                                                 {
                                                     video,
                                                     setVideo,
-                                                    videoRef,
-                                                    setFaceDetectionInterval
+                                                    videoRef
                                                 }
                                             }
                                         />
@@ -336,9 +342,9 @@ export default function MultiChoices() {
     else {
         return (
             <div className="d-flex flex-column justify-content-center align-items-center">
-                <div style={{ paddingTop: '10vh' }}>
+                <div style={{ paddingTop: '15vh' }}>
                     <Image src={process.env.PUBLIC_URL + '/assets/images/enter-otp.svg'}
-                        style={{ height: '60vh' }}></Image>
+                        style={{ width: '60vw', maxWidth: '500px' }} />
                 </div>
                 <div className="row">
                     <div className="col">

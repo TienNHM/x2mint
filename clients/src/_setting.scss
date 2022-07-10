@@ -53,6 +53,20 @@ $body-font: "Source Sans Pro", sans-serif;
   align-items: center;
 }
 
+.data-table {
+  .mdb-datatable {
+    .row {
+      .d-flex.w-100.justify-content-between {
+        flex-wrap: wrap !important;
+
+        @media screen and (max-width: 650px) {
+          justify-content: center !important;
+        }
+      }
+    }
+  }
+}
+
 :root {
   // === COLOR ===
   --mint: hsla(87, 90%, 34%, 1);

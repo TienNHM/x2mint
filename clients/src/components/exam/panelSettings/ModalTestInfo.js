@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { Button, Modal, Form, Image, FormControl } from 'react-bootstrap'
-import { MODAL_ACTION } from 'utils/constants'
+import React, { useState, useEffect, useRef } from 'react'
+import { Button, Modal, Form, Image, FormControl, Row, Col } from 'react-bootstrap'
+import { MODAL_ACTION, TEST_DATA } from 'utils/constants'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'
 
 export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
@@ -19,7 +19,16 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
     const [endDate, setEndDate] = useState(end.date)
     const [endTime, setEndTime] = useState(end.time)
 
+    const _fullscreenTracking = test.tracking && test.tracking.includes(TEST_DATA.TRACKING.FULLSCREEN)
+    const _webcamTracking = test.tracking && test.tracking.includes(TEST_DATA.TRACKING.WEBCAM)
+    const [fullscreenTracking, setFullscreenTracking] = useState(_fullscreenTracking)
+    const [webcamTracking, setWebcamTracking] = useState(_webcamTracking)
+
     const handleAction = (action) => {
+        const tracking = []
+        if (fullscreenTracking) tracking.push(TEST_DATA.TRACKING.FULLSCREEN)
+        if (webcamTracking) tracking.push(TEST_DATA.TRACKING.WEBCAM)
+
         const newTest = {
             name: testName,
             maxPoints: maxPoints,
@@ -28,10 +37,20 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
             pin: pin,
             description: description,
             startTime: startDate + 'T' + startTime + ':00.000Z',
-            endTime: endDate + 'T' + endTime + ':00.000Z'
+            endTime: endDate + 'T' + endTime + ':00.000Z',
+            tracking: tracking
         }
 
         onAction(action, newTest)
+    }
+
+    const onFullscreenTrackingSwitchAction = () => {
+        setFullscreenTracking(!fullscreenTracking)
+    }
+
+    const onWebcamTrackingSwitchAction = () => {
+        console.log(webcamTracking)
+        setWebcamTracking(!webcamTracking)
     }
 
     return (
@@ -88,26 +107,41 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
                             />
                         </div>
 
-                        {!isUser &&
+                        {!isUser && <>
                             <div className="test-title-section mt-2">
                                 <div className="label fw-bold">
-                                    <abbr title="Đặt giá trị 0 nếu không giới hạn">
-                                        Số lượt làm bài
-                                    </abbr>
+                                    Số lượt làm bài
+                                    <span className="mx-1 fw-lighter fst-italic">
+                                        <abbr title="Đặt giá trị 0 nếu không giới hạn">
+                                            (chi tiết)
+                                        </abbr>
+                                    </span>
                                 </div>
                                 <div className="title">
-                                    <Form.Control
-                                        size="sm"
-                                        type="number"
-                                        min="0"
-                                        className="attribute-title-input"
-                                        value={testNumberOfTimes}
-                                        onChange={e => setTestNumberOfTimes(e.target.value)}
-                                        readOnly={isUser}
-                                    />
+                                    <Form.Group as={Row}>
+                                        <Col xs="8" lg="10">
+                                            <Form.Range
+                                                min={0} max={50}
+                                                value={testNumberOfTimes}
+                                                onChange={e => setTestNumberOfTimes(e.target.value)}
+                                                readOnly={isUser}
+                                            />
+                                        </Col>
+                                        <Col xs="4" lg="2">
+                                            <Form.Control
+                                                size="sm"
+                                                type="number"
+                                                min="0"
+                                                className="attribute-title-input text-center"
+                                                value={testNumberOfTimes}
+                                                onChange={e => setTestNumberOfTimes(e.target.value)}
+                                                readOnly={isUser}
+                                            />
+                                        </Col>
+                                    </Form.Group>
                                 </div>
                             </div>
-                        }
+                        </>}
                     </div>
 
                     <div className="col-sm-6 col-xs-12">
@@ -180,6 +214,37 @@ export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
                                     readOnly={isUser}
                                 />
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="test-description-section mt-2">
+                    <div className="test-title-section mt-2">
+                        <div className="label fw-bold">
+                            Giám sát thí sinh
+                            <span className="mx-1 fw-lighter fst-italic">
+                                <abbr title="Thiết đặt tùy chọn giám sát thí sinh khi làm bài">
+                                    (chi tiết)
+                                </abbr>
+                            </span>
+                        </div>
+                        <div className="title">
+                            <Form.Check
+                                inline
+                                type="switch"
+                                label="Toàn màn hình"
+                                disabled={isUser}
+                                checked={fullscreenTracking}
+                                onChange={onFullscreenTrackingSwitchAction}
+                            />
+                            <Form.Check
+                                inline
+                                type="switch"
+                                label="Webcam"
+                                disabled={isUser}
+                                checked={webcamTracking}
+                                onChange={onWebcamTrackingSwitchAction}
+                            />
                         </div>
                     </div>
                 </div>
