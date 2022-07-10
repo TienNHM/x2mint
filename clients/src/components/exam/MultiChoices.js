@@ -70,20 +70,22 @@ export default function MultiChoices() {
     }, [videoRef, isEntered])
 
     useEffect(() => {
-        if (isUser && video && webcamTracking) faceDetection()
-    }, [video, webcamTracking])
-
-    const faceDetection = () => {
-        const handle = {
-            video,
-            setVideo,
-            videoRef,
-            takeTest,
-            submit,
-            setIsSubmitted
+        const faceDetection = async () => {
+            const handle = {
+                video,
+                setVideo,
+                videoRef,
+                takeTest,
+                submit,
+                setIsSubmitted
+            }
+            await FaceDetect(faceapi, handle)
         }
-        FaceDetect(faceapi, handle)
-    }
+
+        if (isUser && video && webcamTracking) {
+            faceDetection()
+        }
+    }, [video, webcamTracking])
 
     const handler = async () => {
         if (!isEntered || !fullscreenTracking) {
@@ -145,9 +147,8 @@ export default function MultiChoices() {
 
         if (testResponse) {
             const t = testResponse.data
-            setTest(t)
-
             const q = mapOrder(t.questions, t.questionsOrder, 'id')
+            setTest(t)
             setQuestions(q)
             setSelectedQuestion(selectedQuestion ? selectedQuestion : q[0])
 
@@ -317,6 +318,7 @@ export default function MultiChoices() {
                                 <PanelSettings
                                     test={test}
                                     setTest={setTest}
+                                    videoRef={videoRef}
                                 />
                             </div>
                         </div>

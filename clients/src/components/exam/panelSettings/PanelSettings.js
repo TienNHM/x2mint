@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { toast } from 'react-toastify'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { splitTime } from 'utils/timeUtils'
-import { MODAL_ACTION, ROLE } from 'utils/constants'
+import { MODAL_ACTION, ROLE, TEST_DATA } from 'utils/constants'
 import './PanelSettings.scss'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -12,15 +12,18 @@ import { updateTest } from 'actions/api/TestAPI'
 import { Fab } from 'react-tiny-fab'
 import ModalTestInfo from './ModalTestInfo'
 import { cloneDeep } from 'lodash'
+import { stopWebcam } from '../panelQuestionPicker/faceDetection'
 
 export default function PanelSettings(props) {
-    const { test, setTest } = props
+    const { test, setTest, videoRef } = props
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE.USER
 
     const navigate = useNavigate()
 
     //#region States
+    const webcamTracking = test.tracking && test.tracking.includes(TEST_DATA.TRACKING.WEBCAM)
+
     // Test title
     const inputTestTitleRef = useRef('')
     const [testTitle, setTestTitle] = useState(test.name ? test.name : '')
@@ -114,6 +117,9 @@ export default function PanelSettings(props) {
     const handleConfirmModal = (action) => {
         setIsShowConfirm(false)
         if (action === MODAL_ACTION.CONFIRM) {
+            if (webcamTracking) {
+                stopWebcam(videoRef)
+            }
             return navigate(-1)
         }
     }
