@@ -8,7 +8,7 @@ import { COOKIES, TAKE_TEST_LOGS, ROLE, STATUS, TEST_DATA } from 'utils/constant
 import { HashLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
 import PanelQuestionPicker from './panelQuestionPicker/PanelQuestionPicker'
-import { createTakeTest, updateTakeTest } from 'actions/api/TakeTestAPI'
+import { createTakeTest, getLastestTakeTestByTestAndUser, updateTakeTest } from 'actions/api/TakeTestAPI'
 import { Button, FormControl, Image } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import { useEventListener } from 'utils/EventListener'
@@ -18,7 +18,7 @@ import PanelPreview from './panelPreview/PanelPreview'
 import PanelSettings from './panelSettings/PanelSettings'
 import Question from './question/Question'
 import { onSelectStart } from 'utils/DisableSelectEventListener'
-import FaceDetect, { initWebcam, stopWebcam } from './panelQuestionPicker/faceDetection'
+import FaceDetect, { initWebcam, stopWebcam } from 'utils/faceDetection'
 
 export default function MultiChoices() {
     const faceapi = window.faceapi
@@ -136,13 +136,38 @@ export default function MultiChoices() {
     useEventListener('resize', handler)
 
     useEffect(() => {
-        async function callCreateTakeTest(_takeTest) {
-            const data = await createTakeTest(_takeTest)
+        async function callInitTakeTest(test, questions) {
+            const response = await getLastestTakeTestByTestAndUser(test.id, user.id)
+            const lastest = response.data[0]
 
-            setTakeTest({
-                ..._takeTest,
-                _id: data.takeTestId
-            })
+            if (lastest && lastest._status === STATUS.NOT_SUBMITTED) {
+                setTakeTest({
+                    ...lastest,
+                    _id: lastest.id
+                })
+            }
+            else {
+                const chooseAnswers = questions.map(quiz => {
+                    return {
+                        question: quiz._id,
+                        answers: []
+                    }
+                })
+
+                const newTakeTest = {
+                    _status: STATUS.NOT_SUBMITTED,
+                    questionsOrder: test.questionsOrder,
+                    chooseAnswers: chooseAnswers,
+                    test: test.id,
+                    user: user.id
+                }
+                const data = await createTakeTest(newTakeTest)
+
+                setTakeTest({
+                    ...newTakeTest,
+                    _id: data.takeTestId
+                })
+            }
         }
 
         if (testResponse) {
@@ -158,23 +183,7 @@ export default function MultiChoices() {
                 setIsFullScreen(_fullscreenTracking)
                 const _webcamTracking = t.tracking && t.tracking.includes(TEST_DATA.TRACKING.WEBCAM)
                 setWebcamTracking(_webcamTracking)
-
-                const chooseAnswers = q.map(quiz => {
-                    return {
-                        question: quiz._id,
-                        answers: []
-                    }
-                })
-
-                const newTakeTest = {
-                    _status: STATUS.NOT_SUBMITTED,
-                    questionsOrder: t.questionsOrder,
-                    chooseAnswers: chooseAnswers,
-                    test: t.id,
-                    user: user.id
-                }
-
-                callCreateTakeTest(newTakeTest)
+                callInitTakeTest(t, q)
             }
         }
     }, [testResponse])

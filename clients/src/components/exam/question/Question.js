@@ -12,12 +12,14 @@ import './Question.scss'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { toast } from 'react-toastify'
 
+export const answerIndex = ['A', 'B', 'C', 'D']
+
 function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     // Lấy thông tin user
     const user = useSelector((state) => state.auth.user)
     const isUser = user.role === ROLE.USER
 
-    const answerIndex = ['A', 'B', 'C', 'D']
+    console.log('takeTest', takeTest)
 
     const [embededMedia, setEmbedMedia] = useState('')
     const [content, setContent] = useState('')
@@ -284,7 +286,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                     {question.answers.length > 0 ? (
                         <div className="row">
                             <div className="question-answers" style={{ marginTop: '10px' }} >
-                                {question.answers.map((a, index) =>
+                                {question.answers.length > 0 && question.answers.map((a, index) =>
                                     <Answer
                                         key={index}
                                         answer={a}

@@ -1,7 +1,7 @@
-import { updateTakeTest } from "actions/api/TakeTestAPI"
-import { cloneDeep, toInteger } from "lodash"
-import { toast } from "react-toastify"
-import { COOKIES, TAKE_TEST_LOGS } from "utils/constants"
+import { updateTakeTest } from 'actions/api/TakeTestAPI'
+import { cloneDeep, toInteger } from 'lodash'
+import { toast } from 'react-toastify'
+import { COOKIES, TAKE_TEST_LOGS } from 'utils/constants'
 import Cookies from 'js-cookie'
 
 // const faceapi = window.faceapi

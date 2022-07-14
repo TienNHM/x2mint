@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { Form, Button } from 'react-bootstrap'
 import 'react-toastify/dist/ReactToastify.css'
 import { toast } from 'react-toastify'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
@@ -12,7 +11,7 @@ import { updateTest } from 'actions/api/TestAPI'
 import { Fab } from 'react-tiny-fab'
 import ModalTestInfo from './ModalTestInfo'
 import { cloneDeep } from 'lodash'
-import { stopWebcam } from '../panelQuestionPicker/faceDetection'
+import { stopWebcam } from 'utils/faceDetection'
 
 export default function PanelSettings(props) {
     const { test, setTest, videoRef } = props
@@ -24,37 +23,37 @@ export default function PanelSettings(props) {
     //#region States
     const webcamTracking = test.tracking && test.tracking.includes(TEST_DATA.TRACKING.WEBCAM)
 
-    // Test title
-    const inputTestTitleRef = useRef('')
-    const [testTitle, setTestTitle] = useState(test.name ? test.name : '')
+    // // Test title
+    // const inputTestTitleRef = useRef('')
+    // const [testTitle, setTestTitle] = useState(test.name ? test.name : '')
 
-    // Mô tả
-    const inputTestDescriptionRef = useRef('')
-    const [testDescription, setTestDescription] = useState(test.description !== null ? test.description : '')
+    // // Mô tả
+    // const inputTestDescriptionRef = useRef('')
+    // const [testDescription, setTestDescription] = useState(test.description !== null ? test.description : '')
 
-    // Test inputNumberOfTimes
-    const inputNumberOfTimesRef = useRef('')
-    const [testNumberOfTimes, setTestNumberOfTimes] = useState(test.maxTimes !== null ? test.maxTimes : 1)
+    // // Test inputNumberOfTimes
+    // const inputNumberOfTimesRef = useRef('')
+    // const [testNumberOfTimes, setTestNumberOfTimes] = useState(test.maxTimes !== null ? test.maxTimes : 1)
 
-    // Điểm tối đa
-    const inputMaxPointsRef = useRef(null)
-    const [testMaxPoints, setTestMaxPoints] = useState(test.maxPoints ? test.maxPoints : 0)
+    // // Điểm tối đa
+    // const inputMaxPointsRef = useRef(null)
+    // const [testMaxPoints, setTestMaxPoints] = useState(test.maxPoints ? test.maxPoints : 0)
 
-    // Mã PIN
-    const inputPinRef = useRef('')
-    const [testPIN, setTestPIN] = useState(test.pin ? test.pin : '')
+    // // Mã PIN
+    // const inputPinRef = useRef('')
+    // const [testPIN, setTestPIN] = useState(test.pin ? test.pin : '')
 
-    // Duration
-    const start_time = splitTime(test.startTime)
-    const end_time = splitTime(test.endTime)
-    const [startDate, setStartDate] = useState(start_time.date)
-    const [startTime, setStartTime] = useState(start_time.time)
-    const [endDate, setEndDate] = useState(end_time.date)
-    const [endTime, setEndTime] = useState(end_time.time)
-    const startDateRef = useRef(null)
-    const startTimeRef = useRef(null)
-    const endDateRef = useRef(null)
-    const endTimeRef = useRef(null)
+    // // Duration
+    // const start_time = splitTime(test.startTime)
+    // const end_time = splitTime(test.endTime)
+    // const [startDate, setStartDate] = useState(start_time.date)
+    // const [startTime, setStartTime] = useState(start_time.time)
+    // const [endDate, setEndDate] = useState(end_time.date)
+    // const [endTime, setEndTime] = useState(end_time.time)
+    // const startDateRef = useRef(null)
+    // const startTimeRef = useRef(null)
+    // const endDateRef = useRef(null)
+    // const endTimeRef = useRef(null)
 
     // Confirm Modal
     const [isShowConfirm, setIsShowConfirm] = useState(false)
@@ -65,49 +64,49 @@ export default function PanelSettings(props) {
     //#endregion
 
     //#region Handlers
-    const handleSaveClick = async () => {
-        const titleValue = inputTestTitleRef.current.value
-        if (titleValue.trim() === '') {
-            inputTestTitleRef.current.focus()
-            toast.error('💢 Vui lòng nhập tên cho bài test!')
-        }
-        else if (inputMaxPointsRef.current.value <= 0) {
-            inputMaxPointsRef.current.focus()
-            toast.error('💢 Điểm bài thi không hợp lệ!')
-        }
-        else if (inputPinRef.current.value.trim() === '') {
-            inputPinRef.current.focus()
-            toast.error('💢 Vui lòng nhập mã PIN cho bài thi!')
-        }
-        else {
-            const startTime = startDateRef.current.value + 'T' + startTimeRef.current.value + ':00.000Z'
-            const endTime = endDateRef.current.value + 'T' + endTimeRef.current.value + ':00.000Z'
-            if (Date.parse(endTime) > Date.parse(startTime)) {
-                const newTest = {
-                    ...test,
-                    name: titleValue,
-                    startTime: startTime,
-                    endTime: endTime,
-                    description: testDescription,
-                    maxPoints: testMaxPoints,
-                    maxTimes: inputNumberOfTimesRef.current.value,
-                    pin: testPIN
-                    // url: testLink
-                }
+    // const handleSaveClick = async () => {
+    //     const titleValue = inputTestTitleRef.current.value
+    //     if (titleValue.trim() === '') {
+    //         inputTestTitleRef.current.focus()
+    //         toast.error('💢 Vui lòng nhập tên cho bài test!')
+    //     }
+    //     else if (inputMaxPointsRef.current.value <= 0) {
+    //         inputMaxPointsRef.current.focus()
+    //         toast.error('💢 Điểm bài thi không hợp lệ!')
+    //     }
+    //     else if (inputPinRef.current.value.trim() === '') {
+    //         inputPinRef.current.focus()
+    //         toast.error('💢 Vui lòng nhập mã PIN cho bài thi!')
+    //     }
+    //     else {
+    //         const startTime = startDateRef.current.value + 'T' + startTimeRef.current.value + ':00.000Z'
+    //         const endTime = endDateRef.current.value + 'T' + endTimeRef.current.value + ':00.000Z'
+    //         if (Date.parse(endTime) > Date.parse(startTime)) {
+    //             const newTest = {
+    //                 ...test,
+    //                 name: titleValue,
+    //                 startTime: startTime,
+    //                 endTime: endTime,
+    //                 description: testDescription,
+    //                 maxPoints: testMaxPoints,
+    //                 maxTimes: inputNumberOfTimesRef.current.value,
+    //                 pin: testPIN
+    //                 // url: testLink
+    //             }
 
-                // Lưu vào CSDL
-                await updateTest(newTest)
+    //             // Lưu vào CSDL
+    //             await updateTest(newTest)
 
-                // Update lại test
-                setTest(cloneDeep(newTest))
-                toast.success('🎉 Đã lưu lại những thay đổi của bạn!')
-            }
-            else {
-                endDateRef.current.focus()
-                toast.error('💢 Thời gian không hợp lệ! Vui lòng nhập lại!')
-            }
-        }
-    }
+    //             // Update lại test
+    //             setTest(cloneDeep(newTest))
+    //             toast.success('🎉 Đã lưu lại những thay đổi của bạn!')
+    //         }
+    //         else {
+    //             endDateRef.current.focus()
+    //             toast.error('💢 Thời gian không hợp lệ! Vui lòng nhập lại!')
+    //         }
+    //     }
+    // }
 
     const handleExit = () => {
         setContent('Bạn có muốn thoát không? Lưu ý, mọi thay đổi chưa được lưu sẽ bị mất đi mà không thể khôi phục!')
@@ -150,23 +149,23 @@ export default function PanelSettings(props) {
     }
     //#endregion
 
-    useEffect(() => {
-        if (test) {
-            setTestTitle(test.name)
-            setTestDescription(test.description)
-            setTestMaxPoints(test.maxPoints)
-            // setTestLink(test.url)
-            setTestNumberOfTimes(test.maxTimes)
-            setTestPIN(test.pin)
+    // useEffect(() => {
+    //     if (test) {
+    //         setTestTitle(test.name)
+    //         setTestDescription(test.description)
+    //         setTestMaxPoints(test.maxPoints)
+    //         // setTestLink(test.url)
+    //         setTestNumberOfTimes(test.maxTimes)
+    //         setTestPIN(test.pin)
 
-            const start_time = splitTime(test.startTime)
-            const end_time = splitTime(test.endTime)
-            setStartDate(start_time.date)
-            setStartTime(start_time.time)
-            setEndDate(end_time.date)
-            setEndTime(end_time.time)
-        }
-    }, [test])
+    //         const start_time = splitTime(test.startTime)
+    //         const end_time = splitTime(test.endTime)
+    //         setStartDate(start_time.date)
+    //         setStartTime(start_time.time)
+    //         setEndDate(end_time.date)
+    //         setEndTime(end_time.time)
+    //     }
+    // }, [test])
 
     const btnExitStyles = {
         bottom: '0px',

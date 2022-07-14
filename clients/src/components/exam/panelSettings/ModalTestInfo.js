@@ -6,7 +6,6 @@ import { displayTimeDelta, splitTime } from 'utils/timeUtils'
 
 export default function ModalTestInfo({ isShow, onAction, test, isUser }) {
     const user = useSelector((state) => state.auth.user)
-    console.log(user)
     const start = splitTime(test.startTime)
     const end = splitTime(test.endTime)
     const testUrl = process.env.REACT_APP_WEBSITE + test.url
