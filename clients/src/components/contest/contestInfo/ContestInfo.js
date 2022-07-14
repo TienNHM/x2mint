@@ -84,7 +84,7 @@ export default function ContestInfo() {
             })
             status[test._id] = count
         }
-        console.log(status)
+
         setTakeTestStatus(status)
     }
 
@@ -458,9 +458,6 @@ export default function ContestInfo() {
 
                             {user.role === ROLE.USER &&
                                 <>
-                                    {
-                                        console.log(test, takeTestStatus[test._id])
-                                    }
                                     <Button variant={Date.parse(test.endTime) - Date.now() <= 0 ? 'secondary' : 'success'}
                                         disabled={
                                             (Date.parse(test.endTime) - Date.now() <= 0) ||

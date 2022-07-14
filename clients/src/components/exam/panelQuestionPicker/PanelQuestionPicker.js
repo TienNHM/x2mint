@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import Countdown from 'react-countdown'
 import { Button } from 'react-bootstrap'
 import { MODAL_ACTION, TEST_DATA } from 'utils/constants'
@@ -6,7 +6,7 @@ import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { submit } from 'actions/api/TakeTestAPI'
 import './PanelQuestionPicker.scss'
 import { Fab } from 'react-tiny-fab'
-import FaceDetect, { initWebcam, stopWebcam } from './faceDetection'
+import { stopWebcam } from 'utils/faceDetection'
 
 export default function PanelQuestionPicker(props) {
 
