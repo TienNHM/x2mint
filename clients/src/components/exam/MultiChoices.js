@@ -36,7 +36,7 @@ export default function MultiChoices() {
     })
 
     const user = useSelector((state) => state.auth.user)
-    const isUser = user.role === ROLE.USER
+    const isUser = user && user.role === ROLE.USER
 
     const pinRef = useRef('')
 

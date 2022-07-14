@@ -16,7 +16,7 @@ import { stopWebcam } from 'utils/faceDetection'
 export default function PanelSettings(props) {
     const { test, setTest, videoRef } = props
     const user = useSelector((state) => state.auth.user)
-    const isUser = user.role === ROLE.USER
+    const isUser = user && user.role === ROLE.USER
 
     const navigate = useNavigate()
 

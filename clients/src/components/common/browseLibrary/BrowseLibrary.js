@@ -198,7 +198,7 @@ function BrowseLibrary({ show, onAction }) {
 
                     <Tab eventKey="image-upload"
                         title={<span>Upload ảnh <Badge bg="warning" pill>Pro</Badge></span>}
-                        disabled={user.type !== ACCOUNT_TYPES.PRO}>
+                        disabled={user && user.type !== ACCOUNT_TYPES.PRO}>
                         <div className="browse-modal" >
                             <div className="top-modal">
                                 <div className="link-input-area d-flex justify-content-center">

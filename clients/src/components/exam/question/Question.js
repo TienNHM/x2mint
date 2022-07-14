@@ -17,9 +17,7 @@ export const answerIndex = ['A', 'B', 'C', 'D']
 function Question({ question, setQuestion, takeTest, updateTakeTest }) {
     // Lấy thông tin user
     const user = useSelector((state) => state.auth.user)
-    const isUser = user.role === ROLE.USER
-
-    console.log('takeTest', takeTest)
+    const isUser = user && user.role === ROLE.USER
 
     const [embededMedia, setEmbedMedia] = useState('')
     const [content, setContent] = useState('')

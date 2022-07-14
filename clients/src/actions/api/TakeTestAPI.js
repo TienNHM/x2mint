@@ -27,7 +27,8 @@ export const updateTakeTest = async (takeTest, action) => {
             action: action
         }
 
-        const url = `${process.env.REACT_APP_API_ROOT}/takeTest/${takeTest._id}`
+        const takeTestId = takeTest._id ? takeTest._id : takeTest.id
+        const url = `${process.env.REACT_APP_API_ROOT}/takeTest/${takeTestId}`
         const request = await axios.put(url, data, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get(COOKIES.ACCESS_TOKEN)}`
