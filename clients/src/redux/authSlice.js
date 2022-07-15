@@ -5,6 +5,7 @@ import setAuthToken, { clearAuthToken } from 'utils/setAuthToken'
 import { ROLE, COOKIES } from 'utils/constants'
 import { toast } from 'react-toastify'
 import { registerAccount, activateAccount } from 'actions/api/AuthAPI'
+import { initialState } from './initialState'
 
 //Register
 export const register = createAsyncThunk(
@@ -268,15 +269,6 @@ export const loadUser = createAsyncThunk(
     }
 )
 
-const initialState = {
-    authLoading: true,
-    isAuthenticated: false,
-    user: null,
-    error: '',
-    success: false,
-    isOpened: true
-}
-
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -333,7 +325,6 @@ const authSlice = createSlice({
             actions
         },
         [resetPassword.fulfilled]: (state, actions) => {
-            console.log(actions)
             state.success = actions.payload.success
         },
         [resetPassword.rejected]: (state, actions) => {

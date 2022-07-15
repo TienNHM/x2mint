@@ -15,8 +15,11 @@ import { ExportDataUserTakeTest } from './UserTakeTest'
 import ChangePassword from 'components/account/handlePassword/ChangePassword'
 import Payments from 'components/payments/Payments'
 import MessengerCustomerChat from 'react-messenger-customer-chat'
+import { stopWebcam } from 'utils/faceDetection'
 
 export default function Profile() {
+    stopWebcam(null)
+
     const user = useSelector((state) => state.auth.user)
 
     const {

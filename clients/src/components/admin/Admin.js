@@ -3,8 +3,11 @@ import AppContent from './AppContent/AppContent'
 import AppSidebar from './AppSidebar/AppSidebar'
 import './Admin.scss'
 import AppNavbar from './AppNavbar/AppNavbar'
+import { stopWebcam } from 'utils/faceDetection'
 
 export default function Admin() {
+    stopWebcam(null)
+
     const [currentAction, setCurrentAction] = useState('Dashboard')
 
     return (

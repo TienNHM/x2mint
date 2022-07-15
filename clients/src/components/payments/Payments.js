@@ -3,8 +3,11 @@ import React from 'react'
 import { Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import { stopWebcam } from 'utils/faceDetection'
 
 export default function Payments() {
+    stopWebcam(null)
+
     const user = useSelector((state) => state.auth.user)
 
     const pay = async () => {

@@ -32,7 +32,7 @@ export const ExportToExcel = ({ apiData, fileName, fieldsToBeRemoved=[] }) => {
             variant="success"
             onClick={() => exportToCSV(data, fileName)}
             className="fw-bolder"
-            disabled={user.type !== ACCOUNT_TYPES.PRO}
+            disabled={user && user.type !== ACCOUNT_TYPES.PRO}
         >
             <i className="fas fa-save"></i>
             <span className="ps-2">

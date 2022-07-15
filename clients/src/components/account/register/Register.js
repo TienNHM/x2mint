@@ -8,6 +8,7 @@ import { Navigate } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { toast } from 'react-toastify'
 import { Image } from 'react-bootstrap'
+import { stopWebcam } from 'utils/faceDetection'
 // import Cookies from 'js-cookie'
 // import { COOKIES } from 'utils/constants'
 
@@ -19,6 +20,8 @@ const initialState = {
 }
 
 const Register = () => {
+    stopWebcam(null)
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { authLoading, isAuthenticated } = useSelector((state) => state.auth.isAuthenticated)

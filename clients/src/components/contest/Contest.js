@@ -16,8 +16,11 @@ import './Contest.scss'
 import { cloneDeep } from 'lodash'
 import { toast } from 'react-toastify'
 import slug from 'vietnamese-slug'
+import { stopWebcam } from 'utils/faceDetection'
 
 export default function Contest() {
+    stopWebcam(null)
+
     const user = useSelector((state) => state.auth.user)
     const navigate = useNavigate()
 
