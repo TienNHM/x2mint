@@ -1,7 +1,10 @@
 import React from 'react'
 import { Col, Container, Image, Row } from 'react-bootstrap'
+import { stopWebcam } from 'utils/faceDetection'
 
 const Page404 = () => {
+    stopWebcam(null)
+
     return (
         <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
             <Container>

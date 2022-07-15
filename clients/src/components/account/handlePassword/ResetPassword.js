@@ -6,8 +6,11 @@ import { resetPassword } from 'redux/authSlice'
 import { toast } from 'react-toastify'
 import './ResetPassword.scss'
 import Footer from 'pages/home/Footer'
+import { stopWebcam } from 'utils/faceDetection'
 
 const ResetPassword = () => {
+    stopWebcam(null)
+
     const [resetForm, setResetForm] = useState({
         password: '',
         reEnterPassword: '',

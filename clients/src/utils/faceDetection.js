@@ -29,6 +29,7 @@ export const initWebcam = (faceapi, handle) => {
                 let video = videoRef.current
                 video.srcObject = stream
                 video.play()
+                window.webcamStreamRef = stream
                 setVideo(video)
             })
             .catch(async (err) => {
@@ -54,6 +55,12 @@ export const stopWebcam = (videoRef) => {
     const interval_id = Cookies.get(COOKIES.FACE_DETECTION_INTERVAL)
     clearInterval(toInteger(interval_id))
     // Cookies.remove(COOKIES.FACE_DETECTION_INTERVAL)
+
+    if (window.webcamStreamRef) {
+        window.webcamStreamRef.getTracks().forEach(function(track) {
+            track.stop()
+        })
+    }
 }
 
 export default async function FaceDetect(faceapi, handle, timeout = TIMEOUT) {

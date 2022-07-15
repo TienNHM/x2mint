@@ -3,6 +3,7 @@ import axios from 'axios'
 import { isEmail } from 'utils/Validation'
 import './ForgotPassword.scss'
 import Footer from 'pages/home/Footer'
+import { stopWebcam } from 'utils/faceDetection'
 
 const initialState = {
     email: '',
@@ -11,6 +12,8 @@ const initialState = {
 }
 
 function ForgotPassword() {
+    stopWebcam(null)
+
     const [data, setData] = useState(initialState)
 
     const { email, err, success } = data

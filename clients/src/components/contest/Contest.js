@@ -16,18 +16,21 @@ import './Contest.scss'
 import { cloneDeep } from 'lodash'
 import { toast } from 'react-toastify'
 import slug from 'vietnamese-slug'
+import { stopWebcam } from 'utils/faceDetection'
 
 export default function Contest() {
+    stopWebcam(null)
+
     const user = useSelector((state) => state.auth.user)
     const navigate = useNavigate()
 
     //#region Get contests
     let urlRequest = '/contests'
 
-    if (user.role === ROLE.CREATOR) {
+    if (user && user.role === ROLE.CREATOR) {
         urlRequest = `/contests/creator/${Cookies.get(COOKIES.USER_ID)}`
     }
-    else if (user.role === ROLE.ADMIN) {
+    else if (user && user.role === ROLE.ADMIN) {
         urlRequest = '/contests/all'
     }
 
@@ -236,7 +239,7 @@ export default function Contest() {
         <div className="contest-management">
             <div className="heading row d-flex justify-content-between">
                 <div className="create-contest col-2">
-                    {user.role !== ROLE.USER &&
+                    {user && user.role !== ROLE.USER &&
                         <Button variant="success" size="sm"
                             onClick={() => setIsShowConfirmModal(true)}>
                             <i className="fa fa-plus"> </i>

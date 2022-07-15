@@ -10,8 +10,11 @@ import { isEmpty } from 'utils/Validation'
 import { toast } from 'react-toastify'
 import { GoogleLogin } from 'react-google-login'
 import Footer from 'pages/home/Footer'
+import { stopWebcam } from 'utils/faceDetection'
 
 const Login = () => {
+    stopWebcam(null)
+
     //Route
     const navigate = useNavigate()
     const dispatch = useDispatch()

@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap'
 import { MODAL_ACTION } from 'utils/constants'
 import { toast } from 'react-toastify'
+import { stopWebcam } from 'utils/faceDetection'
 
 export default function ChangePassword({ isShow, onAction }) {
+    stopWebcam(null)
+
     const [data, setData] = useState({
         password: '',
         newPassword: '',

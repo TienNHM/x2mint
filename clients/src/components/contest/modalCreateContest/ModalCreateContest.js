@@ -14,7 +14,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     const navigate = useNavigate()
     const { contestIdOrUrl } = useParams()
     const user = useSelector((state) => state.auth.user)
-    const isUser = user.role === ROLE.USER
+    const isUser = user && user.role === ROLE.USER
 
     //#region States
     const [title, setTitle] = useState(' ')

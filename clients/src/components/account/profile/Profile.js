@@ -15,8 +15,11 @@ import { ExportDataUserTakeTest } from './UserTakeTest'
 import ChangePassword from 'components/account/handlePassword/ChangePassword'
 import Payments from 'components/payments/Payments'
 import MessengerCustomerChat from 'react-messenger-customer-chat'
+import { stopWebcam } from 'utils/faceDetection'
 
 export default function Profile() {
+    stopWebcam(null)
+
     const user = useSelector((state) => state.auth.user)
 
     const {
@@ -181,14 +184,14 @@ export default function Profile() {
                                     </div>
 
                                     <div className="m-2">
-                                        {user.type === ACCOUNT_TYPES.PRO && (
+                                        {user && user.type === ACCOUNT_TYPES.PRO && (
                                             <Badge pill bg="warning" className="m-2 px-2">
                                                 <i className="fa fa-star me-1"></i>
                                                 Pro
                                             </Badge>
                                         )}
 
-                                        {user.type !== ACCOUNT_TYPES.PRO && (
+                                        {user && user.type !== ACCOUNT_TYPES.PRO && (
                                             <Payments />
                                         )}
                                     </div>
@@ -293,7 +296,7 @@ export default function Profile() {
                         onAction={handleChangePassword}
                     />
 
-                    {user.type !== ROLE.USER && (
+                    {user && user.type !== ROLE.USER && (
                         <MessengerCustomerChat
                             pageId="110971274789083"
                             appId="332254335175096"
