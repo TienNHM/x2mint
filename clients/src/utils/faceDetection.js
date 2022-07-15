@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 
 // const faceapi = window.faceapi
 const model = process.env.PUBLIC_URL + '/scripts/models'
-export const TIMEOUT = 10000
+export const TIMEOUT = process.env.REACT_APP_WEBCAM_TIMEOUT
 
 export const initWebcam = (faceapi, handle) => {
     const {
@@ -93,7 +93,7 @@ export default async function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
             const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
             // .withFaceLandmarks()
             // .withFaceExpressions()
-    
+
             if (!detections || detections.length <= 0) {
                 if (Date.now() - t > timeout) {
                     // console.log('No face detected!')
