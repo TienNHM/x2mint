@@ -38,7 +38,7 @@ export const splitTime = (time) => {
 
 export const displayTime = (time) => {
     const datetime = splitTime(time)
-    return datetime.time + ' ngày ' + datetime.date
+    return datetime.date + ', ' + datetime.time
 }
 
 export const getCurrentDatetime = () => {

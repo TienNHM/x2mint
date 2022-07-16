@@ -248,7 +248,7 @@ export default function Contest() {
                     }
                 </div>
 
-                <div className="search-contest col-8">
+                <div className="search-contest col-7">
                     <FormControl type="search"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}>

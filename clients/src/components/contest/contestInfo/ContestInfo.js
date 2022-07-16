@@ -410,19 +410,24 @@ export default function ContestInfo() {
                         <hr style={{ width: '50%', height: '1px', margin: '12px auto' }} />
 
                         <div className="detail row">
-                            <div className="start-time col-md-4 col-sm-12 ps-3 pe-3">
+                            <div className="start-time col ps-3 pe-3">
                                 <div className="fw-bolder">Thời gian bắt đầu: </div>
                                 <div>{displayTime(test.startTime)}</div>
                             </div>
 
-                            <div className="duration col-md-4 col-sm-12 ps-3 pe-3">
+                            <div className="duration col ps-3 pe-3">
                                 <div className="fw-bolder">Thời lượng làm bài: </div>
                                 <div>{displayTimeDelta(test.startTime, test.endTime)}</div>
                             </div>
 
-                            <div className="card-test-quantity col-md-4 col-sm-12 ps-3 pe-3">
+                            <div className="card-test-quantity col ps-3 pe-3">
                                 <div className="fw-bolder">Số câu hỏi: </div>
                                 <div>{test.questions.length}</div>
+                            </div>
+
+                            <div className="card-test-quantity col ps-3 pe-3">
+                                <div className="fw-bolder">Số lượt làm bài: </div>
+                                <div>{test.maxTimes > 0 ? test.maxTimes : 'Không giới hạn'}</div>
                             </div>
                         </div>
                     </div>
