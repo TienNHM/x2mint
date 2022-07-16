@@ -25,7 +25,7 @@ export default function About() {
                 </h2>
             </div>
 
-            <div className="row container w-100 p-3 d-flex justify-content-center align-items-center">
+            <div className="row container w-100 p-3 mb-3 d-flex justify-content-center align-items-center">
                 <div className="col-12 col-md-6" data-aos="fade-up"
                     style={{ textAlign: 'justify' }}>
                     <h5>
@@ -35,7 +35,7 @@ export default function About() {
                         Khi tham gia thi, người dự thi sẽ được làm bài trong thời gian quy định của bài thi. Đồng thời, trong suốt quá trình thi, mọi hoạt động của thí sinh trên hệ thống đều được ghi nhận lại.
                     </h5>
                     <h5>
-                        Để đảm bảo tính an toàn, bảo mật và khách quan, hệ thống sẽ ngăn chặn cách hành vi <Badge pill bg="warning" className="mx-1">Chuyển tab</Badge> <Badge pill bg="danger" className="mx-1">Thoát toàn màn hình</Badge>.
+                        Để đảm bảo tính an toàn, bảo mật và khách quan, hệ thống sẽ ngăn chặn cách hành vi <Badge pill bg="warning" className="mx-1">Chuyển tab</Badge>, <Badge pill bg="danger" className="mx-1">Thoát toàn màn hình</Badge> hoặc <Badge pill bg="danger" className="mx-1">Không phát hiện khuôn mặt trước camera</Badge>.
                         Thí sinh nếu vi phạm vượt quá số lần quy định thì bài thi sẽ được hệ thống đóng lại.
                     </h5>
                 </div>
@@ -47,7 +47,7 @@ export default function About() {
                 </div>
             </div>
 
-            <div className="row container w-100 p-3 d-flex justify-content-center align-items-center">
+            <div className="row container w-100 p-3 mb-3 d-flex justify-content-center align-items-center">
                 <div className="col-12 col-md-6" data-aos="fade-up">
                     <Image className="w-50"
                         src={process.env.PUBLIC_URL + '/assets/images/create.svg'} />
@@ -55,32 +55,42 @@ export default function About() {
                 </div>
 
                 <div className="col-12 col-md-6" data-aos="fade-up">
-                    <h5 className="text-justify d-flex align-items-center flex-column">
+                    <h5 className="text-justify d-flex  flex-column">
                         Người tổ chức cuộc thi có thể tạo các cuộc thi với đa dạng các tính năng:
                         <div className="d-flex align-items-start flex-column">
                             <li className="my-1">
-                                <Badge pill bg="success" className="mx-1">Chia sẻ</Badge> liên kết cuộc thi, bài thi
+                                <span><Badge pill bg="success" className="mx-1">Chia sẻ</Badge> liên kết cuộc thi, bài thi</span>
                             </li>
                             <li className="my-1">
-                                <Badge pill bg="success" className="mx-1">Tùy chỉnh thời gian</Badge> diễn ra cuộc thi
+                                <span><Badge pill bg="success" className="mx-1">Tùy chỉnh thời gian</Badge> diễn ra cuộc thi</span>
                             </li>
                             <li className="my-1">
-                                <Badge pill bg="success" className="mx-1">Kho ảnh minh họa</Badge> phong phú, đa dạng
+                                <span><Badge pill bg="success" className="mx-1">Kho ảnh minh họa</Badge> phong phú, đa dạng</span>
                             </li>
                             <li className="my-1">
-                                <Badge pill bg="success" className="mx-1">Xem thống kê</Badge> chi tiết về cuộc thi
+                                <span><Badge pill bg="success" className="mx-1">Xem thống kê</Badge> chi tiết về cuộc thi</span>
                             </li>
                             <li className="my-1">
-                                <Badge pill bg="success" className="mx-1">Upload ảnh</Badge> không giới hạn
-                                <Badge pill bg="warning" className="mx-1">Pro</Badge>
+                                <span>
+                                    <Badge pill bg="success" className="mx-1">Upload ảnh <i className='fa fa-star'></i></Badge> không giới hạn
+                                </span>
                             </li>
                             <li className="my-1">
-                                <Badge pill bg="success" className="mx-1">Import đề thi</Badge> từ file Excel
-                                <Badge pill bg="warning" className="mx-1">Pro</Badge>
+                                <span>
+                                    <Badge pill bg="success" className="mx-1">Import đề thi <i className='fa fa-star'></i></Badge> từ file Excel
+                                </span>
                             </li>
                             <li className="my-1">
-                                <Badge pill bg="success" className="mx-1">Xuất file Excel</Badge> kết quả chi tiết
-                                <Badge pill bg="warning" className="mx-1">Pro</Badge>
+                                <span>
+                                    <Badge pill bg="success" className="mx-1">Xuất file Excel <i className='fa fa-star'></i></Badge> kết quả chi tiết
+                                </span>
+                            </li>
+                            <li className="my-1">
+                                <span>
+                                    <Badge pill bg="success" className="mx-1">Giám sát <i className='fa fa-star'></i></Badge> quá trình làm bài thi của thí sinh thông qua 
+                                    <span className="mx-1 text-danger fw-bolder">camera</span> và 
+                                    <span className="mx-1 text-danger fw-bolder">toàn màn hình </span>
+                                </span>
                             </li>
                         </div>
                     </h5>

@@ -5,7 +5,7 @@ export default function MainBanner() {
     return (
         <div className="home container-fluid" id="homepage"
             style={{ backgroundColor: '#F7F7F7' }}>
-            <div className="row d-flex justify-content-center align-items-center">
+            <div className="w-100 row d-flex justify-content-between align-items-center">
                 <div className="col-12 col-md-6">
                     <Image
                         className="homepage__pic"
