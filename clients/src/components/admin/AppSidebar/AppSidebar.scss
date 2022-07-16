@@ -1,13 +1,20 @@
 @import '_setting.scss';
 
+$bg-menu: rgb(1, 54, 65);
+
 .sidebar-settings {
     margin-top: $navbar-height;
-    background-color: lighten($color: rgba(208, 240, 224, 0.514), $amount: 5);
+    padding-top: $gap;
+    width: 70px;
+    height: 100vh;
+    background-color: $bg-menu;
+    // background-color: lighten($color: rgba(208, 240, 224, 0.514), $amount: 5);
 
     .sidebar-main {
-        width: 100%;
-        height: 100vh;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        // width: 100%;
+        // height: 100vh;
+        // font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        background-color: $bg-menu;
 
         .sidebar-title {
             color: $theme-color;
@@ -21,9 +28,11 @@
             border: 0 !important;
             border-radius: 0 !important;
             letter-spacing: 1px !important;
+            font-family: var(--logo-font);
         }
 
         .settings {
+            background-color: $bg-menu;
 
             &::-webkit-scrollbar {
                 -webkit-appearance: none;
@@ -91,9 +100,57 @@
         margin: 0 !important;
     }
 
-    @media screen and (max-width: 992px) {
+    .sidebar-section {
+        display: none;
+        color: $light-theme-color;
+    }
+
+    i {
+        color: $light-theme-color;
+        font-size: 1.25em;
+    }
+
+    .accordion-button::after {
+        display: none;
+        color: $light-theme-color !important;
+    }
+
+    .accordion, .accordion-item, .accordion-button {
+        background-color: $bg-menu;
+    }
+
+    .accordion-body {
+        display: none;
         .sidebar-section {
-            display: none;
+            color: white !important;
+        }
+
+        button {
+            i {
+                color: white;
+                padding-left: $gap;
+            }
+        }
+    }
+
+    &:hover {
+        width: 100%;
+
+        .sidebar-main {
+            .button-title {
+                // background-color: $light-theme-color !important;
+            }
+        }
+        .sidebar-section {
+            display: inline;
+        }
+
+        .accordion-button::after {
+            display: inline;
+        }
+
+        .accordion-body {
+            display: inline;
         }
     }
 }
