@@ -33,7 +33,8 @@ export default function AppSidebar({ setCurrentAction }) {
                         {/* Người dùng */}
                         <Accordion.Item eventKey="0">
                             <Accordion.Header className="w-100 button-title"
-                                onClick={() => setCurrentAction(ADMIN.ACCOUNT.STATISTICS)}>
+                                // onClick={() => setCurrentAction(ADMIN.ACCOUNT.STATISTICS)}
+                            >
                                 {/* <div className="tooltip-component">
                                     <i className="fas fa-users mx-2"></i>
                                     <span className="tooltiptext">
@@ -102,7 +103,8 @@ export default function AppSidebar({ setCurrentAction }) {
                         {/* Cuộc thi */}
                         <Accordion.Item eventKey="1">
                             <Accordion.Header className="w-100 button-title"
-                                onClick={() => setCurrentAction(ADMIN.CONTEST.STATISTICS)}>
+                                // onClick={() => setCurrentAction(ADMIN.CONTEST.STATISTICS)}
+                            >
                                 {/* <div className="tooltip-component">
                                     <i className="fas fa-chalkboard-teacher mx-2"></i>
                                     <span className="tooltiptext">
@@ -276,7 +278,8 @@ export default function AppSidebar({ setCurrentAction }) {
 
                         <Accordion.Item eventKey="3">
                             <Accordion.Header className="w-100 button-title"
-                                onClick={() => setCurrentAction(ADMIN.REVENUE)}>
+                                // onClick={() => setCurrentAction(ADMIN.REVENUE)}
+                            >
                                 {/* <div className="tooltip-component">
                                     <i className="fas fa-cog mx-2"></i>
                                     <span className="tooltiptext">
