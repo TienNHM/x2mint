@@ -209,7 +209,7 @@ export default function Contest() {
                             <i className="fa fa-info-circle"></i>
                         </Button>
 
-                        {user.role !== ROLE.USER &&
+                        {user && user.role !== ROLE.USER && user.id === c.creatorId &&
                             <Button
                                 variant="primary" size="sm"
                                 onClick={() => handleEditContest(c, true)}
