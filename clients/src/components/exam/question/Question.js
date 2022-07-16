@@ -11,6 +11,7 @@ import { MAX, MODAL_ACTION, ROLE } from 'utils/constants'
 import './Question.scss'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { toast } from 'react-toastify'
+import ReactPlayer from 'react-player'
 
 export const answerIndex = ['A', 'B', 'C', 'D']
 
@@ -259,10 +260,15 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                         </div>
 
                         <div className="question-embed mt-2 col-10 d-flex align-items-end justify-content-center">
-                            {embededMedia &&
+                            {embededMedia && !ReactPlayer.canPlay(embededMedia) && <>
                                 <Image src={embededMedia} />
+                            </>
                             }
-
+                            {embededMedia && ReactPlayer.canPlay(embededMedia) && 
+                            <div className='player-wrapper'>
+                                <ReactPlayer url={embededMedia} height="100%" width="100%"/>
+                            </div>
+                            }
                             {!embededMedia &&
                                 <Image src={process.env.PUBLIC_URL + '/assets/images/placeholder.png'}
                                     alt="Nothing" />
@@ -313,7 +319,11 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                         isShow={isShowConfirmModal}
                         onAction={onActionConfirmModal}
                     />
-                    <BrowseLibrary show={isShowLibrary} onAction={onActionBrowseLibrary} />
+                    <BrowseLibrary
+                        show={isShowLibrary}
+                        onAction={onActionBrowseLibrary}
+                        isInsertQuestion={true}
+                    />
                 </>
             }
         </div>

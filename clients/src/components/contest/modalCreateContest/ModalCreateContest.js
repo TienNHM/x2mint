@@ -9,6 +9,7 @@ import './ModalCreateContest.scss'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { makeSlug } from 'utils/TextUtils'
+import ReactPlayer from 'react-player'
 
 function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
     const navigate = useNavigate()
@@ -272,7 +273,12 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                             <div className="label">Ảnh cover</div>
 
                             <div className="display-image">
-                                <Image fluid src={link || process.env.PUBLIC_URL + '/assets/images/placeholder.png'} />
+                                {!ReactPlayer.canPlay(link) && <>
+                                    <Image fluid src={link || process.env.PUBLIC_URL + '/assets/images/placeholder.png'} />
+                                </>}
+                                {ReactPlayer.canPlay(link) && <>
+                                    <ReactPlayer url={link} />
+                                </>}
                             </div>
 
                             <div className="change-image">

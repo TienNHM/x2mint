@@ -6,8 +6,9 @@ import { MODAL_ACTION, MAX, ACCOUNT_TYPES } from 'utils/constants'
 import './BrowseLibrary.scss'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
+import ReactPlayer from 'react-player'
 
-function BrowseLibrary({ show, onAction }) {
+function BrowseLibrary({ show, onAction, isInsertQuestion }) {
     const user = useSelector((state) => state.auth.user)
     const client = createClient(process.env.REACT_APP_PEXELS_ID)
     const [link, setLink] = useState('')
@@ -39,7 +40,7 @@ function BrowseLibrary({ show, onAction }) {
     }
 
     const uploadImage = async () => {
-        const url = 'https://api.cloudinary.com/v1_1/x2mint/image/upload'
+        const url = process.env.REACT_APP_CLOUDINARY_API
 
         const formData = new FormData()
         formData.append('file', imgFile)
@@ -93,7 +94,9 @@ function BrowseLibrary({ show, onAction }) {
         search(query, limit + 1)
     }
 
-    const handleLinkChange = (event) => setLink(event.target.value)
+    const handleLinkChange = (event) => {
+        setLink(event.target.value)
+    }
 
     const updateSelectedPhoto = (photo, index) => {
         setSelectedPhoto(photo)
@@ -106,6 +109,38 @@ function BrowseLibrary({ show, onAction }) {
             setLink(selectedPhoto.src.medium)
         }
     }, [selectedPhoto])
+
+    const RenderEmbedVideo = () => {
+        if (isInsertQuestion) {
+            return (
+                <Tab eventKey="embed-video"
+                    title={<span>Embed video <Badge bg="warning" pill>Pro</Badge></span>}
+                    disabled={user && user.type !== ACCOUNT_TYPES.PRO}>
+                    <div className="browse-modal" >
+                        <div className="top-modal">
+                            <div className="link-input-area d-flex justify-content-center">
+                                <Form.Control
+                                    size="sm" type="text"
+                                    placeholder="Link video (YouTube, Facebook, Twitch, SoundCloud, Streamable, Vimeo, Wistia, Mixcloud, DailyMotion và Kaltura)"
+                                    className="text-input w-75"
+                                    value={link}
+                                    onChange={(e) => handleLinkChange(e)}
+                                />
+                            </div>
+                            <div className="d-flex justify-content-center">
+                                {link.length > 0 && ReactPlayer.canPlay(link) && <>
+                                    <ReactPlayer url={link} />
+                                </>}
+                            </div>
+                        </div>
+                    </div>
+                </Tab>
+            )
+        }
+        else {
+            return <></>
+        }
+    }
 
     return (
         <Modal
@@ -233,6 +268,8 @@ function BrowseLibrary({ show, onAction }) {
                             </div>
                         </div>
                     </Tab>
+
+                    {RenderEmbedVideo()}
                 </Tabs>
 
             </Modal.Body>
