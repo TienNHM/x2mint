@@ -34,9 +34,9 @@ export default function MyAppNavbar() {
 
                         {isAuthenticated && user.role === ROLE.ADMIN && (
                             <>
-                                <NavLink to="/contests">
+                                {/* <NavLink to="/contests">
                                     Các cuộc thi
-                                </NavLink>
+                                </NavLink> */}
                                 <NavLink to="/dashboard">
                                     Dashboard
                                 </NavLink>
@@ -49,24 +49,21 @@ export default function MyAppNavbar() {
                             </NavLink>
                         )}
 
-                        {isAuthenticated && user.role === ROLE.USER && (
-                            <NavLink to="/contests">
-                                Các cuộc thi
-                            </NavLink>
-                        )}
-
-                        <NavHashLink to="/#about">X2M!NT</NavHashLink>
-                        <NavHashLink to="/#contact">Liên hệ</NavHashLink>
+                        {isAuthenticated && user.role === ROLE.USER && <>
+                            <NavLink to="/contests">Các cuộc thi</NavLink>
+                            <NavHashLink to="/#about">X2M!NT</NavHashLink>
+                            <NavHashLink to="/#contact">Liên hệ</NavHashLink>
+                        </>
+                        }
 
                         {!isAuthenticated && (
                             <>
-                                <NavLink to="/login"
-                                    className="nav__btn__login active-link">
+                                <NavHashLink to="/#about">X2M!NT</NavHashLink>
+                                <NavHashLink to="/#contact">Liên hệ</NavHashLink>
+                                <NavLink to="/login" className="nav__btn__login active-link">
                                     Đăng nhập
                                 </NavLink>
-
-                                <NavLink to="/register"
-                                    className="nav__btn__signup active-link">
+                                <NavLink to="/register" className="nav__btn__signup active-link">
                                     Đăng ký
                                 </NavLink>
                             </>
@@ -74,8 +71,7 @@ export default function MyAppNavbar() {
 
                         {isAuthenticated && (
                             <>
-                                <NavLink to="/profile"
-                                    className="nav__btn__login nav__link">
+                                <NavLink to="/profile" className="nav__btn__login nav__link">
                                     Trang cá nhân
                                 </NavLink>
 
@@ -84,8 +80,7 @@ export default function MyAppNavbar() {
                                     buttonText="Đăng xuất"
                                     onLogoutSuccess={onLogoutSuccess}
                                     render={renderProps => (
-                                        <NavLink to="/"
-                                            className="nav__btn__signup nav__link">
+                                        <NavLink to="/" className="nav__btn__signup nav__link">
                                             <button className="fw-bolder"
                                                 style={{
                                                     background: 'transparent',

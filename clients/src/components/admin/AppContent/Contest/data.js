@@ -150,11 +150,11 @@ export function ExportDataTakeTest(data) {
             process.env.PUBLIC_URL + '/assets/images/male-user.png'
 
         const user = (
-            <div className="row">
-                <div className="col-2 ps-3">
+            <div className="row overflow-auto">
+                <div className="w-25 ps-3">
                     <Image roundedCircle src={avatar} width="48px" height="48px" alt='M' />
                 </div>
-                <div className="col-10 text-start pe-3">
+                <div className="w-75 text-start pe-3">
                     <div className="fw-bolder">{value.user.full_name}</div>
                     <div>
                         <Badge pill bg="info">@{value.user.username}</Badge>

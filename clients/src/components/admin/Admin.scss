@@ -3,12 +3,15 @@
 .dashboard {
     overflow-x: hidden;
 
-    .row {
-        margin: 0px !important;
+    .sidebar-menu {
+        z-index: 10000;
+        position: fixed;
+
     }
 
     .main-container {
         padding: 0px !important;
+        padding-left: 65px !important;
         margin-top: $navbar-height;
 
         .header {

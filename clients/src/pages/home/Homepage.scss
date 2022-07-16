@@ -1,11 +1,13 @@
 @import "_setting.scss";
 
 .home {
-    width: 100%;
+    width: 100vw;
     height: 90vh;
     font-family: var(--body-font);
     background-color: var(--body-color);
     margin-top: $navbar-height - $gap;
+    display: flex;
+    justify-content: center;
 
     h5 .intro {
         text-align: left;
