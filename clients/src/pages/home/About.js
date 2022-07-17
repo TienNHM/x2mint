@@ -105,7 +105,7 @@ export default function About() {
                 <div className='w-50'>
                     <Image src={process.env.PUBLIC_URL + '/assets/images/login.svg'} />
                 </div>
-                <Link to="/register">
+                <Link to="/login">
                     <Button variant="success" size="lg" className="fw-bolder">
                         <i className="fa fa-graduation-cap pe-1"></i>
                         Đăng ký

@@ -127,10 +127,10 @@ const Login = () => {
                                             />
                                         </div>
 
-                                        <button className="nav__btn__login"
+                                        {/* <button className="nav__btn__login"
                                             onClick={() => navigate('/register', { replace: true })}>
                                             Đăng ký
-                                        </button>
+                                        </button> */}
                                     </div>
 
                                     <div className="col-12 col-sm-6">

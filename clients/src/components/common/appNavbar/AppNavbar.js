@@ -63,9 +63,9 @@ export default function MyAppNavbar() {
                                 <NavLink to="/login" className="nav__btn__login active-link">
                                     Đăng nhập
                                 </NavLink>
-                                <NavLink to="/register" className="nav__btn__signup active-link">
+                                {/* <NavLink to="/register" className="nav__btn__signup active-link">
                                     Đăng ký
-                                </NavLink>
+                                </NavLink> */}
                             </>
                         )}
 
