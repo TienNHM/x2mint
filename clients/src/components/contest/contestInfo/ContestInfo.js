@@ -261,10 +261,8 @@ export default function ContestInfo() {
             }
         }
         else if (currentAction === CURRENT_ACTION.REOPEN_CONTEST) {
-            const newContest = { ...contest, _status: STATUS.OK, url: null }
-            await updateContest(newContest)
-
-            setContest(newContest)
+            setContest({ ...contest, _status: STATUS.OK })
+            await updateContest({ ...contest, _status: STATUS.OK, url: null })
 
             toast.success(`🎉 Cuộc thi ${contest.name} đã được mở công khai!`)
         }
