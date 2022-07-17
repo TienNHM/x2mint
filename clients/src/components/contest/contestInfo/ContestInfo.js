@@ -206,7 +206,7 @@ export default function ContestInfo() {
     const onTestAction = async (action) => {
         if (currentAction === CURRENT_ACTION.DELETE_TEST) {
             if (selectedTest && action === MODAL_ACTION.CONFIRM) {
-                const newContest = { ...contest }
+                const newContest = { ...contest, url: null }
                 const index = newContest.tests.findIndex(c => c._id === selectedTest._id)
                 newContest.tests.splice(index, 1)
 
@@ -247,7 +247,8 @@ export default function ContestInfo() {
         }
         else if (currentAction === CURRENT_ACTION.ARCHIVE_CONTEST) {
             if (action === MODAL_ACTION.CONFIRM) {
-                const data = await archiveContest(contest)
+                const newContest = { ...contest, url: null }
+                const data = await archiveContest(newContest)
 
                 setContest({
                     ...data.contest
@@ -260,7 +261,7 @@ export default function ContestInfo() {
             }
         }
         else if (currentAction === CURRENT_ACTION.REOPEN_CONTEST) {
-            const newContest = { ...contest, _status: STATUS.OK }
+            const newContest = { ...contest, _status: STATUS.OK, url: null }
             await updateContest(newContest)
 
             setContest(newContest)
