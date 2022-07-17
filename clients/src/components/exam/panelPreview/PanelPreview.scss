@@ -5,6 +5,7 @@ $question-preview-background: #F3F0D7;
 .panel-preview {
     .panel-left {
         background-color: $bg-color;
+        padding: $gap 0;
 
         .row>* {
             padding-left: 0 !important;

@@ -84,7 +84,8 @@ export default function MyAppNavbar() {
                                             <button className="fw-bolder"
                                                 style={{
                                                     background: 'transparent',
-                                                    borderWidth: 0
+                                                    borderWidth: 0,
+                                                    color: 'white'
                                                 }}
                                                 onClick={renderProps.onClick}
                                                 disabled={renderProps.disabled}>
