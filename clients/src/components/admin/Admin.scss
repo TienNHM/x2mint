@@ -2,11 +2,12 @@
 
 .dashboard {
     overflow-x: hidden;
+    min-height: 80vh;
 
     .sidebar-menu {
         z-index: 10000;
         position: fixed;
-
+        min-width: 300px;
     }
 
     .main-container {
