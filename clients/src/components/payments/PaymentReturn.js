@@ -61,7 +61,7 @@ export default function PaymentReturn() {
     const createNewBill = async (status) => {
         await createBill({
             userId: user.id,
-            amount: searchParams.get('vnp_Amount')/100, // Do VNPay đã nhân 100 để triệt tiêu dấu phẩy
+            amount: searchParams.get('vnp_Amount') / 100, // Do VNPay đã nhân 100 để triệt tiêu dấu phẩy
             _status: status
         })
     }
@@ -82,6 +82,11 @@ export default function PaymentReturn() {
             }
         }
     }, [response])
+
+    const ReturnProfilePage = () => {
+        // navigate('/profile', { replace: true })
+        window.location = '/profile'
+    }
 
     return (
         <div className="payment-return d-flex flex-column justify-content-center align-items-center">
@@ -104,7 +109,7 @@ export default function PaymentReturn() {
                     <Image src={process.env.PUBLIC_URL + '/assets/images/payment-successful.svg'} />
                     <h1 className="fw-bolder m-3 p-3">Thanh toán thành công!</h1>
                     <Button variant="success"
-                        onClick={() => navigate('/profile')}>
+                        onClick={ReturnProfilePage}>
                         Về trang cá nhân
                     </Button>
                 </div>
@@ -116,8 +121,8 @@ export default function PaymentReturn() {
                     <h3 className="fw-bolder m-3 p-3">
                         Giao dịch không thành công!
                     </h3>
-                    <Button variant="success"
-                        onClick={() => navigate('/profile')}>
+                    <Button variant="danger"
+                        onClick={ReturnProfilePage}>
                         Về trang cá nhân
                     </Button>
                 </div>

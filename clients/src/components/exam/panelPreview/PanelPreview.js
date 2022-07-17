@@ -108,7 +108,7 @@ function PanelPreview(props) {
                 <div className="question-number">{index + 1}</div>
                 <div className={isSelectedClassName}>
                     <div className="display-text">
-                        {q.content.split(' ').slice(0, 12).join(' ')}
+                        {q.content.split(' ').slice(0, 8).join(' ') + '...'}
                     </div>
                 </div>
             </div>
