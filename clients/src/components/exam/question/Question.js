@@ -233,7 +233,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                                 <div className="question-content align-items-center">
                                     <Form.Control
                                         size="sm" as="textarea"
-                                        rows={rows}
+                                        rows={3}
                                         placeholder="Nhập nội dung câu hỏi..."
                                         className="textarea-enter"
                                         value={content}
