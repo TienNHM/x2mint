@@ -91,7 +91,7 @@ export const loginUser = createAsyncThunk(
                 })
 
             if (res.data.success === true) {
-                toast.success('🌟 Đăng nhập thành công! Chào mừng bạn trở lại X2M!NT')
+                toast.success('🌟 Đăng nhập X2M!NT thành công!')
 
                 setAuthToken(res.data.accessToken)
 
