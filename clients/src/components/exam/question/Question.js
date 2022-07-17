@@ -221,7 +221,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
             {question && question.answers &&
                 <>
-                    <div className="row">
+                    <div className="row pb-2">
                         {isUser && (
                             <div className="question-user">
                                 {content}
@@ -259,7 +259,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                             }
                         </div>
 
-                        <div className="question-embed mt-2 col-10 d-flex align-items-end justify-content-center">
+                        <div className="question-embed col-10 d-flex align-items-end justify-content-center">
                             {embededMedia && !ReactPlayer.canPlay(embededMedia) && <>
                                 <Image src={embededMedia} />
                             </>
