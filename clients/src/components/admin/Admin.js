@@ -11,16 +11,16 @@ export default function Admin() {
     const [currentAction, setCurrentAction] = useState('Dashboard')
 
     return (
-        <div className="dashboard d-flex row">
-            <div className="col-sm-2 sidebar-menu">
+        <div className="dashboard">
+            <div className="w-25 sidebar-menu">
                 <AppSidebar
                     setCurrentAction={setCurrentAction}
                 />
             </div>
 
-            <div className="col-sm-10 main-container d-flex flex-column"
+            <div className="w-100 main-container d-flex flex-column"
                 id="main-container">
-                <AppNavbar />
+                {/* <AppNavbar /> */}
 
                 <div className="header h2 d-flex align-items-center current-action">
                     {currentAction}

@@ -37,6 +37,7 @@ $heading-height: 10vh;
     }
 
     .list-contests {
+        padding: $gap 0;
         flex-wrap: wrap;
         justify-content: center;
         border: 2px dashed gray;
