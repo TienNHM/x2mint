@@ -19,8 +19,6 @@ export const activateAccount = async (data) => {
         const url = `${process.env.REACT_APP_API_ROOT}/auths/activation`
         const request = await axios.post(url, data)
 
-        console.log(request)
-
         return request
     } catch (error) {
         console.log(error)

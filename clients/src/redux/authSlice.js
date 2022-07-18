@@ -59,7 +59,7 @@ export const activation = createAsyncThunk(
         try {
 
             let res = await activateAccount(activation_token)
-            console.log(res)
+            // console.log(res)
 
             alert(res.success)
             if (res.success === true) {

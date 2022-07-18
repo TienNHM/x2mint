@@ -15,12 +15,20 @@ export const initWebcam = (faceapi, handle) => {
         setIsSubmitted
     } = handle
 
-    Promise.all([
+    var models = [
         faceapi.nets.tinyFaceDetector.loadFromUri(model),
-        faceapi.nets.faceLandmark68Net.loadFromUri(model),
-        faceapi.nets.faceRecognitionNet.loadFromUri(model),
-        faceapi.nets.faceExpressionNet.loadFromUri(model)
-    ]).then(startVideo)
+        faceapi.nets.faceLandmark68Net.loadFromUri(model)
+    ]
+
+    // if (process.env.REACT_APP_FaceRecognitionNet) {
+    //     models.push(faceapi.nets.faceRecognitionNet.loadFromUri(model))
+    // }
+
+    // if (process.env.REACT_APP_FaceRecognitionNet) {
+    //     models.push(faceapi.nets.faceExpressionNet.loadFromUri(model))
+    // }
+
+    Promise.all(models).then(startVideo)
 
     function startVideo() {
         navigator.mediaDevices
@@ -57,7 +65,7 @@ export const stopWebcam = (videoRef) => {
     // Cookies.remove(COOKIES.FACE_DETECTION_INTERVAL)
 
     if (window.webcamStreamRef) {
-        window.webcamStreamRef.getTracks().forEach(function(track) {
+        window.webcamStreamRef.getTracks().forEach(function (track) {
             track.stop()
         })
     }
@@ -88,11 +96,16 @@ export default async function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
 
     await detect()
 
+    const canvas = document.getElementById('canvas')
+    const displaySize = { width: video.width, height: video.height }
+
     async function detect() {
+
         const myInterval = setInterval(async () => {
             const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-            // .withFaceLandmarks()
-            // .withFaceExpressions()
+                .withFaceLandmarks()
+                .withFaceExpressions()
+
 
             if (!detections || detections.length <= 0) {
                 if (Date.now() - t > timeout) {
@@ -106,9 +119,10 @@ export default async function FaceDetect(faceapi, handle, timeout = TIMEOUT) {
                 t = Date.now()
                 // console.log(t)
             }
-            // const resizedDetections = faceapi.resizeResults(detections, displaySize)
-            // canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-            // faceapi.draw.drawDetections(canvas, resizedDetections)
+
+            const resizedDetections = faceapi.resizeResults(detections, displaySize)
+            canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+            faceapi.draw.drawDetections(canvas, resizedDetections)
             // faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
             // faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
         }, 1000)

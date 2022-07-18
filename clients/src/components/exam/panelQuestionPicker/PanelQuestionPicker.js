@@ -113,10 +113,13 @@ export default function PanelQuestionPicker(props) {
 
             {webcamTracking && <>
                 <div className="webcam d-flex align-items-center justify-content-center">
-                    <video id="video" autoPlay muted
-                        width="200" height="140"
-                        ref={videoRef}
-                    ></video>
+                    <div className='faceapi'>
+                        <video id="video" autoPlay muted
+                            width="200" height="140"
+                            ref={videoRef}
+                        ></video>
+                        <canvas id="canvas" width="200" height="140"></canvas>
+                    </div>
                 </div>
             </>}
 

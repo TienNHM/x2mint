@@ -98,7 +98,7 @@ export default function AccountGrantPermissions() {
                 }
             }
             setPendingUsers(pending)
-            console.log(pending)
+            // console.log(pending)
             const pendingData = ExportDataUserPermissions(
                 pending,
                 onClickUserPermissions,
