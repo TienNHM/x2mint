@@ -143,6 +143,15 @@
         visibility: hidden;
     }
 
+    .faceapi {
+        position: relative;
+        canvas {
+            position: absolute;
+            z-index: 1000;
+            right: 0;
+        }
+    }
+
     @media screen and (max-width: 992px) {
         padding: 0px;
 
