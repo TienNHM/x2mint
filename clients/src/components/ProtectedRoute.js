@@ -7,7 +7,7 @@ import { stopWebcam } from 'utils/faceDetection'
 const ProtectedRoute = () => {
     const dispatch = useDispatch()
     const { isAuthenticated } = useSelector((state) => state.auth)
-    const [ _, setIsTryLogin ] = useState(false)
+    const [ , setIsTryLogin ] = useState(false)
     stopWebcam(null)
 
     //loadUser

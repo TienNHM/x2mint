@@ -9,6 +9,7 @@ function ConfirmModal({ title, content, isShow, onAction }) {
             show={isShow}
             onHide={() => onAction(MODAL_ACTION.CLOSE)}
             backdrop='static'
+            centered
             keyboard={false}>
             <Modal.Header closeButton className="d-flex justify-content-center">
                 <Modal.Title>

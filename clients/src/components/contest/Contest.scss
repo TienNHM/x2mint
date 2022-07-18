@@ -82,6 +82,11 @@ $heading-height: 10vh;
                 width: auto;
             }
         }
+
+        .contest-title {
+            font-weight: bolder;
+            color: $theme-color;
+        }
     }
 
     @media screen and (max-width: 768px){

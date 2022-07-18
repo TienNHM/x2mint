@@ -22,7 +22,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
 
     const [embededMedia, setEmbedMedia] = useState('')
     const [content, setContent] = useState('')
-    const [rows, setRows] = useState(1)
+    // const [rows, setRows] = useState(1)
     const [chooseAnswers, setChooseAnswers] = useState([])
     const [questionLength, setQuestionLength] = useState(MAX.QUESTION_LENGTH)
 
@@ -95,8 +95,8 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
             setContent(value)
             setQuestionLength(MAX.QUESTION_LENGTH - value.length)
 
-            const r = Math.round(value.length / (MAX.QUESTION_LENGTH / 2 + 1) + 1)
-            setRows(r)
+            // const r = Math.round(value.length / (MAX.QUESTION_LENGTH / 2 + 1) + 1)
+            // setRows(r)
 
             const newQuestion = { ...question }
             newQuestion.content = event.target.value
@@ -264,7 +264,7 @@ function Question({ question, setQuestion, takeTest, updateTakeTest }) {
                                 <Image src={embededMedia} />
                             </>
                             }
-                            {embededMedia && ReactPlayer.canPlay(embededMedia) && 
+                            {embededMedia && ReactPlayer.canPlay(embededMedia) &&
                             <div className='player-wrapper'>
                                 <ReactPlayer url={embededMedia} height="100%" width="100%"/>
                             </div>

@@ -9,7 +9,6 @@ import { createBill } from 'actions/api/BillAPI'
 import { cloneDeep } from 'lodash'
 import { HashLoader } from 'react-spinners'
 import { Image, Button } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
 import './PaymentReturn.scss'
 import { stopWebcam } from 'utils/faceDetection'
 
@@ -19,7 +18,6 @@ export default function PaymentReturn() {
     // eslint-disable-next-line
     const [searchParams, setSearchParams] = useSearchParams()
     const user = useSelector((state) => state.auth.user)
-    const navigate = useNavigate()
 
     const query = `vnp_Amount=${searchParams.get('vnp_Amount')}` +
         `&vnp_BankCode=${searchParams.get('vnp_BankCode')}` +

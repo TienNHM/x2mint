@@ -99,7 +99,7 @@ const Register = () => {
                             method="POST">
                             <div className="register__right col-12 col-sm-6">
                                 <Image className="auth__pic"
-                                    src={process.env.PUBLIC_URL + 'assets/images/auth.svg'}
+                                    src={process.env.PUBLIC_URL + '/assets/images/auth.svg'}
                                 />
                             </div>
 

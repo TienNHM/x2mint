@@ -129,7 +129,7 @@ export default function MultiChoices() {
                 videoRef,
                 setIsSubmitted
             }
-            initWebcam(faceapi, handle)
+            if (webcamTracking) initWebcam(faceapi, handle)
         }
     }
 

@@ -215,6 +215,7 @@ export default function ContestInfo() {
 
                 // Cập nhật lại contest
                 const re = await updateContest(newContest)
+                setSelectedTest(null)
                 setContest(cloneDeep(re.contest))
                 setData(cloneDeep(re.contest.tests))
 
@@ -282,7 +283,7 @@ export default function ContestInfo() {
                     />
                 </div>
                 <Card.Body>
-                    <Card.Title className="fw-bolder text-success text-uppercase">
+                    <Card.Title className="fw-bolder text-success text-uppercase text-truncate">
                         {title}
                     </Card.Title>
 
@@ -336,8 +337,8 @@ export default function ContestInfo() {
                         </ListGroupItem>
                     </ListGroup>
 
-                    {user.role !== ROLE.USER &&
-                        <div>
+                    {user.role !== ROLE.USER && user.id === contest.creatorId &&
+                        <>
                             <Button variant="primary" className="m-2 fw-bolder text-light" size="sm"
                                 onClick={() => setIsShowCreateContest(true)}>
                                 <i className="fa fa-edit"></i>
@@ -346,11 +347,6 @@ export default function ContestInfo() {
                             <Button variant="success" className="m-2 fw-bolder text-light" size="sm"
                                 onClick={handleCreateTest}>
                                 <i className="fa fa-plus"></i>
-                            </Button>
-
-                            <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
-                                onClick={() => handleShareContent(`${contest.url}`, title, description, ['X2MINT', 'ITUTE'])}>
-                                <i className="fa fa-share"></i>
                             </Button>
 
                             {contest._status !== STATUS.ARCHIVED &&
@@ -366,13 +362,20 @@ export default function ContestInfo() {
                                     <i className="fa fa-folder-open"></i>
                                 </Button>
                             }
-
-                            <Button variant="warning" className="m-2 fw-bolder text-light" size="sm"
-                                onClick={() => navigate(`/statistics/contest/${contest.id}/taketests`)}>
-                                <i className="fa fa-bar-chart"></i>
-                            </Button>
-                        </div>
+                        </>
                     }
+
+                    {user.role !== ROLE.USER && <>
+                        <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
+                            onClick={() => handleShareContent(`${contest.url}`, title, description, ['X2MINT', 'ITUTE'])}>
+                            <i className="fa fa-share"></i>
+                        </Button>
+
+                        <Button variant="warning" className="m-2 fw-bolder text-light" size="sm"
+                            onClick={() => navigate(`/statistics/contest/${contest.id}/taketests`)}>
+                            <i className="fa fa-bar-chart"></i>
+                        </Button>
+                    </>}
 
                     {user.role === ROLE.USER &&
                         <Button variant="info" className="m-2 fw-bolder text-light" size="sm"
@@ -398,11 +401,11 @@ export default function ContestInfo() {
                     </div>
 
                     <div className="card-test-info col-12 col-lg-10 pt-3 pb-3">
-                        <div className="card-test-title h4 fw-bolder text-success">
+                        <div className="card-test-title h4 fw-bolder text-success text-truncate">
                             {test.name}
                         </div>
 
-                        <div className="card-test-description m-3">
+                        <div className="card-test-description m-3 text-truncate">
                             {test.description}
                         </div>
 
@@ -447,6 +450,11 @@ export default function ContestInfo() {
                                         onClick={() => navigate(`/statistics/take-test/${test._id}`)} >
                                         <i className="fa fa-bar-chart"></i>
                                     </Button>
+                                </>
+                            }
+
+                            {user.role !== ROLE.USER && user.id === contest.creatorId &&
+                                <>
                                     <Button variant="primary" size="sm"
                                         className="col"
                                         onClick={() => navigate(`/test/${test._id}`)}>
@@ -521,7 +529,7 @@ export default function ContestInfo() {
                                 <Card.Header className="row search-section d-flex justify-content-center">
                                     {user.role !== ROLE.USER && (
                                         <div className="import-test-area col-6 col-lg-3 d-flex justify-content-center align-items-center">
-                                            <Button onClick={() => setIsShowImportTest(true)}
+                                            <Button onClick={() => setIsShowImportTest(true)} size="sm"
                                                 disabled={user && user.type !== ACCOUNT_TYPES.PRO}>
                                                 <i className="fa fa-upload"></i>
                                                 <span className="px-2 import-test">Import</span>

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 import Homepage from 'pages/home/Homepage'
 import Page404 from 'pages/Page404'
 import Page500 from 'pages/Page500'
