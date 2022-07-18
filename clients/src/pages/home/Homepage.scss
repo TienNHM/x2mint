@@ -55,6 +55,17 @@
         font-weight: var(--font-bold);
     }
 
+    .special-feature {
+        h5 {
+            border-left: $gap/2 solid $theme-color;
+            // border-top: $gap/2 solid white;
+            // border-bottom: $gap/2 solid white;
+            
+            padding-left: $gap;
+            margin: $gap*2 0;
+        }
+    }
+
     #create {
         font-family: var(--logo-font);
         font-size: var(--h1-font-size);

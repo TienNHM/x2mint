@@ -83,18 +83,6 @@ $question-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
         button {
             width: 40px;
         }
-
-        .player-wrapper {
-            height: 100%;
-            min-width: 40vw;
-        }
-
-        .react-player  {
-            position: absolute;
-            top: 0;
-            left: 0;
-            padding: $gap 0;
-        }
     }
 
     .question-answers {

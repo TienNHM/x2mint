@@ -53,6 +53,17 @@ $body-font: "Source Sans Pro", sans-serif;
   align-items: center;
 }
 
+.player-wrapper {
+  height: 100%;
+  min-width: 40vw;
+}
+
+.react-player  {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: $gap 0;
+}
 
 .mdb-datatable {
   .row {
