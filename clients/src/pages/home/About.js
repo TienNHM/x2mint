@@ -3,6 +3,7 @@ import { Badge, Button, Image } from 'react-bootstrap'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { Link } from 'react-router-dom'
+import ReactPlayer from 'react-player'
 
 AOS.init({
     duration: 500
@@ -93,6 +94,80 @@ export default function About() {
                                 </span>
                             </li>
                         </div>
+                    </h5>
+                </div>
+            </div>
+
+            <div className='my-3 py-3'>
+                <h2 className='text-center'>
+                    Các chức năng nổi bật
+                </h2>
+            </div>
+
+            <div className="row container w-100 p-3 mb-3 d-flex justify-content-center align-items-center">
+                <div className="col-12 col-md-6" data-aos="fade-up"
+                    style={{ textAlign: 'justify' }}>
+                    <h5>
+                        Hỗ trợ thanh toán online qua <Badge pill bg="success" className="mx-1">VNPay</Badge> một cách nhanh chóng, tiện lợi, dễ dàng để nâng cấp lên tài khoản Pro. Từ đó, người dùng dễ dàng sử dụng những chức năng nâng cao ưu việt chỉ dành riêng cho <Badge pill bg="warning" className="mx-1">Pro-User</Badge>
+                    </h5>
+                </div>
+
+                <div className="col-12 col-md-6 con" data-aos="fade-up">
+                    <ReactPlayer url="https://fb.watch/ekF7nIHe0O" />
+                    <p id="create">THANH TOÁN QUA VNPAY ĐỂ NÂNG CẤP LÊN PRO</p>
+                </div>
+            </div>
+
+            <div className="row container w-100 p-3 mb-3 d-flex justify-content-center align-items-center">
+                <div className="col-12 col-md-6 pe-3" data-aos="fade-up">
+                    <ReactPlayer url="https://fb.watch/ekF6FdfCGx" />
+                    <p id="create">IMPORT ĐỀ THI TỪ FILE EXCEL</p>
+                </div>
+
+                <div className="col-12 col-md-6 ps-3" data-aos="fade-up"
+                    style={{ textAlign: 'justify', paddingLeft: '30px !important' }}>
+                    <h5 className='ps-3 '>
+                        Bạn không cần mất quá nhiều thời gian cho việc tạo mới và nhập dữ liệu cho từng câu hỏi, từng đáp án một.
+                    </h5>
+                    <h5 className='ps-3 '>
+                        Thay vào đó, với chức năng <Badge pill bg="success" className="mx-1">Import đề từ File Excel</Badge> này, sẽ giúp bạn tiết kiệm nhiều thời gian, hạn chế sai sót. Bên cạnh đó, giúp bạn có thể import một số lượng lớn câu hỏi cùng lúc nữa đó!
+                    </h5>
+                </div>
+            </div>
+
+            <div className="row container w-100 p-3 mb-3 d-flex justify-content-center align-items-center">
+                <div className="col-12 col-md-6" data-aos="fade-up"
+                    style={{ textAlign: 'justify' }}>
+                    <h5>
+                        Bạn lo lắng thí sinh cùng mình <Badge pill bg="danger" className="mx-1">thoát khỏi trang</Badge> và <Badge pill bg="danger" className="mx-1">tra cứu tài liệu</Badge> bên ngoài khi làm bài thi?
+                    </h5>
+                    <h5>
+                        Vậy thì hãy bật ngay tính năng <Badge pill bg="warning" className="mx-1">Giám sát Fullscreen</Badge> này ngay! Thí sinh sẽ không thể tiếp tục làm bài nếu thoát toàn màn hình. Đồng thời, <Badge pill bg="success" className="mx-1">3 lần liên tiếp</Badge> thoát toàn màn hình, bài thi sẽ bị nộp ngay tức thì!
+                    </h5>
+                </div>
+
+                <div className="col-12 col-md-6 con" data-aos="fade-up">
+                    <ReactPlayer url="https://fb.watch/ekFrX78ve7" />
+                    <p id="create">GIÁM SÁT FULLSCREEN</p>
+                </div>
+            </div>
+
+            <div className="row container w-100 p-3 mb-3 d-flex justify-content-center align-items-center">
+                <div className="col-12 col-md-6 pe-3" data-aos="fade-up">
+                    <ReactPlayer url="https://fb.watch/ekFucaitsc" />
+                    <p id="create">GIÁM SÁT CAMERA</p>
+                </div>
+
+                <div className="col-12 col-md-6 ps-3" data-aos="fade-up"
+                    style={{ textAlign: 'justify', paddingLeft: '30px !important' }}>
+                    <h5 className='ps-3 '>
+                        Bên cạnh đó, sẽ đảm bảo hơn nữa nếu bật <Badge pill bg="success" className="mx-1">Giám sát Camera</Badge> lên nhé!
+                    </h5>
+                    <h5 className='ps-3 '>
+                        Trong quá trình làm bài, thí sinh sẽ phải bật <Badge pill bg="success" className="mx-1">Camera</Badge>. Hệ thống sẽ thực hiện việc <Badge pill bg="warning" className="mx-1">phát hiện khuôn mặt</Badge> thí sinh trong camera, thông qua những thuật toán <Badge pill bg="warning" className="mx-1">Deep Learning</Badge> tiên tiến như <Badge pill bg="success" className="mx-1">Tiny Face Detector</Badge> và <Badge pill bg="success" className="mx-1">Face Landmarks 68</Badge>.
+                    </h5>
+                    <h5 className='ps-3 '>
+                        Nếu thí sinh vi phạm <Badge pill bg="danger" className="mx-1">3 lần liên tiếp</Badge> không xuất hiện trước camera, bài thi sẽ được nộp ngay tức thì.
                     </h5>
                 </div>
             </div>
