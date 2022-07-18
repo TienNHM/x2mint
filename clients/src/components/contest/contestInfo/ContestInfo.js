@@ -530,7 +530,7 @@ export default function ContestInfo() {
                                     {user.role !== ROLE.USER && (
                                         <div className="import-test-area col-6 col-lg-3 d-flex justify-content-center align-items-center">
                                             <Button onClick={() => setIsShowImportTest(true)} size="sm"
-                                                disabled={user && user.type !== ACCOUNT_TYPES.PRO}>
+                                                disabled={user && (user.type !== ACCOUNT_TYPES.PRO || user.id !== contest.creatorId)}>
                                                 <i className="fa fa-upload"></i>
                                                 <span className="px-2 import-test">Import</span>
                                                 <Badge bg="warning" pill>Pro</Badge>
