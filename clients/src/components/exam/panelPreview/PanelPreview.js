@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Draggable } from 'react-smooth-dnd'
 import { cloneDeep, isEmpty } from 'lodash'
-import { Button } from 'react-bootstrap'
 import { applyDrag } from 'utils/dragDrop'
 import ConfirmModal from 'components/common/confirmModal/ConfirmModal'
 import { MODAL_ACTION } from 'utils/constants'
@@ -107,8 +106,8 @@ function PanelPreview(props) {
                 onClick={() => setSelectedQuestion({ ...q })}>
                 <div className="question-number">{index + 1}</div>
                 <div className={isSelectedClassName}>
-                    <div className="display-text">
-                        {q.content.split(' ').slice(0, 8).join(' ') + '...'}
+                    <div className="display-text text-truncate">
+                        {q.content}
                     </div>
                 </div>
             </div>

@@ -151,7 +151,7 @@ function ModalCreateContest({ isShow, onAction, contest, isUpdate }) {
                 keyboard={false}>
 
                 <Modal.Header closeButton className="d-flex justify-content-center">
-                    <Modal.Title className="h5 fw-bolder">Tạo mới</Modal.Title>
+                    <Modal.Title className="h5 fw-bolder text-truncate">{title ? title : 'Tạo mới'}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body className="d-flex justify-content-center align-items-center">

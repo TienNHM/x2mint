@@ -87,8 +87,8 @@ export default function About() {
                             </li>
                             <li className="my-1">
                                 <span>
-                                    <Badge pill bg="success" className="mx-1">Giám sát <i className='fa fa-star'></i></Badge> quá trình làm bài thi của thí sinh thông qua 
-                                    <span className="mx-1 text-danger fw-bolder">camera</span> và 
+                                    <Badge pill bg="success" className="mx-1">Giám sát <i className='fa fa-star'></i></Badge> quá trình làm bài thi của thí sinh thông qua
+                                    <span className="mx-1 text-danger fw-bolder">camera</span> và
                                     <span className="mx-1 text-danger fw-bolder">toàn màn hình </span>
                                 </span>
                             </li>

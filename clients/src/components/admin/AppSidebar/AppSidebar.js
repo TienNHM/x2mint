@@ -8,13 +8,13 @@ import { useNavigate } from 'react-router-dom'
 export default function AppSidebar({ setCurrentAction }) {
     const navigate = useNavigate()
 
-    const HideSidebar = () => {
-        document.querySelector('#settings').hidden = true
+    // const HideSidebar = () => {
+    //     document.querySelector('#settings').hidden = true
 
-        document
-            .querySelector('#main-container')
-            .className = 'main-container col-12 d-flex flex-column'
-    }
+    //     document
+    //         .querySelector('#main-container')
+    //         .className = 'main-container col-12 d-flex flex-column'
+    // }
 
     return (
         <div className="sidebar-settings" id="settings">

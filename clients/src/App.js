@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { SyncLoader } from 'react-spinners'
 import { ToastContainer } from 'react-toastify'

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Button, Modal, Form, Image, FormControl, Row, Col, Badge } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Button, Modal, Form, Row, Col, Badge } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { ACCOUNT_TYPES, MODAL_ACTION, TEST_DATA } from 'utils/constants'
 import { displayTimeDelta, splitTime } from 'utils/timeUtils'

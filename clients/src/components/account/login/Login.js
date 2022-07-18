@@ -135,7 +135,7 @@ const Login = () => {
 
                                     <div className="col-12 col-sm-6">
                                         <Image className="w-100"
-                                            src={process.env.PUBLIC_URL + 'assets/images/auth.svg'} />
+                                            src={process.env.PUBLIC_URL + '/assets/images/auth.svg'} />
                                     </div>
                                 </div>
                             </Form>

@@ -187,12 +187,12 @@ export default function Contest() {
             <Card key={index}>
                 <div className="d-flex justify-content-center embeded-media">
                     <Image className="embeded-img"
-                        src={c.embededMedia || 'assets/images/placeholder.png'}
+                        src={c.embededMedia || process.env.PUBLIC_URL + '/assets/images/placeholder.png'}
                     />
                 </div>
 
                 <Card.Body>
-                    <Card.Title>{c.name}</Card.Title>
+                    <Card.Title className="contest-title text-truncate fw-bolder">{c.name}</Card.Title>
                     <hr style={
                         {
                             width: '90%',
