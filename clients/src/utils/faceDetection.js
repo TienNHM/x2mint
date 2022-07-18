@@ -17,7 +17,9 @@ export const initWebcam = (faceapi, handle) => {
 
     var models = [
         faceapi.nets.tinyFaceDetector.loadFromUri(model),
-        faceapi.nets.faceLandmark68Net.loadFromUri(model)
+        faceapi.nets.faceLandmark68Net.loadFromUri(model),
+        faceapi.nets.faceExpressionNet.loadFromUri(model),
+        faceapi.nets.faceRecognitionNet.loadFromUri(model)
     ]
 
     // if (process.env.REACT_APP_FaceRecognitionNet) {
