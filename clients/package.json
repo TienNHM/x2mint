@@ -14,7 +14,7 @@
     "chart.js": "^3.6.2",
     "eslint": "7.11.0",
     "eslint-plugin-react": "^7.26.1",
-    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "file-saver": "^2.0.5",
     "firebase": "^9.6.2",
     "html-react-parser": "^1.4.0",
